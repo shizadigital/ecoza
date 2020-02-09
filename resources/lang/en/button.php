@@ -14,5 +14,6 @@ return [
     */
 
     'signin' => 'Signin Administrator',
+    'signout' => 'Signout'
 
 ];

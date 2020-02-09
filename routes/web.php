@@ -27,4 +27,5 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('/', ['as' => 'admin.auth.signin.process', 'uses' => 'AuthController@signInProcess']);
         Route::get('/signout', ['as' => 'admin.auth.signout', 'uses' => 'AuthController@signOut']);
     });
+    
 });

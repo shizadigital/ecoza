@@ -11,8 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('admin.auth.signin');
+Route::get('/', ['as' => 'theme.index', 'uses' => 'TemplateController@index']);
+Route::get('/{slug}', ['as' => 'theme.page', 'uses' => 'TemplateController@page']);
+Route::group(['prefix' => 'category'], function() {
+    Route::get('/{category}', ['as' => 'theme.category', 'uses' => 'TemplateController@category']);
+});
+
+Route::group(['prefix' => 'archive'], function() {
+    return 'A';
 });
 
 // ADMIN PATH

@@ -15,10 +15,22 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('levelId');
+            $table->string('userLogin');
+            $table->string('userPass')->nullable();
+            $table->string('userEmail')->unique();
+            $table->string('userPhone')->nullable();
+            $table->string('userDisplayName')->nullable();
+            $table->enum('userBlock', ['y', 'n'])->default('n');
+            $table->integer('userDelete')->unsigned()->nullable();
+            $table->integer('userLastLogin')->unsigned()->nullable();
+            $table->string('userActivationKey')->nullable();
+            $table->integer('userRegistered')->unsigned()->nullable();
+            $table->string('userSession')->nullable();
+            $table->longText('userCheckPoint')->nullable();
+            $table->string('userDir')->nullable();
+            $table->text('userPicture')->nullable();
+            $table->enum('userOnlineStatus', ['online', 'offline', 'busy'])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

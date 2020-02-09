@@ -1,0 +1,3 @@
+<?php
+// Diam itu Emas
+?>

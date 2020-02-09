@@ -100,7 +100,9 @@
                     <a href="#" class="dropdown-item"><i class="icon-user"></i> Akun</a>
                     <a href="#" class="dropdown-item"><i class="icon-cog5"></i> Web Setting</a>
                     <div class="dropdown-divider"></div>
-                    <a href="{{ route('admin.auth.signout') }}" class="dropdown-item"><i class="icon-switch2"></i> Sign Out</a>
+                    <a href="{{ route('admin.auth.signout') }}" class="dropdown-item"><i class="icon-switch2"></i> 
+                        @lang('button.signout')
+                    </a>
                 </div>
             </li>
         </ul>

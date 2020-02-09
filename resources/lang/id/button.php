@@ -14,5 +14,5 @@ return [
     */
 
     'signin' => 'Masuk Administrator',
-
+    'signout' => 'Keluar'
 ];

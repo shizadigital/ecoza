@@ -12,5 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin.auth.signin');
+});
+
+// ADMIN PATH
+Route::group(['prefix' => 'admin'], function() {
+
+    Route::group(['prefix' => 'dashboard'], function() {
+        Route::get('/', ['as' => 'admin.dashboard.index', 'uses' => 'DashboardController@index'])->middleware('auth.shiza');
+    });
+
+    Route::group(['prefix' => 'auth'], function() {
+        Route::get('/', ['as' => 'admin.auth.signin', 'uses' => 'AuthController@signIn']);
+        Route::post('/', ['as' => 'admin.auth.signin.process', 'uses' => 'AuthController@signInProcess']);
+        Route::get('/signout', ['as' => 'admin.auth.signout', 'uses' => 'AuthController@signOut']);
+    });
 });

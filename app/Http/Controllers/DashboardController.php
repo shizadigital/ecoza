@@ -11,7 +11,7 @@ class DashboardController extends Controller
             'title' => 'Dashboard Cui',
             'dataBC' => [
                 ['label' => 'Home', 'url' => route('admin.dashboard.index')],
-                ['label' => 'Dashboard Test']
+                ['label' => 'Dashboard']
             ]
         ];
         return view('admin.dashboard.index', $data);

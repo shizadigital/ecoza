@@ -1,6 +1,10 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', $title)
+
+@section('breadcrumb')
+{!! bc($dataBC) !!}
+@endsection
 
 @section('content')
 Dashboard

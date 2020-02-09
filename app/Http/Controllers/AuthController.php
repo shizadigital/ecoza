@@ -49,11 +49,11 @@ class AuthController extends Controller
                     
                     return redirect()->route('admin.dashboard.index');
                 } else {
-                    Session::flash('failed', 'Wrong password');
+                    Session::flash('failed', 'Wrong username or password');
                     return redirect()->route('admin.auth.signin');
                 }
             } else {
-                Session::flash('failed', 'Wrong username');
+                Session::flash('failed', 'Wrong username or password');
                 return redirect()->route('admin.auth.signin');
             }
         }

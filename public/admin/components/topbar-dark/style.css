@@ -1,0 +1,101 @@
+/* TOPBAR DARK */
+.air__topbarDark {
+    background: #161537;
+    color: #786fa4;
+    min-height: 4.26rem;
+    border-bottom: 1px solid #e4e9f0;
+    padding: 1rem 1.33rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+}
+
+.air__topbarDark__logo {
+    display: block;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-right: 2rem;
+    line-height: 1;
+    height: 4.26rem;
+}
+
+.air__topbarDark__logo img {
+    float: left;
+    margin-top: 0.33rem;
+}
+
+.air__topbarDark__logo__name {
+    font-weight: 900;
+    color: #fff;
+    font-size: 21px;
+    margin-left: 2.66rem;
+}
+
+.air__topbarDark__logo__descr {
+    color: #c3bedc;
+    margin-left: 2.66rem;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.air__topbarDark__issueDropdown .dropdown-toggle {
+    background-color: #2a274d;
+    padding: 0.66rem 1.33rem;
+    border-radius: 0.33rem;
+}
+
+.air__topbarDark .dropdown,
+.air__topbarDark .dropdown-toggle {
+    color: #aca6cc;
+}
+
+.air__topbarDark .dropdown:focus, .air__topbarDark .dropdown:hover,
+.air__topbarDark .dropdown-toggle:focus,
+.air__topbarDark .dropdown-toggle:hover {
+    color: #fff;
+}
+
+.air__topbarDark .dropdown:focus::after, .air__topbarDark .dropdown:hover::after,
+.air__topbarDark .dropdown-toggle:focus::after,
+.air__topbarDark .dropdown-toggle:hover::after {
+    -webkit-transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
+    color: #fff;
+}
+
+.air__topbarDark .dropdown:focus .dropdown-toggle-text, .air__topbarDark .dropdown:hover .dropdown-toggle-text,
+.air__topbarDark .dropdown-toggle:focus .dropdown-toggle-text,
+.air__topbarDark .dropdown-toggle:hover .dropdown-toggle-text {
+    color: #fff;
+}
+
+.air__topbarDark .dropdown:focus .dropdown-toggle-icon, .air__topbarDark .dropdown:hover .dropdown-toggle-icon,
+.air__topbarDark .dropdown-toggle:focus .dropdown-toggle-icon,
+.air__topbarDark .dropdown-toggle:hover .dropdown-toggle-icon {
+    color: #fff;
+}
+
+.air__topbarDark .dropdown.show .dropdown-toggle-text {
+    color: #aca6cc;
+}
+
+.air__topbarDark .dropdown-toggle-icon {
+    -webkit-transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
+    color: #786fa4;
+}
+
+.air__topbarDark__status {
+    border-radius: 5px;
+    padding: 0.33rem 0.46rem;
+}

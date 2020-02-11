@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use Config;
 
 use Session, Validator, Hash, Crypt;
 
@@ -34,9 +35,17 @@ class AuthController extends Controller
 
             $user = User::where('userLogin', $req->input('user'))
                             ->first();
+
+            $saltpass = sha1( 
+                            sha1( 
+                                encoder(
+                                    Config::get('shiza.authcode.LOGIN_SALT') . $req->input('pass')
+                                )
+                            )
+                        );
             
             if(!is_null($user)) {
-                if(Hash::check($req->input('pass'), $user->userPass)) {
+                if(Hash::check( $saltpass, $user->userPass)) {
                     
                     setSession(config('shiza.session.signin'),[
                         'id' => $user->id,

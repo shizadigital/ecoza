@@ -75,3 +75,41 @@ if(!function_exists('getSession')){
         return $sess;
     }
 }
+
+/*
+*
+* encoder decoder start here
+*
+*/
+if(!function_exists('encoder')){
+    function encoder($str){
+        $AUTH_SALT = Config::get('shiza.authcode.AUTH_SALT');
+
+        $iv = substr(hash('sha256', $AUTH_SALT), 0, 16); 
+        $encrypted = openssl_encrypt($str, 'aes-128-cbc', $AUTH_SALT, 0, $iv);
+
+        $encrypted = base64_encode($encrypted);
+        return urlencode(trim($encrypted));
+    }
+}
+if(!function_exists('decoder')){
+    function decoder($str){
+        $AUTH_SALT = Config::get('shiza.authcode.AUTH_SALT');
+
+        if(preg_match('/%/', $str)){
+            $str = urldecode(trim($str));
+        }
+        $str = base64_decode($str);
+    
+        $iv = substr(hash('sha256', $AUTH_SALT), 0, 16);
+        $decrypted = openssl_decrypt($str, 'aes-128-cbc', $AUTH_SALT, 0, $iv);
+    
+        return trim($decrypted);
+    }
+}
+
+/*
+*
+* encoder decoder end here
+*
+*/

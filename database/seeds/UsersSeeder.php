@@ -36,9 +36,17 @@ class UsersSeeder extends Seeder
     }
 
     public function create($data) {
+        $saltpass = sha1( 
+            sha1( 
+                encoder(
+                    Config()->get('shiza.authcode.LOGIN_SALT') . $data['userPass']
+                )
+            )
+        );
+        
         $user = new User;
         $user->userLogin = $data['userLogin'];
-        $user->userPass = bcrypt($data['userPass']);
+        $user->userPass = bcrypt($saltpass);
         $user->levelId = $data['levelId'];
         $user->userEmail = $data['userEmail'];
         $user->save();

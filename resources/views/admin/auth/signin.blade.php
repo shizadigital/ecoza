@@ -1,10 +1,9 @@
 @extends('admin.layouts.auth')
 
-@section('title', 'Signin')
+@section('title', 'Sign In')
 
 @section('content')
 
-@csrf
 
 <div class="air__auth__container pl-5 pr-5 pt-5 pb-5 bg-white text-center">
     <div class="text-dark font-size-30 mb-4">Login ke Administrator</div>
@@ -13,6 +12,8 @@
     {!! alertShow(\Session::get('failed'), 'failed') !!}
 
     <form action="{{ route('admin.auth.signin.process') }}" method="POST" enctype="multipart/form-data" class="mb-4">
+    
+        @csrf
         <div class="form-group mb-4">
             <input type="text" name="user" class="form-control" placeholder="Username" value="{{ old('user') }}" />
             {!! fieldError('user') !!}

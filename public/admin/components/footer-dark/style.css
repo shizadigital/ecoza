@@ -1,0 +1,34 @@
+/* FOOTER DARK */
+.air__footerDark a:hover {
+    color: #aca6cc;
+}
+
+.air__footerDark__container {
+    max-width: 85.33rem;
+    padding: 0 2rem;
+    margin: 0 auto;
+}
+
+.air__footerDark__logo {
+    line-height: 1;
+}
+
+.air__footerDark__logo img {
+    float: left;
+    margin-top: 0.33rem;
+}
+
+.air__footerDark__logo__name {
+    font-weight: 900;
+    color: #fff;
+    font-size: 21px;
+    margin-left: 2.66rem;
+}
+
+.air__footerDark__logo__descr {
+    color: #c3bedc;
+    margin-left: 2.66rem;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

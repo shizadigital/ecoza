@@ -4,81 +4,96 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta name="author" content="Memo Indo Media" />
+    <meta name="author" content="Shiza.id" />
     <meta name="robots" content="noindex,follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>@yield('title')</title>
+	<title>@yield('title') :: <?php echo env('APP_NAME') ?></title>
 
-	<!-- Global stylesheets -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-	<link href="{{ asset('admin/global_assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('admin/global_assets/css/icons/material/icons.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('admin/css/bootstrap_limitless.min.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('admin/css/layout.min.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('admin/css/components.min.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('admin/css/colors.min.css') }}" rel="stylesheet" type="text/css">
+	<!-- Global stylesheets -->	
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i,900" rel="stylesheet">
+
+	<!-- VENDORS -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/vendors/bootstrap/dist/css/bootstrap.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/vendors/font-feathericons/dist/feather.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/vendors/font-awesome/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/vendors/font-linearicons/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/vendors/font-icomoon/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/vendors/perfect-scrollbar/css/perfect-scrollbar.css') }}">
+
+
+	<script src="{{ asset('admin/vendors/jquery/dist/jquery.min.js') }}"></script>
+	<script src="{{ asset('admin/vendors/popper.js/dist/umd/popper.js') }}"></script>
+	<script src="{{ asset('admin/vendors/bootstrap/dist/js/bootstrap.js') }}"></script>
+	<script src="{{ asset('admin/vendors/jquery-mousewheel/jquery.mousewheel.min.js') }}"></script>
+	<script src="{{ asset('admin/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js') }}"></script>
+  
+
+	<!-- AIR UI HTML ADMIN TEMPLATE MODULES-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/components/vendors/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/components/core/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/components/widgets/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin/components/system/style.css') }}">
 	<!-- /global stylesheets -->
 
-	<!-- Core JS files -->
-	<script src="{{ asset('admin/global_assets/js/main/jquery.min.js') }}"></script>
-	<script src="{{ asset('admin/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
-	<script src="{{ asset('admin/global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
-	<!-- /core JS files -->
-
-	<!-- Theme JS files -->
-	<script src="{{ asset('admin/js/app.js') }}"></script>
-	<!-- /theme JS files -->
-
+	<!-- PRELOADER STYLES-->
+	<style>
+	.air__initialLoading {
+		position: fixed;
+		z-index: 99999;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDFweCIgIGhlaWdodD0iNDFweCIgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIiBjbGFzcz0ibGRzLXJvbGxpbmciPiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiBmaWxsPSJub25lIiBuZy1hdHRyLXN0cm9rZT0ie3tjb25maWcuY29sb3J9fSIgbmctYXR0ci1zdHJva2Utd2lkdGg9Int7Y29uZmlnLndpZHRofX0iIG5nLWF0dHItcj0ie3tjb25maWcucmFkaXVzfX0iIG5nLWF0dHItc3Ryb2tlLWRhc2hhcnJheT0ie3tjb25maWcuZGFzaGFycmF5fX0iIHN0cm9rZT0iIzAxOTBmZSIgc3Ryb2tlLXdpZHRoPSIxMCIgcj0iMzUiIHN0cm9rZS1kYXNoYXJyYXk9IjE2NC45MzM2MTQzMTM0NjQxNSA1Ni45Nzc4NzE0Mzc4MjEzOCIgdHJhbnNmb3JtPSJyb3RhdGUoODQgNTAgNTApIj4gICAgICA8YW5pbWF0ZVRyYW5zZm9ybSBhdHRyaWJ1dGVOYW1lPSJ0cmFuc2Zvcm0iIHR5cGU9InJvdGF0ZSIgY2FsY01vZGU9ImxpbmVhciIgdmFsdWVzPSIwIDUwIDUwOzM2MCA1MCA1MCIga2V5VGltZXM9IjA7MSIgZHVyPSIxcyIgYmVnaW49IjBzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSI+PC9hbmltYXRlVHJhbnNmb3JtPiAgICA8L2NpcmNsZT4gIDwvc3ZnPg==);
+		background-color: #fff;
+	}
+	</style>
+	<script>
+	$(document).ready(function () {
+		$('.air__initialLoading').delay(200).fadeOut(400)
+	})
+	</script>
 </head>
 
 <body>
+<div class="air__initialLoading"></div>
 
-	<!-- Page content -->
-	<div class="page-content">
-
-		<!-- Main content -->
-		<div class="content-wrapper">
-
-			<!-- Content area -->
-			<div class="content d-flex justify-content-center align-items-center">
-                @yield('content')
-			</div>
-			<!-- /content area -->
-
-
-			<!-- Footer -->
-			<div class="navbar navbar-expand-lg navbar-light">
-				<div class="text-center d-lg-none w-100">
-					<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
-						<i class="icon-unfold mr-2"></i>
-						Footer
-					</button>
-				</div>
-
-				<div class="navbar-collapse collapse" id="navbar-footer">
-					<span class="navbar-text">
-						&copy; <?php echo date('Y'); ?>. <a href="<?php echo URL::to('/'); ?>"><?php echo env('APP_NAME') ?></a>. Powered by <a href="https://shiza.id/" target="_blank">Shiza</a>
-					</span>
-					
-					<ul class="navbar-nav ml-lg-auto">
-						<?php /*
-						<li class="nav-item"><a href="#" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i> Support</a></li>
-						<li class="nav-item"><a href="#" class="navbar-nav-link" target="_blank"><i class="icon-file-text2 mr-2"></i> Docs</a></li>
-						*/ ?>
-						<li class="nav-item">Version <?php echo env('APP_VERSION'); ?></li>
-					</ul>
-					
+	<div class="air__auth">
+		<div class="pt-5 pb-5 d-flex align-items-end mt-auto">
+			<img src="{{ asset('admin/components/core/img/shiza-logo.png') }}" alt="Shiza.id" />
+			<div class="air__utils__logo__text">
+				<div class="air__utils__logo__name text-uppercase text-dark font-size-21">Administrator</div>
+				<div class="air__utils__logo__descr text-uppercase font-size-12 text-gray-6">
+				Kelola Situs
 				</div>
 			</div>
-			<!-- /footer -->
-
 		</div>
-		<!-- /main content -->
+		
+		@yield('content')
 
+		<div class="mt-auto pb-5 pt-5">
+			<ul class="air__auth__footerNav list-unstyled d-flex mb-2 flex-wrap justify-content-center">
+				<li>
+					<a href="#">Terms of Use</a>
+				</li>
+				<li>
+					<a href="#">Compliance</a>
+				</li>
+				<li>
+					<a href="#">Support</a>
+				</li>
+				<li>
+					<a href="#">Contacts</a>
+				</li>
+			</ul>
+			<div class="text-gray-4 text-center">
+				© <?php echo date('Y'); ?> <a href="<?php echo URL::to('/'); ?>"><?php echo env('APP_NAME') ?></a>. All rights reserved. Powered by <a href="https://shiza.id/" target="_blank">Shiza</a>. Version <?php echo env('APP_VERSION'); ?>
+			</div>
+		</div>
 	</div>
-	<!-- /page content -->
 
 </body>
 </html>

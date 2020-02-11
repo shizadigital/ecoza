@@ -1,0 +1,264 @@
+/* CRYPTO TERMINAL */
+.air__cryptoTerminal {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+}
+
+@media (max-width: 991px) {
+    .air__cryptoTerminal {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+    }
+}
+
+.air__cryptoTerminal__listContainer {
+    width: 6rem;
+    margin-right: 2.66rem;
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+}
+
+@media (max-width: 991px) {
+    .air__cryptoTerminal__listContainer {
+        display: none;
+    }
+}
+
+.air__cryptoTerminal__list {
+    position: -webkit-sticky;
+    position: sticky;
+    height: calc(100vh - 100px);
+    top: 30px;
+    overflow: hidden;
+}
+
+.air__cryptoTerminal__item {
+    display: block;
+    text-align: center;
+    color: #161537;
+}
+
+.air__cryptoTerminal__item:hover {
+    color: #161537;
+    background-color: #e4e9f0;
+}
+
+.air__cryptoTerminal #cryptoChart svg {
+    width: 100% !important;
+}
+
+.air__cryptoTerminal #cryptoChart text.version {
+    display: none;
+}
+
+.air__cryptoTerminal #cryptoChart .axis path,
+.air__cryptoTerminal #cryptoChart .axis line {
+    fill: none;
+    stroke: #161537;
+    shape-rendering: crispEdges;
+}
+
+.air__cryptoTerminal #cryptoChart text {
+    fill: #161537;
+}
+
+.air__cryptoTerminal #cryptoChart path {
+    fill: none;
+    stroke-width: 1px;
+}
+
+.air__cryptoTerminal #cryptoChart path.candle {
+    stroke: #000;
+}
+
+.air__cryptoTerminal #cryptoChart path.candle.body {
+    stroke-width: 0;
+}
+
+.air__cryptoTerminal #cryptoChart path.candle {
+    fill: #777;
+    stroke: #777;
+}
+
+.air__cryptoTerminal #cryptoChart path.candle.up {
+    fill: #06a35a;
+    stroke: #06a35a;
+}
+
+.air__cryptoTerminal #cryptoChart path.candle.down {
+    fill: #c23f3f;
+    stroke: #c23f3f;
+}
+
+.air__cryptoTerminal #cryptoChart .closeValue.annotation.up path {
+    fill: #06a35a;
+}
+
+.air__cryptoTerminal #cryptoChart .closeValue.annotation text {
+    fill: #fff;
+    font-size: 10px;
+}
+
+.air__cryptoTerminal #cryptoChart path.volume {
+    fill: #555;
+}
+
+.air__cryptoTerminal #cryptoChart .indicator-plot path.line {
+    fill: none;
+    stroke-width: 1;
+}
+
+.air__cryptoTerminal #cryptoChart .ma-0 path.line {
+    stroke: #1f77b4;
+}
+
+.air__cryptoTerminal #cryptoChart .ma-1 path.line {
+    stroke: #aec7e8;
+}
+
+.air__cryptoTerminal #cryptoChart .ma-2 path.line {
+    stroke: #ff7f0e;
+}
+
+.air__cryptoTerminal #cryptoChart button {
+    position: absolute;
+    right: 110px;
+    top: 25px;
+}
+
+.air__cryptoTerminal #cryptoChart path.macd {
+    stroke: #aec7e8;
+}
+
+.air__cryptoTerminal #cryptoChart path.signal {
+    stroke: #f99;
+}
+
+.air__cryptoTerminal #cryptoChart path.zero {
+    stroke: #bbb;
+    stroke-dasharray: 0;
+    stroke-opacity: 0.5;
+}
+
+.air__cryptoTerminal #cryptoChart path.difference {
+    fill: #555;
+}
+
+.air__cryptoTerminal #cryptoChart path.rsi {
+    stroke: #aec7e8;
+}
+
+.air__cryptoTerminal #cryptoChart path.overbought,
+.air__cryptoTerminal #cryptoChart path.oversold {
+    stroke: #f99;
+    stroke-dasharray: 5, 5;
+}
+
+.air__cryptoTerminal #cryptoChart path.middle,
+.air__cryptoTerminal #cryptoChart path.zero {
+    stroke: #bbb;
+    stroke-dasharray: 5, 5;
+}
+
+.air__cryptoTerminal #cryptoChart .analysis path,
+.air__cryptoTerminal #cryptoChart .analysis circle {
+    stroke: yellow;
+    stroke-width: 0.7;
+}
+
+.air__cryptoTerminal #cryptoChart .interaction path,
+.air__cryptoTerminal #cryptoChart .interaction circle {
+    pointer-events: all;
+}
+
+.air__cryptoTerminal #cryptoChart .interaction .body {
+    cursor: move;
+}
+
+.air__cryptoTerminal #cryptoChart .trendlines .interaction .start,
+.air__cryptoTerminal #cryptoChart .trendlines .interaction .end {
+    cursor: nwse-resize;
+}
+
+.air__cryptoTerminal #cryptoChart .trendline circle {
+    stroke-width: 0;
+    display: none;
+}
+
+.air__cryptoTerminal #cryptoChart .mouseover .trendline path {
+    stroke-width: 1;
+}
+
+.air__cryptoTerminal #cryptoChart .mouseover .trendline circle {
+    stroke-width: 1;
+    fill: yellow;
+    display: inline;
+}
+
+.air__cryptoTerminal #cryptoChart .supstance path {
+    stroke-dasharray: 2, 2;
+}
+
+.air__cryptoTerminal #cryptoChart .supstances .interaction path {
+    pointer-events: all;
+    cursor: ns-resize;
+}
+
+.air__cryptoTerminal #cryptoChart .supstances .axisannotation {
+    display: none;
+}
+
+.air__cryptoTerminal #cryptoChart .supstances .mouseover .axisannotation {
+    display: inline;
+}
+
+.air__cryptoTerminal #cryptoChart .supstances .axisannotation path {
+    fill: #806517;
+    stroke: none;
+}
+
+.air__cryptoTerminal #cryptoChart .mouseover .supstance path {
+    stroke-width: 1.5;
+}
+
+.air__cryptoTerminal #cryptoChart .crosshair {
+    cursor: crosshair;
+}
+
+.air__cryptoTerminal #cryptoChart .crosshair path.wire {
+    stroke: #555;
+    stroke-dasharray: 1, 1;
+}
+
+.air__cryptoTerminal #cryptoChart .crosshair .axisannotation path {
+    fill: #777;
+}
+
+.air__cryptoTerminal #cryptoChart .scope-composed-annotation text {
+    fill: #fff;
+    font-size: 10px;
+}
+
+.air__cryptoTerminal__content {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    min-width: 0;
+}
+
+@media (max-width: 543px) {
+    .air__cryptoTerminal__content .flex-fill {
+        width: 50%;
+    }
+}

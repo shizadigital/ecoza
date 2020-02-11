@@ -84,9 +84,10 @@ if(!function_exists('getSession')){
 if(!function_exists('encoder')){
     function encoder($str){
         $AUTH_SALT = Config::get('shiza.authcode.AUTH_SALT');
+        $cipher = Config::get('app.cipher'); //AES-256-CBC
 
         $iv = substr(hash('sha256', $AUTH_SALT), 0, 16); 
-        $encrypted = openssl_encrypt($str, 'aes-128-cbc', $AUTH_SALT, 0, $iv);
+        $encrypted = openssl_encrypt($str, $cipher, $AUTH_SALT, 0, $iv);
 
         $encrypted = base64_encode($encrypted);
         return urlencode(trim($encrypted));
@@ -95,6 +96,7 @@ if(!function_exists('encoder')){
 if(!function_exists('decoder')){
     function decoder($str){
         $AUTH_SALT = Config::get('shiza.authcode.AUTH_SALT');
+        $cipher = Config::get('app.cipher'); //AES-256-CBC
 
         if(preg_match('/%/', $str)){
             $str = urldecode(trim($str));
@@ -102,7 +104,7 @@ if(!function_exists('decoder')){
         $str = base64_decode($str);
     
         $iv = substr(hash('sha256', $AUTH_SALT), 0, 16);
-        $decrypted = openssl_decrypt($str, 'aes-128-cbc', $AUTH_SALT, 0, $iv);
+        $decrypted = openssl_decrypt($str, $cipher, $AUTH_SALT, 0, $iv);
     
         return trim($decrypted);
     }
@@ -111,5 +113,47 @@ if(!function_exists('decoder')){
 /*
 *
 * encoder decoder end here
+*
+*/
+
+/*
+*
+* option function start here
+*
+*/
+
+if(!function_exists('get_option')){
+    function get_option($optname){
+        
+    }
+}
+
+if(!function_exists('check_option')){
+    function check_option($optname){
+        
+    }
+}
+
+if(!function_exists('set_option')){
+    function set_option($option, $value = ''){
+        
+    }
+}
+
+if(!function_exists('add_option')){
+    function add_option($option, $value = ''){
+        
+    }
+}
+
+if(!function_exists('delete_option')){
+    function delete_option($option){
+        
+    }
+}
+
+/*
+*
+* option function end here
 *
 */

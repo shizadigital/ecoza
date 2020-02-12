@@ -256,7 +256,7 @@ if(!function_exists('favicon_img_url')){
         
         if($favicon_data!=''){
             $array_fav = unserialize($favicon_data);
-            $url = images_url()."/".$array_fav['directory']."/".$array_fav['filename'];
+            $url = images_url($array_fav['directory']."/".$array_fav['filename']);
         } else {
             $url = \URL::to('/favicon.ico');
         }
@@ -273,8 +273,8 @@ if(!function_exists('files_url')){
      * @param  string $dir_uri
      * @return string
      */
-    function files_url($dir_uri = '/') {    
-        $files_url = \URL::to('/files'.$dir_uri);
+    function files_url($dir_uri = '') {    
+        $files_url = \URL::to('/files/'.$dir_uri);
             return $files_url;
     }
 }
@@ -286,8 +286,8 @@ if(!function_exists('images_url')){
      * @param  string $dir_uri
      * @return string
      */
-    function images_url($dir_uri = '/') {
-        $images_url = \URL::to('/images'.$dir_uri);
+    function images_url($dir_uri = '') {
+        $images_url = \URL::to('/images/'.$dir_uri);
             return $images_url;
     }
 }

@@ -1,82 +1,65 @@
-<!-- Main sidebar -->
-<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
-
-    <!-- Sidebar mobile toggler -->
-    <div class="sidebar-mobile-toggler text-center">
-        <a href="#" class="sidebar-mobile-main-toggle">
-            <i class="icon-arrow-left8"></i>
+<div class="air__menuLeft">
+    <div class="air__menuLeft__outer">
+        <div class="air__menuLeft__mobileToggleButton air__menuLeft__mobileActionToggle">
+            <span></span>
+        </div>
+        <div class="air__menuLeft__toggleButton air__menuLeft__actionToggle">
+            <span></span>
+            <span></span>
+        </div>
+        <a href="javascript: void(0);" class="air__menuLeft__logo">
+            <img src="{{ asset('admin/components/core/img/shiza-logo.png') }}" alt="<?php echo env('APP_NAME') ?>" />
+            <div class="air__menuLeft__logo__name">Shiza.Id</div>
+            <div class="air__menuLeft__logo__descr">Administrator</div>
         </a>
-        Navigation
-        <a href="#" class="sidebar-mobile-expand">
-            <i class="icon-screen-full"></i>
-            <i class="icon-screen-normal"></i>
-        </a>
-    </div>
-    <!-- /sidebar mobile toggler -->
-
-
-    <!-- Sidebar content -->
-    <div class="sidebar-content">
-
-        <!-- User menu -->
-        <div class="sidebar-user">
-            <div class="card-body">
-                <div class="media">
-                    @php
-                        $imgadmin = 'http://placehold.it/200x200';
-                    @endphp
-                    <div class="mr-3">
-                        <img src="{{ $imgadmin }}" width="38" height="38" class="rounded-circle" alt="Admin">
-                    </div>
-
-                    <div class="media-body">
-                        <div class="media-title font-weight-semibold">Admin</div>
-                        <div class="font-size-xs opacity-50">
-                            <i class="icon-mail5 font-size-sm"></i> &nbsp;Admin
-                        </div>
-                    </div>
-
-                </div>
+        <a href="javascript: void(0);" class="air__menuLeft__user">
+            <div class="air__menuLeft__user__avatar">
+            @php
+                $imgadmin = 'http://placehold.it/200x200';
+            @endphp
+            <img src="{{ asset('admin/components/core/img/avatars/avatar.png') }}" alt="David Beckham" />
             </div>
-        </div>
-        <!-- /user menu -->
+            <div class="air__menuLeft__user__name">
+            David Beckham
+            </div>
+            <div class="air__menuLeft__user__role">
+            Administrator
+            </div>
+        </a>
 
+        <!-- Sidebar menu start here -->
+        <div class="air__menuLeft__container air__customScroll">
 
-        <!-- Main navigation -->
-        <div class="card card-sidebar-mobile">
-            <ul class="nav nav-sidebar" data-nav-type="accordion">
+            <ul class="air__menuLeft__list">
 
-                <!-- Main -->
-                <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
+                <li class="air__menuLeft__category"><span>Main Menu</span></li>
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">
-                        <i class="icon-home4"></i>
-                        <span>
-                            Dashboard
-                        </span>
+                <li class="air__menuLeft__item">
+                    <a href="javascript: void(0)" class="air__menuLeft__link air__sidebar__actionToggle">
+                    <i class="fe fe-home air__menuLeft__icon"></i>
+                    <span>Dashboard</span>
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('admin.auth.signout') }}" class="nav-link">
-                        <i class="icon-switch2"></i>
-                        <span>
-                            @lang('button.signout')
-                        </span>
+                <li class="air__menuLeft__item">
+                    <a href="{{ route('admin.auth.signout') }}" class="air__menuLeft__link air__sidebar__actionToggle">
+                    <i class="fe fe-log-out air__menuLeft__icon"></i>
+                    <span>@lang('button.signout')</span>
                     </a>
                 </li>
-
+            
             </ul>
+
         </div>
-        <!-- /main navigation -->
-
+        <!-- Sidebar menu end here -->
     </div>
-    <!-- /sidebar content -->
-    
 </div>
-<!-- /main sidebar -->
 
+
+
+
+
+<?php /*
 <!-- Main content -->
 <div class="content-wrapper">
     
@@ -96,3 +79,4 @@
 
     <!-- Content area -->
     <div class="content">
+    */ ?>

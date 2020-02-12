@@ -9,6 +9,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<title>@yield('title') :: <?php echo env('APP_NAME') ?></title>
+	
+	<!-- Icons -->
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo favicon_img_url(); ?>">
+	<link rel="icon" type="image/ico" href="<?php echo favicon_img_url(); ?>">
+	<link rel="shortcut icon" href="<?php echo favicon_img_url(); ?>">
 
 	<!-- Global stylesheets -->	
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i,900" rel="stylesheet">

@@ -244,7 +244,53 @@ if(!function_exists('get_social_value')){
     }
 }
 
+if(!function_exists('favicon_img_url')){
+    /**
+     * get favicon url
+     *
+     * @param  null
+     * @return string url of favicon
+     */
+    function favicon_img_url(){
+        $favicon_data = get_option('favicon');
+        
+        if($favicon_data!=''){
+            $array_fav = unserialize($favicon_data);
+            $url = images_url()."/".$array_fav['directory']."/".$array_fav['filename'];
+        } else {
+            $url = \URL::to('/favicon.ico');
+        }
 
+        return $url;
+    }
+}
+
+/**************** Files dir URL ********************/
+if(!function_exists('files_url')){
+    /**
+     * get uri file 
+     *
+     * @param  string $dir_uri
+     * @return string
+     */
+    function files_url($dir_uri = '/') {    
+        $files_url = \URL::to('/files'.$dir_uri);
+            return $files_url;
+    }
+}
+
+if(!function_exists('images_url')){
+    /**
+     * get uri images 
+     *
+     * @param  string $dir_uri
+     * @return string
+     */
+    function images_url($dir_uri = '/') {
+        $images_url = \URL::to('/images'.$dir_uri);
+            return $images_url;
+    }
+}
 /*
 *
 * option function end here
@@ -253,7 +299,7 @@ if(!function_exists('get_social_value')){
 
 if(!function_exists('generate_code')){
     /**
-     * generetae random code
+     * generate random code
      *
      * @param  int $length, bool $unique_char, string $type
      * @return string
@@ -277,7 +323,7 @@ if(!function_exists('generate_code')){
     }
 }
 
-if(!function_exists('generate_code')){
+if(!function_exists('theSize')){
     /**
      * Convert convert size in bytes to human readable
      *

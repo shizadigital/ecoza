@@ -82,6 +82,12 @@ if(!function_exists('getSession')){
 *
 */
 if(!function_exists('encoder')){
+    /**
+     * encode variable value
+     *
+     * @param  string $str
+     * @return string
+     */
     function encoder($str){
         $AUTH_SALT = Config::get('shiza.authcode.AUTH_SALT');
         $cipher = Config::get('app.cipher'); //AES-256-CBC
@@ -94,6 +100,12 @@ if(!function_exists('encoder')){
     }
 }
 if(!function_exists('decoder')){
+    /**
+     * decode variable value
+     *
+     * @param  string $str
+     * @return string
+     */
     function decoder($str){
         $AUTH_SALT = Config::get('shiza.authcode.AUTH_SALT');
         $cipher = Config::get('app.cipher'); //AES-256-CBC
@@ -122,38 +134,211 @@ if(!function_exists('decoder')){
 *
 */
 
-if(!function_exists('get_option')){
-    function get_option($optname){
-        
+if(!function_exists('check_option')){
+    /**
+     * check options value from DB if exist
+     *
+     * @param  string $optname
+     * @return bool 
+     */
+    function check_option($optname){
+        return DB::table('options')->where('optName', $optname)->exists();
     }
 }
 
-if(!function_exists('check_option')){
-    function check_option($optname){
-        
+if(!function_exists('get_option')){
+    /**
+     * get options value
+     *
+     * @param  string $optname
+     * @return string of database array and bool if not true
+     */
+    function get_option($optname){
+        $result = false;
+        if( check_option($optname) ){
+            $result = DB::table('options')
+                                ->select('optValue')
+                                ->where('optName', $optname)
+                                ->first();
+            $result = $result->optValue;
+        }
+        return $result;
     }
 }
 
 if(!function_exists('set_option')){
+    /**
+     * update options value
+     *
+     * @param  string $optname, string $value
+     * @return result of database update and bool if not true
+     */
     function set_option($option, $value = ''){
-        
+        $result = false;
+        if( check_option($option) ){
+            $result = DB::table('options')
+                        ->where('optName', $option)
+                        ->update('optValue',$value);
+        }
+        return $result;
     }
 }
 
 if(!function_exists('add_option')){
+    /**
+     * get options value
+     *
+     * @param  string $optname, string $value
+     * @return result of database insert and bool if not true
+     */
     function add_option($option, $value = ''){
-        
+        $result = false;
+        if( !check_option($option) ){
+            $result = DB::table('options')->insert(
+                [
+                    'optName' => $option,
+                    'optValue' => $value
+                ]
+            );
+        }
+        return $result;
     }
 }
 
 if(!function_exists('delete_option')){
+    /**
+     * get options value
+     *
+     * @param  string $optname, string $value
+     * @return result of database delete and bool if not true
+     */
     function delete_option($option){
-        
+        $result = false;
+        if( check_option($option) ){
+            $result = DB::table('options')->where('optName', $option)->delete();
+        }
+        return $result;
     }
 }
 
+if(!function_exists('get_social_value')){
+    /**
+     * get options value
+     *
+     * @param  string $optname, string $value
+     * @return string of array and bool if not true
+     */
+    function get_social_value($social=''){
+        $result = false;
+
+        if( check_option('socialmediaurl') ){
+            $social_val_opt = get_option('socialmediaurl');
+
+            $array_social_url = unserialize($social_val_opt);
+
+            if(!empty($social_val_opt)){
+                $result = ( empty($array_social_url[$social]) ) ? '' : $array_social_url[$social];
+            }
+        }
+        return $result;
+    }
+}
+
+if(!function_exists('favicon_img_url')){
+    /**
+     * get favicon url
+     *
+     * @param  null
+     * @return string url of favicon
+     */
+    function favicon_img_url(){
+        $favicon_data = get_option('favicon');
+        
+        if($favicon_data!=''){
+            $array_fav = unserialize($favicon_data);
+            $url = images_url()."/".$array_fav['directory']."/".$array_fav['filename'];
+        } else {
+            $url = \URL::to('/favicon.ico');
+        }
+
+        return $url;
+    }
+}
+
+/**************** Files dir URL ********************/
+if(!function_exists('files_url')){
+    /**
+     * get uri file 
+     *
+     * @param  string $dir_uri
+     * @return string
+     */
+    function files_url($dir_uri = '/') {    
+        $files_url = \URL::to('/files'.$dir_uri);
+            return $files_url;
+    }
+}
+
+if(!function_exists('images_url')){
+    /**
+     * get uri images 
+     *
+     * @param  string $dir_uri
+     * @return string
+     */
+    function images_url($dir_uri = '/') {
+        $images_url = \URL::to('/images'.$dir_uri);
+            return $images_url;
+    }
+}
 /*
 *
 * option function end here
 *
 */
+
+if(!function_exists('generate_code')){
+    /**
+     * generate random code
+     *
+     * @param  int $length, bool $unique_char, string $type
+     * @return string
+     */
+    function generate_code($length=6, $unique_char = false, $type = null){
+        $source='1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if($type == 'numbers'){
+            $source='1234567890';
+        } elseif($type == 'letters'){
+            $source='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        }
+        
+        if($unique_char==true){ $source .= '~`!@#$%^&*()_+,>< .?/:;"\'{[}]|\_-+='; }
+        $code = '';
+        for ($i=0;$i<$length;$i++){
+            $sourceLen=strlen($source);
+            $randNo=rand(1,$sourceLen-1);
+            $code.=substr($source,$randNo,1);
+        }
+        return $code;
+    }
+}
+
+if(!function_exists('theSize')){
+    /**
+     * Convert convert size in bytes to human readable
+     *
+     * @param  int  $size
+     * @return  string
+     */
+    function theSize($size){
+        $units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' );
+        $u = 0;
+        while ((round($size / 1024) > 0) && ($u < 4))
+        {
+            $size = $size / 1024;
+            $u++;
+        }
+
+        return (number_format($size, 0) . " " . $units[ $u ]);
+    }
+}

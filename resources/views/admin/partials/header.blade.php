@@ -9,12 +9,11 @@
 <meta name="author" content="Shiza.id" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="robots" content="noindex,nofollow" />
+
 <!-- Icons -->
-<?php /* ?>
 <link rel="shortcut icon" type="image/x-icon" href="<?php echo favicon_img_url(); ?>">
 <link rel="icon" type="image/ico" href="<?php echo favicon_img_url(); ?>">
 <link rel="shortcut icon" href="<?php echo favicon_img_url(); ?>">
-<?php */ ?>
 
 <!-- Global stylesheets -->
 <link href="{{ asset('admin/css/fonts/roboto/roboto.css') }}" rel="stylesheet" type="text/css">

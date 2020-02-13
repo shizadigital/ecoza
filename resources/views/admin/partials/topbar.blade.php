@@ -181,30 +181,11 @@
                 </div>
             </div>
 
+            @php
+                $subtopbar = isset($subtopbar)? true:false;
+                adminPageHeader($subtopbar,);
+            @endphp
             
-            <div class="air__subbar">
-                <ul class="air__subbar__breadcrumbs mr-4">
-                    <li class="air__subbar__breadcrumb">
-                        <a href="#" class="air__subbar__breadcrumbLink">Main</a>
-                    </li>
-                    <li class="air__subbar__breadcrumb">
-                        <a href="#" class="air__subbar__breadcrumbLink air__subbar__breadcrumbLink--current"
-                        >Dashboard</a>
-                    </li>
-                </ul>
-                <div class="air__subbar__divider mr-4 d-none d-xl-block"></div>
-                <p class="color-gray-4 text-uppercase font-size-18 mb-0 mr-4 d-none d-xl-block">INV-00125</p>
-                
-                <div class="air__subbar__amount mr-3 ml-auto d-none d-sm-flex">
-                    <button class="btn btn-primary btn-with-addon mr-auto text-nowrap d-none d-md-block">
-                        <span class="btn-addon">
-                            <i class="btn-addon-icon fe fe-plus-circle"></i>
-                        </span>
-                        Tambah
-                    </button>
-                </div>
-                
-            </div>
         </div>
     </div>
     

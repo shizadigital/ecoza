@@ -28,6 +28,10 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/', ['as' => 'admin.dashboard.index', 'uses' => 'DashboardController@index'])->middleware('auth.shiza');
     });
 
+    Route::group(['prefix' => 'adminmenumaster'], function() {
+        Route::get('/', ['as' => 'admin.adminmenumaster.index', 'uses' => 'AdminMenuMasterController@index'])->middleware('auth.shiza');
+    });
+
     Route::group(['prefix' => 'auth'], function() {
         Route::get('/', ['as' => 'admin.auth.signin', 'uses' => 'AuthController@signIn']);
         Route::post('/', ['as' => 'admin.auth.signin.process', 'uses' => 'AuthController@signInProcess']);

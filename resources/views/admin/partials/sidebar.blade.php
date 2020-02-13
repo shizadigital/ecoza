@@ -14,9 +14,7 @@
         </a>
         <a href="javascript: void(0);" class="air__menuLeft__user">
             <div class="air__menuLeft__user__avatar">
-            @php
-                $imgadmin = 'http://placehold.it/200x200';
-            @endphp
+            
             <img src="{{ asset('admin/components/core/img/avatars/avatar.png') }}" alt="David Beckham" />
             </div>
             <div class="air__menuLeft__user__name">

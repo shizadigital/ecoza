@@ -42,7 +42,7 @@ if(!function_exists('alertShow')){
 
 if(!function_exists('bc')){
     function bc($menus){
-        echo '<div class="col-md-12 breadcrumb">';
+        echo '<nav aria-label="breadcrumb"><ol class="breadcrumb">';
         foreach($menus AS $menu) {
             if(isset($menu['url'])) {
                 echo '<li class="breadcrumb-item"><a href="'.$menu['url'].'">'.$menu['label'].'</a></li>';
@@ -50,7 +50,7 @@ if(!function_exists('bc')){
                 echo '<li class="breadcrumb-item active">'.$menu['label'].'</li>';
             }
         }
-        echo '</div>';
+        echo '</ol></nav>';
     }
 }
 

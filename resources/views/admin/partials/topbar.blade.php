@@ -182,53 +182,28 @@
             </div>
 
             
-                <div class="air__subbar">
+            <div class="air__subbar">
                 <ul class="air__subbar__breadcrumbs mr-4">
                     <li class="air__subbar__breadcrumb">
-                    <a href="#" class="air__subbar__breadcrumbLink">Main</a>
+                        <a href="#" class="air__subbar__breadcrumbLink">Main</a>
                     </li>
                     <li class="air__subbar__breadcrumb">
-                    <a href="#" class="air__subbar__breadcrumbLink air__subbar__breadcrumbLink--current"
-                        >Dashboard</a
-                    >
+                        <a href="#" class="air__subbar__breadcrumbLink air__subbar__breadcrumbLink--current"
+                        >Dashboard</a>
                     </li>
                 </ul>
                 <div class="air__subbar__divider mr-4 d-none d-xl-block"></div>
                 <p class="color-gray-4 text-uppercase font-size-18 mb-0 mr-4 d-none d-xl-block">INV-00125</p>
-                <button class="btn btn-primary btn-with-addon mr-auto text-nowrap d-none d-md-block">
-                    <span class="btn-addon">
-                    <i class="btn-addon-icon fe fe-plus-circle"></i>
-                    </span>
-                    New Request
-                </button>
+                
                 <div class="air__subbar__amount mr-3 ml-auto d-none d-sm-flex">
-                    <p class="air__subbar__amountText">
-                    This month
-                    <span class="air__subbar__amountValue">$251.12</span>
-                    </p>
-                    <div class="air__subbar__amountGraph">
-                    <i class="air__subbar__amountGraphItem" style="height: 80%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 50%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 70%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 60%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 50%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 65%"></i>
-                    </div>
+                    <button class="btn btn-primary btn-with-addon mr-auto text-nowrap d-none d-md-block">
+                        <span class="btn-addon">
+                            <i class="btn-addon-icon fe fe-plus-circle"></i>
+                        </span>
+                        Tambah
+                    </button>
                 </div>
-                <div class="air__subbar__amount d-none d-sm-flex">
-                    <p class="air__subbar__amountText">
-                    Last month
-                    <span class="air__subbar__amountValue">$12,256.12</span>
-                    </p>
-                    <div class="air__subbar__amountGraph">
-                    <i class="air__subbar__amountGraphItem" style="height: 60%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 65%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 75%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 55%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 100%"></i>
-                    <i class="air__subbar__amountGraphItem" style="height: 85%"></i>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>

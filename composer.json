@@ -41,7 +41,8 @@
     },
     "autoload-dev": {
         "files": [
-           "app/Helpers/Helper.php"
+            "app/Helpers/Helper.php",
+            "app/Helpers/AdminEnvironment.php"
         ],
         "psr-4": {
             "Tests\\": "tests/"

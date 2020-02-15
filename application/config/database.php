@@ -74,13 +74,13 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost; dbname=memo_framework; charset=utf8;',
+	'dsn'	=> 'mysql:host=localhost; dbname=shiza_ecoza; charset=utf8;',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
 	'database' => '',
 	'dbdriver' => 'pdo',
-	'dbprefix' => 'memo_',
+	'dbprefix' => 'shiza_',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,

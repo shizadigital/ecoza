@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Feb 2020 pada 19.35
+-- Waktu pembuatan: 15 Feb 2020 pada 19.43
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_ads`
+-- Struktur dari tabel `shiza_ads`
 --
 
-CREATE TABLE `memo_ads` (
+CREATE TABLE `shiza_ads` (
   `adsId` int(11) UNSIGNED NOT NULL,
   `adposId` int(11) UNSIGNED NOT NULL,
   `adsJudul` varchar(150) NOT NULL,
@@ -47,10 +47,10 @@ CREATE TABLE `memo_ads` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_ads_posisi`
+-- Struktur dari tabel `shiza_ads_posisi`
 --
 
-CREATE TABLE `memo_ads_posisi` (
+CREATE TABLE `shiza_ads_posisi` (
   `adposId` int(11) UNSIGNED NOT NULL,
   `adposNama` varchar(255) NOT NULL,
   `adposW` int(10) UNSIGNED NOT NULL,
@@ -58,10 +58,10 @@ CREATE TABLE `memo_ads_posisi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_ads_posisi`
+-- Dumping data untuk tabel `shiza_ads_posisi`
 --
 
-INSERT INTO `memo_ads_posisi` (`adposId`, `adposNama`, `adposW`, `adposH`) VALUES
+INSERT INTO `shiza_ads_posisi` (`adposId`, `adposNama`, `adposW`, `adposH`) VALUES
 (1, 'header', 650, 90),
 (2, 'headline_bottom', 1000, 90),
 (3, 'left_1', 250, 250),
@@ -86,10 +86,10 @@ INSERT INTO `memo_ads_posisi` (`adposId`, `adposNama`, `adposW`, `adposH`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_android_device`
+-- Struktur dari tabel `shiza_android_device`
 --
 
-CREATE TABLE `memo_android_device` (
+CREATE TABLE `shiza_android_device` (
   `devId` int(10) UNSIGNED NOT NULL,
   `devAndroidId` varchar(35) NOT NULL,
   `devAccountId` int(10) UNSIGNED NOT NULL,
@@ -105,10 +105,10 @@ CREATE TABLE `memo_android_device` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_badge`
+-- Struktur dari tabel `shiza_badge`
 --
 
-CREATE TABLE `memo_badge` (
+CREATE TABLE `shiza_badge` (
   `badgeId` int(11) UNSIGNED NOT NULL,
   `badgeLabel` varchar(60) NOT NULL,
   `badgeDesc` text NOT NULL,
@@ -122,10 +122,10 @@ CREATE TABLE `memo_badge` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_badge_relasi`
+-- Struktur dari tabel `shiza_badge_relasi`
 --
 
-CREATE TABLE `memo_badge_relasi` (
+CREATE TABLE `shiza_badge_relasi` (
   `bdgrelId` int(10) UNSIGNED NOT NULL,
   `bdgrelType` varchar(50) NOT NULL,
   `badgeId` int(10) UNSIGNED NOT NULL,
@@ -133,10 +133,10 @@ CREATE TABLE `memo_badge_relasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_badge_relasi`
+-- Dumping data untuk tabel `shiza_badge_relasi`
 --
 
-INSERT INTO `memo_badge_relasi` (`bdgrelId`, `bdgrelType`, `badgeId`, `relationId`) VALUES
+INSERT INTO `shiza_badge_relasi` (`bdgrelId`, `bdgrelType`, `badgeId`, `relationId`) VALUES
 (1, 'product', 0, 2),
 (7, 'product', 0, 6),
 (9, 'product', 0, 4),
@@ -148,10 +148,10 @@ INSERT INTO `memo_badge_relasi` (`bdgrelId`, `bdgrelType`, `badgeId`, `relationI
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_cron_list`
+-- Struktur dari tabel `shiza_cron_list`
 --
 
-CREATE TABLE `memo_cron_list` (
+CREATE TABLE `shiza_cron_list` (
   `cronId` int(10) UNSIGNED NOT NULL,
   `cronName` varchar(50) NOT NULL,
   `cronData` text NOT NULL,
@@ -162,20 +162,20 @@ CREATE TABLE `memo_cron_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_cron_list`
+-- Dumping data untuk tabel `shiza_cron_list`
 --
 
-INSERT INTO `memo_cron_list` (`cronId`, `cronName`, `cronData`, `cronDesc`, `cronDirModule`, `cronLastAct`, `cronReport`) VALUES
+INSERT INTO `shiza_cron_list` (`cronId`, `cronName`, `cronData`, `cronDesc`, `cronDirModule`, `cronLastAct`, `cronReport`) VALUES
 (1, 'BACKUP_DATABASE', '', '', 'mod_backup_db/cron_backup.php', 1565809203, ''),
 (2, 'SPAM_REMOVE', '', 'Penghapusan komentar yang ditandai spam', 'mod_komentar/cron_spam_removing.php', 1565766002, '');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_dynamic_translations`
+-- Struktur dari tabel `shiza_dynamic_translations`
 --
 
-CREATE TABLE `memo_dynamic_translations` (
+CREATE TABLE `shiza_dynamic_translations` (
   `dtId` int(11) UNSIGNED NOT NULL,
   `dtRelatedTable` varchar(20) NOT NULL COMMENT 'Table name without prefix table',
   `dtRelatedField` varchar(20) NOT NULL COMMENT 'Field table',
@@ -188,10 +188,10 @@ CREATE TABLE `memo_dynamic_translations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_dynamic_translations`
+-- Dumping data untuk tabel `shiza_dynamic_translations`
 --
 
-INSERT INTO `memo_dynamic_translations` (`dtId`, `dtRelatedTable`, `dtRelatedField`, `dtRelatedId`, `dtLang`, `dtTranslation`, `dtInputType`, `dtCreateDate`, `dtUpdateDate`) VALUES
+INSERT INTO `shiza_dynamic_translations` (`dtId`, `dtRelatedTable`, `dtRelatedField`, `dtRelatedId`, `dtLang`, `dtTranslation`, `dtInputType`, `dtCreateDate`, `dtUpdateDate`) VALUES
 (1, 'users_menu', 'menuName', 1, 'en_US', 'Post Management', 'text', 1545593132, 1545603426),
 (2, 'users_menu', 'menuName', 2, 'en_US', 'Post', 'text', 1545417843, 1545663283),
 (3, 'users_menu', 'menuName', 3, 'en_US', 'Categories', 'text', 1545594094, 1545594094),
@@ -259,10 +259,10 @@ INSERT INTO `memo_dynamic_translations` (`dtId`, `dtRelatedTable`, `dtRelatedFie
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_email_queue`
+-- Struktur dari tabel `shiza_email_queue`
 --
 
-CREATE TABLE `memo_email_queue` (
+CREATE TABLE `shiza_email_queue` (
   `emailId` int(10) UNSIGNED NOT NULL,
   `emailTo` varchar(50) NOT NULL,
   `emailSubject` varchar(255) NOT NULL,
@@ -280,10 +280,10 @@ CREATE TABLE `memo_email_queue` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_email_template`
+-- Struktur dari tabel `shiza_email_template`
 --
 
-CREATE TABLE `memo_email_template` (
+CREATE TABLE `shiza_email_template` (
   `tId` int(10) UNSIGNED NOT NULL,
   `tName` varchar(255) NOT NULL,
   `tEmail` mediumtext NOT NULL,
@@ -291,10 +291,10 @@ CREATE TABLE `memo_email_template` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_email_template`
+-- Dumping data untuk tabel `shiza_email_template`
 --
 
-INSERT INTO `memo_email_template` (`tId`, `tName`, `tEmail`, `tEmailbak`) VALUES
+INSERT INTO `shiza_email_template` (`tId`, `tName`, `tEmail`, `tEmailbak`) VALUES
 (1, 'Customer - Informasi Pembayaran', '<p>Bapak/Ibu {MEMBERNAME},<br />\r\nDengan Hormat , Kami menerima pesanaan Poin dengan Nomor Invoice {INVOICE}.<br />\r\n------------------------------------------------------------<br />\r\nLakukan pembayaran senilai {GRANDTOTAL} ke salah satu rekening:<br />\r\n<br />\r\n{BANK}<br />\r\n------------------------------------------------------------<br />\r\nAgar poin anda cepat diproses, konfirmasi pembayaran anda via sms/email.</p>\r\n\r\n<p>Ke:</p>\r\n\r\n<p>{SYSTEMMAIL}</p>\r\n\r\n<p>{SYSTEMPHONE}</p>\r\n\r\n<p><br />\r\nPembayaran harus sesuai dengan yang tertera: {GRANDTOTAL} (Tidak dibulatkan).<br />\r\nJika harus dibulatkan, informasikan ke kami melalui SMS/EMAIL, atau tulis pada kolom keterangan : {INVOICE} saat melakukan konfirmasi.<br />\r\n<br />\r\nTerima kasih atas kepercayaan anda pada {SYSTEMNAME}<br />\r\n<br />\r\n{SIGNATURE}<br />\r\n<br />\r\n<br />\r\nDETAIL ORDER:<br />\r\n<br />\r\nCustomer Name : {MEMBERNAME}<br />\r\nEmail : {MEMBEREMAIL}<br />\r\nMobile Phone : {MEMBERTEL}<br />\r\nOrder Date : {ORDERDATE}<br />\r\n<br />\r\nYour order:<br />\r\n<br />\r\n{ORDERPOINTDETAIL}<br />\r\n<br />\r\nDetail Pembayaran:<br />\r\nKode Transaksi: {CODEID}<br />\r\nTotal: {ORDERTOTAL}<br />\r\n----------------------------------------<br />\r\nGrand Total : {GRANDTOTAL}</p>\r\n', 'Mr/Mrs/Miss {MEMBERNAME}, <br /><span lang=\"en\">Dear Sirs , We have received your order with invoice numbers</span>&nbsp;{INVOICE}. <br />------------------------------------------------------------ <br /><span lang=\"en\">Please make a payment of</span>&nbsp;{GRANDTOTAL} <span lang=\"en\">to one of the accounts</span>:<br />{STORERECNAME} <br /><br />------------------------------------------------------------ <br /><span lang=\"en\">In order to your order can be processed and delivered faster, confirm your payment via SMS/Email</span>. <br />Confirm your order via menu order and click the <strong>order confirmation</strong> button on the order that you have paid.<br /><br /><span lang=\"en\">We hope you make a payment according to the total</span>&nbsp;{GRANDTOTAL} (<span lang=\"en\">unrounded</span>). <br /><span lang=\"en\">If it should be rounded</span>,&nbsp;<span lang=\"en\">please inform us via SMS or email,</span> or write information coloumn at: {INVOICE} <br /><br /><span lang=\"en\">Payments received no later than</span>: {ORDEREXP} <br /><span lang=\"en\">After we receive your payment, your order will be handling and we will send it .</span>&nbsp;<br /><span lang=\"en\">Receipt number will be informed via email after we send the package so that you can tracking.</span>&nbsp;<br /><br /><span lang=\"en\">To cancel this order , click the <strong>Cancel</strong> button in the order you want to cancel. </span><br /><br /><span lang=\"en\">Thank you for shopping at</span>&nbsp;{SITEURL} <br /><br />{SIGNATURE} <br /><br /><br />DETAIL ORDER: <br /><br />Customer Name : {MEMBERNAME} <br />Email : {MEMBEREMAIL} <br />Mobile Phone : {MEMBERTEL} <br />Order Date : {ORDERDATE} <br /><br />Your order: <br /><br />{ORDERDETAIL} <br /><br /><br />Your order will be sent to: <br />{MEMBERRECNAME} <br />{MEMBERADD} <br />{MEMBERTOWN} <br /><br />Shipping Method : {SHIPMETHOD} <br />Special Info : {MEMBERMSG} <br /><br />Detail Cost<br />Subtotal : {SUBTOTAL} <br />Tax({TAX}%) : {TAXAMOUNT} <br />Discount: {DISCOUNT} <br />Transaction Code: {CODEID} <br />Shipping Cost : {SHIPPRICE} <br />Shipping Cost Discount: {DISCOUNTSHIP} <br />---------------------------------------- <br />Grand Total : {GRANDTOTAL}'),
 (2, 'Order Reminder', 'Mr/Mrs/Miss {MEMBERNAME},<br />Dear Sir,<br /><span lang=\"en\">This email is a reminder of your order with an invoice number</span>&nbsp;{INVOICE}.<br />&nbsp;------------------------------------------------------------ <br /><br />Please make a payment of&nbsp;{GRANDTOTAL},- o one of the accounts: <br /><br />{STORERECNAME} <br /><br />------------------------------------------------------------ <br />Your order details can be seen at the bottom of this email or click here:<br />{VERIFYCODE}<br />In order to your order can be processed and delivered faster, confirm your payment via SMS/Email.<br />Confirm yout order from the following link:<br />{ORDERCONFIRMATION}<br />We hope you make a payment according to the total {GRANDTOTAL} (unrounded).<br />If it should be rounded, please inform us via SMS or email, or write information coloumn at: {INVOICE}<br /><br />Payments received no later than: {ORDEREXP}<br />After we receive your payment, your order will be handling and we will send it . <br />Receipt number will be informed via email after we send the package so that you can tracking. <br /><br /><br />Thank you for shopping at {SITEURL}<br /><br />{SIGNATURE}', 'Mr/Mrs/Miss {MEMBERNAME},<br />Dear Sir,<br /><span lang=\"en\">This email is a reminder of your order with an invoice number</span>&nbsp;{INVOICE}.<br />&nbsp;------------------------------------------------------------ <br /><br />Please make a payment of&nbsp;{GRANDTOTAL},- o one of the accounts: <br /><br />{STORERECNAME} <br /><br />------------------------------------------------------------ <br />Your order details can be seen at the bottom of this email or click here:<br />{VERIFYCODE}<br />In order to your order can be processed and delivered faster, confirm your payment via SMS/Email.<br />Confirm yout order from the following link:<br />{ORDERCONFIRMATION}<br />We hope you make a payment according to the total {GRANDTOTAL} (unrounded).<br />If it should be rounded, please inform us via SMS or email, or write information coloumn at: {INVOICE}<br /><br />Payments received no later than: {ORDEREXP}<br />After we receive your payment, your order will be handling and we will send it . <br />Receipt number will be informed via email after we send the package so that you can tracking. <br /><br /><br />Thank you for shopping at {SITEURL}<br /><br />{SIGNATURE}'),
 (4, 'Payment Received', 'Mr/Mrs/Ms {MEMBERNAME}, <br />With respect, <br /><br />We would like to inform you that your payment for the invoice number {INVOICE} has been received <br />on {CHECKRECDATE}. We have checked our account and with this fully ensure that your payment has been received. <br /><br />We are currently preparing the products you ordered and will be sent as soon as possible. <br />If your order has been sent, we will re-send email notifications.<br /><br />Thank you for payments you make and of course on your TRUST in&nbsp;{SITEURL}. <br /><br />{SIGNATURE}', 'Mr/Mrs/Ms {MEMBERNAME}, <br />With respect, <br /><br />We would like to inform you that your payment for the invoice number {INVOICE} has been received <br />on {CHECKRECDATE}. We have checked our account and with this fully ensure that your payment has been received. <br /><br />We are currently preparing the products you ordered and will be sent as soon as possible. <br />If your order has been sent, we will re-send email notifications.<br /><br />Thank you for payments you make and of course on your TRUST in&nbsp;{SITEURL}. <br /><br />{SIGNATURE}'),
@@ -336,10 +336,10 @@ INSERT INTO `memo_email_template` (`tId`, `tName`, `tEmail`, `tEmailbak`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_galeri_pic`
+-- Struktur dari tabel `shiza_galeri_pic`
 --
 
-CREATE TABLE `memo_galeri_pic` (
+CREATE TABLE `shiza_galeri_pic` (
   `galpicId` bigint(25) UNSIGNED NOT NULL,
   `kontenId` int(11) UNSIGNED NOT NULL,
   `galpicText` text NOT NULL,
@@ -349,19 +349,19 @@ CREATE TABLE `memo_galeri_pic` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_galeri_pic`
+-- Dumping data untuk tabel `shiza_galeri_pic`
 --
 
-INSERT INTO `memo_galeri_pic` (`galpicId`, `kontenId`, `galpicText`, `galpicPicture`, `galpicDir`, `galpicPhotographer`) VALUES
+INSERT INTO `shiza_galeri_pic` (`galpicId`, `kontenId`, `galpicText`, `galpicPicture`, `galpicDir`, `galpicPhotographer`) VALUES
 (1, 63, 'text gal', '3c7ae2052016_bluetshirt.jpg', 'galeri_foto/052016', 'photographer');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_kategori`
+-- Struktur dari tabel `shiza_kategori`
 --
 
-CREATE TABLE `memo_kategori` (
+CREATE TABLE `shiza_kategori` (
   `katId` int(11) UNSIGNED NOT NULL,
   `katNama` varchar(100) NOT NULL,
   `katSlug` varchar(255) NOT NULL,
@@ -372,10 +372,10 @@ CREATE TABLE `memo_kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_kategori`
+-- Dumping data untuk tabel `shiza_kategori`
 --
 
-INSERT INTO `memo_kategori` (`katId`, `katNama`, `katSlug`, `katKeterangan`, `katWarna`, `katAktif`, `katType`) VALUES
+INSERT INTO `shiza_kategori` (`katId`, `katNama`, `katSlug`, `katKeterangan`, `katWarna`, `katAktif`, `katType`) VALUES
 (1, 'Menu Utama', '', 'primary', '', 1, 'webmenu'),
 (2, 'Komputer', 'komputer', '', '#265ab7', 1, 'post'),
 (3, 'Smartphone', 'smartphone', '', '#bc2020', 1, 'post'),
@@ -395,10 +395,10 @@ INSERT INTO `memo_kategori` (`katId`, `katNama`, `katSlug`, `katKeterangan`, `ka
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_kategori_relasi`
+-- Struktur dari tabel `shiza_kategori_relasi`
 --
 
-CREATE TABLE `memo_kategori_relasi` (
+CREATE TABLE `shiza_kategori_relasi` (
   `krId` bigint(20) UNSIGNED NOT NULL,
   `katId` int(10) UNSIGNED NOT NULL,
   `kontenId` int(10) UNSIGNED NOT NULL,
@@ -406,10 +406,10 @@ CREATE TABLE `memo_kategori_relasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_kategori_relasi`
+-- Dumping data untuk tabel `shiza_kategori_relasi`
 --
 
-INSERT INTO `memo_kategori_relasi` (`krId`, `katId`, `kontenId`, `krType`) VALUES
+INSERT INTO `shiza_kategori_relasi` (`krId`, `katId`, `kontenId`, `krType`) VALUES
 (1, 3, 4, 'post'),
 (2, 15, 4, 'post'),
 (5, 5, 7, 'post'),
@@ -497,10 +497,10 @@ INSERT INTO `memo_kategori_relasi` (`krId`, `katId`, `kontenId`, `krType`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_komentar`
+-- Struktur dari tabel `shiza_komentar`
 --
 
-CREATE TABLE `memo_komentar` (
+CREATE TABLE `shiza_komentar` (
   `komenId` bigint(20) UNSIGNED NOT NULL,
   `kontenId` bigint(20) UNSIGNED NOT NULL,
   `komenIdInduk` bigint(20) UNSIGNED NOT NULL,
@@ -518,10 +518,10 @@ CREATE TABLE `memo_komentar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_komentar`
+-- Dumping data untuk tabel `shiza_komentar`
 --
 
-INSERT INTO `memo_komentar` (`komenId`, `kontenId`, `komenIdInduk`, `komenKontenType`, `komenPenulis`, `komenEmail`, `komenWeblog`, `komenIsi`, `komenHari`, `komenJam`, `komenDate`, `komenTimestamp`, `komenIp`, `komenApproved`) VALUES
+INSERT INTO `shiza_komentar` (`komenId`, `kontenId`, `komenIdInduk`, `komenKontenType`, `komenPenulis`, `komenEmail`, `komenWeblog`, `komenIsi`, `komenHari`, `komenJam`, `komenDate`, `komenTimestamp`, `komenIp`, `komenApproved`) VALUES
 (1, 8, 0, 'post', 'Anonymous', 'anonim@gmail.com', '', 'Makanan kuliner khas melayu ada gak? percuma donk nama situsnya kabar melayu tapi makanan khas melayunya tidak ada. ^_^\r\n', 'Rabu', '17:09:34', '2015-11-11', '1447236574', '36.76.55.236', '1'),
 (3, 8, 1, 'post', 'Kabar Melayu', 'kabarmelayu777@gmail.com', 'http://www.kabarmelayu.com/', 'Terimakasih, akan kita tampilkan satu persatu :D', 'Kamis', '23:55:18', '2015-11-12', '1447347318', '202.67.44.29', '1'),
 (4, 35, 0, 'post', 'Mariah', 'mariah5875s@yahoo.com', '', 'Semoga atuk cepat sembuh....Aamiin.', 'Jumat', '19:47:30', '2015-11-13', '1447418850', '180.254.125.210', '1'),
@@ -538,10 +538,10 @@ INSERT INTO `memo_komentar` (`komenId`, `kontenId`, `komenIdInduk`, `komenKonten
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_kontak`
+-- Struktur dari tabel `shiza_kontak`
 --
 
-CREATE TABLE `memo_kontak` (
+CREATE TABLE `shiza_kontak` (
   `kontakId` int(11) UNSIGNED NOT NULL,
   `kontakBalasId` int(15) UNSIGNED NOT NULL,
   `kontakNama` varchar(150) NOT NULL,
@@ -558,10 +558,10 @@ CREATE TABLE `memo_kontak` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_konten`
+-- Struktur dari tabel `shiza_konten`
 --
 
-CREATE TABLE `memo_konten` (
+CREATE TABLE `shiza_konten` (
   `kontenId` bigint(20) UNSIGNED NOT NULL,
   `kontenUsername` varchar(150) NOT NULL,
   `kontenJudul` text NOT NULL,
@@ -593,10 +593,10 @@ CREATE TABLE `memo_konten` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_konten`
+-- Dumping data untuk tabel `shiza_konten`
 --
 
-INSERT INTO `memo_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJudulBesar`, `kontenJudulKecil`, `kontenPost`, `kontenRingkas`, `kontenType`, `kontenHari`, `kontenDd`, `kontenMm`, `kontenYy`, `kontenDate`, `kontenJam`, `kontenTimestamp`, `kontenDatetime`, `kontenAddDate`, `kontenSlug`, `kontenRead`, `kontenStatusKomen`, `kontenStatus`, `kontenEditor`, `kontenPenulis`, `kontenImg`, `kontenDirImg`, `kontenTextImg`, `kontenHeadline`, `kontenFeature`) VALUES
+INSERT INTO `shiza_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJudulBesar`, `kontenJudulKecil`, `kontenPost`, `kontenRingkas`, `kontenType`, `kontenHari`, `kontenDd`, `kontenMm`, `kontenYy`, `kontenDate`, `kontenJam`, `kontenTimestamp`, `kontenDatetime`, `kontenAddDate`, `kontenSlug`, `kontenRead`, `kontenStatusKomen`, `kontenStatus`, `kontenEditor`, `kontenPenulis`, `kontenImg`, `kontenDirImg`, `kontenTextImg`, `kontenHeadline`, `kontenFeature`) VALUES
 (1, 'demo', 'Kebijakan Privasi', '', '', '<p><span style=\"font-size:14pt\"><strong>Kebijakan Privasi Pro Digital</strong></span></p>\r\n\r\n<p>Jika Anda memerlukan informasi lebih lanjut atau memiliki pertanyaan apapun tentang kebijakan privasi kami, jangan ragu untuk menghubungi kami melalui email di <strong>info@prodigital.web.id</strong>. Dengan menggunakan Pro Digital Anda setuju dengan kebijakan privasi ini.<br />\r\nDi www.prodigital.web.id, privasi pengunjung kami sangatlah penting bagi kami. Dokumen kebijakan privasi ini menjelaskan jenis-jenis informasi pribadi yang diterima dan dikumpulkan oleh <em>www.prodigital.web.id</em> dan bagaimana ia digunakan.</p>\r\n\r\n<p><strong>File-file log</strong></p>\r\n\r\n<p>Seperti kebanyakan situs Web lain, <em>www.prodigital.web.id</em> menggunakan file-file log. Informasi di dalam file-file log meliputi IP address, jenis browser, Internet Service Provider (ISP), stamp tanggal/waktu, halaman referring/keluar, dan jumlah klik untuk menganalisis kecenderungan, mengelola situs, melacak pergerakan pengguna di sekitar situs, dan mengumpulkan informasi demografis. IP address, dan informasi lain tersebut tidak terkait dengan informasi apapun yang bersifat pribadi.</p>\r\n\r\n<p><strong>Cookies &amp; Web Beacons</strong></p>\r\n\r\n<p><em>www.prodigital.web.id</em> menggunakan cookies untuk menyimpan informasi tentang preferensi pengunjung, merekam informasi pengguna tertentu pada halaman mana pengguna akses atau kunjungi, menyesuaikan konten halaman web berdasarkan jenis browser pengunjung atau informasi lainnya yang pengunjung kirimkan melalui browser mereka.</p>\r\n\r\n<p>Beberapa partner periklanan kami mungkin menggunakan cookies dan web beacon di situs kami. Mitra periklanan kami antara lain:</p>\r\n\r\n<ul>\r\n	<li>Google Adsense</li>\r\n	<li>RevenueHits</li>\r\n</ul>\r\n\r\n<p>Server-server iklan pihak ketiga atau jaringan iklan dengan menggunakan teknologi iklan dan link yang muncul di <em>www.prodigital.web.id</em> mengirim secara langsung ke browser Anda. Mereka secara otomatis menerima IP address anda ketika hal ini terjadi. Teknologi-teknologi lainnya (seperti cookies, JavaScript, atau Web Beacon) juga dapat digunakan oleh jaringan iklan pihak ketiga untuk mengukur efektivitas iklan mereka dan/atau untuk personalisasi konten iklan yang Anda lihat.</p>\r\n\r\n<p><u><em>www.prodigital.web.id</em></u> tidak memiliki akses atau kontrol terhadap cookies yang digunakan oleh pengiklan pihak ketiga.</p>\r\n\r\n<p>Anda harus berkonsultasi dengan kebijakan privasi masing-masing dari server iklan pihak ketiga untuk informasi lebih rinci tentang praktek-praktek mereka serta untuk mendapatkan petunjuk tentang cara pilihan keluar dari praktek-praktek tertentu. Kebijakan privasi <em>www.prodigital.web.id</em> tidak berlaku untuk itu, dan kami tidak dapat mengontrol kegiatan, pengiklan atau situs web lain.</p>\r\n\r\n<p>Jika Anda ingin menonaktifkan cookies, Anda dapat melakukannya melalui pilihan browser tersendiri. Informasi lebih lanjut tentang pengelolaan cookies dengan browser web tertentu dapat ditemukan di masing-masing situs web browser.</p>', 'Kebijakan Privasi Pro Digital\r\n\r\nJika Anda memerlukan informasi lebih lanjut atau memiliki pertanyaan apapun tentang kebijakan privasi kami, jangan ragu untuk menghubungi kami melalui email di', 'page', 'Senin', 29, 4, 2019, '2019-04-29', '09:45:00', '1556505900', '2019-04-29 09:45:00', '', 'kebijakan-privasi', 87, 0, 1, '', '', '', '', '', 0, 0),
 (2, 'demo', 'Disclaimer', '', '', '<p>Dengan mengakses dan menggunakan ProDigital.web.id, Anda perlu menyetujui dan memahami beberapa hal berikut:</p>\r\n\r\n<p><strong>Penggunaan Nama ProDigital.web.id</strong><br />\r\nDilarang menggunakan atau mengatasnamakan ProDigital.web.id untuk kepentingan pribadi atau kelompok tertentu tanpa izin dari ProDigital.web.id. Pelanggaran ini bisa berakibat pelanggaran hak cipta dan intelektual.</p>\r\n\r\n<p><strong>Konten</strong><br />\r\nSegala jenis tulisan yang diposting oleh penulis asli/kontributor ProDigital.web.id adalah dilindungi. Dilarang untuk menyebarkan, memposting tanpa referensi dari ProDigital.web.id. Apabila ingin mengcopy tulisan dari ProDigital.web.id harap cantumkan referensi dari ProDigital.web.id baik berupa link atau nama dari ProDigital.web.id.</p>\r\n\r\n<p>Data maupun informasi yang disajikan di ProDigital.web.id tidak kami jamin keakuratannya 100% meskpun telah dilakukan upaya untuk menampilkan data dan informasi seakurat mungkin, ProDigital.web.id tidak bertanggung jawab atas segala kesalahan maupun keterlambatan memperbarui data atau informasi.</p>\r\n\r\n<p><strong>Komentar</strong><br />\r\nPendapat dan komentar dari dari pengunjung maupun moderator adalah pendapat pribadi dan tidak mencerminkan pandangan dari ProDigital.web.id sehingga ProDigital.web.id tidak bertanggung jawab atas pelanggaran yang terjadi dari komentar pengunjung/moderator yang muncul dalam interaksi pada konten lainnya pada website ini.</p>\r\n\r\n<p><strong>Link</strong><br />\r\nProDigital.web.id mencantumkan link ke situs lain, namun hal ini tidak menunjukan bahwa ProDigital.web.id menyetujui situs pihak lain tersebut.&nbsp; Anda mengetahui dan menyetujui bahwa ProDigital.web.id tidak bertanggung jawab atas isi atau materi lainnya yang ada pada situs pihak lain tersebut.</p>\r\n\r\n<p><strong>Kritik dan Saran</strong><br />\r\nSegala jenis kritik dan saran dapat dikirim melalui email atau kontak form</p>\r\n\r\n<p><strong>Gambar dan Video</strong><br />\r\nSemua gambar dan video yang ditampilkan pada ProDigital.web.id adalah hak cipta masing-masing pemiliknya yang dikumpulkan dari sumber publik yang berbeda, termasuk website yang berbeda, yang dianggap berada dalam domain publik.</p>\r\n\r\n<p>ProDigital.web.id tidak mengklaim hak eksklusif pada semua gambar dan video yang dipublikasikan, dan kami memberikan kredit atau backlink pada gambar maupun video dari sumber lain yang kami gunakan.</p>\r\n\r\n<p>Jika ditemukan pelanggaran hak cipta untuk materi seperti foto,gambar/image maupun video di ProDigital.web.id dan ingin kami menghapusnya dari website kami, silakan hubungi kami untuk mengklaim kepemilikan tersebut dan kami akan merespon Anda.</p>\r\n\r\n<p>Mohon maaf jika tidak berkenan dengan aturan yang telah kami tetapkan. Hal ini kami lakukan demi untuk kenyamanan pengunjung dan yang membuat konten di ProDigital.web.id. Silahkan hubungi kami apabila ada kritik dan saran, terima kasih.</p>', 'Dengan mengakses dan menggunakan ProDigital.web.id, Anda perlu menyetujui dan memahami beberapa hal berikut:\r\n\r\nPenggunaan Nama ProDigital.web.id\r\nDilarang menggunakan atau mengatasnamakan', 'page', 'Senin', 29, 4, 2019, '2019-04-29', '11:42:00', '1556512920', '2019-04-29 11:42:00', '', 'disclaimer', 75, 0, 1, '', '', '', '', '', 0, 0),
 (3, 'demo', 'Tentang Kami', '', '', '<p>ProDigital.web.id adalah sebuah media online yang menyediakan dan menyajikan informasi teknologi mengenai Komputer, Gadget dan IT terbaru, dan berita seputar ilmu pengetahuan yang berkaitan dengan teknologi, serta bisnis berbasis teknologi atau startup yang terupdate dan terhangat saat ini.</p>\r\n\r\n<p>Melalui media online, ProDigital.web.id berusaha menggali informasi tentang teknologi guna memberikan wawasan luas untuk anak bangsa, baik itu mempublikasikan karya inovasi terbaru, prestasi, startup dan menjadi media partner untuk acara bertemakan teknologi.</p>\r\n\r\n<p>Selain memberikan informasi terupate tentang berita teknologi, ProDigital.web.id juga memberikan akses navigasi yang mudah bagi pengunjung, baik menyajikan artikel yang relevan juga fitur untuk berinteraksi melalui kolom komentar. ProDigital.web.id juga didukung oleh tim redaksi yang berkompeten.</p>\r\n\r\n<p>Jika ada pertanyaan, saran dan/atau kritik yang membangun, bisa disampaikan melalui halaman <a href=\"https://www.prodigital.web.id/kontak.html\" target=\"_blank\">Kontak</a> yang telah disediakan.</p>', 'ProDigital.web.id adalah sebuah media online yang menyediakan dan menyajikan informasi teknologi mengenai Komputer, Gadget dan IT terbaru, dan berita seputar ilmu pengetahuan yang berkaitan dengan', 'page', 'Senin', 29, 4, 2019, '2019-04-29', '10:44:00', '1556509440', '2019-04-29 10:44:00', '1451828653', 'tentang-kami', 71, 0, 1, '', '', '', '', '', 0, 0),
@@ -609,7 +609,7 @@ INSERT INTO `memo_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJ
 (10, 'demo', 'Asus ROG Berbasis Intel Core Generasi ke-9 dan GeForce GTX 1660 Ti Akan Hadir Di Indonesia', '', '', '<p>Asus ROG adalah laptop Asus dengan kategori laptop gaming yang sangat populer sekali bagi para gamer di Indonesia. Asus jenis ROG dengan berbasis Intel Core Generasi ke-9 dengan chip grafis NVIDIA GeForce GTX 1660 Ti dan seri lainnya dengan NVIDIA GeForce RTX 2070 akan dipasarkan di Indonesia dalam waktu dekat ini, dan akan memanjakan para pecinta gaming dan content creator dengan fasilitas yang ditawarkan oleh laptop ini. Produsen laptop gaming dengan pasar terbesar di Indonesia tersebut menjadi yang pertama yang menghadirkan solusi dengan kombinasi CPU-GPU.</p>\r\n\r\n<p>&quot;ASUS selalu menghadirkan produk dengan teknologi terbaru dan terbaik. Hal tersebut merupakan komitmen ASUS dalam menghadirkan produk yang berkualitas,&quot; ujar Jimmy Lin, Country Manager ASUS Indonesia. &quot;Seri laptop gaming ROG terbaru kali ini akan hadir dengan performa yang lebih kencang lagi berkat penggunaan prosesor Intel Core Generasi ke-9 dan GeForce GTX 1600 series yang dapat memastikan dominasi penggunanya di setiap sesi gaming,&quot; jelas Jimmy menambahkan.</p>\r\n\r\n<p><strong>ROG Zephyrus S GX502GW, Laptop Untuk Gamer Hardcore sekaligus Content Creator</strong></p>\r\n\r\n<p><img alt=\"\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/zephyrus-03.jpg\" style=\"display:block; height:576px; margin-left:auto; margin-right:auto; padding:10px; width:1024px\" />ROG Zephyrus sukses mendefinisikan ulang sebuah laptop gaming yang sebelumnya harus tampil tebal dan berat menjadi tipis dan ringan. Dengan sedikit gebrakan, ASUS kembali menghadirkan inovasi melalui ROG Zephyrus S GX502GW, yaitu sebuah laptop gaming ultra-tipis dengan spesifikasi yang dirancang tidak hanya untuk bermain game, tetapi juga untuk para content creator profesional yang juga membutuhkan laptop powerful dan dapat diandalkan.</p>\r\n\r\n<p>Secara fisik ROG Zephyrus S GX502GW memiliki tampilan yang sedikit berbeda dari lini laptop Zephyrus lainnya. Laptop gaming ini menggunakan desain tradisional dengan posisi keyboard seperti laptop pada umumnya, sementara seri Zephyrus lainnya menggunakan keyboard dengan posisi berada di bawah.</p>\r\n\r\n<p>Para content creator juga membutuhkan layar dengan reproduksi warna yang akurat. Untuk itulah ROG Zephyrus S GX502GW dilengkapi dengan layar yang sudah mengantongi sertifikasi kalibrasi warna dari PANTONE. Tidak hanya itu, layar ROG Zephyrus S GX502GW juga dirancang untuk bermain game dengan refresh rate 144Hz dan response time 3ms.</p>\r\n\r\n<p>Soal performa, ROG Zephyrus S GX502GW hadir dengan spesifikasi premium. Dengan otak yang ditenagai oleh prosesor Intel Core 9th Gen yaitu Intel Core i7-9750H yang menggunakan konfigurasi 6 core dan 12 thread sangat cocok untuk berbagai kegiatan, mulai dari bermain game, menjalankan aplikasi profesional, bahkan melakukan multitasking. Sementara dari segi grafis, ROG Zephyrus S GX502GW didukung oleh chip grafis NVIDIA GeForce RTX 2070 dengan VRAM GDDR6 sebesar 8GB yang tentu saja dapat menjalankan semua game PC yang ada saat ini.</p>\r\n\r\n<p>Pada sistem pendingin, ASUS ROG jenis ini masih menggunakan Active Aerodynamic System (AAS) yang merupakan salah satu ciri khas dari laptop seri Zephyrus. AAS membuat bagian bawah bodi ROG Zephyrus S GX502GW terangkat dan menghadirkan ruang ekstra untuk aliran udara sehingga pendinginan dapat berjalan lebih optimal bahkan ketika digunakan di ruang yang terbatas.</p>\r\n\r\n<p><strong>ROG Zephyrus M GU502GU, Perkasa dengan Intel Core 9th Gen dan GTX 1660Ti</strong></p>\r\n\r\n<p><img alt=\"\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/ASUS-ROG-Zephyrus-M-GU502GU.jpg\" style=\"display:block; height:561px; margin-left:auto; margin-right:auto; padding:10px; width:1024px\" />Meski sama-sama menggunakan nama Zephyrus, ROG Zephyrus M GU502GU berbeda dengan seri Zephyrus lainnya. Selain merupakan salah satu laptop gaming ASUS berbasis NVIDIA GeForce GTX 1660Ti yang pertama, laptop gaming ini juga tidak memiliki sistem pendingin Active Aerodynamic System (AAS). Meski demikian, teknisi ASUS berhasil menghadirkan sistem pendingin khusus yang dapat menjaga suhu komponen utama pada laptop gaming ini tetap optimal.</p>\r\n\r\n<p>Sebagai bagian dari keluarga Zephyrus, ROG Zephyrus M GU502GU masih hadir dengan berbagai fitur eksklusif. Fitur seperti layar bersertifikasi PANTONE dengan refresh rate 144Hz dan response time 3ms, hingga teknologi USB Type-C power delivery agar dayanya bisa diisi ulang menggunakan adapter USB Type-C yang lebih mungil kembali hadir di laptop gaming ini.</p>\r\n\r\n<p>ROG Zephyrus M GU502GU juga tetap menggunakan bodi berbahan magnesium alloy yang sangat kokoh. Desain bodi yang sangat simpel membuat ROG Zephyrus M GU502GU tidak terlalu mencolok ketika digunakan di tempat umum. Laptop gaming ini memang dirancang agar dapat menemani penggunanya sehari-hari diberbagai kegiatan dan telah diukung oleh fitur konektivitas yang lengkap.</p>\r\n\r\n<p>Sama seperti ROG Zephyrus GX502GW, laptop gaming ini ditenagai oleh prosesor Intel Core 9th Gen yaitu Intel Core i7-9750H. Prosesor ini memastikan ROG Zephyrus M GU502GU dapat berjalan kencang diberbagai penggunaan.</p>\r\n\r\n<p>Di Indonesia, Hendra Wijaya, Product Marketing ASUS ROG menyebutkan, produk-produk laptop gaming berbasis Intel Core generasi ke-9 dan Nvidia GeForce GTX 1660Ti akan hadir di bulan Mei mendatang.</p>\r\n\r\n<p>Sumber: PCplus Online</p>', 'Asus ROG adalah laptop Asus dengan kategori laptop gaming yang sangat populer sekali bagi para gamer di Indonesia. Asus jenis ROG dengan berbasis Intel Core Generasi ke-9 dengan chip grafis NVIDIA', 'post', 'Rabu', 1, 5, 2019, '2019-05-01', '12:08:00', '1556687280', '2019-05-01 12:08:00', '1556687325', 'asus-rog-berbasis-intel-core-generasi-ke-9-dan-geforce-gtx-1660-ti-akan-hadir-di-indonesia', 125, 1, 1, '', 'Afrioni', 'aa48df052019_rogcontesthingjonwallpapers1.jpg', 'post/052019', '', 1, 1),
 (11, 'demo', 'Blue Screen Pada PC Atau Laptop Anda? Berikut Cara Mengatasinya', '', '', '<p>Terkadang disaat Anda sedang mengerjakan banyak pekerjaan pada <a href=\"https://www.prodigital.web.id/kategori/2/komputer.html\" target=\"_blank\">PC</a> atau laptop kesayangan Anda tiba-tiba laptop Anda mati dan muncul layar yang berwarna biru dengan seketika. Sehingga terkadang pekerjaan Anda terhenti karena hal tersebut. Memang menyebalkan sekali disaat Anda sedang fokus bekerja lalu PC atau laptop Anda tiba-tiba mengalami hal seperti itu. Kodisi ini biasanya dinamakan Blue Screen atau Blue Screen of Death.</p>\r\n\r\n<p><strong>Apa sih yang menyebabkan blue screen ini terjadi?</strong></p>\r\n\r\n<p>Pada dasarnya Blue Screen atau Blue Screen of Death (BSOD) merupakan sebuah kondisi dimana laptop yang sedang Anda gunakan tiba-tiba mati dan muncul warna biru secara total dilayar Anda dengan beberapa tulisan yang menunjukkan bahwa dalam laptop Anda telah terjadi crash sistem. Apalagi disaat Anda membuka banyak aplikasi komputer yang membuat <a href=\"https://www.prodigital.web.id/kategori/2/komputer.html\" target=\"_blank\">komputer</a> Anda bekerja dengan sangat keras dan membuat komputer Anda macet lalu terjadilah blue screen.</p>\r\n\r\n<p>Hal ini dikarenakan ketika PC atau laptop Anda berada dalam kondisi blue screen maka biasanya adanya masalah yang terjadi pada <a href=\"https://www.prodigital.web.id/kategori/9/hardware.html\" target=\"_blank\">hardware</a> atau <a href=\"https://www.prodigital.web.id/kategori/8/software.html\" target=\"_blank\">software</a> yang berada pada laptop Anda. Blue screen akan secara otomatis terjadi ketika Windows dan Error Stop bertemu yang akan menyebabkan kegagalan yang fatal yang terjadi pada <a href=\"https://www.prodigital.web.id/kategori/7/laptop.html\" target=\"_blank\">laptop</a> Anda dan menyebabkan laptop Anda berhenti bekerja.</p>\r\n\r\n<p>Tentu saja masalah tersebut harus segera diatasi dengan cepat. Selain itu, mengatasi blue screen juga penting untuk dilakukan karena ketika laptop Anda berada dalam kondisi blue screen maka data atau tugas yang sedang Anda kerjakan menjadi hilang tanpa tersisa. Tentunya ini merupakan hal yang sangat menyebalkan apalagi jika itu merupakan tugas atau data Anda bersifat penting.</p>\r\n\r\n<p>Berikut adalah beberapa cara yang dapat Anda lakukan untuk mengatasi blue screen yang terjadi pada laptop Anda:</p>\r\n\r\n<p><strong>1. Scan Mallware</strong></p>\r\n\r\n<p>Cara mengatasi blue screen yang pertama adalah dengan scan malware. Ketika blue screen terjadi, maka secara otomatis atau default laptop Anda atau windows pada laptop Anda akan melakukan restart, dan ketika restart telah selesai maka akan sangat disarankan untuk Anda melakukan scan terhadap segala malware atau bahaya yang ada dalam laptop Anda menggunakan antivirus yang terpercaya.</p>\r\n\r\n<p>Dengan melakukan scan pada PC atau laptop Anda terhadap malware, Anda bisa mengetahui dan menghilangkan kemungkinan virus lain yang akan menyerang laptop Anda sehingga blue screen bisa dicegah dikemudian hari.</p>\r\n\r\n<p><strong>2. Masuklah Dalam Keadaan Safe Mode</strong></p>\r\n\r\n<p>Coba Anda masuk pada PC atau laptop Anda dalam keadaan safe mode. Dalam keadaan safe mode, Windows akan secara otomatis mengambil beberapa driver utama yang penting. Hal ini dapat dilakukan terutama ketika blue screen yang terjadi disebabkan karena Anda salah menginstall driver komputer Anda hingga menyebab blue screen.</p>\r\n\r\n<p><strong>3. Periksa Hardware pada PC atau Laptop Anda</strong></p>\r\n\r\n<p>Terjadinya blue screen pada PC atau laptop Anda tidak hanya disebabkan oleh masalah software saja akan tetapi terkadang juga masalah hardware Anda. Salah satu cara untuk mengatasi blue screen yang sepert ini adalah dengan melakukan pemeriksaan terhadap hardware PC atau laptop Anda. Anda dapat melakukannya dengan cara menggunakan aplikasi bawaan dari Windows yakni Memory Diagnostic Tool pada start menu.</p>\r\n\r\n<p><strong>4. Update Driver Anda</strong></p>\r\n\r\n<p>Terkadang blue screen dapat disebabkan karena kesalahan install driver atau driver tersebut tidak diupdate. Mengatasi blue screen dapat dilakukan dengan cara menginstall driver terbaru atau mengupdatenya. Namun perlu diingat terkadang ada beberapa driver pada PC atau laptop Anda yang tidak diperkenankan untuk diupdate driver-nya, karena biasanya kendala lain akan terjadi ketika Anda sudah meng-update driver pada PC atau laptop kesayangan Anda. Sangat disarankan hal ini dilakukan oleh ahlinya atau oleh orang yang telah berpengalaman.</p>\r\n\r\n<p><strong>5. Install Ulang Sistem Operasi Anda</strong></p>\r\n\r\n<p>Install ulang secara total sistem operasi pada PC atau laptop Anda adalah pilihan terakhir yang bisa Anda lakukan ketika Anda mengalami masalah blue screen. Dengan cara ini maka sistem yang berjalan pada PC atau laptop Anda akan berjalan seperti awal lagi dengan keadaan yang baru dan fresh.</p>\r\n\r\n<p>Jika cara di atas masih saja tidak dapat diatasi maka silahkan bawa PC atau laptop Anda pada service center atau teknisi yang Anda percayai untuk mengatasi masalah ini.</p>\r\n\r\n<p>Mudah-mudah informasi ini bermanfaat untuk Anda dan memberikan solusi pada komputer Anda yang bermasalah. Selamat mencoba. ^_^</p>', 'Terkadang disaat Anda sedang mengerjakan banyak pekerjaan pada PC atau laptop kesayangan Anda tiba-tiba laptop Anda mati dan muncul layar yang berwarna biru dengan seketika. Sehingga terkadang', 'post', 'Kamis', 2, 5, 2019, '2019-05-02', '00:13:00', '1556730780', '2019-05-02 00:13:00', '1556730805', 'blue-screen-pada-pc-atau-laptop-anda-berikut-cara-mengatasinya', 105, 1, 1, '', 'Afrioni', 'd44ada052019_0118_bsod727x485.jpg', 'post/052019', '', 0, 0),
 (12, 'demo', 'Ternyata Video Call Orang Indonesia Lebih Lama Karena Sering Curhat Menurut Google', '', '', '<p>Aplikasi video call Duo dari Google yang sudah tersedia untuk para pengguna Android dan iOS di Indonesia sejak beberapa tahun lalu telah membuat banyak daftar saing aplikasi video call untuk Android dan iOS.</p>\r\n\r\n<p>Google sebagai raksasa internet telah mencatat adanya tren menarik berupa durasi penggilan<em> video call</em> untuk pengguna yang ada di Indonesia yang lebih lama 10 persen dibandingkan rata-rata global.</p>\r\n\r\n<p>Google menyebutkan lamanya durasi panggilan melalui video call ini dipengaruhi oleh budaya orang Indonesia. Orang Indonesia ternyata gemar berbicara dan<em> </em>ngobrol, termasuk salah satunya adalah curhat<em>. </em></p>\r\n\r\n<p>Fibriyani Elastria adalah sebagai Head of Consumer Marketing, Google Indonesia saat ditemui awak media di acara peluncuran fitur terbaru Google Duo di Jakarta, Rabu (24/4/2019) mengatakan &quot;Karena orang Indonesia itu sering cerita, sering<em> </em>curhat<em>,</em> sering ngobrol day to day,&quot;.</p>\r\n\r\n<p>Berdasarkan data internal Google yang diambil di beberapa kota besar yang ada di Indonesia dari kalangan berumur 18 tahun ke atas, sebanyak 75 persen pengguna melakukan video call karena mereka ingin menyampaikan rindunya kepada sang penerima.</p>\r\n\r\n<p>Sebanyak 48 persen dari pengguna tersebut menyampaikan rindu kepada pasangan mereka masing-masing sementara 40 persen ke sanak keluarga.</p>\r\n\r\n<p>Selain itu, Fibriyani turut mengklaim bahwa pengguna Duo di Indonesia merupakan yang terbanyak ketiga di dunia, setelah Amerika Serikat dan India. Kendati demikian, dia enggan mengungkapkan angka pastinya.</p>\r\n\r\n<p>Google mengatakan akan terus mendukung pengguna aplikasi Duo di Tanah Air dan mengembangkan aplikasi tersebut lebih lanjut.</p>\r\n\r\n<p>Salah satu bentuk perwujudannya adalah empat fitur baru yang menurut Google sengaja diterapkan di Google Duo dalam rangka menyambut Ramadan.</p>\r\n\r\n<p>&quot;Indonesia merupakan important market yang akan terus mendapatkan perhatian untuk mengembangkan proyeknya (Google Duo) lebih lanjut lagi,&quot; imbuh Fibriyani.</p>\r\n\r\n<p>Secara keseluruhan, mengacu pada data internal Google per Desember 2018, Fibriyani mengklaim jumlah pengguna Google Duo naik 94 persen dibandingkan dengan tahun 2017.</p>\r\n\r\n<p>Sumber: tekno.kompas.com</p>', 'Aplikasi video call Duo dari Google yang sudah tersedia untuk para pengguna Android dan iOS di Indonesia sejak beberapa tahun lalu telah membuat banyak daftar saing aplikasi video call untuk', 'post', 'Kamis', 2, 5, 2019, '2019-05-02', '15:48:00', '1556786880', '2019-05-02 15:48:00', '1556786913', 'ternyata-video-call-orang-indonesia-lebih-lama-karena-sering-curhat-menurut-google', 74, 1, 1, '', 'Afrioni', '825140052019_google_duo.jpg', 'post/052019', '', 0, 0);
-INSERT INTO `memo_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJudulBesar`, `kontenJudulKecil`, `kontenPost`, `kontenRingkas`, `kontenType`, `kontenHari`, `kontenDd`, `kontenMm`, `kontenYy`, `kontenDate`, `kontenJam`, `kontenTimestamp`, `kontenDatetime`, `kontenAddDate`, `kontenSlug`, `kontenRead`, `kontenStatusKomen`, `kontenStatus`, `kontenEditor`, `kontenPenulis`, `kontenImg`, `kontenDirImg`, `kontenTextImg`, `kontenHeadline`, `kontenFeature`) VALUES
+INSERT INTO `shiza_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJudulBesar`, `kontenJudulKecil`, `kontenPost`, `kontenRingkas`, `kontenType`, `kontenHari`, `kontenDd`, `kontenMm`, `kontenYy`, `kontenDate`, `kontenJam`, `kontenTimestamp`, `kontenDatetime`, `kontenAddDate`, `kontenSlug`, `kontenRead`, `kontenStatusKomen`, `kontenStatus`, `kontenEditor`, `kontenPenulis`, `kontenImg`, `kontenDirImg`, `kontenTextImg`, `kontenHeadline`, `kontenFeature`) VALUES
 (13, 'demo', '8 Tipe USB yang Wajib untuk Kita Ketahui', '', '', '<p>USB merupakan sebuah konektor yang menghubungkan sebuah perangkat dengan perangkat lainnya. Pada zaman sekarang ini, USB merupakan sebuah benda yang sangatlah penting untuk kebutuhan transfer data antar perangkat, baik itu menggunakan <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a>, tablet, printer, mouse, <a href=\"https://www.prodigital.web.id/kategori/2/komputer.html\" target=\"_blank\">komputer</a>, laptop, <a href=\"https://www.prodigital.web.id/kategori/4/kamera.html\" target=\"_blank\">kamera</a> ataupun perangkat lainnya. Tidak hanya itu saja, USB juga dapat digunakan untuk menghubungkan power supply ataupun charger smartphone kesayangan kamu untuk mensupply tegangan ke baterai smartphone kamu.</p>\r\n\r\n<p>Tahukah kamu kepanjangan dari singkatan USB ini?. Ya, USB adalah singkatan dari Universal Serial Bus yang menghubungkan perangkat elektronik yang bersifat eksternal untuk berbagai kebutuhan.</p>\r\n\r\n<p>Jika kita melihat sekilas, semua port USB yang ada pada komputer atau laptop cenderung memiliki ukuran yang sama. Namun ternyata tidak. Ada banyak sekali jenis-jenis USB. Jenis-jenis USB ini dapat kita bedakan melalui bentuk fisiknya. Biasanya kita bisa mengenali bentuk port-nya. Selain dibedakan berdasarkan bentuk fisiknya, USB juga dapat dibedakan dari kecepatan transfer datanya. Mari kita simak pembahasan mengenai perbedaan jenis-jenis USB menurut bentuk fisik serta kecepatan transfer datanya di bawah ini.</p>\r\n\r\n<p><strong>1. USB Tipe A</strong></p>\r\n\r\n<p><img alt=\"\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/a-Copy.jpg\" style=\"height:426px; width:600px\" /></p>\r\n\r\n<p>USB Tipe A merupakan salah satu dari sekian banyak tipe USB yang paling sering digunakan dan sangat mudah ditemukan dimana-mana. USB Tipe-A ini memiliki bentuk persegi dan cenderung lebar.</p>\r\n\r\n<p>Biasanya, tipe yang satu ini digunakan untuk menghubungkan perangkat atau periferal seperti mouse dan keyboard ke komputer ataupun laptop. Selain itu, USB Tipe A juga memiliki fungsi sebagai alat transfer data.</p>\r\n\r\n<p>Karena USB Tipe A ini merupakan salah satu jenis USB yang paling umum, USB Tipe A ini bisa dipakai di berbagai jenis port USB seperti USB 3.0, USB 2.0 hingga USB 1.1 yang terdapat pada komputer personal, laptop dan perangkat elektronik lainnya.</p>\r\n\r\n<p>Tidak hanya komputer personal dan laptop, konsol game seperti PlayStation, Xbox hingga Wifi dilengkapi dengan USB Tipe A. Beberapa alat elektronik seperti televisI, DVD dan Blu-Ray player juga menggunakan USB jenis ini.</p>\r\n\r\n<p><strong>2 USB Tipe B</strong></p>\r\n\r\n<p><img alt=\"\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/USB-Type-B.jpg\" style=\"height:446px; width:600px\" /></p>\r\n\r\n<p>Jenis USB yang satu ini biasanya digunakan untuk menghubungkan perangkat tambahan seperti printer dan scanner ke komputer atau laptop. Tidak hanya itu, <a href=\"https://www.prodigital.web.id/kategori/9/hardware.html\" target=\"_blank\">hard drive</a> eksternal juga dilengkapi dengan USB Tipe B.</p>\r\n\r\n<p>Meski sama-sama berbentuk persegi, bentuk USB Tipe B tidak selebar pendahulunya yakni USB Tipe A. Dari sekian banyak jenis-jenis USB yang ada, USB Tipe B merupakan salah satu jenis USB yang tidak terlalu umum dan jarang digunakan.</p>\r\n\r\n<p><strong>3. Mini USB</strong></p>\r\n\r\n<p><img alt=\"\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/mini-Copy.jpg\" style=\"height:450px; width:450px\" /></p>\r\n\r\n<p>Mini USB memiliki bentuk yang lebih kecil dibanding USB Tipe A. USB jenis ini merupakan jenis USB yang umumnya digunakan pada berbagai mobile device seperti smartphone. Fungsi dari mini USB pada smartphone adalah untuk membantu pengisian daya baterai atau charging.</p>\r\n\r\n<p>Selain smartphone, mini USB juga digunakan pada MP3 player serta beberapa kamera digital yang memiliki konektor dengan standar berbeda dari konektor pada umumnya. Namun kini, mini USB sudah jarang digunakan lagi. Penggunaan USB jenis ini sudah mulai berkurang sejak hadirnya Micro USB.</p>\r\n\r\n<p><strong>4. Micro USB Tipe A</strong></p>\r\n\r\n<p><img alt=\"\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/5m-usb-2.0-micro-b-to-usb-a-cable-2763-p-Copy-1.jpg\" style=\"height:421px; width:600px\" /></p>\r\n\r\n<p>Diantara banyak jenis-jenis USB yang ada, micro USB merupakan salah satu jenis yang paling banyak digunakan saat ini. Micro USB dinilai sangat mobile friendly dibanding pendahulunya, mini USB. Salah satu jenis dari micro-USB adalah micro USB tipe-A.</p>\r\n\r\n<p>Micro USB Tipe A memiliki bentuk yang lebih lebar dan pipih jika dibandingkan dengan Mini USB. USB jenis ini biasanya ditemukan pada <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">ponsel</a>, kamera digital serta PDA. Micro USB Tipe A ini memiliki kecepatan transfer hingga 480 Mbps.</p>\r\n\r\n<p><strong>5. Micro USB Tipe B</strong></p>\r\n\r\n<p><img alt=\"\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/micro-USB-Type-B.jpg\" style=\"height:449px; width:600px\" /></p>\r\n\r\n<p>Selain Micro USB Tipe A, ada satu tipe Micro USB lainnya yaitu micro USB Tipe B. Berdasarkan makeusof Terdapat perbedaan pada bentuk dari Micro USB ini. Jika Micro USB Tipe A memiliki bentuk persegi panjang yang lebar dan pipih dengan kedua ujung besi yang lurus, kedua ujung besi Micro USB Tipe B memiliki bentuk yang sedikit melengkung.</p>\r\n\r\n<p>Sama halnya dengan Micro USB Tipe A, Micro USB Tipe B juga banyak ditemukan pada ponsel, kamera digital dan PDA. Untuk kecepatan transfer, Micro USB Tipe A mempunyai ukuran kecepatan transfer yang sama dengan Tipe A yakni 480 Mbps.</p>\r\n\r\n<p><strong>6. USB Tipe C</strong></p>\r\n\r\n<p><img alt=\"\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/c-Copy.jpg\" style=\"height:337px; width:600px\" /></p>\r\n\r\n<p>Jenis USB yang selanjutnya adalah USB Tipe C. USB Tipe C digadang-gadang sebagai salah satu jenis USB dengan kecepatan transfer data yang jauh lebih tinggi dibanding pendahulunya yakni Tipe A dan Tipe B. Dimasa depan, akan banyak perangkat yang menggunakan port USB ini.</p>\r\n\r\n<p>Penggunaan USB Tipe C sudah banyak diaplikasikan diberbagai pernagkat, seperti smartphone terbaru yang beredar saat ini. Sebenarnya, masih banyak juga smartphone yang masih memakai port Micro USB tetapi untuk beberapa smartphone kelas menengah dan hampir semua smartphone kelas atas sudah menggunakan port USB Tipe C.</p>\r\n\r\n<p><strong>7. Lightning</strong></p>\r\n\r\n<p><img alt=\"\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/lt-Copy.jpg\" style=\"height:450px; width:450px\" /></p>\r\n\r\n<p>Kalau kamu pengguna iPhone atau iPad mungkin sudah tidak asing dengan yang namanya USB Lightning Cable. Ya, jenis USB yang satu ini adalah jenis USB yang memiliki ukuran hampir sama dengan Micro USB. Namun, Lightning USB dibuat khusus untuk produk Apple sehingga kompatibilitas dari USB ini sangat terbatas yakni hanya bisa digunakan pada produk Apple yang diproduksi setelah bulan September 2012.</p>\r\n\r\n<p>Lightning USB sendiri memiliki fungsi yang sama dengan USB pada umumnya yakni menghubungkan perangkat Apple seperti iPod, iPad ataupun iPhone ke komputer, kamera dan mengisi daya baterai.</p>\r\n\r\n<p><strong>8. USB On-The-Go</strong></p>\r\n\r\n<p><img alt=\"\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/usb-otg-adapter-cable-for-lenovo-phab-maxbhi-9-5-1-Copy.jpg\" style=\"height:450px; width:450px\" /></p>\r\n\r\n<p>USB On-The-Go atau disingkat USB OTG memungkinkan penggunanya untuk membaca dan mentransfer data dari satu perangkat ke perangkat lainnya. Misalnya, dari flash disk ke smartphone. USB On-The-Go menjadikan smartphone sebagai host bagi flash disk yang terhubung, sehingga pengguna bisa membaca ataupun mentransfer file dari flash disk ke smartphone secara langsung tanpa menggunakan perantara PC ataupun laptop.</p>\r\n\r\n<p>Nah itulah bentuk bermacam-macam jenis USB yang harus kita ketahui. Jenis-jenis USB ini selain dapat dibedakan dari bentuk fisiknya, USB juga dapat dibedakan dari kecepatan transfer datanya. Mulai dari USB 1.1 dengan kecepatan 1.5 Mbps, ini bisa dibilang memiliki kecepatan yang terbilang sangat lambat, USB 2.0 sebesar 480 Mbps hingga USB 3.0 yang memiliki tingkat kecepatan transfer hingga sebesar 5 Gbps dan dijuluki sebagai USB Super Speed.</p>\r\n\r\n<p>Sejak awal kemunculannya pada tahun 90-an hingga saat ini, USB tetap memiliki peranan penting dalam menunjang berbagai jenis perangkat elektronik yang marak digunakan saat ini. Mulai dari PC, laptop bahkan hingga pemutar DVD agar dapat berfungsi dengan baik.</p>\r\n\r\n<p>Nah, itulah perkembangan teknologi USB yang perlu kita ketahui agar menambah wawasan kita dengan dunia teknologi. Karena dari wawasan itulah kita dapat belajar dan mengembangkan ilmu pengetahuan di dunia teknologi.</p>\r\n\r\n<p>Sumber: carisinyal.com</p>', 'USB merupakan sebuah konektor yang menghubungkan sebuah perangkat dengan perangkat lainnya. Pada zaman sekarang ini, USB merupakan sebuah benda yang sangatlah penting untuk kebutuhan transfer data', 'post', 'Kamis', 2, 5, 2019, '2019-05-02', '21:14:00', '1556806440', '2019-05-02 21:14:00', '1556806499', '8-tipe-usb-yang-wajib-untuk-kita-ketahui', 65, 1, 1, '', 'Afrioni', '8bbdfe052019_teknologiusb4bakalsecepat40gbps.jpg', 'post/052019', '', 0, 0),
 (14, 'demo', 'Mengenal Fungsi Chipset di Smartphone dan Jenis-jenisnya', '', '', '<p>Pada <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a>, chipset tentunya hal yang wajib tersedia. Ponsel cerdas yang kamu gunakan untuk berbagai aktifitas seperti mendengarkan audio, video, kamera dan lainnya, disebabkan oleh adanya chipset.</p>\r\n\r\n<p>Chipset pada sebuah smartphone memiliki peranan lebih dari sekadar menghubungkan CPU, GPU, memori dan yang lainnya. Chipset atau system-on-chip (SoC) adalah sebuah <a href=\"https://www.prodigital.web.id/kategori/9/hardware.html\" target=\"_blank\">hardware</a> yang didalamnya terdapat berbagai komponen untuk mengatur dan memprosesan data, memproses grafis, <a href=\"https://www.prodigital.web.id/kategori/4/kamera.html\" target=\"_blank\">kamera</a>, modem, dan lainnya. Bisa dibilang, chipset adalah sebuah paket lengkap yang jadi &ldquo;otak&rdquo; utama dibalik kemampuan sebuah ponsel. Chipset ini juga berfungsi mengatur berbagai tugas komputasi dan menghubungkan berbagai hardware di motherboard.</p>\r\n\r\n<p><strong>Chipset dan Arsitektur ARM</strong></p>\r\n\r\n<p>Di dalam chipset sebuah perangkat smartphone, terdapat banyak sekali controller yakni untuk video, audio, tampilan layar, tipe RAM yang digunakan, modem (untuk kebutuhan <a href=\"https://www.prodigital.web.id/kategori/6/internet.html\" target=\"_blank\">internet</a>), dan fitur baru lainnya seperti pendukung pengisian baterai cepat atau fitur untuk memaksimalkan AI (Artificial Intelligence).</p>\r\n\r\n<p>Ukuran chipset ini sangat kecil namun terdapat banyak sekali fungsi. Bayangkan dengan bentuk yang kecil, terdapat banyak ruang untuk CPU, GPU, pengatur modem, ISP (Image Signal Prosesor), NSP dan lainnya. Hal ini tentu dimungkinkan karena chipset tidak sembarang dibangun tetapi melalui proses fabrikasi dan berdasarkan arsitektur tertentu.</p>\r\n\r\n<p>Coba perhatikan gambar berikut</p>\r\n\r\n<p><img alt=\"\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/Kirin-930.jpg\" style=\"height:294px; width:579px\" /></p>\r\n\r\n<p>Gambar di atas adalah sebuah arsitektur pada sebuah chipset. Terlihat bahwa di dalam ukuran yang kecil pada chipset, pembuat atau pendesain chipset mampu memasukan semua fungsi dan menjadi &quot;otak kecil&quot; dari sebuah perangkat pintar bernama smartphone.</p>\r\n\r\n<p>Bagaimana bisa sebuah hardware kecil bisa memiliki berbagai fungsi untuk menjalankan sebuah perangkat? Tentu saja dan kita perlu berterimakasih kepada ARM, perusahaan yang mendesain arsitektur prosesor ARM.</p>\r\n\r\n<p>Bagi yang belum tahu, ARM ini adalah pemilik lisensi dari arsitektur ARM yang kemudian dikembangkan menjadi sebuah chipset. ARM inilah yang jadi pendobrak lahirnya prosesor untuk mobile dan meninggalkan arsitektur x86, arsitektur yang digunakan AMD dan Intel untuk perangkat PC <a href=\"https://www.prodigital.web.id/kategori/2/komputer.html\" target=\"_blank\">komputer</a>.</p>\r\n\r\n<p>Prosesor dengan teknologi ARM kemudian jadi prosesor yang umum dipakai di smartphone, 90% lebih umumnya chipset yang dipakai di smartphone berasal dari ARM. Meskipun demikian, ARM sendiri bukanlah produsen chipset. ARM hanya pemegang lisensi atas teknologi ARM.</p>\r\n\r\n<p>Lisensi pertama yang disediakan ARM adalah memakai desain prosesor yang sudah dirancang ARM. Jika ada chipset yang memakai prosesor dengan nama Cortex dan GPU Mali, hal ini berarti produsen chipset tersebut memilih memakai desain prosesor ARM. Pasalnya, Cortex dan Mali adalah prosesor dan GPU yang dikembangkan oleh ARM.</p>\r\n\r\n<p>Lisensi kedua adalah lisensi untuk custom-core. Lisensi ini memungkinkan produsen mendesain ulang prosesornya asal kompatibel dengan arsitektur ARM. Ciri produsen chipset ini dapat dilihat dari nama prosesor dan pengolah grafisnya yang tidak memakai Cortex dan Mali.</p>\r\n\r\n<p>Lantas, siapa saja produsen chipset untuk smartphone atau perangkat mobile lain? Jawabannya, ada sekitar 5 pemain besar yang kelimanya memiliki izin lisensi arsitektur ARM. Ada juga produsen chipset lainnya yang jarang terdengar. Banyaknya produsen chipset ini membuat smartphone memiliki berbagai jenis chipset. Apa sajakah jenis-jenis tersebut? Simak pembahasannya berikut ini.</p>\r\n\r\n<p>Jenis-jenis Chipset yang Digunakan Pada Smartphone</p>\r\n\r\n<p><strong>1. Qualcomm Snapdragon</strong></p>\r\n\r\n<p>Snapdragon adalah chipset paling terkenal. Chipset ini dikembangkan oleh Qualcomm, perusahaan asal Amerika yang belakangan fokus menghadirkan chipset untuk berbagai platform. Qualcomm sendiri memiliki izin lisensi mendesain prosesor dari ARM.</p>\r\n\r\n<p>Karena izin lisensi tersebut, chipset Snapdragon ada yang tidak memakai prosesor Cortex. Qualcomm mengembangkan prosesornya dengan nama Kryo. Selain itu, pengolah grafis atau GPU yang ada di Snapdragon bukanlah Mali tetapi Adreno.</p>\r\n\r\n<p>Adreno ini awalnya dimiliki ATI Radeon dengan nama Imageon. Tahun 2006, ATI Radeon dibeli oleh AMD. Akusisi ini menyebabkan Imageon, proyek pengembangan prosesor grafis untuk mobile terbengkalai. Tahun 2009, Qualcomm membeli Imageon dari ATI (yang sudah dimiliki AMD) dan mengubahnya menjadi Adreno, anagram dari Radeon.</p>\r\n\r\n<p>Gabungan prosesor Kryo dan grafis Adreno ini banyak ditemukan di chipset Qualcomm kelas atas dan menengah, sebut saja Qualcomm Snapdragon 855, Snapdragon 845, Snapdragon 730, Snapdragon 636, dan lainnya. Snapdragon sendiri jadi chipset yang paling banyak disuka pengguna, tidak heran banyak vendor ponsel yang memilih Snapdragon sebagai chipset pilihan terbaik.</p>\r\n\r\n<p><strong>2. Apple A (Fusion,Bionic)</strong></p>\r\n\r\n<p>Serupa dengan Qualcomm, Apple memiliki lisensi mengembangkan prosesor sendiri dengan basis arsitektur ARM. Apple mengembangkan chipset mereka dengan nama yang mudah yakni seri A yang kemudian diikuti huruf seperti A7, A8, A9, dan seterusnya.</p>\r\n\r\n<p>Sejak seri A10, Apple menambahkan nama tambahan dibelakang seri chipset besutan mereka. Misalnya, A10 memiliki nama resmi Apple A10 Fusion. Selanjutnya ada A11 dengan nama A11 Bionic. Nama Bionic dipertahankan saat Apple mengeluarkan chipset generasi penerusnya, yakni A12 Bionic. Apple A12 Bionic inilah yang jadi otak alias chipset yang ada di seri Apple iPhone XS, XS Max, dan XR.</p>\r\n\r\n<p>Serupa dengan sistem operasi dan produk mereka yang eksklusif, chipset yang dikembangkan oleh Apple ini juga hadir eksklusif untuk perangkat Apple, tidak hanya untuk smartphone tentunya. Contohnya adalah varian Apple A12 Bionic, yakni A12X Bionic yang dipakai jadi &quot;otak&quot; dari iPad Pro 11 inci dan iPad Pro 12,9 generasi ketiga.</p>\r\n\r\n<p><strong>3. MediaTek</strong></p>\r\n\r\n<p>MediaTek termasuk salah satu produsen chipset yang cukup besar. Perusahaan asal Taiwan ini konsisten menghadirkan chipset dengan fitur tinggi tetapi dengan harga yang terjangkau. Pada awalnya, MediaTek dikenal sebagai produsen chipset yang kurang begitu baik. Banyak yang menganggap ponsel dengan chipset dari MediaTek seringkali cepat panas dan performanya kurang kencang.</p>\r\n\r\n<p>MediaTek pun berbenah dan menghadirkan beberapa chipset yang bagus seperti Helio P60 dan Helio P70. Banyak chipset dari MediaTek yang dipakai di ponsel murah di kisaran harga Rp1 jutaan atau Rp2 jutaan. Beberapa vendor ponsel lokal juga banyak yang memakai MediaTek sebagai chipset karena ongkos produksinya lebih murah.</p>\r\n\r\n<p>MediaTek memiliki prosesor dengan nama Cortex tetapi untuk GPU, kadang memakai Mali, kadang juga memakai PowerVR. Bisa jadi MediaTek memiliki lisensi semi-custom ARM yang memungkinkan produsen mengembangkan bagian tertentu dari sebuah chipset.</p>\r\n\r\n<p><strong>4. Samsung Eyxnos</strong></p>\r\n\r\n<p>Selain dikenal sebagai produsen ponsel ternama, Samsung juga dikenal sebagai produsen chipset. Samsung mengembangkan chipset sendiri dengan nama Exynos. Chipset ini tidak kalah secara performa jika dibandingkan dengan Snapdragon, bahkan performanya cenderung bersaing.</p>\r\n\r\n<p>Chipset Exynos sendiri banyak dipakai di ponsel besutan Samsung. Kabarnya, Samsung ingin menjual chipset ke produsen lain tetapi terhambat karena urusan hak paten dengan Qualcomm. Menariknya, Meizu, produsen asal Tiongkok memiliki beberapa produk ponsel yang memakai chipset Exynos.</p>\r\n\r\n<p>Exynos sendiri terdiri dari prosesor Cortex dan GPU Mali. Jarang sekali Samsung mengubah kedua bagian ini. Entah lisensi mana yang Samsung pakai tetapi Exynos hadir sebagai chipset yang bagus, terlebih untuk Exynos 9820 yang digunakan di perangkat Samsung Galaxy S10 series.</p>\r\n\r\n<p><strong>5. HiSilicon Kirin (Huawei)</strong></p>\r\n\r\n<p>Lewat anak perusahaan bernama HiSilicon, Huawei mengembangkan chipset mereka sendiri. Chipset besutan Huawei bernama Kirin yang berasal dari arsitektur ARM. Chipset Kirin ini khusus dibuat untuk ponsel besutan Huawei dan Honor, sub-brand dari Huawei.</p>\r\n\r\n<p>Chipset Kirin awalnya kurang begitu diperhitungkan mengingat ponsel Huawei dengan Kirin jarang mendapat sorotan. Baru ketika Huawei merilis Huawei P20 Pro yang dibekali Kirin 970, Kirin pun dianggap sebagai chipset yang mumpuni. Huawei pun menghadirkan penerusnya, yakni Kirin 980 yang performanya lebih kencang.</p>\r\n\r\n<p>Satu hal yang menarik dari chipset Kirin adalah penambahan fitur di dalamnya. Huawei menanamkan dua fitur penting untuk chipset Kirin, yakni HiAi dan GPU Turbo. Dari namaya, fitur HiAI jelas jadi fitur untuk mengoptimalkan kemampuan kecerdasan buatan. GPU Turbo sendiri adalah fitur di chipset Kirin yang berfungsi untuk meningkatkan kemampuan chipset dalam menjalankan game yang populer.</p>\r\n\r\n<p><strong>6. Spreadtrum</strong></p>\r\n\r\n<p>Produsen chipset lainnya adalah Spreadtrum Communications. Perusahaan yang bermarkas di Shanghai ini memiliki beberapa chipset dengan nama Spreadtrum. Produsen ponsel kelas atas jarang memakai chipset besutan Spreadtrum. Kebanyakan yang memakai chipset Spreadtrum adalah vendor kelas bawah.</p>\r\n\r\n<p>Beberapa produsen ponsel dalam negeri ada yang memakai chipset Spreadtrum. Salah satunya adalah SPC. Beberapa ponsel besutan SPC di bawah harga Rp1 juta ada yang memakai chipset Spreadtrum.</p>\r\n\r\n<p><strong>7. Nvidia Tegra</strong></p>\r\n\r\n<p>Produsen kartu grafis untuk PC, Nvidia, juga ikut bermain diranah mobile. Perusahaan ini menghadirkan chipset berarsitektur ARM dengan nama Nvidia Tegra. Nvidia Tegra ini dihadirkan sebagai chipset untuk perangkat mobile yang fokus pada gaming.</p>\r\n\r\n<p>Sayangnya, Nvidia tampaknya kurang fokus pada industri mobile. Perusahaan ini lebih fokus pada pengembangan produk kartu grafis untuk komputer. Hal ini tentu berpengaruh pada Nvidia Tegra yang jarang dilirik oleh produsen ponsel atau produsen tablet.</p>\r\n\r\n<p><strong>8. Produsen Chipset Lain</strong></p>\r\n\r\n<p>Selain tujuh nama yang sudah disebutkan sebelumnya, banyak perusahaan lain yang juga memproduksi chipset. Umumnya perusahaannya kecil dan fokus pada perangkat tertentu. Seperti halnya Rockchip yang memproduksi chipset untuk perangkat TV Box.</p>\r\n\r\n<p>Intel, perusahaan raksasa di ranah PC juga pernah menghadirkan chipset untuk mobile. Perusahaan ini pernah jadi otak dibalik ponsel Asus Zenfone generasi pertama. Sayangnya, Intel mengangkat bendera putih dan kembali ke ranah prosesor arsitektur x86.</p>\r\n\r\n<p>Menyerahnya Intel ini disebabkan karena prosesor Intel untuk perangkat mobile tidak berkembang. Isu prosesor cepat panas dan terbatasnya dukungan game pada Android kabarnya jadi salah satu penyebab prosesor Intel untuk mobile tidak diteruskan.</p>\r\n\r\n<p>Sebenarnya ada banyak lagi perusahan yang memproduksi bisnisnya. Namun tidak begitu fokus dan akhirnya menghilang. Faktor dari pemasaran dan peluang bisnis sebenarnya yang menjadi fokus utama.</p>\r\n\r\n<p>Semoga ini menambah wawasan kita untuk Mengenal Fungsi Chipset di Smartphone dan Jenis-jenisnya.</p>\r\n\r\n<p>Sumber: carisinyal.com</p>', 'Pada smartphone, chipset tentunya hal yang wajib tersedia. Ponsel cerdas yang kamu gunakan untuk berbagai aktifitas seperti mendengarkan audio, video, kamera dan lainnya, disebabkan oleh adanya', 'post', 'Sabtu', 4, 5, 2019, '2019-05-04', '09:14:00', '1556936040', '2019-05-04 09:14:00', '1556936092', 'mengenal-fungsi-chipset-di-smartphone-dan-jenis-jenisnya', 128, 1, 1, '', 'Afrioni', '001141052019_chipsetsmartphone.jpg', 'post/052019', '', 0, 0),
 (15, 'demo', 'Huawei, Xiaomi dan Oppo Rilis Smartphone 5G di Swiss', '', '', '<p>Swiss melalui perusahaan telekomunikasi Sunrise, akan membuat teknologi 5G menjadi semakin nyata. Sunrise mengumumkan bahwa pekan ini mereka mulai menawarkan tiga <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a> 5G dari tiga merek asal Cina, yaitu Huawei, Xiaomi dan Oppo.</p>\r\n\r\n<p>Dilansir laman GSM Arena, Selasa, 30 April 2019, Huawei menghadirkan Mate 20 X 5G. Versi tersebut adalah yang terbesar dari seri Mate 20 yang pertama kali diluncurkan Oktober lalu di London, Inggris.</p>\r\n\r\n<p>Beberapa pekan terakhir, terdengar isu bahwa varian 5G dan peluncurannya pertama kali akan dibesut oleh Sunrise. Smartphone dengan brand Huawei ini memiliki baterai lebih kecil yaitu 4.200 mAh, dibandingkan versi standarnya yakni 5.000 mAh, namun diimbangi dengan fitur Super Charge 40W yang lebih cepat. Harga <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">ponsel</a> ini dibanderol senilai US$ 978 atau setara 13,7 juta rupiah. Yah, cukup untuk menguras dompet kamu.</p>\r\n\r\n<p>Sementara itu, Xiaomi pertama kali mengumumkan smartphone 5G andalannya Mi Mix 3, pada Februari lalu dalam acara Mobile World Congress (MWC) yang digelar di Barcelona, Spanyol. Mi Mix 3 dibekali dengan <a href=\"https://www.prodigital.web.id/post/14/mengenal-fungsi-chipset-di-smartphone-dan-jenis-jenisnya.html\" target=\"_blank\">chipset</a> Snapdragon 855 yang diperbarui untuk mendukung modem Qualcomm X50 5G.</p>\r\n\r\n<p>Xiaomi juga telah mengumumkan kemitraannya dengan berbagai operator yang ada di seluruh Uni Eropa, termasuk Three, Oranye, Telefonica, TIM, Vodafone, dan Sunrise, yang merupakan yang pertama untuk mendapatkannya. Xiaomi juga mengumumkan kerangka waktu peluncuran pada Mei, dan kabarnya mulai dijual di Swiss pada hari Kamis, 2 Mei 2019 kemarin.</p>\r\n\r\n<p>Untuk harga, Mi Mix 3 5G awalnya dinilai dengan 599 Euro setara dengan 9,6 juta rupiah, namun dengan melihat konsumen, kemungkinan akan membayar lebih dari itu. Operator Swiss akan melabeli ponsel 5G itu seharga US$ 831 sekitar 11,6 juta rupiah. Harga ini merupakan yang termurah dibandingkan dengan smartphone 5G lainnya.</p>\r\n\r\n<p>Adapun Oppo baru-baru ini mengumumkan seri Oppo Reno, untuk varian 5G yang akan tiba di Zurich sebagai bagian dari kemitraan Swisscom. Swisscom adalah operator pertama yang meluncurkan varian 5G yang dilengkapi dengan 256 GB penyimpanan internal, kamera zoom 10x, dan RAM 8GB.</p>\r\n\r\n<p>Smartphone dengan daya baterai 4.065 mAh itu bakal dihargai US$ 980 setara dengan 13,7 juta rupiah dan akan tersedia di toko-toko pada 1 Mei 2019.</p>\r\n\r\n<p>Sunrise Communications AG memiliki <a href=\"https://www.prodigital.web.id/kategori/6/internet.html\" target=\"_blank\">jaringan</a> 5G pertama di Swiss, yang mencakup lebih dari 150 kota dengan 5G sejak awal April. Sunrise berencana untuk menyelesaikan peluncuran 5G secara nasional pada akhir 2019.</p>\r\n\r\n<p>Sumber: tempo.co</p>', 'Swiss melalui perusahaan telekomunikasi Sunrise, akan membuat teknologi 5G menjadi semakin nyata. Sunrise mengumumkan bahwa pekan ini mereka mulai menawarkan tiga smartphone 5G dari tiga merek', 'post', 'Sabtu', 4, 5, 2019, '2019-05-04', '12:20:00', '1556947200', '2019-05-04 12:20:00', '1556947223', 'huawei-xiaomi-dan-oppo-rilis-smartphone-5g-di-swiss', 135, 1, 1, '', 'Afrioni', '1c6491052019_5g100719145large.jpg', 'post/052019', '', 0, 1),
@@ -618,7 +618,7 @@ INSERT INTO `memo_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJ
 (18, 'demo', 'Tips Agar Komputer Tidak Terserang Virus', '', '', '<p><a href=\"https://www.prodigital.web.id/post/18/tips-agar-komputer-tidak-terserang-virus.html\" target=\"_blank\">Tips Agar Komputer Tidak Terserang Virus</a> - Memiliki perangkat elektronik seperti komputer ataupun <a href=\"https://www.prodigital.web.id/kategori/7/laptop.html\" target=\"_blank\">laptop</a>, tentunya tidak lepas dari masalah serangan virus, ransomware, malware, worm dan sejenisnya. Terutama jika memiliki usaha yang berbasis online, segala carapun &quot;dihalalkan&quot; agar semua perangkat yang kita gunakan aman.</p>\r\n\r\n<p>Walaupun bukan pelaku usaha berbasis online, tentunya keamanan adalah hal yang penting. Beragam file seperti tugas kampus, materi kuliah, software dan film bahkan file skripsi akan dijaga dengan ketat.</p>\r\n\r\n<p>Virus terkadang datang tanpa kita sadari, atau kita lupa bahwa mungkin kita telah melakukan sesuatu pada komputer kita. Virus bisa masuk pada komputer kita melalui beberapa hal seperti; mengakses <a href=\"https://www.prodigital.web.id/kategori/6/internet.html\" target=\"_blank\">internet</a> dimana terdapat situs yang mengandung virus atau malware, colokan flashdisk ataupun <a href=\"https://www.prodigital.web.id/kategori/9/hardware.html\" target=\"_blank\">harddrive</a> orang lain yang telah terjangkit virus dari komputer lain ataupun <a href=\"https://www.prodigital.web.id/kategori/2/komputer.html\" target=\"_blank\">komputer</a> yang telah terjangkit virus dan komputer kita berada dalam jaringan komputer tersebut.</p>\r\n\r\n<p>Untuk mengantisipasi hal-hal yang berkaitan dengan virus ini, tentunya komputer kita harus memiliki perawatan yang cukup pada <a href=\"https://www.prodigital.web.id/kategori/8/software.html\" target=\"_blank\">software</a> yang ada didalamnya. Nah, supaya komputer kita tidak mudah terkena virus dkk, yuk praktikkan beberapa tips berikut.</p>\r\n\r\n<p><span style=\"font-size:14pt\"><strong>1. Gunakan antivirus yang udah terjamin kualitasnya</strong></span></p>\r\n\r\n<p>Beberapa software antivirus populer seperti Avast, AVG, Kaspersky dan Avira dapat dipertimbangkan untuk melindungi komputer dari berbagai serangan yang bersifat merusak. Jika memiliki dana lebih, belilah produk tersebut untuk tingkat keamanan lebih tinggi.</p>\r\n\r\n<p>Namun, versi gratis juga tidak kalah hebatnya dengan yang berbayar namun tentunya fasilitas yang didapatkan terbatas. Bagi Anda yang suka gratisan, Anda mempertimbangkan Avast versi free atau antivirus gratis buatan Microsoft, Windows Defender.</p>\r\n\r\n<p><span style=\"font-size:14pt\"><strong>2. Selalu update semua aplikasi pada komputer Anda</strong></span></p>\r\n\r\n<p>Pembaharuan sebuah aplikasi tidak hanya untuk mengatasi bug yang ada atau penambahan fitur. Biasanya pembaharuan sebuah aplikasi juga membawa patch untuk menutupi celah keamanan dan meningkatkan keamanan aplikasi tersebut.</p>\r\n\r\n<p>Jadi, pastikan semua aplikasi yang digunakan adalah versi yang paling terbaru.</p>\r\n\r\n<p><span style=\"font-size:14pt\"><strong>3. Sebaik mungkin, gunakan OS versi terbaru</strong></span></p>\r\n\r\n<p>Jika Anda pengguna Windows lawas, sebaiknya segeralah untuk upgrade ke Windows 10. Selain mendapat dukungan aplikasi yang lebih banyak, Windows 10 juga diklaim aman oleh Microsoft. Begitu pula jika Anda menggunakan perangkat buatan Apple, pastikan perangkat Anda berada pada OS paling terbaru.</p>\r\n\r\n<p><span style=\"font-size:14pt\"><strong>4. Instal aplikasi hanya dari sumber terpercaya</strong></span></p>\r\n\r\n<p>Sebaiknya install lah aplikasi dari sumber terpercaya seperti Windows Store (Sekarang Microsoft Store) atau dari website resmi penyedia aplikasi/<a href=\"https://www.prodigital.web.id/kategori/8/software.html\" target=\"_blank\">software</a> tersebut. Meskipun sudah menginstal dari sumber terpercaya, ada baiknya kita berhati-hati sebab sekarang ini banyak aplikasi palsu yang berseliweran di Store resmi. Untuk mencegahnya, kita perlu melihat rating dan komentar pengguna aplikasi tersebut.</p>\r\n\r\n<p>Namun, tidak perlu khawatir berlebihan. Kebanyakan virus, ransomware, worm dan sejenisnya biasanya menargetkan perusahaan skala besar karna keuntungan yang didapatnya lebih besar ketimbang individu. Lagi pula, jika sudah mempraktekkan 4 tips di atas, Anda sudah tidak perlu lagi khawatir dengan hal tersebut.<br />\r\n<br />\r\nYuk share artikel ini jika bermanfaat dan silahkan tinggalkan komentar Anda. Silahkan tunggu tips dan trik terbaru dari artikel <a href=\"https://www.prodigital.web.id/\" target=\"_blank\">Pro Digital</a>.</p>', 'Tips Agar Komputer Tidak Terserang Virus - Memiliki perangkat elektronik seperti komputer ataupun laptop, tentunya tidak lepas dari masalah serangan virus, ransomware, malware, worm dan', 'post', 'Senin', 6, 5, 2019, '2019-05-06', '13:33:00', '1557124380', '2019-05-06 13:33:00', '1557124418', 'tips-agar-komputer-tidak-terserang-virus', 109, 1, 1, '', 'Afrioni', '6fd0ea052019_tf9wy_126.jpg', 'post/052019', '', 0, 0),
 (19, 'demo', 'Android Q Dapat Hidupkan Mode Gelap Otomatis', '', '', '<p><a href=\"https://www.prodigital.web.id/post/19/android-q-dapat-hidupkan-mode-gelap-otomatis.html\" target=\"_blank\">Android Q Dapat Hidupkan Mode Gelap Otomatis</a> - Siapa yang tidak kenal dengan sistem operasi <a href=\"https://www.prodigital.web.id/kategori/12/android.html\" target=\"_blank\">Android</a>. Ya, sistem operasi ini memang sangat populer pada smartphone kita. Perkembangannya pun juga sangat pesat sekali. Sistem operasi di bawah naungan Google ini memang sangat diminati para penggunanya dengan kemudahan dan banyak sekali <a href=\"https://www.prodigital.web.id/kategori/8/software.html\" target=\"_blank\">aplikasi</a> yang ditawarkan oleh sistem operasi ini. Selain itu, sistem operasi ini juga digemari oleh para pengembang aplikasi yang berbasis Android.</p>\r\n\r\n<p>Salah satu sistem operasinya yakni Android Q akan memperkenalkan fitur uniknya yaitu mode gelap sistem lebar (system-wide dark mode). Fitur ini telah disebarluaskan namun masih dalam versi beta dan dapat diatur jadwal aktivasinya.</p>\r\n\r\n<p>Kelebihan dari fitur ini adalah kamu tidak perlu repot-repot menyalakan atau mematikan mode gelap pada <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a> kamu nantinya.</p>\r\n\r\n<p>Fitur ini juga akan bekerja sesuai dengan jadwal yang sudah diatur. Misal, saat malam hari mode gelap pada fitur ini akan aktif dan akan mati pada pagi harinya. Pengguna tentunya harus menyetel pengaturan aktifasi mode gelapnya untuk malam hari. Lalu ia dapat juga menjadwalkan kapan mode gelap ini akan dinonaktifkan.</p>\r\n\r\n<p>Fitur mode gelap ini tentunya akan mempermudah pengguna yang tanpa harus menyalakan atau mematikan mode gelap secara manual pada smartphone mereka.</p>\r\n\r\n<p>Selain itu, pada mode gelap ini juga dapat mendeteksi kapan baterai smartphone kamu akan kritis. Saat baterai smartphone akan kritis maka smartphone kamu akan mati lebih awal secara otomatis.</p>\r\n\r\n<p>Google juga menyatakan bahwa pada mode gelap ini sangat membantu untuk penghematan masa pakai baterai pada smartphone kamu. Dikabarkan bahwa berkat mode gelap ini konsumsi daya pada baterai ternyata dapat hemat hingga 50 persen. Terlihat bahwa, kurangnya cahaya pada layar smartphone pengguna tentunya mempengaruhi berapa banyak kapasitas baterai yang terpakai.</p>\r\n\r\n<p>Fitur mode gelap ini ternyata bukanlah hal baru pada Android Q. Fitur yang sama sebenarnya sudah ditanamkan pada versi beta sebelumnya.</p>\r\n\r\n<p>Untuk informasi, tanggal 13 Maret 2019, Android Q Beta 1 telah diluncurkan dan dapat diunduh untuk seri Pixel, Pixel 2, dan Pixel 3. Untuk Beta 2 telah diluncurkan pada 3 April lalu, Beta 3 akan diluncurkan pada awal Mei dan Beta 4 pada awal Juli.</p>\r\n\r\n<p>Sayangnya, pihak Google masih belum mau menginformasikan mengenai kapan peluncuran OS Android Q atau Android generasi kesepuluh ini.</p>\r\n\r\n<p>Untuk Beta 5, Beta 6 dan peluncuran final kemungkinan akan dilakukan pada kuartal ke-3 tahun ini.</p>\r\n\r\n<p>Sumber: liputan6.com</p>', 'Android Q Dapat Hidupkan Mode Gelap Otomatis - Siapa yang tidak kenal dengan sistem operasi Android. Ya, sistem operasi ini memang sangat populer pada smartphone kita. Perkembangannya pun juga', 'post', 'Selasa', 7, 5, 2019, '2019-05-07', '12:18:00', '1557206280', '2019-05-07 12:18:00', '1557206291', 'android-q-dapat-hidupkan-mode-gelap-otomatis', 185, 1, 1, '', 'Afrioni', 'f2b717052019_androidq.jpg', 'post/052019', '', 0, 1),
 (20, 'demo', 'Dukung Jaringan 5G, Qualcomm Siapkan Chipset Snapdragon 865', '', '', '<p><a href=\"https://www.prodigital.web.id/post/20/dukung-jaringan-5g-qualcomm-siapkan-chipset-snapdragon-865.html\" target=\"_blank\">Dukung Jaringan 5G, Qualcomm Siapkan Chipset Snapdragon 865</a> - Qualcomm tengah menggebu-gebu akan mengeluarkan chipset terbaru andalannya yakni Snapdragon 865. Chipset ini diprediksi akan menjadi sebuah persaingan ponsel kelas atas pada 2020 mendatang. Qualcomm Snapdragon 865 dikabarkan akan dirilis akhir tahun ini.</p>\r\n\r\n<p>Informasi dari halaman Android Pit, pada Selasa 7 Mei 2019 lalu, <a href=\"https://www.prodigital.web.id/post/14/mengenal-fungsi-chipset-di-smartphone-dan-jenis-jenisnya.html\" target=\"_blank\">chipset</a> ini akan menawarkan dua versi koneksi jaringan, yang pertama koneksi 4G dan kedua koneksi 5G. Meskipun saat ini koneksi jaringan 5G masih terbatas pada beberapa negara, produsen <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a> saat ini sedang bergegas untuk merancang produk mereka agar kompatibel dengan chipset Snapdragon 865 ini.</p>\r\n\r\n<p>Snapdragon 865, kabarnya akan menjadi SoC (System on Chip) pertama Qualcomm dengan modem 5G yang terintegrasi. Pada chipset versi sebelumnya yakni Snapdragon 855 sebenarnya saat ini sudah cocok untuk modem jaringan 5G, namun jika menggunakan modem 5G eksternal Snapdragon X50. Hal inilah yang diterapkan oleh Xiaomi Mi MIX 3 5G dan Samsung Galaxy S10 5G.</p>\r\n\r\n<p>Sementara itu chipset Snapdragon 865 ini, modem telah diintegrasikan di dalam <a href=\"https://www.prodigital.web.id/kategori/9/hardware.html\" target=\"_blank\">prosesor</a> itu sendiri, sehingga memberi banyak ruang yang ada pada perangkat smartphone.</p>\r\n\r\n<p>Qualcomm telah mengkonfirmasikan bahwa akan menggunakan module antena sub-GHz dan mmWave generasi kedua. Hal ini akan menampilkan teknologi PowerSave 5G baru yang akan meningkatkan masa pakai baterai pada smartphone. Sehingga pengguna tidak perlu khawatir akan pemborosan pada baterai smartphone mereka untuk penggunaan jaringan 5G.&nbsp;</p>\r\n\r\n<p>Saat ini banyak sekali pengguna smartphone telah menggunakan <a href=\"https://www.prodigital.web.id/kategori/6/internet.html\" target=\"_blank\">jaringan</a> 4G yang merupakan kebutuhan primer pada jaringan smartphone mereka. Pada versi duplikat chip ini, Qualcomm ingin memberi pabrikan pilihan antara memasukkan koneksi 5G atau melanjutkan dengan 4G biasa. Dikarenakan jaringan 5G masih dalam masa perkembangan dan juga masa transisi, masuk akal jika Qualcomm menawarkan pilihan ini.&nbsp;</p>\r\n\r\n<p>Saat ini SoC Qualcomm telah menjadi produk pilihan bagi sebagian besar produsen perangkat smartphone yang berbasis Android. Sementara itu pesaing mereka, seperti MediaTek belum memiliki prosesor dengan modem jaringan 5G.</p>\r\n\r\n<p>Bahkan, salah satu perusahaan pesaing ketat mereka dikabarkan sedang dalam pengembangan modem smartphone, Intel harus mengakui kehebatan Qualcomm. Mereka pun memutuskan untuk memberhentikan lini bisnis tersebut pada beberapa waktu lalu.&nbsp;</p>', 'Dukung Jaringan 5G, Qualcomm Siapkan Chipset Snapdragon 865 - Qualcomm tengah menggebu-gebu akan mengeluarkan chipset terbaru andalannya yakni Snapdragon 865. Chipset ini diprediksi akan menjadi', 'post', 'Rabu', 8, 5, 2019, '2019-05-08', '14:41:00', '1557301260', '2019-05-08 14:41:00', '1557301299', 'dukung-jaringan-5g-qualcomm-siapkan-chipset-snapdragon-865', 165, 1, 1, '', 'Afrioni', '37e1c0052019_qualcommchipbehindback.png', 'post/052019', '', 0, 1);
-INSERT INTO `memo_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJudulBesar`, `kontenJudulKecil`, `kontenPost`, `kontenRingkas`, `kontenType`, `kontenHari`, `kontenDd`, `kontenMm`, `kontenYy`, `kontenDate`, `kontenJam`, `kontenTimestamp`, `kontenDatetime`, `kontenAddDate`, `kontenSlug`, `kontenRead`, `kontenStatusKomen`, `kontenStatus`, `kontenEditor`, `kontenPenulis`, `kontenImg`, `kontenDirImg`, `kontenTextImg`, `kontenHeadline`, `kontenFeature`) VALUES
+INSERT INTO `shiza_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJudulBesar`, `kontenJudulKecil`, `kontenPost`, `kontenRingkas`, `kontenType`, `kontenHari`, `kontenDd`, `kontenMm`, `kontenYy`, `kontenDate`, `kontenJam`, `kontenTimestamp`, `kontenDatetime`, `kontenAddDate`, `kontenSlug`, `kontenRead`, `kontenStatusKomen`, `kontenStatus`, `kontenEditor`, `kontenPenulis`, `kontenImg`, `kontenDirImg`, `kontenTextImg`, `kontenHeadline`, `kontenFeature`) VALUES
 (21, 'demo', 'Begini Cara Merawat Power Bank Agar Awet Digunakan', '', '', '<p><a href=\"https://www.prodigital.web.id/post/21/begini-cara-merawat-power-bank-agar-awet-digunakan.html\" target=\"_blank\">Begini Cara Merawat Power Bank Agar Awet Digunakan</a> - Bagi kamu yang memiliki mobilitas yang tinggi, power bank adalah sebuah perangkat yang akan selalu menemani kamu untuk pada setiap aktifitas yang akan kamu jalani. Terlebih lagi apabila baterai <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a> kamu sudah kritis dan kamu tidak sempat untuk mengisi daya menggunakan listrik.</p>\r\n\r\n<p>Dengan kebutuhan dan ketergantungan kita menggunakan power bank yang semakin sering digunakan maka umur dari power bank ini akan semakin berkurang. Sehingga kinerja power bank ini akan semakin lemah dan tidak maksimal.</p>\r\n\r\n<p>Bagi kamu yang memiliki power bank, akan sulit rasanya untuk men-charge daya baterai smartphone apabila power bank kamu tidak bekerja secara maksimal. Berikut ada beberapa tips yang dapat kamu lakukan agar membuat power bank nyaman digunakan dan awet, seperti dilansir laman vanguardngr beberapa waktu lalu:</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>1. Pilihlah power bank yang berkualitas</strong></span></p>\r\n\r\n<p>Berawal dari pertama kali kamu membeli sebuah power bank yang akan kamu gunakan. Pilihlah power bank yang berkualitas agar kamu dapat menggunakannya secara awet dan tahan lama, Jangan tanggung-tanggung dan jangan membeli power bank dengan harga murah, karena kebanyakan power bank yang harganya murah kualitasnya sudah jelas tidak bagus dan masa penggunaannya juga sebentar.</p>\r\n\r\n<p>Di pasar saat ini, ada banyak power bank murah dalam berbagai kapasitas penyimpanan daya. Mulai dari 2.500 mAh hingga 50.000 mAh yang besarnya berlebihan. Dengan harga yang menggoda dan kapasitas penyimpanan dayanya juga tidak sesuai dengan standar,tentu saja power bank jenis ini begitu mengkhawatirkan. Untuk itu jangan segan dengan kualitas dan harga power bank yang cukup mahal</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>2. Pengisian daya yang sesuai</strong></span></p>\r\n\r\n<p>Seperti smartphone baru, power bank yang baru juga memerlukan pengisian daya yang memadai sebelum ia dapat digunakan. Artinya, berapa lama kamu mengisi daya pada power bank kamu sebelum digunakan, akan memainkan peran besar pada umur power bank kamu.&nbsp; Untuk itu pengisian daya pada power bank tidak bisa dilakukan secara terus menerus.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>3. Pastikan kompatibilitas power bank sesuai dengan perangkat yang diisi</strong></span></p>\r\n\r\n<p>Periksalah power bank kamu, apakah kompatibel dengan perangkat yang kamu gunakan. Setiap power bank memiliki ketentuan daya yang berbeda untuk pengisian daya pada <a href=\"https://www.prodigital.web.id/kategori/9/hardware.html\" target=\"_blank\">perangkat</a> kamu. Apabila tidak kompatibel pada perangkat kamu dikhawtirkan akan merusak perangkat ataupun power bank yang kamu gunakan.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>4. Jaga power bank Anda dalam kondisi baik</strong></span></p>\r\n\r\n<p>Semua perangkat elektronik memiliki tingkat keausan sendiri. Jagalah power bank kamu dengan baik, jangan biarkan power bank kamu masih tercolok kelistrik terlalu lama dan&nbsp;simpan di tempat sejuk dan kering, jangan disimpan di tempat yang panas seperti diatas alat elektronik yang mengeluarkan panas seperti diatas kulkas, komputer atau alat elektronik lainnya yang sedang menyala.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>5. Hindari penggunaan smartphone sambil mengisi daya pada power bank</strong></span></p>\r\n\r\n<p>Saat smartphone kesayangan kamu sedang mengisi daya dari&nbsp;power bank hindarilah penggunaannya seperti sambil bermain game atau malakukan atau&nbsp;menjawab panggilan dari smartphone ketika sedang di-charge dari power bank. Selain tindakan tersebut dapat membahayakan kesehatan kamu, tindakan itu juga dapat menyebabkan kerusakan pada kedua perangkat kamu.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>6. Sebisa mungkin hindarilah dari menjatuhkannya</strong></span></p>\r\n\r\n<p>Hal ini terkadang sulit kita duga, namun berusahalah untuk tidak menjatuhkannya pada tempat yang keras atau dari ketinggian. Kerusakan internal ataupun fisik dapat disebabkan jika power bank jatuh sembarangan. Selain itu hindarilah meletakkan benda-benda yang berat, terpijak ataupun terduduk di atas power bank kamu. Terkadang ada sebagian orang yang meletakkan power bank mereka pada saku belakang dan itu adalah hal yang keliru. Hal tersebut adalah cara yang salah dalam menangani perangkat karena power bank juga adalah perangkat yang sensitif.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>7. Hindari menggunakan charger eksternal</strong></span></p>\r\n\r\n<p>Terkadang hal ini kita sepelekan namun ini adalah suatu yang juga harus kita hindari. Gunakanlah pengisi daya asli untuk mengisi daya power bank kamu, jangan menggunakan pengisi daya eksternal yang bukan bawaan dari&nbsp;power bank yang kamu beli. Hal ini dilakukan karena menggunakan pengisi daya eksternal tidak hanya mempengaruhi power bank kamu, tapi juga perangkat smartphone kamu.</p>\r\n\r\n<p>Walaupun terkadang hal-hal yang sepele namun terkadang dengan hal-hal yang sepele ini bisa menghindari power bank kami dari umur yang pendek. Tetaplah hemat pada penggunaan power bank kamu, ini lebih baik dari pada harus merogoh kocek untuk membeli power bank kamu.</p>\r\n\r\n<p>Mudah-mudah <a href=\"https://www.prodigital.web.id/kategori/10/tips-dan-trik.html\" target=\"_blank\">tips</a> ini dapat membantu kamu agar tetap awet dalam menggunakan power bank kesayangan kamu.</p>', 'Begini Cara Merawat Power Bank Agar Awet Digunakan - Bagi kamu yang memiliki mobilitas yang tinggi, power bank adalah sebuah perangkat yang akan selalu menemani kamu untuk pada setiap aktifitas', 'post', 'Kamis', 9, 5, 2019, '2019-05-09', '09:23:00', '1557368580', '2019-05-09 09:23:00', '1557368609', 'begini-cara-merawat-power-bank-agar-awet-digunakan', 126, 1, 1, '', 'Afrioni', '44ab16052019_xiaomimipowerbanklede.jpg', 'post/052019', '', 0, 0),
 (22, 'demo', 'Cara Menghentikan Unduh Otomatis Foto dan Video pada WhatsApp', '', '', '<p>Tips kali ini <a href=\"https://www.prodigital.web.id/\" target=\"_blank\">ProDigital.web.id</a> akan mengulas bagaimana <a href=\"https://www.prodigital.web.id/post/22/cara-menghentikan-unduh-otomatis-foto-dan-video-pada-whatsapp.html\" target=\"_blank\">cara menghentikan unduh otomatis foto dan video otomatis pada WhatsApp</a>.</p>\r\n\r\n<p>Pengunduhan otomatis adalah fitur bawaan yang ada pada WhatsApp. Terkadang fitur ini membuat ruang penyimpanan smartphone kita menjadi cepat penuh dan mengacaukan ruang penyimpanan pada <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a> kita.</p>\r\n\r\n<p>WhatsApp telah digunakan lebih dari 1,2 miliar orang yang ada di seluruh dunia. Unduhan secara otomatis menjadi kendala ketika semua file media tersimpan secara otomatis, dari gambar, GIF, belum lagi file audio dan video. Apalagi jika media penyimpanan kita tidaklah besar, tentu mengganggu sekali.</p>\r\n\r\n<p>Untuk mengatasi hal tersebut, kita harus melakukan beberapa langkah untuk menghentikan fitur WhatsApp ini dari mengunduh audio dan foto di ponsel secara otomatis, berikut langkah tersebut:</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>WhatsApp <a href=\"https://www.prodigital.web.id/kategori/12/android.html\" target=\"_blank\">Android</a></strong></span></p>\r\n\r\n<p>Untuk menghentikan pengunduhan otomatis Whatsapp Android memiliki pilihan yang memungkinkan kita menghentikan file video, audio dan gambar agar tidak diunduh. Pertama kita membuka aplikasi pesan WhatsApp, kemudian pilih pengaturan.</p>\r\n\r\n<p>Setelah itu ketuk Pengaturan Obrolan dan silahkan pilih Unduhan otomatis media. Maka terlihat ada tiga opsi: saat menggunakan data seluler, saat roaming dan saat terhubung pada Wi-Fi. Silahkan ketuk masing-masing dan nonaktifkan unduhan otomatis dengan menghapus centang ketiga opsi, Audio, Gambar dan Video.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>WhatsApp <a href=\"https://www.prodigital.web.id/kategori/13/ios.html\" target=\"_blank\">iOS</a></strong></span></p>\r\n\r\n<p>Sementara ini untuk menghentikan pengunduhan otomatis dan menyimpan video, gambar, dan media lain di WhatsApp iPhone, kita bisa menonaktifkan pengunduhan otomatis melalui menu Pengaturan. Caranya kita harus membuka WhatsApp, lalu ketuk tombol Pengaturan dan ketuk Penggunaan Data dan Penyimpanan.</p>\r\n\r\n<p>Kemudian di dalam menu tersebut, ada opsi Unduh Otomatis Media di bagian atas. Untuk Audio, foto, Video, dan Dokumen, pilih opsi Jangan, pilih file yang kita inginkan untuk diunduh secara manual akan muncul, bahkan kita dapat memilih untuk menghentikan foto dan video agar tidak muncul di galeri ponsel.</p>\r\n\r\n<p>Yang perlu dilakukan adalah masuk ke Obrolan di Pengaturan, buka menu Simpan ke Rol Kamera, dan matikan. Ini menghentikan gambar yang dikirim orang yang muncul di rol kamera dan juga mengambil alih Stream Foto kita yang disinkronkan.</p>\r\n\r\n<p>Tidak menyimpan gambar, audio ataupun video secara otomatis memiliki kelebihan sendiri. Tapi juga berarti bahwa kita harus mengunduh setiap foto secara manual. Jika kita akhirnya ingin mengunduh setiap gambar, maka mungkin yang terbaik adalah membiarkan fitur ini aktif.</p>\r\n\r\n<p>Sumber: tekno.tempo.co</p>', 'Tips kali ini ProDigital.web.id akan mengulas bagaimana cara menghentikan unduh otomatis foto dan video otomatis pada WhatsApp.\r\n\r\nPengunduhan otomatis adalah fitur bawaan yang ada pada WhatsApp.', 'post', 'Kamis', 9, 5, 2019, '2019-05-09', '18:01:00', '1557399660', '2019-05-09 18:01:00', '1557399718', 'cara-menghentikan-unduh-otomatis-foto-dan-video-pada-whatsapp', 123, 1, 1, '', 'Afrioni', '5d2a17052019_800551_720.jpg', 'post/052019', '', 0, 0),
 (23, 'demo', 'Teknologi Komputer Terbaru dan Tercanggih yang Mempermudah Manusia', '', '', '<p><a href=\"https://www.prodigital.web.id/post/23/teknologi-komputer-terbaru-dan-tercanggih-yang-mempermudah-manusia.html\" target=\"_blank\">Teknologi Komputer Terbaru dan Tercanggih yang Mempermudah Manusia</a> - Berbicara mengenai penemuan dalam bidang <a href=\"https://www.prodigital.web.id/kategori/2/komputer.html\" target=\"_blank\">komputer</a>, dengan berjalannya waktu penemuan-penemuannya pun sangat unik dan tentunya sangat membantu manusia di dalam mengerjakan berbagai pekerjaannya.</p>\r\n\r\n<p>Tak hanya itu, tetapi komputer juga dapat membantu mengurangi waktu kerjamu. Bila biasanya kamu mengerjakan sesuatu itu sangat lama, maka bila kita menggunakan komputer, kita bisa mengerjakannya dengan lebih singkat.</p>\r\n\r\n<p>Berikut ini merupakan teknologi komputer terbaru yang perlu untuk kamu ketahui:</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>1. Biometric Sensor</strong></span></p>\r\n\r\n<p>Biometric Sensor merupakan teknologi paling baru yang bisa diaplikasikan pada komputer kita. Pasaknya teknologi canggih tersebut diciptakan oleh salah satu dari perusahaan komputer terbesar, yakni Intel.</p>\r\n\r\n<p>Teknologi Biometric hampir sama dengan teknologi Apple yang saat ini digunakan untuk keperluan otorisasi kartu kredit apabila kita melakukan pembayaran dengan menggunakan Pay Apple.</p>\r\n\r\n<p>Biometric sensor sangat bermanfaat untuk mempermudah melakukan otorisasi pada berbagai situs. Jika biasanya harus menggunakan password atau dengan username dalam mengakses situs, maka dengan menggunakan biometric sensor kita bisa masuk dengan mudah, praktis dan aman.</p>\r\n\r\n<p><strong><span style=\"font-size:16px\">2. Wireless Display</span></strong></p>\r\n\r\n<p>Wireless Display adalah salah satu teknologi yang paling baru dan juga canggih yang diprakarsai oleh perusahaan komputer terbesar yaitu Intel. Apabila kita menggunakan Wireless Display, maka komputer atau <a href=\"https://www.prodigital.web.id/kategori/7/laptop.html\" target=\"_blank\">laptop</a> tak perlu dihubungkan dengan kabel.</p>\r\n\r\n<p>Teknologi ini juga dapat membuat sebuah komputer atau laptop dapat terhubung dengan komputer atau laptop yang lain. Dan untuk kamu yang sering mempresentasikan sesuatu di depan publik, tentu teknologi ini akan sangat membantu dalam hal tersebut.</p>\r\n\r\n<p>Kamu tidak perlu untuk memasang kabel untuk mempresentasikan hasil kerja kamu. Kita cukup dengan gunakan teknologi ini, maka kamu sudah dapat mempresentasikan apa pun secara mudah.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>3. Wireless Charging</strong></span></p>\r\n\r\n<p>Sama-sama berasal dari perusahaan Intel, teknologi wireless charging ini pun begitu canggih dan pastinya akan sangat membantu kamu.</p>\r\n\r\n<p>Apabila kamu biasanya harus mengulur kabel dalam mengisi baterai laptopmu, maka sekarang hal tersebut tidak perlu dilakukan lagi saat kamu mempunyai wireless charging. Dengan menggunakan wireless charging, kamu akan lebih mudah dalam mengisi baterai laptopmu tanpa repot menggunakan kabel.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>4. Komputer Interaktif</strong></span></p>\r\n\r\n<p>Kompuer interaktif merupakan teknologi yang canggih dari perusahaan Intel. Komputer jenis ini sangat peka terhadap suatu visual serta berbagai inputan yang kita lakukan. Dan nantinya, teknologi ini akan dilengkapi dengan teknologi intel realsense 3D <a href=\"https://www.prodigital.web.id/kategori/4/kamera.html\" target=\"_blank\">camera</a>, yang mana teknologi tersebut dapat sangat peka bahkan dapat mengatur jarak diantara pengguna dengan sensor.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>5. Creative Desktop dengan Touch Mat</strong></span></p>\r\n\r\n<p>Selanjutnya, teknologi komputer terbaru adalah Creative Desktop dengan Touch Mat. Yang mana teknologi ini diciptakan oleh perusahaan komputer yang bernama HP (Hewlett-Packard).</p>\r\n\r\n<p>Teknologi ini seperti halnya kanvas yang telah dikombinasikan dengan menggunakan komputer yang berteknologi kamara 3D. Teknologi ini dapat memungkinkan penggunanya dalam memindai berbagai benda yang terdapat di depan komputer, kemudian memanipulasinya dengan kanvas tadi yang berada di atas meja.</p>\r\n\r\n<p>Misalnya, ada sebuah cangkir yang berada di depan komputer ini, kemudian komputer tersebut akan memindai cangkir tadi. Setelah gambarnya berada di dalam komputer, maka kamu dapat memanipulasi gambar tadi sesuai dengan keinginan dengan cara menggunakan kanvas yang berada di depan komputermu.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>6. Virtual Keyboard</strong></span></p>\r\n\r\n<p>Teknologi canggih yang diciptakan oleh perusahaan Dell ini, prinsip kerjanya adalah dengan cara menggabungkan sebuah PC all in one dengan smart desk. Dengan menggunakan teknologi ini, maka pengguna dapat mengetik secara langsung di atas meja.</p>\r\n\r\n<p>Nah, pastinya teknologi ini akan sangat membantmu bukan? Jari-jari kamu tak perlu lagi memegang keyboard komputer dan pastinya akan lebih lincah dalam bergerak saat mengetik.</p>\r\n\r\n<p>Sumber: satujam.com</p>', 'Teknologi Komputer Terbaru dan Tercanggih yang Mempermudah Manusia - Berbicara mengenai penemuan dalam bidang komputer, dengan berjalannya waktu penemuan-penemuannya pun sangat unik dan tentunya', 'post', 'Selasa', 14, 5, 2019, '2019-05-14', '04:52:00', '1557784320', '2019-05-14 04:52:00', '1557784360', 'teknologi-komputer-terbaru-dan-tercanggih-yang-mempermudah-manusia', 158, 1, 1, '', 'Afrioni', '9b664d052019_456498.jpg', 'post/052019', '', 0, 0),
@@ -628,7 +628,7 @@ INSERT INTO `memo_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJ
 (27, 'demo', 'Berikut Cara Menghilangkan Virus Shortcut Pada Komputer Atau Laptop', '', '', '<p><a href=\"https://www.prodigital.web.id/post/27/berikut-cara-menghilangkan-virus-shortcut-pada-komputer-atau-laptop.html\" target=\"_blank\" rel=\"noopener\">Berikut Cara Menghilangkan Virus Shortcut Pada Komputer Atau Laptop</a> - Perangkat elektronik saat sekarang ini seperti laptop, komputer ataupun <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\" rel=\"noopener\">smartphone</a> tidak terpisah pada kehidupan kita sehari-hari. Terlebih lagi bagi Anda yang bekerja menggunakan perangkat ini yang bahkan sudah menjadi kebutuhan Anda sehari-hari. Komputer ataupun laptop sudah menjadi sebuah barang elektronik yang tidak bisa hilang dari keseharian kita. Dengan komputer atau laptop ini, Anda bisa lebih produktif dan memudahkan pekerjaan yang Anda hadapi setiap harinya. Selain itu, Anda dapat berselancar di media sosial dengan leluasa menggunakan perangkat ini.</p>\r\n<p>Ada banyak hal yang dapat kita lakukan dengan menggunakan <a href=\"https://www.prodigital.web.id/kategori/2/komputer.html\" target=\"_blank\" rel=\"noopener\">komputer</a> ataupun laptop ini. Bermain game hingga seharian, mengerjakan tugas atau pekerjaan, menonton film bahkan menonton acara televisi, streaming pada berbagai situs dan lain sebagainya. Bahkan laptop yang sifatnya sangat fleksible, dapat dibawa kemana saja yang memudahkan kita untuk mengerjakan berbagai pekerjaan dimana saja.</p>\r\n<p>Perangkat seperti komputer ataupun laptop ini tentunya rentan sekali terkena virus, malware, worm, trojan, FAT virus ataupun sejenisnya jika tidak kita proteksi dengan baik. Apalagi saat kita beselancar di <a href=\"https://www.prodigital.web.id/kategori/6/internet.html\" target=\"_blank\" rel=\"noopener\">internet</a> dan membuka situs yang sudah mengandung virus maka perangkat Anda akan gampang sekali terinfeksi. Bahkan saat sedang mengunduh sebuah file virus tersebut juga akan ikut terunduh pada komputer atau laptop Anda.</p>\r\n<p>Terinfeksi virus pada komputer Anda bisa saja terjadi karena Anda tidak sengaja membuka situs-situs yang sudah terjangkit virus atau mengklik iklan-iklan yang tidak disarankan. Apabila sudah terjangkit pada perangkat Anda dan tidak segera diatasi tentunya dapat merusak sistem yang ataupun perangkat pada komputer Anda.</p>\r\n<p>Ada banyak sekali jenis virus yang dapat menjangkit komputer atau laptop Anda, salah satu virus yang menyebalkan adalah virus shortcut. Virus ini adalah jenis virus yang mudah menular melalui storage device seperti Flash Disk, Memory Micro SD, External Hardisk dan lain-lain. Biasanya virus ini menginfeksi direktory file pada komputer dan storage device Anda.</p>\r\n<p>Virus shortcut ini sebenarnya tidak terlalu berbahaya dan membuat file Anda rusak ataupun corrupt bahkan mudah untuk diatasi. Akan tetapi virus ini jika dibiarkan akan mengganggu performa komputer Anda. Bahkan virus ini dapat menularkan dirinya ke perangkat lain jika ia terhubung pada komputer ataupun laptop Anda yang sedang terinfeksi.</p>\r\n<p>ProDigital.web.id akan <a href=\"https://www.prodigital.web.id/kategori/5/artikel.html\" target=\"_blank\" rel=\"noopener\">mengulas</a> beberapa cara untuk mengatasi virus shortcut ini. Untuk itu, silahkan simak cara mengatasinya berikut ini.</p>\r\n<p><span style=\"font-size: 16px;\"><strong>1. Tampilkan hidden files</strong></span></p>\r\n<p><img class=\"aligncenter\" style=\"height: 569px; width: 750px;\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/Unhide-Folders.jpg\" alt=\"Unhide File Folders\" /></p>\r\n<p>Hal pertama yang harus Anda lakukan yakni menampilkan semua file hidden pada komputer ataupun laptop Anda. Caranya, silahkan buka control panel pada windows Anda, lalu pilih folder options dan masuklah ke dalam tab view. Lalu setelah itu, munculkan file hidden Anda dengan cara mengklik opsi \"Show hidden files, folders and drives. Dengan melakukan langkah ini, maka bisa dipastikan seluruh file Anda yang ter-hidden akan muncul bahkan virus shortcut juga akan ikut muncul.</p>\r\n<p><span style=\"font-size: 16px;\"><strong>2. Lakukan proses remove attribute pada storage device Anda</strong></span></p>\r\n<p><img class=\"aligncenter\" style=\"height: 329px; width: 606px;\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/command-prompt-remove-attribute.jpg\" alt=\"command prompt\" /></p>\r\n<p>Pada langkah kedua ini Anda melakukan proses remove attribute. Silahkan buka Command Prompt Anda pada start menu. Setelah itu, ketiklah drive yang Anda ingin tuju, misalnya Anda ingin masuk ke drive D, lalu ketiklah pada Command Prompt Anda D: lalu tekan enter, maka sistem pada windows Anda akan menjalankan perintah untuk pindah ke drive yang Anda inginkan. Langkah selanjutnya adalah melakukan remove attribut dengan cara tuliskan \"attrib -s -h -r /s /d\" pada Command Prompt Anda tadi, kemudian tekan enter.</p>\r\n<p><strong><span style=\"font-size: 16px;\">3. Hapuslah virus dari storage device</span></strong></p>\r\n<p><img class=\"aligncenter\" style=\"height: 503px; width: 800px;\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/removing-malware.jpg\" alt=\"anti-virus\" /></p>\r\n<p>Langkah terakhir yang dapat Anda lakuka yakni dengan cara menghapus ataupun membuang virus dari storage device komputer dan laptop Anda. Terdapat dua cara yang bisa Anda lakukan, pertama menghapus menggunakan anti-virus, dan yang kedua yaitu menghapusnya secara manual. Apabila Anda memilih untuk menghapus virus tersebut dengan menggunakan anti-virus, Anda cukup melakukannya dengan cara scanning.</p>\r\n<p>Jika Anda ingin menghapusnya secara manual, silahkan hapus file yang terkena virus shortcut yang telah tertera pada komputer Anda, biasanya virus ini berekstensi file \'.ink\'. Namun akan sangat disarankan menghapusnya dengan anti-virus dikarenakan dengan menggunakan anti-virus akar-akar virus shortcut ini dapat diberantas habis oleh anti-virus.</p>\r\n<p>Inilah langkah-langkah yang dapat ProDigital.web.id jabarkan. Semoga bermanfaat untuk Anda.</p>\r\n<p>Sumber: carisinyal.com</p>', 'Berikut Cara Menghilangkan Virus Shortcut Pada Komputer Atau Laptop - Perangkat elektronik saat sekarang ini seperti laptop, komputer ataupun smartphone tidak terpisah pada kehidupan kita', 'post', 'Minggu', 19, 5, 2019, '2019-05-19', '22:03:00', '1558278180', '2019-05-19 22:03:00', '1558278181', 'berikut-cara-menghilangkan-virus-shortcut-pada-komputer-atau-laptop', 252, 1, 1, '', 'Afrioni', 'd3786e052019_viruscomputer.jpg', 'post/052019', '', 0, 0),
 (28, 'demo', 'Google Akan Cabut Lisensi Android Pada Smartphone Huawei', '', '', '<p><a href=\"https://www.prodigital.web.id/post/28/google-akan-cabut-lisensi-android-pada-smartphone-huawei.html\" target=\"_blank\">Google Akan Cabut Lisensi Android Pada Smartphone Huawei</a> - tekno.kompas.com - Perang dagang antara Amerika Serikat dan China terus berbuntut panjang. Setelah dinyatakan masuk dalam daftar hitam oleh pemerintah AS, Huawei kini berpotensi kehilangan lisensi sistem operasi Android miliknya.</p>\r\n\r\n<p>Hal tersebut karena Google dikabarkan bakal mengambil langkah ekstrem dengan menangguhkan bisnis dan kerja sama dengan Huawei, baik <a href=\"https://www.prodigital.web.id/kategori/9/hardware.html\" target=\"_blank\">hardware</a> maupun <a href=\"https://www.prodigital.web.id/kategori/8/software.html\" target=\"_blank\">software</a>.</p>\r\n\r\n<p>Langkah tersebut merupakan tindak lanjut atas peraturan pemerintah AS yang melarang Huawei membeli segala komponen dalam bentuk apa pun dari perusahaan AS tanpa persetujuan pemerintah setempat.</p>\r\n\r\n<p>Menurut sumber terdekat, kebijakan pemerintah AS ini tentu akan berpengaruh besar pada lini bisnis ponsel pintar Android milik Huawei.</p>\r\n\r\n<p>Selain kehilangan lisensi, <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a> Android berikutnya yang digarap Huawei akan kehilangan akses ke layanan utama milik Google, termasuk Google Play Store, Gmail, dan YouTube.</p>\r\n\r\n<p>Update: Juru bicara Google telah memberikan pernyataan resmi perusahaan terkait kabar penarikan lisensi <a href=\"https://www.prodigital.web.id/kategori/12/android.html\" target=\"_blank\">Android</a> Huawei.</p>\r\n\r\n<p>&quot;Kami mematuhi order yang diberikan (pemerintah AS) dan sedang menganalisis dampaknya&quot;, ujar juru bicara Google ke situs teknologi Android Police.</p>\r\n\r\n<p>Kendati demikian, Huawei masih memiliki kesempatan untuk menggunakan sistem operasi Android meski telah kehilangan lisensi. Pasalnya, Android merupakan sistem operasi terbuka (open-source) yang berbasis komunitas.</p>\r\n\r\n<p>Hanya, aplikasi buatan Google lain, seperti Gmail, Chrome, dan Play Store, tidak akan dapat digunakan di smartphone Android karena layanan tersebut memerlukan perjanjian komersial antara Huawei dan Google.</p>\r\n\r\n<p>&quot;Huawei hanya akan dapat menggunakan sistem operasi Android versi publik dan tidak akan mendapatkan akses ke aplikasi dan layanan eksklusif dari Google,&quot; ujar sumber tersebut.</p>\r\n\r\n<p>Dikutip KompasTekno dari Reuters, Senin (20/5/2019), dengan dicabutnya lisensi ini, artinya Huawei tidak akan lagi mendapat dukungan teknis dari Google. Kendati demikian, hal tersebut sejatinya sudah diantisipasi oleh Huawei sejak jauh-jauh hari.</p>\r\n\r\n<p>Huawei dikabarkan telah menyiapkan sebuah &quot;rencana B&quot; yakni dengan membuat serta mengembangkan teknologi sendiri seandainya Huawei diblokir dari penggunaan Android.</p>\r\n\r\n<p>Menurut salah satu petinggi Huawei, Eric Xu, siapa pun sejatinya berhak mendapatkan dan mengembangkan Android karena Android merupakan sistem operasi terbuka yang berbasis komunitas.</p>\r\n\r\n<p>&quot;Apa pun yang terjadi, Android tidak memiliki hak hukum untuk memblokir perusahaan mana pun untuk dapat mengakses lisensi open-source,&quot; kata Eric. Meski Huawei memiliki rencana lain, menurut peneliti dari lembaga riset pasar CCS Insight, aturan yang diberlakukan pemerintah AS ini akan tetap berdampak signifikan pada lini bisnis smartphone Huawei, khususnya untuk wilayah Eropa.</p>\r\n\r\n<p>Pasalnya, sampai saat ini, wilayah Eropa menjadi pasar terbesar kedua milik Huawei.</p>\r\n\r\n<p>&quot;Memiliki aplikasi-aplikasi tersebut sangat penting bagi produsen ponsel pintar agar tetap kompetitif di wilayah semisal Eropa,&quot; ungkap Geoff Blaber, Vice President Research dari CCS Insight. Huawei sendiri baru saja dimasukkan ke dalam blacklist sebagai brand yang terlarang dalam urusan perdagangan. Pemerintah AS tak hanya memasukkan nama Huawei. Ada pula sebanyak 70 afiliasi Huawei yang ikut serta dimasukkan ke dalam daftar hitam bernama &quot;entity list&quot; tersebut.</p>\r\n\r\n<p>Seluruh perusahaan yang masuk dalam daftar ini dilarang membeli komponen dalam bentuk apa pun dari perusahaan AS tanpa persetujuan pemerintah AS. Jika Huawei ingin membeli komponen tertentu dari perusahaan AS, Huawei harus mengajukan izin kepada pemerintah AS untuk membeli komponen tersebut. Posisi Huawei saat ini memang sangat bergantung pada para pemasok komponen dari Amerika Serikat, termasuk Google sebagai pemilik lisensi sistem operasi Android untuk ponsel pintar yang juga digarap oleh Huawei.</p>\r\n\r\n<p>Sumber: tekno.kompas.com<br />\r\nPenulis : Yudha Pratomo<br />\r\nEditor : Reza Wahyudi</p>', 'Google Akan Cabut Lisensi Android Pada Smartphone Huawei - tekno.kompas.com - Perang dagang antara Amerika Serikat dan China terus berbuntut panjang. Setelah dinyatakan masuk dalam daftar hitam', 'post', 'Rabu', 22, 5, 2019, '2019-05-22', '17:33:00', '1558521180', '2019-05-22 17:33:00', '1558521227', 'google-akan-cabut-lisensi-android-pada-smartphone-huawei', 91, 1, 1, '', 'Afrioni', '80c201052019_googleimg.jpg', 'post/052019', '', 1, 1),
 (29, 'demo', '3 Fitur Whatsapp Yang Mungkin Belum Diketahui Banyak Orang', '', '', '<p><a href=\"https://www.prodigital.web.id/post/29/3-fitur-whatsapp-yang-mungkin-belum-diketahui-banyak-orang.html\" target=\"_blank\">3 Fitur Whatsapp Yang Mungkin Belum Diketahui Banyak Orang</a> - WhatsApp adalah sarana komunikasi online yang saat ini banyak digunakan oleh orang di seluruh dunia dengan menggunakan <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a>. dengan banyak fitur yang ditawarkan oleh WhatsApp dan kemudahan penggunaannya membuat banyak orang tidak ingin lepas dari WhatsApp.</p>\r\n\r\n<p>Pengguna WhatsApp ini hampir mencakup semua kalangan dan semua umur, mulai dari anak-anak hingga orang dewasa. Penggunaan WhatsApp ini juga memberikan banyak manfaat sebagai sarana komunikasi yang menggunakan <a href=\"https://www.prodigital.web.id/kategori/6/internet.html\" target=\"_blank\">internet</a> secara online. Seperti layaknya group di WhatsApp, penggunanya dapat menikmati komunikasi secara beramai-ramai dan membentuk sebuah komunitas yang terdapat pada aplikasi WhatsApp.</p>\r\n\r\n<p>Untuk kemajuan dan pengembangan, WhatsApp telah banyak melakukan pembaruan sehingga terdapat fitur yang telah ditambah ataupun tidak lagi ditampilkan. Hal tersebut dilakukan untuk mepermudah penggunanya. Aplikasi ini juga dilengkapi dengan perlindungan kuota data dan banyak fitur lainya yang dapat dinikmati oleh penggunanya.</p>\r\n\r\n<p>Berikut adalah 3 fitur WhatsApp yang mungkin belum diketahui oleh banyak orang belum yang dilansir dari berbagai sumber:</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>1. Limited Data Usage</strong></span></p>\r\n\r\n<p>Pada fitur ini, pengguna bisa melindungi banyak penggunaan data yang digunakan melalui pengaturan yakni fitur Limiting Data Usage.</p>\r\n\r\n<p>Pada fitur tersebut, pengguna WhatsApp bisa mengatur pemilihan kapan pengunduhan file dengan kuota data atau konektivitas WiFi.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>2. Senyapkan Pesan</strong></span></p>\r\n\r\n<p>Fitur ini sangat cocok ketika pengguna memiliki banyak percakapan yang aktif pada saat yang sama. Pengguna juga dapat menyematkan percakapan yang paling penting agar tidak &quot;tenggelam&quot; ataupun terlewatkan oleh percakapan yang baru masuk.</p>\r\n\r\n<p>Untuk penggunaan WhatsApp pada perangkat <a href=\"https://www.prodigital.web.id/kategori/13/ios.html\" target=\"_blank\">iOS</a>, pengguna dapat menggeser percakapan dari kiri ke kanan, setelah itu pengguna dapa melihat opsi untuk menyematkan percakapan.</p>\r\n\r\n<p>Pada sistem operasi Android tertentu, pengguna biasanya harus menekan salah satu percakapan beberapa detik lalu mengetuk ikon pin.</p>\r\n\r\n<p><strong><span style=\"font-size:16px\">3. Sesuaikan Notifikasi</span></strong></p>\r\n\r\n<p>WhatsApp juga memberikan kemudahan untuk penggunanya yakni mampu menyesuaikan nada peringatan untuk setiap pesan yang masuk. Hal ini dapat membantu pengguna WhatsApp untuk membedakan dan menandai dari percakapan mana setiap pesan berasal.</p>\r\n\r\n<p>Untuk itu, pengguna dapat mengatur fitur dengan cara mengetuk nama jendela obrolan lalu pilih Custom Tone atau pada sistem operasi <a href=\"https://www.prodigital.web.id/kategori/12/android.html\" target=\"_blank\">Android</a> terdapat pada opsi Notifikasi khusus. Kemudian pilih nada spesifik yang diinginkan untuk grup atau obrolan secara&nbsp; individual di WhatsApp.</p>', '3 Fitur Whatsapp Yang Mungkin Belum Diketahui Banyak Orang - WhatsApp adalah sarana komunikasi online yang saat ini banyak digunakan oleh orang di seluruh dunia dengan menggunakan smartphone.', 'post', 'Jum\'at', 24, 5, 2019, '2019-05-24', '13:59:00', '1558681140', '2019-05-24 13:59:00', '1558681147', '3-fitur-whatsapp-yang-mungkin-belum-diketahui-banyak-orang', 207, 1, 1, '', 'Afrioni', '28323f052019_fiturterbaruwhatsapp.jpg', 'post/052019', '', 0, 0);
-INSERT INTO `memo_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJudulBesar`, `kontenJudulKecil`, `kontenPost`, `kontenRingkas`, `kontenType`, `kontenHari`, `kontenDd`, `kontenMm`, `kontenYy`, `kontenDate`, `kontenJam`, `kontenTimestamp`, `kontenDatetime`, `kontenAddDate`, `kontenSlug`, `kontenRead`, `kontenStatusKomen`, `kontenStatus`, `kontenEditor`, `kontenPenulis`, `kontenImg`, `kontenDirImg`, `kontenTextImg`, `kontenHeadline`, `kontenFeature`) VALUES
+INSERT INTO `shiza_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJudulBesar`, `kontenJudulKecil`, `kontenPost`, `kontenRingkas`, `kontenType`, `kontenHari`, `kontenDd`, `kontenMm`, `kontenYy`, `kontenDate`, `kontenJam`, `kontenTimestamp`, `kontenDatetime`, `kontenAddDate`, `kontenSlug`, `kontenRead`, `kontenStatusKomen`, `kontenStatus`, `kontenEditor`, `kontenPenulis`, `kontenImg`, `kontenDirImg`, `kontenTextImg`, `kontenHeadline`, `kontenFeature`) VALUES
 (30, 'demo', 'Apa Itu VPN? dan Cara Kerja VPN', '', '', '<p>Pro Digital kali ini akan membahas secara lengkap apa itu Virtual Private Network atau bisa disingkat dengan VPN. VPN adalah perluasan jaringan pribadi hingga ke jaringan publik, dan memberikan kemampuan bagi pengguna untuk mengirimkan dan menerima data sepanjang jaringan publik atau jaringan bersama seakan-akan komputer pengguna tersebut berhubungan dalam jaringan pribadi (<a href=\"https://id.wikipedia.org/wiki/Jaringan_pribadi_virtual\" target=\"_blank\">Wikipedia</a>). VPN saat sekarang ini sudah banyak digunakan orang dengan tujuan mendapatkan koneksi jaringan internet secara aman, pribadi, dan tentunya diakses secara remote.</p>\r\n\r\n<p>Secara sederhananya, VPN mengkoneksikan perangkat kita seperti <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\">smartphone</a>, <a href=\"https://www.prodigital.web.id/kategori/7/laptop.html\" target=\"_blank\">laptop</a> atau <a href=\"https://www.prodigital.web.id/kategori/2/komputer.html\" target=\"_blank\">komputer</a> PC ataupun tablet ke jaringan komputer lain atau VPN Server yang terkoneksi <a href=\"https://www.prodigital.web.id/kategori/6/internet.html\" target=\"_blank\">internet</a> yang mengizinkan kita untuk berinternet menggunakan komputer VPN server terebut. VPN biasanya menggunakan Server dari berbagai negara, baik dari negara kita sendiri maupun di negara yang berbeda.</p>\r\n\r\n<p>Saat berselancar dengan internet yang menggunakan VPN, koneksi jaringan internet yang digunakan adalah koneksi dimana kita menggunakan IP dari negara yang telah kita pilih menggunakan VPN. Misal, saat kita menggunakan VPN dari negara singapura maka koneksi jaringan internet yang digunakan adalah jaringan internet dari singapura.</p>\r\n\r\n<p>Agar bisa memahami cara kerja VPN ini, ada baiknya kita simak dari penjelasan berikut ini.</p>\r\n\r\n<p><span style=\"font-size:20px\"><strong>Cara Kerja VPN</strong></span></p>\r\n\r\n<p>Dari penjelasan di atas tadi maka kita dapat mengetahui fungsi dari VPN. Pada point ini kita akan membahas cara kerja dari VPN. Cara kerja VPN&nbsp; adalah melakukan enkripsi pertukaran data melalui koneksi internet secara aman yang mengunakan jalur khusus atau tanpa menggunakan koneksi jaringan internet pada umumnya.</p>\r\n\r\n<p>Dengan berinternet menggunakan VPN maka sebenarnya kita sudah menghindari adanya penyusup saat sedang melakukan pertukaran data menggunakan internet yang sewaktu-waktu bisa masuk ke jalur lintas jaringan pada umumnya.</p>\r\n\r\n<p>Server VPN yang kita gunakan bertugas untuk meneruskan permintaan data pada situs yang sedang kita akses. Permintaan data atau situs yang sedang kita akses akan dikenali sebagai koneksi dari jaringan server VPN bukan jaringan yang digunakan pada saat itu.</p>\r\n\r\n<p>Berikut adalah topologi dari koneksi jaringan internet yang menggunakan VPN.</p>\r\n\r\n<p><img alt=\"VPN Topology\" class=\"aligncenter\" src=\"https://www.prodigital.web.id/memo_konten/uploads/images/content_post/images/vpn-protects-from-isp2.jpg\" style=\"height:318px; width:650px\" /></p>\r\n\r\n<p>Dapat kita lihat dari toplogi di atas, ketika kita menggunakan VPN, data dienkripsi oleh aplikasi VPN setelah itu dikirimkan melalui Internet Service Provider (ISP) kemudian ke server VPN. Server VPN adalah perangkat ketiga yang menghubungkan kita dengan situs yang kita minta.</p>\r\n\r\n<p>Apabila kita tidak menggunakan VPN atau koneksi jaringan internet standar maka tidak akan ada proses enkripsi data dan data yang kita minta dengan koneksi internet seperti ini bisa saja akan dilihat oleh orang lain.</p>\r\n\r\n<p>Tidak ada masalah apabila kita mengakses hanya untuk sekedar nonton video, melakukan pencarian di google, hiburan dan bersosial media. Namun akan menjadi sangat penting ketika melakukan transaksi data penting seperti, email, bisnis, transaksi perbankan atau data yang dianggap penting lainnya. Oleh karena itu berbeda pula cara mengaksesnya.</p>\r\n\r\n<p><span style=\"font-size:20px\"><strong>Manfaat Menggunakan VPN</strong></span></p>\r\n\r\n<p>Ada beberapa manfaat yang akan kita dapatkan pada saat menggunakan VPN, antara lain adalah:</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>1. Remote Access</strong></span></p>\r\n\r\n<p>Dengan mengunakan VPN maka kita dapat mengakses jaringan komputer di kantor atau di mana saja melalui jaringan internet. Walaupun kita menggunakan jaringan luar, ketika kita telah menggunakan VPN maka jaringan kita bisa dikenali oleh internet menggunakan jaringan kantor.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>2. ByPass</strong></span></p>\r\n\r\n<p>Kita bisa melwati pembatas terhadap situs yang tidak bisa diakses menggunakan jaringan biasa, namun dengan menggunakan VPN, situs yang tadinya tidak bisa kita akses dapat diakses menggunakan VPN. Misalnya situs yang diblokir oleh kebijakan pemerintah ataupun mengakses situs yang dianggap membahayakan, dan lain sebagainya.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>3. Pengamanan Data Pada Jaringan Publik</strong></span></p>\r\n\r\n<p>Melindungi transaksi data yang kita lakukan dari WiFi, jaringan publik atau jaringan yang tidak dapat dipercaya. Misalnya jaringan publik seperti kafe, bar, dan semacamnya.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>4. Mengamankan Informasi Pribadi Secara Anonim</strong></span></p>\r\n\r\n<p>VPN dapat menyembunyikan lokasi kita secara realtime atau langsung. Jadi, tidak sembarangan orang bisa mengetahui lokasi kita saat melakukan akses. Biasanya lokasi yang terdeteksi adalah lokasi server VPN berada.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>5. Data Dienkripsi</strong></span></p>\r\n\r\n<p>Saat berselancar di internet data kita dienkripsi oleh aplikasi VPN. Sehingga meskipun seseorang melihat apa yang komputer kita kirimkan, mereka hanya melihat informasi yang sudah terenkripsi.</p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>6. Meng-enkripsi Informasi Perangkat</strong></span></p>\r\n\r\n<p>Orang lain tidak bisa dengan mudah membaca perangkat yang sedang kita gunakan, atau apa yang sedang lakukan.</p>\r\n\r\n<p><span style=\"font-size:20px\"><strong>Kekurangan dan Kelebihan VPN</strong></span></p>\r\n\r\n<p>Ada beberapa kekurangan dan kelebihan dalam menggunakan VPN ini. Berikut kelebihan dan kekurangannya.</p>\r\n\r\n<p><strong>Kelebihan </strong></p>\r\n\r\n<ul>\r\n	<li>Kerahasiaan data lebih aman.</li>\r\n	<li>Bisa mengakses website terblok.</li>\r\n	<li>Identitas IP asli tidak langsung diketahui.</li>\r\n	<li>Akses jaringan dari lokasi yang berbeda.</li>\r\n</ul>\r\n\r\n<p><strong>Kekurangan</strong></p>\r\n\r\n<ul>\r\n	<li>Koneksi lebih lambat.</li>\r\n	<li>Koneksi tidak stabil.</li>\r\n	<li>Konfigurasi manual cukup rumit.</li>\r\n	<li>Ada batasan penggunaan.</li>\r\n</ul>\r\n\r\n<p><span style=\"font-size:20px\"><strong>Cukup Amankah Menggunakan VPN?</strong></span></p>\r\n\r\n<p>VPN dapat membuat koneksi jaringan kita sangat aman, namun tergantung dengan protokol yang kita gunakan untuk melakukan koneksi. Keamanan ini terkadang menjadi faktor utama.</p>\r\n\r\n<p>Sebenarnya masih ada penghalang dalam menggunakan VPN yaitu:</p>\r\n\r\n<p><span style=\"font-size:14px\"><strong>Batasan Teknologi</strong></span></p>\r\n\r\n<p>Limitasi teknologi yang digunakan untuk mengembangan VPN, seperti tipe protokol dan enkripsi yang digunakan.</p>\r\n\r\n<p><span style=\"font-size:14px\"><strong>Batasan Hukum</strong></span></p>\r\n\r\n<p>Batasan hukum dan kebijakan memengaruhi apa yang dapat dilakukan pada suatu perkembangan teknologi itu. Begitu pula dengan undang-undang negara tempat server dan perusahaan penyedia VPN berada. Kebijakan perusahaan sendiri juga dapat mempengaruhi cara perusahaan yang menerapkan teknologi ini dalam layanan mereka.</p>\r\n\r\n<p>Jadi boleh dibilang tidak sepenuhnya penggunaan VPN itu aman. Namun, paling tidak penggunaan VPN ini bisa lebih aman dibandingkan menggunakan koneksi jaringan internet biasa.</p>\r\n\r\n<p><span style=\"font-size:20px\"><strong>Kapan kita harus menggunakan VPN?</strong></span></p>\r\n\r\n<p>Kapankah kita harus menggunakan VPN adalah alasan menarik dalam memaksimalkan penggunaan VPN ini. yakni ketika.</p>\r\n\r\n<ul>\r\n	<li>Membantu kita mendapatkan koneksi yang lebih aman saat menggunakan jaringan internet secara publik.</li>\r\n	<li>Mengenkripsi aktivitas kita pada situs web.</li>\r\n	<li>Menyembunyikan aktivitas kita terhadap orang yang ingin mencoba masuk kejaringan kita dan mengetahui secara diam-diam.</li>\r\n	<li>Menyembunyikan lokasi, dan mengizinkan kita mengakses geo-blocked content atau konten-konten yang diblok berdasarkan wilayah geografis.</li>\r\n	<li>Memastikan kita lebih anonim di dalam situs web.</li>\r\n</ul>\r\n\r\n<p>Itulah beberapa penjelasan secara umum mengenai apa itu VPN dan cara kerjanya. Semoga tulisan ini memeberikan manfaat dan wawasan kita dengan teknologi VPN.</p>\r\n\r\n<p>Sumber: www.niagahoster.co.id, id.wikipedia.org</p>', 'Pro Digital kali ini akan membahas secara lengkap apa itu Virtual Private Network atau bisa disingkat dengan VPN. VPN adalah perluasan jaringan pribadi hingga ke jaringan publik, dan memberikan', 'post', 'Sabtu', 25, 5, 2019, '2019-05-25', '14:03:00', '1558767780', '2019-05-25 14:03:00', '1558695444', 'apa-itu-vpn-dan-cara-kerja-vpn', 311, 1, 1, '', 'Afrioni', '76e69d052019_phonevpn.jpeg', 'post/052019', '', 0, 0),
 (31, 'demo', 'Xiaomi, Oppo, Vivo Sudah Jajal OS Pengganti Android Buatan Huawei', '', '', '<p>Huawei yang kehilangan lisensi Android, mengembangkan HongMeng sebagai sistem operasi pengganti. Tak hanya Huawei, vendor smartphone asal China lainnya yakni Xiaomi, Oppo dan Vivo turut mencoba sistem operasi ini.</p>\r\n<p>Menurut kabar, Huawei kini tengah gencar mengujicoba HongMeng yang konon akan dirilis pada tahun ini. Dalam uji coba tersebut, Xiaomi, Oppo dan Vivo juga mengirimkan tim internal untuk ikut merasakan sistem operasi tersebut.</p>\r\n<p>Hasilnya, sistem operasi HongMeng ini diklaim bisa mendongkrak performa ponsel 60 persen lebih cepat dibandingkan jika menggunakan OS Android.</p>\r\n<p>Dikutip KompasTekno dari Global Times, Jumat (14/6/2019), dalam pengembangan sistem operasi ini Huawei tak bekerja sendirian. Selain bekerja dengan Xiaomi, Oppo dan Vivo, Huawei juga menggandeng Tencent untuk turut meningkatkan kinerja OS HongMeng.</p>\r\n<p>Sayangnya baik Tencent maupun Xiaomi, menolak untuk berkomentar terkait kabar tersebut.</p>\r\n<p>Huawei sendiri mempercepat pembuatan sistem operasi ini setelah pemerintah Amerika Serikat memasukkan nama Huawei ke dalam daftar bernama \"entity list\".</p>\r\n<p>Perusahaan yang masuk dalam daftar tersebut tidak diperkenankan membeli komponen dalam bentuk <a href=\"https://www.prodigital.web.id/kategori/8/software.html\" target=\"_blank\" rel=\"noopener\">software</a> dan hardware ke perusahaan asal AS, tanpa seizin pemerintah AS.</p>\r\n<p>Sehingga, Huawei berpotensi kehilangan lisensi sistem operasi Android yang notabene dimiliki oleh Google yang merupakan perusahaan asal Amerika Serikat.</p>\r\n<p>Tak hanya itu, beberapa perusahaan lain pun turut menangguhkan kerja sama mereka dengan Huawei. Contohnya Facebook.</p>\r\n<p>Perusahaan ini juga menangguhkan kerja sama dengan Huawei sehingga aplikasi seperti Facebook, Instagram dan WhatsApp tidak akan dapat terinstal secara bawaan pada ponsel Huawei.</p>\r\n<p>Kendati demikian, beberapa analis mengungkapkan bahwa sistem operasi HongMeng diduga akan mulai dibenamkan pada ponsel Huawei P40 mendatang.</p>\r\n<p>Bahkan menurut sumber terdekat, masih ada sejumlah perusahaan teknologi besar yang juga turut membantu Huawei mengembangkan sistem operasi ini.</p>\r\n<p>Sumber: tekno.kompas.com</p>', 'Huawei yang kehilangan lisensi Android, mengembangkan HongMeng sebagai sistem operasi pengganti. Tak hanya Huawei, vendor smartphone asal China lainnya yakni Xiaomi, Oppo dan Vivo turut mencoba', 'post', 'Minggu', 16, 6, 2019, '2019-06-16', '12:35:00', '1560663300', '2019-06-16 12:35:00', '1560663326', 'xiaomi-oppo-vivo-sudah-jajal-os-pengganti-android-buatan-huawei', 103, 1, 1, '', 'Afrioni', 'ac9ee0062019_huaweiajukanmerekdaganguntukosbarupenggantiandroidvisote3y1q.jpg', 'post/062019', '', 1, 1),
 (32, 'demo', 'Berikut Penyebab Baterai Handphone Cepat Habis dan Cara Mengatasinya', '', '', '<p>Baterai merupakan sumber daya utama bagi banyak perangkat portabel seperti handphone (HP). Agar dapat digunakan dalam jangka waktu yang lama, jenis baterai yang digunakan oleh perangkat seperti handphone adalah yang dapat diisi ulang. Beberapa baterai hp model lama dapat dicabut dan diganti jika sudah rusak. Sedangkan saat ini banyak <a href=\"https://www.prodigital.web.id/kategori/3/smartphone.html\" target=\"_blank\" rel=\"noopener\">smartphone</a> yang sudah mengadopsi fitur baterai yang tidak dapat dilepas (non-removable).</p>\r\n<p>Meskipun sebuah HP memiliki ukuran baterai yang besar (dihitung dalam mAh), belum tentu daya tahan baterainya bagus. Terdapat beberapa penyebab baterai HP yang cepat habis, hal ini disebabkan oleh beberapa fitur atau aplikasi HP yang terus berjalan di belakang layar atau tingkat kecerahan layar yang terlalu tinggi.</p>\r\n<p><span style=\"font-size: 18pt;\"><strong>1. Tingkat Kecerahan Layar Terlalu Tinggi</strong></span></p>\r\n<p>Saat berada di luar ruangan yang cerah, kadang kita harus menaikkan tingkat kecerahan layar handphone kita. Gunanya tak lain agar kita dapat membaca layar dengan mudah. Ternyata hal ini adalah salah satu penyebab utama mengapa daya baterai lebih cepat terkuras.</p>\r\n<p>Untuk meminimalisir hal ini, segera atur kembali tingkat kecerahan handphone kita serendah mungkin (cukup untuk bisa membaca layar di dalam ruangan) setelah aktivitas di luar ruangan selesai. Jika tidak ingin ribet mengatur-atur, gunakan saja fitur kecerahan layar otomatis yang akan berubah sesuai kondisi pencahayaan disekitarnya.</p>\r\n<p>Cara lain yang bisa dilakukan untuk menghemat daya baterai adalah dengan segera mematikan layar handphone setelah berhenti menggunakannya.</p>\r\n<p><span style=\"font-size: 18pt;\"><strong>2. WiFi yang Terus Bekerja</strong></span></p>\r\n<p>Umumnya setiap ponsel pintar sudah dibekali dengan fitur WiFi agar dapat terhubung ke jaringan nirkabel tersebut. Cukup dengan mengaktifkan tombol WiFi di menu pengaturan jaringan, handphone kita akan bekerja mencari-cari sinyal WiFi yang tersedia. Terhubung dengan jaringan WiFi adalah sebuah cara untuk menghemat kuota data kita.</p>\r\n<p>Jika ternyata tidak ada sinyal WiFi yang ditemukan dan kita membiarkan pemindai WiFi terus bekerja, maka bukan tidak mungkin baterai hp kita jadi cepat habis. Oleh karena itu, segera matikan pemindai WiFi jika kita tidak menemukan sinyal WiFi yang bisa digunakan.</p>\r\n<p><span style=\"font-size: 18pt;\"><strong>3. GPS Aktif Terus Menerus</strong></span></p>\r\n<p>GPS yang terus-terusan aktif juga bisa menjadi salah satu penyebab baterai handphone cepat habis. Jika fitur ini tidak dimatikan, sistem akan terus bekerja melacak lokasi dimana kita berada (saat terhubung ke internet). Fitur ini memang sangat berguna bagi sebagian pengguna sehingga diaktifkan terus sepanjang hari.</p>\r\n<p>Beberapa aplikasi membutuhkan GPS untuk dapat bekerja, seperti Google Maps saat kita hendak mencari sebuah lokasi. Jika hal ini sedang tidak dibutuhkan, pastikan untuk mematikan GPS dan menutup aplikasi tersebut.</p>\r\n<p><span style=\"font-size: 18pt;\"><strong>4. Aplikasi yang Terus Berjalan di Belakang Layar</strong></span></p>\r\n<p>Penyebab baterai hp cepat habis lainnya adalah adanya aplikasi-aplikasi yang terus berjalan di belakang layar tanpa sepengetahuan kita. Tidak semua aplikasi yang telah selesai kita gunakan dan tutup akan berhenti begitu saja. Beberapa diantaranya ada yang terus beraktivitas di latar belakang untuk tujuan tertentu.</p>\r\n<p>Kita dapat mengetahui aplikasi mana saja yang menggunakan daya baterai paling banyak dengan cara pergi ke pengaturan baterai (tersedia di Android dan iOS). Di sana terdapat informasi yang menunjukkan aplikasi yang berjalan lengkap dengan besaran daya baterai yang telah mereka konsumsi.</p>\r\n<p>Agar baterai jadi lebih awet, kita bisa menonaktifkan aplikasi tidak penting yang bekerja di belakang layar. Jika hp-mu memiliki fitur optimisasi bawaan, kamu bisa menggunakan hal itu untuk memaksimalkan daya baterai.</p>\r\n<p><span style=\"font-size: 18pt;\"><strong>5. Berlebihan Menggunakan Aplikasi dan Aktivitas yang Menguras Baterai</strong></span></p>\r\n<p>Beberapa aplikasi hiburan seperti video dan musik streaming bisa sangat menguras daya baterai jika digunakan berlebihan. Begitu juga dengan bermain game-game bergrafis berat, jika kita terlalu lama menggunakannya, maka baterai hp kita bisa cepat terkuras. Sedangkan contoh aktivitas yang dapat menguras cukup banyak baterai jika dipakai berlebihan adalah tethering.</p>\r\n<p>Jadi, bagaimana caranya agar baterai hp kita lebih hemat? Misalnya, jika ingin membaca sebuah berita atau mencari informasi, kamu bisa membaca daripada menonton video. Juga, hindari bermain game untuk jangka waktu yang lama, karena selain dapat menguras daya cukup cepat, hal itu juga dapat membuat masa pakai baterai lebih cepat menurun.</p>\r\n<p><span style=\"font-size: 18pt;\"><strong>6. Susah Sinyal</strong></span></p>\r\n<p>Sebuah handphone akan menggunakan lebih banyak memakan daya saat mencoba terhubung di area dengan sinyal yang rendah. Jika kita tidak bisa mendapatkan sinyal, sebaiknya nyalakan mode pesawat (airplane mode) agar daya ponsel tidak terkuras cepat. Kemudian restart koneksi seluler ketika sudah berada di area dengan jangkauan sinyal yang lebih baik.</p>\r\n<p><span style=\"font-size: 18pt;\"><strong>7. Software Tidak Up-To-Date</strong></span></p>\r\n<p>Masalah baterai handphone cepat habis juga dapat disebabkan oleh software yang sudah usang atau tidak up-to-date. <a href=\"https://www.prodigital.web.id/kategori/8/software.html\" target=\"_blank\" rel=\"noopener\">Software</a> yang diperbarui biasanya membawa perbaikan untuk bug tertentu yang mungkin berkontribusi pada masalah masa pakai baterai handphone kita. Jika memang demikian, sebaiknya segera perbarui software ke versi yang lebih baru.</p>\r\n<p><span style=\"font-size: 18pt;\"><strong>8. Masalah Pada Hardware</strong></span></p>\r\n<p>Masalah pada <a href=\"https://www.prodigital.web.id/kategori/9/hardware.html\" target=\"_blank\" rel=\"noopener\">hardware</a> utamanya disebabkan oleh kondisi baterai yang sudah buruk dan pengisi daya yang rusak. Jika masa pakai baterai hp kita sudah melebihi ketentuannya, maka bukan tidak mungkin masalah baterai cepat habis akan terus terjadi sepanjang hari.</p>\r\n<p>Selain itu, pengisi daya atau charger yang tidak berfungsi dengan baik juga dapat menyebabkan kerusakan pada baterai yang akhirnya berpengaruh pada daya tahannya.</p>\r\n<p>Jika kedua hal ini yang menjadi penyebab utama baterai hp cepat habis, maka opsi terbaik kita adalah mengganti baterai atau charger dengan yang baru. Beberapa baterai handphone masa kini tidak dapat kita lepas sendiri sehingga harus dilakukan oleh ahlinya pada pusat layanan.</p>\r\n<p>Hal yang paling penting di sini adalah dengan menggunakan produk pengganti atau aksesoris original agar kualitasnya terjamin. Meskipun produk original selalu dijual lebih mahal, tetapi apa yang kamu dapatkan bisa sesuai dengan ekspektasi yang diinginkan.</p>\r\n<p>Itulah beberapa penyebab baterai handphone atau smartphone cepat habis dan juga cara mengatasinya. Kasus di atas terjadi disetiap pengguna handphone yang berbeda-beda, jadi kemungkinan kecil semuanya terjadi bersamaan dalam satu perangkat.</p>\r\n<p>Jika masalah di atas sudah sudah dilakukan tapi baterai hp masih tetap boros, solusi terbaiknya adalah dengan mengganti handphone dengan unit baru. Daripada harus mengeluarkan banyak biaya untuk perbaikan yang berkepanjangan, sementara membeli yang baru bisa lebih baik dan lebih hemat?</p>\r\n<p>Sumber: carisinyal.com</p>', 'Baterai merupakan sumber daya utama bagi banyak perangkat portabel seperti handphone (HP). Agar dapat digunakan dalam jangka waktu yang lama, jenis baterai yang digunakan oleh perangkat seperti', 'post', 'Jum\'at', 28, 6, 2019, '2019-06-28', '01:05:00', '1561658700', '2019-06-28 01:05:00', '1561241624', 'berikut-penyebab-baterai-handphone-cepat-habis-dan-cara-mengatasinya', 88, 1, 1, '', 'Afrioni', '70a22a062019_bateraismartphonemenggelembung.jpg', 'post/062019', '', 0, 0),
@@ -639,10 +639,10 @@ INSERT INTO `memo_konten` (`kontenId`, `kontenUsername`, `kontenJudul`, `kontenJ
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_menu_website`
+-- Struktur dari tabel `shiza_menu_website`
 --
 
-CREATE TABLE `memo_menu_website` (
+CREATE TABLE `shiza_menu_website` (
   `menuId` int(10) UNSIGNED NOT NULL,
   `menuParentId` int(10) UNSIGNED NOT NULL,
   `menuRelationshipId` int(10) UNSIGNED NOT NULL,
@@ -656,10 +656,10 @@ CREATE TABLE `memo_menu_website` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_menu_website`
+-- Dumping data untuk tabel `shiza_menu_website`
 --
 
-INSERT INTO `memo_menu_website` (`menuId`, `menuParentId`, `menuRelationshipId`, `menuName`, `menuAccessType`, `menuUrlAccess`, `menuAddedDate`, `menuSort`, `menuActive`, `menuAttrClass`) VALUES
+INSERT INTO `shiza_menu_website` (`menuId`, `menuParentId`, `menuRelationshipId`, `menuName`, `menuAccessType`, `menuUrlAccess`, `menuAddedDate`, `menuSort`, `menuActive`, `menuAttrClass`) VALUES
 (1, 0, 2, 'Komputer', 'newscategory_link', '{HOME_URL}/kategori/2/komputer.html', 1556517457, 1, 'y', ''),
 (3, 0, 3, 'Smartphone', 'newscategory_link', '{HOME_URL}/kategori/3/smartphone.html', 1556517521, 2, 'y', ''),
 (4, 0, 4, 'Kamera', 'newscategory_link', '{HOME_URL}/kategori/4/kamera.html', 1556517542, 3, 'y', ''),
@@ -671,20 +671,20 @@ INSERT INTO `memo_menu_website` (`menuId`, `menuParentId`, `menuRelationshipId`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_options`
+-- Struktur dari tabel `shiza_options`
 --
 
-CREATE TABLE `memo_options` (
+CREATE TABLE `shiza_options` (
   `optionId` bigint(30) UNSIGNED NOT NULL,
   `optionName` varchar(100) NOT NULL,
   `optionValue` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_options`
+-- Dumping data untuk tabel `shiza_options`
 --
 
-INSERT INTO `memo_options` (`optionId`, `optionName`, `optionValue`) VALUES
+INSERT INTO `shiza_options` (`optionId`, `optionName`, `optionValue`) VALUES
 (1, 'sitename', 'Framework Memo Indo Media'),
 (2, 'sitekeywords', 'framework, ci, codeigniter,memo indo media'),
 (3, 'sitedescription', 'Framework memo indo media dibuat dengan source code base dari CodeIgniter'),
@@ -714,10 +714,10 @@ INSERT INTO `memo_options` (`optionId`, `optionName`, `optionValue`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_rating`
+-- Struktur dari tabel `shiza_rating`
 --
 
-CREATE TABLE `memo_rating` (
+CREATE TABLE `shiza_rating` (
   `ratingId` int(10) UNSIGNED NOT NULL,
   `mId` int(10) UNSIGNED NOT NULL,
   `ratingRelasiId` int(10) UNSIGNED NOT NULL,
@@ -728,20 +728,20 @@ CREATE TABLE `memo_rating` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_rating`
+-- Dumping data untuk tabel `shiza_rating`
 --
 
-INSERT INTO `memo_rating` (`ratingId`, `mId`, `ratingRelasiId`, `ratingType`, `ratingDate`, `ratingDesc`, `ratingValue`) VALUES
+INSERT INTO `shiza_rating` (`ratingId`, `mId`, `ratingRelasiId`, `ratingType`, `ratingDate`, `ratingDesc`, `ratingValue`) VALUES
 (1, 1, 10, 'product', 1554391596, 'Kualitasnya tokcer deh, mantap', 60),
 (2, 1, 6, 'product', 1554877052, 'tes', 70);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_seo_halaman`
+-- Struktur dari tabel `shiza_seo_halaman`
 --
 
-CREATE TABLE `memo_seo_halaman` (
+CREATE TABLE `shiza_seo_halaman` (
   `seoId` bigint(20) UNSIGNED NOT NULL,
   `kontenId` bigint(20) UNSIGNED NOT NULL,
   `seoTypePage` varchar(25) NOT NULL,
@@ -753,10 +753,10 @@ CREATE TABLE `memo_seo_halaman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_seo_halaman`
+-- Dumping data untuk tabel `shiza_seo_halaman`
 --
 
-INSERT INTO `memo_seo_halaman` (`seoId`, `kontenId`, `seoTypePage`, `seoTitle`, `seoDesc`, `seoKeyword`, `seoCanonical`, `seoRobots`) VALUES
+INSERT INTO `shiza_seo_halaman` (`seoId`, `kontenId`, `seoTypePage`, `seoTitle`, `seoDesc`, `seoKeyword`, `seoCanonical`, `seoRobots`) VALUES
 (1, 4, 'post', 'Redmi Y3 Spesifikasi dan Harga', 'Setelah beberapa minggu ini Xiaomi mengeluarkan teaser tentang smartphone terbarunya, kini akhirnya perusahaan secara resmi telah meluncurkan smartphone seri Redmi terbaru miliknya yang bernama Redmi Y3', 'xiaomi,redmi,y3,redmi y3,smartphone,handphone,redmi 7', 'redmi-y3-spesifikasi-dan-harga', ''),
 (2, 8, 'post', 'Indonesia Kedatangan Ponsel 3 Kamera Oleh Vivo Y17', 'Beberapa waktu lalu sempat ada desas-desus akan ada smartphone dengan 3 kamera keluaran Vivo akan hadir di Indonesia. Hal tersebut ternyata bukan desas-desus belaka, Vivo Y17 akhirnya resmi mulai dipasarkan di Indonesia.', 'kamera,vivo,vivo y17,ponsel,indonesia,kamera vivo,spesifikasi', 'indonesia-kedatangan-ponsel-3-kamera-oleh-vivo-y17', ''),
 (3, 9, 'post', 'Brand Smartphone Ini Akan Diluncurkan Untuk Menyambut Teknologi 5G', 'Samsung tidak menyebutkan merek ponsel tersebut, namun terdapat isu bahwa smartphone ini disinyalir merupakan smartphone flagship seri Galaxy S berikutnya, yakni Galaxy S10.', 'samsung,vivo,motorola,oppo,lg,5g,jaringan 5g,teknologi 5g,smartphone,hp,4g', 'brand-smartphone-ini-akan-diluncurkan-untuk-menyambut-teknologi-5g', ''),
@@ -791,10 +791,10 @@ INSERT INTO `memo_seo_halaman` (`seoId`, `kontenId`, `seoTypePage`, `seoTitle`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_slider`
+-- Struktur dari tabel `shiza_slider`
 --
 
-CREATE TABLE `memo_slider` (
+CREATE TABLE `shiza_slider` (
   `slideId` int(11) UNSIGNED NOT NULL,
   `slideJudul` varchar(150) NOT NULL,
   `slideUrlTujuan` varchar(255) NOT NULL,
@@ -810,10 +810,10 @@ CREATE TABLE `memo_slider` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_stats_useronline`
+-- Struktur dari tabel `shiza_stats_useronline`
 --
 
-CREATE TABLE `memo_stats_useronline` (
+CREATE TABLE `shiza_stats_useronline` (
   `ID` bigint(25) NOT NULL,
   `ip` varchar(20) NOT NULL,
   `timestamp` varchar(255) NOT NULL,
@@ -825,19 +825,19 @@ CREATE TABLE `memo_stats_useronline` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_stats_useronline`
+-- Dumping data untuk tabel `shiza_stats_useronline`
 --
 
-INSERT INTO `memo_stats_useronline` (`ID`, `ip`, `timestamp`, `tgl`, `jam`, `agent`, `platform`, `referred`) VALUES
+INSERT INTO `shiza_stats_useronline` (`ID`, `ip`, `timestamp`, `tgl`, `jam`, `agent`, `platform`, `referred`) VALUES
 (92, '127.0.0.1', '1564921230', '2019-08-04', '19:20:30', 'Firefox', 'Windows 10', 'http://memo_ecommerce/product/detail/2/kaos-dakwah-faza-the-power-of-prayer.html');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_stats_visitor`
+-- Struktur dari tabel `shiza_stats_visitor`
 --
 
-CREATE TABLE `memo_stats_visitor` (
+CREATE TABLE `shiza_stats_visitor` (
   `ID_visitor` bigint(25) NOT NULL,
   `tgl_visitor` date NOT NULL,
   `jam_visitor` time NOT NULL,
@@ -851,10 +851,10 @@ CREATE TABLE `memo_stats_visitor` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_testimonial`
+-- Struktur dari tabel `shiza_testimonial`
 --
 
-CREATE TABLE `memo_testimonial` (
+CREATE TABLE `shiza_testimonial` (
   `testiId` int(11) UNSIGNED NOT NULL,
   `testiNama` varchar(100) NOT NULL,
   `testiPekerjaan` varchar(100) NOT NULL,
@@ -867,10 +867,10 @@ CREATE TABLE `memo_testimonial` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_users`
+-- Struktur dari tabel `shiza_users`
 --
 
-CREATE TABLE `memo_users` (
+CREATE TABLE `shiza_users` (
   `userId` int(11) UNSIGNED NOT NULL,
   `userLogin` varchar(65) NOT NULL,
   `userPass` varchar(65) NOT NULL,
@@ -891,40 +891,40 @@ CREATE TABLE `memo_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_users`
+-- Dumping data untuk tabel `shiza_users`
 --
 
-INSERT INTO `memo_users` (`userId`, `userLogin`, `userPass`, `userEmail`, `userTlp`, `userDisplayName`, `levelId`, `userBlokir`, `userDelete`, `userLastLogin`, `userActivationKey`, `userRegistered`, `userSession`, `userCheckPoint`, `userDir`, `userPic`, `userOnlineStatus`) VALUES
+INSERT INTO `shiza_users` (`userId`, `userLogin`, `userPass`, `userEmail`, `userTlp`, `userDisplayName`, `levelId`, `userBlokir`, `userDelete`, `userLastLogin`, `userActivationKey`, `userRegistered`, `userSession`, `userCheckPoint`, `userDir`, `userPic`, `userOnlineStatus`) VALUES
 (1, 'superadmin', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1579608949, '', 1358259589, 'g87h6ns1npmblhvtdbvrndb42c81gahj', '', '', '', 'offline'),
 (2, 'demo', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'demo@demo.com', '', 'Demo Administrator', 2, 'n', 0, 1565019560, '', 1565017383, 'uhugeprv49jpbfkonhp9bc3l52', '', '', '', 'online');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_users_level`
+-- Struktur dari tabel `shiza_users_level`
 --
 
-CREATE TABLE `memo_users_level` (
+CREATE TABLE `shiza_users_level` (
   `levelId` int(10) UNSIGNED NOT NULL,
   `levelName` varchar(255) NOT NULL,
   `levelActive` enum('y','n') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_users_level`
+-- Dumping data untuk tabel `shiza_users_level`
 --
 
-INSERT INTO `memo_users_level` (`levelId`, `levelName`, `levelActive`) VALUES
+INSERT INTO `shiza_users_level` (`levelId`, `levelName`, `levelActive`) VALUES
 (1, 'Super Admin', 'y'),
 (2, 'Admin', 'y');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_users_menu`
+-- Struktur dari tabel `shiza_users_menu`
 --
 
-CREATE TABLE `memo_users_menu` (
+CREATE TABLE `shiza_users_menu` (
   `menuId` int(10) UNSIGNED NOT NULL,
   `menuParentId` int(10) UNSIGNED NOT NULL,
   `menuName` varchar(255) NOT NULL,
@@ -941,10 +941,10 @@ CREATE TABLE `memo_users_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_users_menu`
+-- Dumping data untuk tabel `shiza_users_menu`
 --
 
-INSERT INTO `memo_users_menu` (`menuId`, `menuParentId`, `menuName`, `menuAccess`, `menuAddedDate`, `menuSort`, `menuIcon`, `menuAttrClass`, `menuActive`, `menuView`, `menuAdd`, `menuEdit`, `menuDelete`) VALUES
+INSERT INTO `shiza_users_menu` (`menuId`, `menuParentId`, `menuName`, `menuAccess`, `menuAddedDate`, `menuSort`, `menuIcon`, `menuAttrClass`, `menuActive`, `menuView`, `menuAdd`, `menuEdit`, `menuDelete`) VALUES
 (1, 0, 'Pengaturan Pengembang', '', 1452867589, 4, 'icon-briefcase', '', 'y', 'y', 'y', 'y', 'y'),
 (2, 1, 'Menu Admin', '', 1453820948, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
 (3, 2, 'Menu Admin Master ', 'a:1:{s:10:\"admin_link\";s:17:\"menu_admin_master\";}', 1452867589, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
@@ -960,10 +960,10 @@ INSERT INTO `memo_users_menu` (`menuId`, `menuParentId`, `menuName`, `menuAccess
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_users_menu_access`
+-- Struktur dari tabel `shiza_users_menu_access`
 --
 
-CREATE TABLE `memo_users_menu_access` (
+CREATE TABLE `shiza_users_menu_access` (
   `lmnId` int(10) UNSIGNED NOT NULL,
   `levelId` int(10) UNSIGNED NOT NULL,
   `menuId` int(10) UNSIGNED NOT NULL,
@@ -974,10 +974,10 @@ CREATE TABLE `memo_users_menu_access` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `memo_users_menu_access`
+-- Dumping data untuk tabel `shiza_users_menu_access`
 --
 
-INSERT INTO `memo_users_menu_access` (`lmnId`, `levelId`, `menuId`, `lmnView`, `lmnAdd`, `lmnEdit`, `lmnDelete`) VALUES
+INSERT INTO `shiza_users_menu_access` (`lmnId`, `levelId`, `menuId`, `lmnView`, `lmnAdd`, `lmnEdit`, `lmnDelete`) VALUES
 (1, 1, 1, 'y', 'y', 'y', 'y'),
 (2, 1, 2, 'y', 'y', 'y', 'y'),
 (3, 1, 3, 'y', 'y', 'y', 'y'),
@@ -995,182 +995,182 @@ INSERT INTO `memo_users_menu_access` (`lmnId`, `levelId`, `menuId`, `lmnView`, `
 --
 
 --
--- Indeks untuk tabel `memo_ads`
+-- Indeks untuk tabel `shiza_ads`
 --
-ALTER TABLE `memo_ads`
+ALTER TABLE `shiza_ads`
   ADD PRIMARY KEY (`adsId`),
   ADD KEY `adposId` (`adposId`);
 
 --
--- Indeks untuk tabel `memo_ads_posisi`
+-- Indeks untuk tabel `shiza_ads_posisi`
 --
-ALTER TABLE `memo_ads_posisi`
+ALTER TABLE `shiza_ads_posisi`
   ADD PRIMARY KEY (`adposId`);
 
 --
--- Indeks untuk tabel `memo_android_device`
+-- Indeks untuk tabel `shiza_android_device`
 --
-ALTER TABLE `memo_android_device`
+ALTER TABLE `shiza_android_device`
   ADD PRIMARY KEY (`devId`);
 
 --
--- Indeks untuk tabel `memo_badge`
+-- Indeks untuk tabel `shiza_badge`
 --
-ALTER TABLE `memo_badge`
+ALTER TABLE `shiza_badge`
   ADD PRIMARY KEY (`badgeId`);
 
 --
--- Indeks untuk tabel `memo_badge_relasi`
+-- Indeks untuk tabel `shiza_badge_relasi`
 --
-ALTER TABLE `memo_badge_relasi`
+ALTER TABLE `shiza_badge_relasi`
   ADD PRIMARY KEY (`bdgrelId`),
   ADD KEY `badgeId` (`badgeId`),
   ADD KEY `relationId` (`relationId`);
 
 --
--- Indeks untuk tabel `memo_cron_list`
+-- Indeks untuk tabel `shiza_cron_list`
 --
-ALTER TABLE `memo_cron_list`
+ALTER TABLE `shiza_cron_list`
   ADD PRIMARY KEY (`cronId`);
 
 --
--- Indeks untuk tabel `memo_dynamic_translations`
+-- Indeks untuk tabel `shiza_dynamic_translations`
 --
-ALTER TABLE `memo_dynamic_translations`
+ALTER TABLE `shiza_dynamic_translations`
   ADD PRIMARY KEY (`dtId`),
   ADD KEY `dtRelatedId` (`dtRelatedId`);
 
 --
--- Indeks untuk tabel `memo_email_queue`
+-- Indeks untuk tabel `shiza_email_queue`
 --
-ALTER TABLE `memo_email_queue`
+ALTER TABLE `shiza_email_queue`
   ADD PRIMARY KEY (`emailId`);
 
 --
--- Indeks untuk tabel `memo_email_template`
+-- Indeks untuk tabel `shiza_email_template`
 --
-ALTER TABLE `memo_email_template`
+ALTER TABLE `shiza_email_template`
   ADD PRIMARY KEY (`tId`);
 
 --
--- Indeks untuk tabel `memo_galeri_pic`
+-- Indeks untuk tabel `shiza_galeri_pic`
 --
-ALTER TABLE `memo_galeri_pic`
+ALTER TABLE `shiza_galeri_pic`
   ADD PRIMARY KEY (`galpicId`),
   ADD KEY `kontenId` (`kontenId`);
 
 --
--- Indeks untuk tabel `memo_kategori`
+-- Indeks untuk tabel `shiza_kategori`
 --
-ALTER TABLE `memo_kategori`
+ALTER TABLE `shiza_kategori`
   ADD PRIMARY KEY (`katId`);
 
 --
--- Indeks untuk tabel `memo_kategori_relasi`
+-- Indeks untuk tabel `shiza_kategori_relasi`
 --
-ALTER TABLE `memo_kategori_relasi`
+ALTER TABLE `shiza_kategori_relasi`
   ADD PRIMARY KEY (`krId`),
   ADD KEY `katId` (`katId`),
   ADD KEY `kontenId` (`kontenId`);
 
 --
--- Indeks untuk tabel `memo_komentar`
+-- Indeks untuk tabel `shiza_komentar`
 --
-ALTER TABLE `memo_komentar`
+ALTER TABLE `shiza_komentar`
   ADD PRIMARY KEY (`komenId`),
   ADD KEY `kontenId` (`kontenId`),
   ADD KEY `komenId` (`komenId`,`komenIdInduk`);
 
 --
--- Indeks untuk tabel `memo_kontak`
+-- Indeks untuk tabel `shiza_kontak`
 --
-ALTER TABLE `memo_kontak`
+ALTER TABLE `shiza_kontak`
   ADD PRIMARY KEY (`kontakId`);
 
 --
--- Indeks untuk tabel `memo_konten`
+-- Indeks untuk tabel `shiza_konten`
 --
-ALTER TABLE `memo_konten`
+ALTER TABLE `shiza_konten`
   ADD PRIMARY KEY (`kontenId`),
   ADD KEY `kontenTimestamp` (`kontenTimestamp`);
 
 --
--- Indeks untuk tabel `memo_menu_website`
+-- Indeks untuk tabel `shiza_menu_website`
 --
-ALTER TABLE `memo_menu_website`
+ALTER TABLE `shiza_menu_website`
   ADD PRIMARY KEY (`menuId`),
   ADD KEY `menuId` (`menuId`,`menuParentId`),
   ADD KEY `menuRelationshipId` (`menuRelationshipId`);
 
 --
--- Indeks untuk tabel `memo_options`
+-- Indeks untuk tabel `shiza_options`
 --
-ALTER TABLE `memo_options`
+ALTER TABLE `shiza_options`
   ADD PRIMARY KEY (`optionId`),
   ADD KEY `option_name` (`optionName`);
 
 --
--- Indeks untuk tabel `memo_rating`
+-- Indeks untuk tabel `shiza_rating`
 --
-ALTER TABLE `memo_rating`
+ALTER TABLE `shiza_rating`
   ADD PRIMARY KEY (`ratingId`);
 
 --
--- Indeks untuk tabel `memo_seo_halaman`
+-- Indeks untuk tabel `shiza_seo_halaman`
 --
-ALTER TABLE `memo_seo_halaman`
+ALTER TABLE `shiza_seo_halaman`
   ADD PRIMARY KEY (`seoId`),
   ADD KEY `kontenId` (`kontenId`);
 
 --
--- Indeks untuk tabel `memo_slider`
+-- Indeks untuk tabel `shiza_slider`
 --
-ALTER TABLE `memo_slider`
+ALTER TABLE `shiza_slider`
   ADD PRIMARY KEY (`slideId`);
 
 --
--- Indeks untuk tabel `memo_stats_useronline`
+-- Indeks untuk tabel `shiza_stats_useronline`
 --
-ALTER TABLE `memo_stats_useronline`
+ALTER TABLE `shiza_stats_useronline`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indeks untuk tabel `memo_stats_visitor`
+-- Indeks untuk tabel `shiza_stats_visitor`
 --
-ALTER TABLE `memo_stats_visitor`
+ALTER TABLE `shiza_stats_visitor`
   ADD PRIMARY KEY (`ID_visitor`);
 
 --
--- Indeks untuk tabel `memo_testimonial`
+-- Indeks untuk tabel `shiza_testimonial`
 --
-ALTER TABLE `memo_testimonial`
+ALTER TABLE `shiza_testimonial`
   ADD PRIMARY KEY (`testiId`);
 
 --
--- Indeks untuk tabel `memo_users`
+-- Indeks untuk tabel `shiza_users`
 --
-ALTER TABLE `memo_users`
+ALTER TABLE `shiza_users`
   ADD PRIMARY KEY (`userId`),
   ADD KEY `ID` (`userId`),
   ADD KEY `levelId` (`levelId`);
 
 --
--- Indeks untuk tabel `memo_users_level`
+-- Indeks untuk tabel `shiza_users_level`
 --
-ALTER TABLE `memo_users_level`
+ALTER TABLE `shiza_users_level`
   ADD PRIMARY KEY (`levelId`);
 
 --
--- Indeks untuk tabel `memo_users_menu`
+-- Indeks untuk tabel `shiza_users_menu`
 --
-ALTER TABLE `memo_users_menu`
+ALTER TABLE `shiza_users_menu`
   ADD PRIMARY KEY (`menuId`),
   ADD KEY `menuId` (`menuId`,`menuParentId`);
 
 --
--- Indeks untuk tabel `memo_users_menu_access`
+-- Indeks untuk tabel `shiza_users_menu_access`
 --
-ALTER TABLE `memo_users_menu_access`
+ALTER TABLE `shiza_users_menu_access`
   ADD PRIMARY KEY (`lmnId`),
   ADD KEY `levelId` (`levelId`),
   ADD KEY `menuId` (`menuId`);
@@ -1180,105 +1180,105 @@ ALTER TABLE `memo_users_menu_access`
 --
 
 --
--- AUTO_INCREMENT untuk tabel `memo_ads`
+-- AUTO_INCREMENT untuk tabel `shiza_ads`
 --
-ALTER TABLE `memo_ads`
+ALTER TABLE `shiza_ads`
   MODIFY `adsId` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_ads_posisi`
+-- AUTO_INCREMENT untuk tabel `shiza_ads_posisi`
 --
-ALTER TABLE `memo_ads_posisi`
+ALTER TABLE `shiza_ads_posisi`
   MODIFY `adposId` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_android_device`
+-- AUTO_INCREMENT untuk tabel `shiza_android_device`
 --
-ALTER TABLE `memo_android_device`
+ALTER TABLE `shiza_android_device`
   MODIFY `devId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_badge`
+-- AUTO_INCREMENT untuk tabel `shiza_badge`
 --
-ALTER TABLE `memo_badge`
+ALTER TABLE `shiza_badge`
   MODIFY `badgeId` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_cron_list`
+-- AUTO_INCREMENT untuk tabel `shiza_cron_list`
 --
-ALTER TABLE `memo_cron_list`
+ALTER TABLE `shiza_cron_list`
   MODIFY `cronId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_dynamic_translations`
+-- AUTO_INCREMENT untuk tabel `shiza_dynamic_translations`
 --
-ALTER TABLE `memo_dynamic_translations`
+ALTER TABLE `shiza_dynamic_translations`
   MODIFY `dtId` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_email_template`
+-- AUTO_INCREMENT untuk tabel `shiza_email_template`
 --
-ALTER TABLE `memo_email_template`
+ALTER TABLE `shiza_email_template`
   MODIFY `tId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_galeri_pic`
+-- AUTO_INCREMENT untuk tabel `shiza_galeri_pic`
 --
-ALTER TABLE `memo_galeri_pic`
+ALTER TABLE `shiza_galeri_pic`
   MODIFY `galpicId` bigint(25) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_kategori`
+-- AUTO_INCREMENT untuk tabel `shiza_kategori`
 --
-ALTER TABLE `memo_kategori`
+ALTER TABLE `shiza_kategori`
   MODIFY `katId` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_kategori_relasi`
+-- AUTO_INCREMENT untuk tabel `shiza_kategori_relasi`
 --
-ALTER TABLE `memo_kategori_relasi`
+ALTER TABLE `shiza_kategori_relasi`
   MODIFY `krId` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_komentar`
+-- AUTO_INCREMENT untuk tabel `shiza_komentar`
 --
-ALTER TABLE `memo_komentar`
+ALTER TABLE `shiza_komentar`
   MODIFY `komenId` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_kontak`
+-- AUTO_INCREMENT untuk tabel `shiza_kontak`
 --
-ALTER TABLE `memo_kontak`
+ALTER TABLE `shiza_kontak`
   MODIFY `kontakId` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_konten`
+-- AUTO_INCREMENT untuk tabel `shiza_konten`
 --
-ALTER TABLE `memo_konten`
+ALTER TABLE `shiza_konten`
   MODIFY `kontenId` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_menu_website`
+-- AUTO_INCREMENT untuk tabel `shiza_menu_website`
 --
-ALTER TABLE `memo_menu_website`
+ALTER TABLE `shiza_menu_website`
   MODIFY `menuId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_options`
+-- AUTO_INCREMENT untuk tabel `shiza_options`
 --
-ALTER TABLE `memo_options`
+ALTER TABLE `shiza_options`
   MODIFY `optionId` bigint(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_seo_halaman`
+-- AUTO_INCREMENT untuk tabel `shiza_seo_halaman`
 --
-ALTER TABLE `memo_seo_halaman`
+ALTER TABLE `shiza_seo_halaman`
   MODIFY `seoId` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_users_level`
+-- AUTO_INCREMENT untuk tabel `shiza_users_level`
 --
-ALTER TABLE `memo_users_level`
+ALTER TABLE `shiza_users_level`
   MODIFY `levelId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 

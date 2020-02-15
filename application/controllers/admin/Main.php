@@ -1,0 +1,129 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Main extends CI_Controller {
+	// load model
+	public function __construct()
+	{
+		parent::__construct();
+		// load helper random string
+		$this->load->helper('cookie');
+		$this->load->helper('admin_functions');
+
+		// load model random string
+		$this->load->model('adminauth_model');
+	}
+
+	public function index(){
+		if( empty( $this->session->userdata('namauser') ) AND empty( $this->session->userdata('passuser') ) ){
+			// LOGIN PAGE
+			$data = array( 
+						'title' => 'Login Administrator - '.get_option('sitename'),
+						'token' => get_cookie('token')
+					);
+			$this->load->view( admin_root('login'), $data );
+		} else {
+			// REDIRECT TO ADMIN PAGE
+			redirect( admin_url('dashboard') );
+		}
+	}
+
+	public function authLogin(){
+		$error = false; $msg = '';
+
+		$username = esc_sql(filter_txt( $this->input->post('user') ) );
+		$password = esc_sql(filter_txt( $this->input->post('pass') ) );
+		$passwordunik = sha1( sha1($password .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT );
+
+		// validasi token
+		if( $this->input->post('token') !== get_cookie('token') ) {
+			$error = true;
+			$msg = 'Akses Anda bermasalah dengan token';
+		}
+
+		// validate first data
+		if( empty($username) AND !empty($password) ){
+			$error = true;
+			$msg = 'Silahkan masukkan username Anda';
+		} elseif( !empty($username) AND empty($password) ) {
+			$error = true;
+			$msg = 'Silahkan masukkan password Anda';
+		} elseif( empty($username) AND empty($password) ) {
+			$error = true;
+			$msg = 'Silahkan masukkan username dan password Anda';
+		} 
+
+		if(!$error){
+			if (!ctype_alnum($username) OR !ctype_alnum($password)){
+
+				$error = true;
+				$msg = 'Maaf karakter untuk masuk pada halaman administrator tidak cocok';
+
+			} else {
+
+				$authlogin = $this->adminauth_model->login_auth($username, $passwordunik);
+
+				if ( $authlogin > 0 ){
+
+					$logindata = $this->adminauth_model->get_auth_data($username, $passwordunik);
+
+					// make session here
+					$newdata = array(
+					        'adminid' 		=> $logindata->userId,
+					        'namauser' 		=> $logindata->userLogin,
+							'passuser' 		=> $logindata->userPass,
+							'namalengkap' 	=> $logindata->userDisplayName,
+							'leveluser' 	=> $logindata->levelId,
+							'levelstatus' 	=> $logindata->levelActive,
+							'checkpoint' 	=> loginCP()
+						);
+
+					$this->session->set_userdata($newdata);
+
+					// regenerated session ID
+					session_regenerate_id();
+		          	$sid_baru = session_id();
+
+		          	$updt = array(
+		          				'userSession' => $sid_baru,
+		          				'userLastLogin' => time2timestamp(),
+		          				'userOnlineStatus' => 'online'
+		          			);
+
+		          	$logindata = $this->adminauth_model->update_login($logindata->userId, $updt);
+
+		          	redirect($this->uri->segment(1).'/dashboard/');
+
+	          	} else {
+					$error = true;
+					$msg = 'Username atau Password salah atau akun Anda sedang diblokir';
+				}
+			}
+		} 
+
+		if($error){
+			$this->session->set_flashdata( 'username', $this->input->post('user') );
+			$this->session->set_flashdata( 'password', $this->input->post('pass') );
+			$this->session->set_flashdata( 'errormsg', $msg );
+			redirect( admin_url() );
+		}
+	}
+
+	public function logout(){
+		// update user to offline
+		update_adm_ol_status('offline');
+
+		// logout access
+		$this->adminauth->destroy_login();
+
+		$this->session->set_flashdata('successmsg', 'Anda berhasil logout');
+		redirect( admin_url() );
+	}
+
+	public function iconscomponent(){
+		$data = array( 
+			'title' => 'Komponen Icon - '.get_option('sitename')			
+		);
+		$this->load->view( admin_root('icon-component'), $data );
+	}
+}

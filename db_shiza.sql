@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Jan 2020 pada 08.49
+-- Waktu pembuatan: 15 Feb 2020 pada 19.35
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `memo_framework`
+-- Database: `shiza_ecoza`
 --
 
 -- --------------------------------------------------------
@@ -867,32 +867,6 @@ CREATE TABLE `memo_testimonial` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `memo_url_list`
---
-
-CREATE TABLE `memo_url_list` (
-  `urlId` int(10) UNSIGNED NOT NULL,
-  `urlName` varchar(255) NOT NULL,
-  `urlUrl` text NOT NULL,
-  `urlRel` enum('nofollow','dofollow') NOT NULL,
-  `urlActive` enum('y','n') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `memo_url_list`
---
-
-INSERT INTO `memo_url_list` (`urlId`, `urlName`, `urlUrl`, `urlRel`, `urlActive`) VALUES
-(1, 'Berita', '{HOME_URL}/post.html', 'dofollow', 'y'),
-(2, 'Tetang Kami', '{HOME_URL}/tentang-kami.html', 'dofollow', 'y'),
-(3, 'Login', '{HOME_URL}/login.html', 'dofollow', 'y'),
-(4, 'Feed / RSS', '{HOME_URL}/rss.xml', 'dofollow', 'y'),
-(5, 'Galeri Foto', '{HOME_URL}/galeri.html', 'dofollow', 'y'),
-(6, 'Kontak', '{HOME_URL}/kontak.html', 'dofollow', 'y');
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `memo_users`
 --
 
@@ -1173,13 +1147,6 @@ ALTER TABLE `memo_testimonial`
   ADD PRIMARY KEY (`testiId`);
 
 --
--- Indeks untuk tabel `memo_url_list`
---
-ALTER TABLE `memo_url_list`
-  ADD PRIMARY KEY (`urlId`),
-  ADD KEY `urlId` (`urlId`);
-
---
 -- Indeks untuk tabel `memo_users`
 --
 ALTER TABLE `memo_users`
@@ -1309,28 +1276,10 @@ ALTER TABLE `memo_seo_halaman`
   MODIFY `seoId` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT untuk tabel `memo_url_list`
---
-ALTER TABLE `memo_url_list`
-  MODIFY `urlId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT untuk tabel `memo_users_level`
 --
 ALTER TABLE `memo_users_level`
   MODIFY `levelId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT untuk tabel `memo_users_menu`
---
-ALTER TABLE `memo_users_menu`
-  MODIFY `menuId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT untuk tabel `memo_users_menu_access`
---
-ALTER TABLE `memo_users_menu_access`
-  MODIFY `lmnId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

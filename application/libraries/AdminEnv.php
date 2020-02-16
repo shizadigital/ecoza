@@ -238,12 +238,12 @@ class AdminEnv {
                         }
 
                         if($permission == true){
-                            echo '<a href="'.$btn_v['access'].'" class="btn btn-default btn-with-addon ml-2 mr-auto text-nowrap d-none d-md-block"><span class="btn-addon"><i class="btn-addon-icon ';
+                            echo '<a href="'.$btn_v['access'].'" class="btn btn-secondary btn-with-addon ml-2 mr-auto text-nowrap d-none d-md-block"><span class="btn-addon"><i class="btn-addon-icon ';
                             if(empty($btn_v['icon'])){ echo 'fe fe-menu'; } else { echo $btn_v['icon']; } 
                             echo '"></i></span> '.$btn_v['title'].'</a>';
                         }
                     } else {
-                        echo '<a href="'.$btn_v['access'].'" class="btn btn-default btn-with-addon ml-2 mr-auto text-nowrap d-none d-md-block"><span class="btn-addon"><i class="btn-addon-icon ';
+                        echo '<a href="'.$btn_v['access'].'" class="btn btn-secondary btn-with-addon ml-2 mr-auto text-nowrap d-none d-md-block"><span class="btn-addon"><i class="btn-addon-icon ';
                         if(empty($btn_v['icon'])){ echo 'fe fe-menu'; } else { echo $btn_v['icon']; } 
                         echo '"></i></span>'.$btn_v['title'].'</a>';
                     }

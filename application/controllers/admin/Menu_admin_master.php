@@ -83,7 +83,7 @@ class Menu_admin_master extends CI_Controller {
 						'header_button_action' => array(
 											array(
 												'title' => 'Tambah',
-												'icon'	=> 'icon-plus3',
+												'icon'	=> 'fe fe-plus',
 												'access' => admin_url('menu_admin_master/tambah'),
 												'permission' => 'add'
 											)
@@ -107,7 +107,7 @@ class Menu_admin_master extends CI_Controller {
 							'header_button_action' => array(
 												array(
 													'title' => 'Kembali',
-													'icon'	=> 'icon-undo2',
+													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('menu_admin_master')
 												)
 											),
@@ -133,13 +133,13 @@ class Menu_admin_master extends CI_Controller {
 							'header_button_action' => array(
 												array(
 													'title' => 'Tambah',
-													'icon'	=> 'icon-plus3',
+													'icon'	=> 'fe fe-plus',
 													'access' => admin_url('menu_admin_master/tambah'),
 													'permission' => 'add'
 												),
 												array(
 													'title' => 'Kembali',
-													'icon'	=> 'icon-undo2',
+													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('menu_admin_master')
 												)
 											),
@@ -299,6 +299,7 @@ class {$modelfilename}_model extends CI_model{
 
 include V_ADMIN_PATH . \"header.php\";
 include V_ADMIN_PATH . \"sidebar.php\";
+include V_ADMIN_PATH . \"topbar.php\";
 
 // Your code of view here
  
@@ -348,7 +349,7 @@ class {$c_filename} extends CI_Controller{
 						'header_button_action' => array(
 											array(
 												'title' => 'Tambah',
-												'icon'	=> 'icon-plus3',
+												'icon'	=> 'fe fe-plus',
 												'access' => admin_url('{$c_filename_lower}/tambah'),
 												'permission' => 'add'
 											)
@@ -370,7 +371,7 @@ class {$c_filename} extends CI_Controller{
 							'header_button_action' => array(
 												array(
 													'title' => 'Kembali',
-													'icon'	=> 'icon-undo2',
+													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('{$c_filename_lower}')
 												)
 											),
@@ -391,13 +392,13 @@ class {$c_filename} extends CI_Controller{
 							'header_button_action' => array(
 												array(
 													'title' => 'Tambah',
-													'icon'	=> 'icon-plus3',
+													'icon'	=> 'fe fe-plus',
 													'access' => admin_url('{$c_filename_lower}/tambah'),
 													'permission' => 'add'
 												),
 												array(
 													'title' => 'Kembali',
-													'icon'	=> 'icon-undo2',
+													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('{$c_filename_lower}')
 												)
 											),

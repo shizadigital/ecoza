@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Feb 2020 pada 06.31
+-- Waktu pembuatan: 16 Feb 2020 pada 18.07
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -685,7 +685,7 @@ CREATE TABLE `shiza_options` (
 --
 
 INSERT INTO `shiza_options` (`optionId`, `optionName`, `optionValue`) VALUES
-(1, 'sitename', 'Framework Memo Indo Media'),
+(1, 'sitename', 'E-Commerce Shiza'),
 (2, 'sitekeywords', 'framework, ci, codeigniter,memo indo media'),
 (3, 'sitedescription', 'Framework memo indo media dibuat dengan source code base dari CodeIgniter'),
 (4, 'template', 'themekeren'),
@@ -894,7 +894,7 @@ CREATE TABLE `shiza_users` (
 --
 
 INSERT INTO `shiza_users` (`userId`, `userLogin`, `userPass`, `userEmail`, `userTlp`, `userDisplayName`, `levelId`, `userBlokir`, `userDelete`, `userLastLogin`, `userActivationKey`, `userRegistered`, `userSession`, `userCheckPoint`, `userDir`, `userPic`, `userOnlineStatus`) VALUES
-(1, 'superadmin', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1581827737, '', 1358259589, 'p1baidjq9n3gmmd43bintiph067qj1he', '', '', '', 'offline'),
+(1, 'superadmin', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1581867085, '', 1358259589, 'ot9cbs98v67usa329k8ds5ags9li0t2q', '', '', '', 'online'),
 (2, 'demo', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'demo@demo.com', '', 'Demo Administrator', 2, 'n', 0, 1565019560, '', 1565017383, 'uhugeprv49jpbfkonhp9bc3l52', '', '', '', 'online');
 
 -- --------------------------------------------------------
@@ -944,17 +944,16 @@ CREATE TABLE `shiza_users_menu` (
 --
 
 INSERT INTO `shiza_users_menu` (`menuId`, `menuParentId`, `menuName`, `menuAccess`, `menuAddedDate`, `menuSort`, `menuIcon`, `menuAttrClass`, `menuActive`, `menuView`, `menuAdd`, `menuEdit`, `menuDelete`) VALUES
-(1, 0, 'Pengaturan Pengembang', '', 1452867589, 4, 'icon-briefcase', '', 'y', 'y', 'y', 'y', 'y'),
-(2, 1, 'Menu Admin', '', 1453820948, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
-(3, 2, 'Menu Admin Master ', 'a:1:{s:10:\"admin_link\";s:17:\"menu_admin_master\";}', 1452867589, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
-(4, 2, 'Menu Admin Privilage', 'a:1:{s:10:\"admin_link\";s:20:\"menu_admin_privilage\";}', 1577632987, 2, '', '', 'y', 'y', 'y', 'y', 'y'),
-(5, 0, 'Alat', '', 1577728905, 3, 'icon-hammer-wrench', '', 'y', 'y', 'y', 'y', 'y'),
-(6, 5, 'Info Sistem', 'a:1:{s:10:\"admin_link\";s:11:\"info_sistem\";}', 1577729211, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
-(7, 0, 'Pengaturan', '', 1577892258, 2, 'icon-equalizer2', '', 'y', 'y', 'n', 'n', 'n'),
-(8, 7, 'Atur Web', 'a:1:{s:10:\"admin_link\";s:8:\"atur_web\";}', 1577892344, 1, '', '', 'y', 'y', 'n', 'y', 'n'),
-(9, 0, 'Pengguna', '', 1578138421, 1, 'icon-users', '', 'y', 'y', 'n', 'n', 'n'),
-(10, 9, 'Kelola Pengguna', 'a:1:{s:10:\"admin_link\";s:12:\"manage_users\";}', 1578138586, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
-(11, 9, 'Grup Pengguna', 'a:1:{s:10:\"admin_link\";s:11:\"users_group\";}', 1579535259, 2, '', '', 'y', 'y', 'y', 'y', 'y');
+(1, 0, 'Developer', '', 1452867589, 4, 'fe fe-award', '', 'y', 'y', 'y', 'y', 'y'),
+(2, 1, 'Menu Admin Master ', 'a:1:{s:10:\"admin_link\";s:17:\"menu_admin_master\";}', 1452867589, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
+(3, 1, 'Menu Admin Privilage', 'a:1:{s:10:\"admin_link\";s:20:\"menu_admin_privilage\";}', 1577632987, 2, '', '', 'y', 'y', 'y', 'y', 'y'),
+(4, 0, 'Alat', '', 1577728905, 3, 'fe fe-settings', '', 'y', 'y', 'y', 'y', 'y'),
+(5, 4, 'Info Sistem', 'a:1:{s:10:\"admin_link\";s:11:\"info_sistem\";}', 1577729211, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
+(6, 0, 'Pengaturan', '', 1577892258, 2, 'fe fe-sliders', '', 'y', 'y', 'n', 'n', 'n'),
+(7, 6, 'Atur Web', 'a:1:{s:10:\"admin_link\";s:8:\"atur_web\";}', 1577892344, 1, '', '', 'y', 'y', 'n', 'y', 'n'),
+(8, 0, 'Pengguna', '', 1578138421, 1, 'fe fe-user', '', 'y', 'y', 'n', 'n', 'n'),
+(9, 8, 'Kelola Pengguna', 'a:1:{s:10:\"admin_link\";s:12:\"manage_users\";}', 1578138586, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
+(10, 8, 'Grup Pengguna', 'a:1:{s:10:\"admin_link\";s:11:\"users_group\";}', 1579535259, 2, '', '', 'y', 'y', 'y', 'y', 'y');
 
 -- --------------------------------------------------------
 
@@ -982,12 +981,11 @@ INSERT INTO `shiza_users_menu_access` (`lmnId`, `levelId`, `menuId`, `lmnView`, 
 (3, 1, 3, 'y', 'y', 'y', 'y'),
 (4, 1, 4, 'y', 'y', 'y', 'y'),
 (5, 1, 5, 'y', 'y', 'y', 'y'),
-(6, 1, 6, 'y', 'y', 'y', 'y'),
-(7, 1, 7, 'y', 'n', 'n', 'n'),
-(8, 1, 8, 'y', 'n', 'y', 'n'),
-(9, 1, 9, 'y', 'n', 'n', 'n'),
-(10, 1, 10, 'y', 'y', 'y', 'y'),
-(11, 1, 11, 'y', 'y', 'y', 'y');
+(6, 1, 6, 'y', 'n', 'n', 'n'),
+(7, 1, 7, 'y', 'n', 'y', 'n'),
+(8, 1, 8, 'y', 'n', 'n', 'n'),
+(9, 1, 9, 'y', 'y', 'y', 'y'),
+(10, 1, 10, 'y', 'y', 'y', 'y');
 
 --
 -- Indexes for dumped tables

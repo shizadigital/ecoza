@@ -40,6 +40,7 @@ $this->assetsloc->reg_admin_script($request_script_files,$request_script);
 
 include V_ADMIN_PATH . "header.php";
 include V_ADMIN_PATH . "sidebar.php";
+include V_ADMIN_PATH . "topbar.php";
 
 if( is_add() ):
 echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosestambah'), array( 'id'=>'valid' ) ); ?>

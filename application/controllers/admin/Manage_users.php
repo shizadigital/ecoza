@@ -52,7 +52,7 @@ class Manage_users extends CI_Controller{
 						'header_button_action' => array(
 											array(
 												'title' => 'Tambah',
-												'icon'	=> 'icon-plus3',
+												'icon'	=> 'fe fe-plus',
 												'access' => admin_url('manage_users/tambah'),
 												'permission' => 'add'
 											)
@@ -85,7 +85,7 @@ class Manage_users extends CI_Controller{
 							'header_button_action' => array(
 												array(
 													'title' => 'Kembali',
-													'icon'	=> 'icon-undo2',
+													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('manage_users')
 												)
 											),
@@ -221,13 +221,13 @@ class Manage_users extends CI_Controller{
 							'header_button_action' => array(
 												array(
 													'title' => 'Tambah',
-													'icon'	=> 'icon-plus3',
+													'icon'	=> 'fe fe-plus',
 													'access' => admin_url('manage_users/tambah'),
 													'permission' => 'add'
 												),
 												array(
 													'title' => 'Kembali',
-													'icon'	=> 'icon-undo2',
+													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('manage_users')
 												)
 											),

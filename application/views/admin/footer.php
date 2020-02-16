@@ -1,53 +1,58 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>          
-            </div>
-            <!-- /content area -->
-            
-            <!-- Footer -->
-            <div class="navbar navbar-expand-lg navbar-light">
-                <div class="text-center d-lg-none w-100">
-                    <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
-                        <i class="icon-unfold mr-2"></i>
-                        Footer
-                    </button>
+                    </div>
+                    <!-- END air__utils__content -->
+
+                </div>
+                <!-- END air__layout__content" -->
+                <!-- END content here -->
+
+                <div class="air__layout__footer">
+                    <div class="air__footer">
+                        <div class="air__footer__inner">
+                        <div class="row">
+                            <div class="col-md-8">
+                            
+                            <p>
+                                &copy; <?php echo date('Y'); ?>. <a href="<?php echo base_url(); ?>"><?php echo web_info(); ?></a>. Powered by <a href="https://shiza.id/" target="_blank">Shiza</a>. Version <?php echo SHIZA_VERSION; ?>
+                            </p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="air__footer__logo">
+                                    <img src="<?php echo admin_assets('components/core/img/shiza-logo.png'); ?>" alt="<?php echo web_info(); ?>" />
+                                    <div class="air__footer__logo__name">Shiza.Id</div>
+                                    <div class="air__footer__logo__descr">Administrator</div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="navbar-collapse collapse" id="navbar-footer">
-                    <span class="navbar-text">
-                        &copy; <?php echo date('Y'); ?>. <a href="<?php echo base_url(); ?>"><?php echo web_info(); ?></a>. Powered by <a href="https://www.memoindomedia.com/" target="_blank">Memo Indo Media</a>
-                    </span>
-
-                    <ul class="navbar-nav ml-lg-auto">
-                        <?php /*
-                        <li class="nav-item"><a href="https://kopyov.ticksy.com/" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i> Support</a></li>
-                        <li class="nav-item"><a href="http://demo.interface.club/limitless/docs/" class="navbar-nav-link" target="_blank"><i class="icon-file-text2 mr-2"></i> Docs</a></li>
-                        <li class="nav-item"><a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov" class="navbar-nav-link font-weight-semibold"><span class="text-pink-400"><i class="icon-cart2 mr-2"></i> Purchase</span></a></li>
-                        */ ?>
-                        <li class="nav-item">Version <?php echo FRAMEWORK_VERSION; ?></li>
-                    </ul>
-                </div>
             </div>
-            <!-- /footer -->
-
-        </div>
-        <!-- /main content -->
+            <!-- END air__layout -->
 
     </div>
-    <!-- /page content -->
+    <!-- END air__layout air__layout-\-hasSider -->
 
     <?php echo $this->assetsloc->get_footer_element(); ?>
 
     <!-- custom app -->
+    
+    <script src="<?php echo admin_assets('vendors/jquery-mousewheel/jquery.mousewheel.min.js'); ?>"></script>
+    <script src="<?php echo admin_assets('vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js'); ?>"></script>
+
+    <script src="<?php echo admin_assets('components/core/index.js'); ?>"></script>
+    <script src="<?php echo admin_assets('components/menu-left/index.js'); ?>"></script>
+    <script src="<?php echo admin_assets('components/sidebar/index.js'); ?>"></script>
+    <script src="<?php echo admin_assets('components/topbar/index.js'); ?>"></script>
+    
+    <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
     <?php 
     // LOAD JAVASCRIPT LIB
     echo $this->assetsloc->get_admin_script('library');
-    ?>
 
-    <script src="<?php echo admin_assets(); ?>/js/app.js"></script>
-
-    <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-    <?php 
     // LOAD JAVASCRIPT
     echo $this->assetsloc->get_admin_script('manually');
     ?>

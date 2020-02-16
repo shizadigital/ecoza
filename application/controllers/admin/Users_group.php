@@ -28,7 +28,7 @@ class Users_group extends CI_Controller{
 						'header_button_action' => array(
 											array(
 												'title' => 'Tambah',
-												'icon'	=> 'icon-plus3',
+												'icon'	=> 'fe fe-plus',
 												'access' => admin_url('users_group/tambah'),
 												'permission' => 'add'
 											)
@@ -51,7 +51,7 @@ class Users_group extends CI_Controller{
 							'header_button_action' => array(
 												array(
 													'title' => 'Kembali',
-													'icon'	=> 'icon-undo2',
+													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('users_group')
 												)
 											),
@@ -111,13 +111,13 @@ class Users_group extends CI_Controller{
 							'header_button_action' => array(
 												array(
 													'title' => 'Tambah',
-													'icon'	=> 'icon-plus3',
+													'icon'	=> 'fe fe-plus',
 													'access' => admin_url('users_group/tambah'),
 													'permission' => 'add'
 												),
 												array(
 													'title' => 'Kembali',
-													'icon'	=> 'icon-undo2',
+													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('users_group')
 												)
 											),

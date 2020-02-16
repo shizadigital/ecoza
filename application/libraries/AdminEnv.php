@@ -42,7 +42,7 @@ class AdminEnv {
 
                 // check menu child
                 if( is_adminmenuchild_active($dm1['menuId']) ){
-                    $menu_li_active_expand = " nav-item-expanded nav-item-open";
+                    $menu_li_active_expand = "--active";
                 }
             } else {
                 $array_access = unserialize($dm1['menuAccess']);
@@ -55,19 +55,20 @@ class AdminEnv {
                 }
                 $menu_url = $url_access;
                 if ( $this->CI->uri->segment(2) == $exp_access[0]){ 
-                    $menu_li_active = " active"; 
+                    $menu_li_active = "--active"; 
                 }                    
             }
 
             $numnumMenu2 = $this->CI->Adminenv_model->rowsAdminMenuData($dm1['levelId'],$dm1['menuId']);
         ?>
-        <li class="nav-item<?php echo (($numnumMenu2 > 0) ? ' nav-item-submenu':'') . $menu_li_active_expand; ?>">
-            <a href="<?php echo $menu_url; ?>" class="nav-link<?php echo $menu_li_active . (!empty($dm1['menuAttrClass']) ? ' '.$dm1['menuAttrClass']:''); ?>">
-                <?php if($dm1['menuIcon']!='') { echo "<i class=\"{$dm1['menuIcon']}\"></i>"; } else { echo "<i class=\"icon-cog4\"></i>"; } ?> <span><?php echo $dm1['menuName']; ?></span>
+        <li class="air__menuLeft__item<?php echo $menu_li_active . (($numnumMenu2 > 0) ? ' air__menuLeft__submenu':'') . $menu_li_active_expand; ?>">
+            <a href="<?php echo $menu_url; ?>" class="air__menuLeft__link<?php echo (!empty($dm1['menuAttrClass']) ? ' '.$dm1['menuAttrClass']:''); ?>">
+                <i class="air__menuLeft__icon <?php if($dm1['menuIcon']!='') { echo $dm1['menuIcon']; } else { echo "fe fe-more-horizontal"; } ?>"></i>
+                <span><?php echo $dm1['menuName']; ?></span>
             </a>
             <?php
                 if($numnumMenu2>0){
-                    echo "<ul class=\"nav nav-group-sub\" data-submenu-title=\"{$dm1['menuName']}\">";
+                    echo "<ul class=\"air__menuLeft__list\">";
                     
                     $menudata2 = $this->CI->Adminenv_model->getAdminMenuData($dm1['levelId'], $dm1['menuId']);
                     foreach ($menudata2 as $dm2) {
@@ -79,7 +80,7 @@ class AdminEnv {
                             $menu_url2 = "javascript:void(0)";
                             // check menu child
                             if( is_adminmenuchild_active($dm2['menuId']) ){
-                                $menu_a_active_expand2 = " nav-item-expanded nav-item-open";
+                                $menu_a_active_expand2 = "--active";
                             }
                         } else {
                             $array_access2 = unserialize($dm2['menuAccess']);
@@ -92,17 +93,17 @@ class AdminEnv {
                             }
                             $menu_url2 = $url_access2;
                             if ($this->CI->uri->segment(2)==$exp_access2[0]){ 
-                                $menu_a_active2 = " active";
+                                $menu_a_active2 = "--active";
                             } 
                         }
 
                         $numnumMenu3 = $this->CI->Adminenv_model->rowsAdminMenuData($dm1['levelId'],$dm2['menuId']);
 
-                        echo "<li class=\"nav-item".(($numnumMenu3 > 0) ? ' nav-item-submenu':'') . $menu_a_active_expand2."\">";
-                        echo "<a href=\"{$menu_url2}\" class=\"nav-link".$menu_a_active2 . (!empty($dm2['menuAttrClass']) ? ' '.$dm2['menuAttrClass']:'') . "\">".$dm2['menuName']."</a>";
+                        echo "<li class=\"air__menuLeft__item".$menu_a_active2 . (($numnumMenu3 > 0) ? ' air__menuLeft__submenu':'') . $menu_a_active_expand2."\">";
+                        echo "<a href=\"{$menu_url2}\" class=\"air__menuLeft__link".(!empty($dm2['menuAttrClass']) ? ' '.$dm2['menuAttrClass']:'') . "\"><span>".$dm2['menuName']."</span></a>";
 
                         if($numnumMenu3>0){
-                        	echo "<ul class=\"nav nav-group-sub\" data-submenu-title=\"{$dm2['menuName']}\">";
+                        	echo "<ul class=\"air__menuLeft__list\">";
 
                         	$menudata3 = $this->CI->Adminenv_model->getAdminMenuData($dm1['levelId'], $dm2['menuId']);
                         	foreach ($menudata3 as $dm3) {
@@ -114,7 +115,7 @@ class AdminEnv {
                                     $menu_url3 = "javascript:void(0)";
                                     // check menu child
                                     if( is_adminmenuchild_active($dm3['menuId']) ){
-                                        $menu_a_active_expand3 = " nav-item-expanded nav-item-open";
+                                        $menu_a_active_expand3 = "--active";
                                     }                                        
                                 } else {
                                     $array_access3 = unserialize($dm3['menuAccess']);
@@ -127,17 +128,17 @@ class AdminEnv {
                                     }
                                     $menu_url3 = $url_access3;
                                     if ($this->CI->uri->segment(2)==$exp_access3[0]){  
-                                        $menu_a_active3 = " active";
+                                        $menu_a_active3 = "--active";
                                     }
                                 }
 
                                 $numnumMenu4 = $this->CI->Adminenv_model->rowsAdminMenuData($dm1['levelId'],$dm3['menuId']);
 
-                                echo "<li class=\"nav-item".(($numnumMenu4 > 0) ? ' nav-item-submenu':'') . $menu_a_active_expand3."\">";
-                                echo "<a href=\"{$menu_url3}\" class=\"nav-link".$menu_a_active3 . (!empty($dm3['menuAttrClass']) ? ' '.$dm3['menuAttrClass']:'')."\">".$dm3['menuName']."</a>";
+                                echo "<li class=\"air__menuLeft__item".$menu_a_active3 . (($numnumMenu4 > 0) ? ' air__menuLeft__submenu':'') . $menu_a_active_expand3."\">";
+                                echo "<a href=\"{$menu_url3}\" class=\"air__menuLeft__link".(!empty($dm3['menuAttrClass']) ? ' '.$dm3['menuAttrClass']:'')."\"><span>".$dm3['menuName']."</span></a>";
 
                                 if($numnumMenu4>0){
-                        			echo "<ul class=\"nav nav-group-sub\" data-submenu-title=\"{$dm3['menuName']}\">";
+                        			echo "<ul class=\"air__menuLeft__list\">";
 
                         			$menudata4 = $this->CI->Adminenv_model->getAdminMenuData($dm1['levelId'], $dm3['menuId']);
                         			foreach ($menudata4 as $dm4) {
@@ -157,11 +158,11 @@ class AdminEnv {
                                             }
                                             $menu_url4 = $url_access4;
                                             if ($this->CI->uri->segment(2)==$exp_access4[0]){  
-                                                $menu_a_active4 = " active";
+                                                $menu_a_active4 = "--active";
                                             }
                                         }
 
-                                        echo "<li class=\"nav-item><a href=\"{$menu_url4}\" class=\"nav-link" . (!empty($dm4['menuAttrClass']) ? ' '.$dm4['menuAttrClass']:'')."\">".$dm4['menuName']."</a></li>";
+                                        echo "<li class=\"air__menuLeft__item".$menu_a_active4."\"><a href=\"{$menu_url4}\" class=\"nav-link" . (!empty($dm4['menuAttrClass']) ? ' '.$dm4['menuAttrClass']:'')."\">".$dm4['menuName']."</a></li>";
 
                                     } // END while $dm4
                                     echo "</ul>";
@@ -193,54 +194,65 @@ class AdminEnv {
             $data = 'a:1:{s:10:"admin_link";s:'.$countmod.':"'.$querymodule.'";}';
             $getmenu = getval("menuId,menuParentId,menuName,menuAccess,menuSort,menuActive,menuIcon","users_menu","menuAccess = '{$data}'");
         ?>
-        <div class="page-header-content header-elements-md-inline">
-            <div class="page-title d-flex">
-                <h4>
-                <?php 
-                if( empty($title_page_icon) ){ 
-                    if(!empty($getmenu['menuIcon'])){
-                        echo '<i class="'.$getmenu['menuIcon'].' mr-2"></i>';
-                    }                   
-                } else { 
-                    echo '<i class="icon-arrow-left52 mr-2"></i>'; 
-                }
-                ?>
-                <span class="font-weight-semibold"><?php echo empty($title_page)? $getmenu['menuName']:$title_page; ?></span><?php echo empty($title_page_secondary)?'':' - '.$title_page_secondary; ?></h4>
-                <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-            </div>
-
-            <div class="header-elements d-none">
-                <div class="d-flex justify-content-center">
-                    <?php
-                    if( count($header_button_action) > 0){
-                        foreach ($header_button_action as $btn_v) {
-                            if(isset($btn_v['permission'])){
-
-                                $permission = false;
-                                if($btn_v['permission'] == 'view' OR $btn_v['permission'] == 'add' OR $btn_v['permission'] == 'edit' OR $btn_v['permission'] == 'delete'){
-                                    
-                                    if($btn_v['permission'] == 'view') { if( is_view() ) $permission = true; }
-                                    if($btn_v['permission'] == 'add') { if( is_add() ) $permission = true; }
-                                    if($btn_v['permission'] == 'edit') { if( is_edit() ) $permission = true; }
-                                    if($btn_v['permission'] == 'delete') { if( is_delete() ) $permission = true; }
-                                }
-
-                                if($permission == true){
-                                    echo '<a href="'.$btn_v['access'].'" class="btn btn-link btn-float text-default"><i class="';
-                                    if(empty($btn_v['icon'])){ echo 'icon-menu7'; } else { echo $btn_v['icon']; } 
-                                    echo ' text-primary"></i><span>'.$btn_v['title'].'</span></a>';
-                                }
-                            } else {
-                                echo '<a href="'.$btn_v['access'].'" class="btn btn-link btn-float text-default"><i class="';
-                                if(empty($btn_v['icon'])){ echo 'icon-menu7'; } else { echo $btn_v['icon']; } 
-                                echo ' text-primary"></i><span>'.$btn_v['title'].'</span></a>';
-                            }
-
-                        }
+        <div class="air__subbar">
+            <ul class="air__subbar__breadcrumbs mr-4">
+                <?php if( $this->CI->uri->segment(2) != 'dashboard'): ?>
+                <li class="air__subbar__breadcrumb">
+                    <a href="<?php echo admin_url(); ?>" class="air__subbar__breadcrumbLink">Dashboard</a>
+                </li>
+                <?php endif; ?>
+                <li class="air__subbar__breadcrumb">
+                    <a href="javascript:void(0)" class="air__subbar__breadcrumbLink air__subbar__breadcrumbLink--current">
+                    <?php 
+                    if( empty($title_page_icon) ){ 
+                        if(!empty($getmenu['menuIcon'])){
+                            echo '<i class="'.$getmenu['menuIcon'].'"></i>';
+                        }                   
+                    } else { 
+                        echo '<i class="fe fe-menu"></i>'; 
                     }
+                    
+                    echo empty($title_page)? $getmenu['menuName']:$title_page;
                     ?>
-                </div>
-            </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="air__subbar__divider mr-4 d-none d-xl-block"></div>
+            <?php if(!empty($title_page_secondary)) : ?>
+            <p class="color-gray-4 text-uppercase font-size-18 mb-0 mr-4 d-none d-xl-block"><?php echo $title_page_secondary; ?></p>
+            <?php endif; ?>            
+
+            <?php
+            if( count($header_button_action) > 0){
+                echo '<div class="air__subbar__amount mr-3 ml-auto d-none d-sm-flex">';
+                foreach ($header_button_action as $btn_v) {
+                    if(isset($btn_v['permission'])){
+
+                        $permission = false;
+                        if($btn_v['permission'] == 'view' OR $btn_v['permission'] == 'add' OR $btn_v['permission'] == 'edit' OR $btn_v['permission'] == 'delete'){
+                            
+                            if($btn_v['permission'] == 'view') { if( is_view() ) $permission = true; }
+                            if($btn_v['permission'] == 'add') { if( is_add() ) $permission = true; }
+                            if($btn_v['permission'] == 'edit') { if( is_edit() ) $permission = true; }
+                            if($btn_v['permission'] == 'delete') { if( is_delete() ) $permission = true; }
+                        }
+
+                        if($permission == true){
+                            echo '<a href="'.$btn_v['access'].'" class="btn btn-primary btn-with-addon mr-auto text-nowrap d-none d-md-block"><span class="btn-addon"><i class="';
+                            if(empty($btn_v['icon'])){ echo 'fe fe-menu'; } else { echo $btn_v['icon']; } 
+                            echo '"></i></span> '.$btn_v['title'].'</a>';
+                        }
+                    } else {
+                        echo '<a href="'.$btn_v['access'].'" class="btn btn-link btn-float text-default"><span class="btn-addon"><i class="';
+                        if(empty($btn_v['icon'])){ echo 'fe fe-menu'; } else { echo $btn_v['icon']; } 
+                        echo '"></i></span>'.$btn_v['title'].'</a>';
+                    }
+
+                }
+                echo '</div>';
+            }
+            ?>
+                            
         </div>
         <?php }
     }

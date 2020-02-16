@@ -19,6 +19,7 @@ $this->assetsloc->reg_admin_script($request_script_files,$request_script);
 
 include V_ADMIN_PATH . "header.php";
 include V_ADMIN_PATH . "sidebar.php";
+include V_ADMIN_PATH . "topbar.php";
 
 ?>
 <!-- start-clients contant-->

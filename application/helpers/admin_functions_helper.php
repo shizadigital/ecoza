@@ -4,7 +4,7 @@ function get_adm_ol_status(){
     $ci =& get_instance();
 
     $word = '';
-    $result = '<span class="badge ';
+    $result = '<span class="ml-1 text-white font-size-12 text-uppercase air__topbar__status badge ';
     // get admin session
     if( !empty( $ci->session->userdata('adminid') ) ){
         $ID = esc_sql( filter_int( $ci->session->userdata('adminid') ) );

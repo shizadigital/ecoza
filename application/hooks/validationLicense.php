@@ -50,7 +50,7 @@ class validationLicense {
 		if( $this->is_serial() ){ 
 			if( $return == 'domain' ){
 				
-				$http = 'http' . ((isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO']=='https') ? 's' : '') . '://';
+				$http = 'http' . ( is_https() ? 's' : '') . '://';
 
 				if( get_option('httpsmode')=='yes' ){
 					$http = 'https://';

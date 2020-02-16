@@ -88,7 +88,7 @@ $(document).ready(function () {
 </script>
 </head>
 
-<body class="air__menu--white air__menu--shadow air__sidebar--toggled air__layout--cardsShadow">
+<body class="air__menu--white air__menu--shadow air__sidebar--toggled">
 <div class="air__initialLoading"></div>
     <div class="air__layout air__layout--hasSider">
         

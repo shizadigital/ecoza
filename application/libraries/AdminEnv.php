@@ -206,10 +206,10 @@ class AdminEnv {
                     <?php 
                     if( empty($title_page_icon) ){ 
                         if(!empty($getmenu['menuIcon'])){
-                            echo '<i class="'.$getmenu['menuIcon'].'"></i>';
-                        }                   
+                            echo '<i class="'.$getmenu['menuIcon'].'"></i> ';
+                        }
                     } else { 
-                        echo '<i class="fe fe-menu"></i>'; 
+                        echo '<i class="'.$title_page_icon.'"></i> ';
                     }
                     
                     echo empty($title_page)? $getmenu['menuName']:$title_page;

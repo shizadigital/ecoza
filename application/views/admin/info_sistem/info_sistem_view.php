@@ -150,7 +150,7 @@ include V_ADMIN_PATH . "topbar.php";
                     			<div class="col-md-3">
                     				<h4>Information</h4>
                     				<div class="mb-4">
-                    				<p><strong>Memo Version</strong>: <?php echo FRAMEWORK_VERSION; ?></p>
+                    				<p><strong>Shiza Version</strong>: <?php echo SHIZA_VERSION; ?></p>
                     				<p><strong>CodeIgniter Version</strong>: <?php echo CI_VERSION; ?></p>
                     				<p><strong>Time Zone</strong>: <?php echo date_default_timezone_get(); ?></p>
                     				<p><strong>PHP Version</strong>: <?php echo phpversion(); ?></p>

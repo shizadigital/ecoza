@@ -16,7 +16,10 @@ class Dashboard extends CI_Controller {
 		// LOGIN PAGE
 		$data = array( 
 					'title' => 'Dashboard - '.get_option('sitename'),
-					'title_page' => 'Dashboard'
+					'title_page' => 'Dashboard',
+					'page_header_on' => true,
+					'title_page_icon' => 'fe fe-home',
+					'title_page_secondary' => '',
 				);
 		$this->load->view( admin_root('dashboard/dashboard_view'), $data );
 	}

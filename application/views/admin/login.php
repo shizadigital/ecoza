@@ -116,7 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<i class="icon-lock2 text-muted"></i>
 					</div>
 				</div>
-				<button class="text-center btn btn-success w-100 font-weight-bold font-size-18">Logi ke Administrator</button>
+				<button class="text-center btn btn-success w-100 font-weight-bold font-size-18">Login ke Administrator</button>
 			<?php echo form_close();?>
 			
 			<a href="#" class="text-blue font-weight-bold font-size-18">Forgot password?</a>

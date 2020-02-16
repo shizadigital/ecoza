@@ -346,6 +346,7 @@ class {$c_filename} extends CI_Controller{
 						'title_page' => '{$menu_name}',
 						'title_page_icon' => '',
 						'title_page_secondary' => '',
+						'breadcrumb' => false,
 						'header_button_action' => array(
 											array(
 												'title' => 'Tambah',
@@ -368,6 +369,7 @@ class {$c_filename} extends CI_Controller{
 							'title_page' => 'Tambah {$menu_name}',
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
+							'breadcrumb' => false,
 							'header_button_action' => array(
 												array(
 													'title' => 'Kembali',
@@ -389,6 +391,7 @@ class {$c_filename} extends CI_Controller{
 							'title_page' => 'Edit {$menu_name}',
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
+							'breadcrumb' => false,
 							'header_button_action' => array(
 												array(
 													'title' => 'Tambah',

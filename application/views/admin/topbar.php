@@ -151,7 +151,12 @@
     <!-- Start content here -->
     <div class="air__layout__content">
         <div class="air__utils__content">
-
-            <div class="breadcrumb">
-                <?php $CI->adminenv->adminBreadcrumb(); ?>
-            </div>
+            <?php 
+            if(isset($breadcrumb)){
+            ?>
+                <nav aria-label="breadcrumb">
+                    <?php $CI->adminenv->adminBreadcrumb(); ?>
+                </div>
+            <?php
+            }
+            ?>

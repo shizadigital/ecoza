@@ -260,7 +260,7 @@ class AdminEnv {
     public function adminBreadcrumb(){
         $querymodule = $this->CI->uri->segment(2);
 
-        echo '<a href="'.admin_url().'" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Dashboard</a>';
+        echo '<a href="'.admin_url().'" class="breadcrumb-item"><i class="fe fe-home"></i> Dashboard</a>';
 
         if( !empty( $querymodule ) ){
             $countmod = strlen($querymodule);

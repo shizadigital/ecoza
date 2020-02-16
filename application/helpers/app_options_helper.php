@@ -64,7 +64,7 @@ function loginCP(){
     $ci =& get_instance();
     $ci->load->helper('cookie');
     $create_cp_code = "[[[". AUTH_SALT."]]]>>2ad68f5saa>>".base_url();
-    return sha1($create_cp_code).'||'.get_cookie('token');
+    return sha1($create_cp_code).'||'.get_cookie('sz_token');
 }
 
 /**************** Social media ********************/

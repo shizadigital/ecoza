@@ -437,6 +437,15 @@ function getBrowser() {
     return $ci->browser->getBrowser();
 }
 
+/**
+ * 
+ * Create random code.
+ *
+ * @param int $length
+ * @param bool $unique_char
+ * @param string $type
+ * @return string
+ */
 function generate_code($length=6, $unique_char = false, $type = null){
     $source='1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     if($type == 'numbers'){
@@ -475,12 +484,6 @@ function getIP(){
     }
 
     return $ip;
-
-    /*
-    *
-    * Thank's to Webby Digital (http://webby.digital)
-    *
-    */
 }
 
 /*** CLI ****/
@@ -510,12 +513,6 @@ function cli($cmd, $multithread = TRUE) {
         exec($cmd,$output,$err);
         return array($output,$err);
     }
-
-    /*
-    *
-    * Thank's to Webby Digital (http://webby.digital)
-    *
-    */
 }
 
 /*** cron log ****/
@@ -551,7 +548,7 @@ function singleIntComma($value, $sepin= ",", $sepout = "."){
 }
 
 /**
-* Convert convert size in bytes to human readable
+* Convert convert size of in bytes to human readable
 *
 * @param  int  $size
 *
@@ -628,20 +625,19 @@ function the_excerpt($content, $number = false, $dotted = ' ...', $display = fal
 *
 * Gravatar
 *
+* @param  string  $email The email address
+* @param  int  $s Size in pixels, defaults to 80px [ 1 - 2048 ]
+* @param  int  $random Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
+* @param  string  $r Maximum rating (inclusive) [ g | pg | r | x ]
+* @param  bool  $img True to return a complete IMG tag False for just the URL
+* @param  string  $atts  Optional, additional key/value attributes to include in the IMG tag
+*
+* @source https://gravatar.com/site/implement/images/php/
+*    
+* @return  string
 */
 function gravatar( $email, $s = 80, $random = true,  $r = 'g', $img = false, $atts = array() ) {
-    /**
-     * Get either a Gravatar URL or complete image tag for a specified email address.
-     *
-     * @param string $email The email address
-     * @param string $s Size in pixels, defaults to 80px [ 1 - 2048 ]
-     * @param string $d Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
-     * @param string $r Maximum rating (inclusive) [ g | pg | r | x ]
-     * @param boole $img True to return a complete IMG tag False for just the URL
-     * @param array $atts Optional, additional key/value attributes to include in the IMG tag
-     * @return String containing either just a URL or a complete image tag
-     * @source https://gravatar.com/site/implement/images/php/
-     */
+    
     $result = false;
 
     if($random == true){
@@ -681,6 +677,12 @@ function gravatar( $email, $s = 80, $random = true,  $r = 'g', $img = false, $at
 /**
 *
 * Make Directory
+*
+* @param string $namadir
+* @param string $permission
+* @param string $recursive
+*
+* @return bool
 *
 */
 function makeDir($namadir, $permission = 0755, $recursive = false){
@@ -759,6 +761,14 @@ function makeDirUpload($dir, $dirextra, $type ='images', $error_handling=true){
 *
 * Upload File
 *
+*
+* @param string $filekeyarray
+* @param string $dir
+* @param array $ext_allowed
+* @param null $specialname Null for default value and string for insert the value
+* @param int $size_allowed
+*
+* @return array
 */
 function uploadFile($filekeyarray, $dir=null, $ext_allowed = array(), $specialname=null,  $size_allowed = 2048 ){
     global $_FILES;
@@ -895,6 +905,14 @@ function uploadFile($filekeyarray, $dir=null, $ext_allowed = array(), $specialna
 *
 * Upload Image
 *
+* @param string $filekeyarray
+* @param null $dir
+* @param array $sizeofimage
+* @param array $ext_allowed
+* @param null $specialname
+* @param int $size_allowed
+*
+* @return array
 */
 function uploadImage($filekeyarray, $dir=null, $sizeofimage = array(), $ext_allowed = array('jpg','jpeg','png'), $specialname=null,  $size_allowed = 2048 ){
     global $_FILES;

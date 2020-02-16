@@ -20,9 +20,9 @@ $hook['post_controller_constructor'][] = array(
         'filepath' => 'hooks',
         );
 
-$hook['post_controller_constructor'][] = array(  
-        'class' => 'validationLicense',  
-        'function' => 'license_handler',  
-        'filename' => 'validationLicense.php',  
-        'filepath' => 'hooks',
-        );
+// $hook['post_controller_constructor'][] = array(  
+//         'class' => 'validationLicense',  
+//         'function' => 'license_handler',  
+//         'filename' => 'validationLicense.php',  
+//         'filepath' => 'hooks',
+//         );

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Feb 2020 pada 19.43
+-- Waktu pembuatan: 16 Feb 2020 pada 06.31
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -693,14 +693,14 @@ INSERT INTO `shiza_options` (`optionId`, `optionName`, `optionValue`) VALUES
 (7, 'phpsupport', '5.2.x'),
 (8, 'mysqlsupport', '5.2.x'),
 (9, 'robots', 'index,follow'),
-(10, 'admindirectory', 'memo_admin'),
-(11, 'socialmediaurl', 'a:7:{s:8:\"facebook\";s:38:\"https://www.facebook.com/memoindomedia\";s:7:\"twitter\";s:0:\"\";s:7:\"youtube\";s:0:\"\";s:9:\"instagram\";s:39:\"https://www.instagram.com/memoindomedia\";s:4:\"line\";s:0:\"\";s:8:\"whatsapp\";s:0:\"\";s:10:\"googleplay\";s:0:\"\";}'),
-(12, 'ringkaspost', '197'),
+(10, 'socialmediaurl', 'a:7:{s:8:\"facebook\";s:38:\"https://www.facebook.com/memoindomedia\";s:7:\"twitter\";s:0:\"\";s:7:\"youtube\";s:0:\"\";s:9:\"instagram\";s:39:\"https://www.instagram.com/memoindomedia\";s:4:\"line\";s:0:\"\";s:8:\"whatsapp\";s:0:\"\";s:10:\"googleplay\";s:0:\"\";}'),
+(11, 'ringkaspost', '197'),
+(12, 'favicon', ''),
 (13, 'siteemail', 'info@memoindomedia.com'),
-(14, 'favicon', ''),
-(15, 'tagline', 'This is tagline'),
-(16, 'emailsignature', '--\r\nBest Regards,\r\n\r\nAdmin'),
-(17, 'emailheader', ''),
+(14, 'tagline', 'This is tagline'),
+(15, 'emailsignature', '--\r\nBest Regards,\r\n\r\nAdmin'),
+(16, 'emailheader', ''),
+(17, 'httpsmode', 'no'),
 (18, 'sitephone', '082283884599'),
 (19, 'defaultlang', 'id_ID'),
 (20, 'smtp_password', 'TFJlbkV3R1BvOUt4Zlg3eWs1VlpOZz09'),
@@ -708,8 +708,7 @@ INSERT INTO `shiza_options` (`optionId`, `optionName`, `optionValue`) VALUES
 (22, 'smtp_port', '465'),
 (23, 'smtp_ssltype', 'ssl'),
 (24, 'smtp_username', 'info@mail.com'),
-(25, 'siteaddress', 'Jalan Cumi-cumi II No. 6 Kec. Marphoyan Damai - Pekanbaru'),
-(26, 'httpsmode', 'no');
+(25, 'siteaddress', 'Jalan Cumi-cumi II No. 6 Kec. Marphoyan Damai - Pekanbaru');
 
 -- --------------------------------------------------------
 
@@ -895,7 +894,7 @@ CREATE TABLE `shiza_users` (
 --
 
 INSERT INTO `shiza_users` (`userId`, `userLogin`, `userPass`, `userEmail`, `userTlp`, `userDisplayName`, `levelId`, `userBlokir`, `userDelete`, `userLastLogin`, `userActivationKey`, `userRegistered`, `userSession`, `userCheckPoint`, `userDir`, `userPic`, `userOnlineStatus`) VALUES
-(1, 'superadmin', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1579608949, '', 1358259589, 'g87h6ns1npmblhvtdbvrndb42c81gahj', '', '', '', 'offline'),
+(1, 'superadmin', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1581827737, '', 1358259589, 'p1baidjq9n3gmmd43bintiph067qj1he', '', '', '', 'offline'),
 (2, 'demo', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'demo@demo.com', '', 'Demo Administrator', 2, 'n', 0, 1565019560, '', 1565017383, 'uhugeprv49jpbfkonhp9bc3l52', '', '', '', 'online');
 
 -- --------------------------------------------------------
@@ -1267,7 +1266,7 @@ ALTER TABLE `shiza_menu_website`
 -- AUTO_INCREMENT untuk tabel `shiza_options`
 --
 ALTER TABLE `shiza_options`
-  MODIFY `optionId` bigint(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `optionId` bigint(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `shiza_seo_halaman`

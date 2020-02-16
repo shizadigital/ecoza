@@ -57,7 +57,7 @@ $route['default_controller'] = 'home';
 $route['admin'] = '404';
 $route['admin/(.*)'] = '404';
 
-$varadmin = 'memo_admin';
+$varadmin = 'shiza_admin';
 
 $route[$varadmin] = 'admin/main';
 $route[$varadmin.'/(:any)'] = 'admin/$1';

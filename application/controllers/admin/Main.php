@@ -19,7 +19,7 @@ class Main extends CI_Controller {
 			// LOGIN PAGE
 			$data = array( 
 						'title' => 'Login Administrator - '.get_option('sitename'),
-						'token' => get_cookie('token')
+						'CP' => get_cookie('sz_token')
 					);
 			$this->load->view( admin_root('login'), $data );
 		} else {
@@ -33,13 +33,9 @@ class Main extends CI_Controller {
 
 		$username = esc_sql(filter_txt( $this->input->post('user') ) );
 		$password = esc_sql(filter_txt( $this->input->post('pass') ) );
-		$passwordunik = sha1( sha1($password .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT );
-
-		// validasi token
-		if( $this->input->post('token') !== get_cookie('token') ) {
-			$error = true;
-			$msg = 'Akses Anda bermasalah dengan token';
-		}
+		$passwordunik = sha1( 
+							sha1($password .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT
+						);
 
 		// validate first data
 		if( empty($username) AND !empty($password) ){
@@ -52,6 +48,12 @@ class Main extends CI_Controller {
 			$error = true;
 			$msg = 'Silahkan masukkan username dan password Anda';
 		} 
+
+		// validasi token checkpoint
+		if( $this->input->post('CP') !== get_cookie('sz_token') ) {
+			$error = true;
+			$msg = 'Akses Anda bermasalah dengan token';
+		}
 
 		if(!$error){
 			if (!ctype_alnum($username) OR !ctype_alnum($password)){

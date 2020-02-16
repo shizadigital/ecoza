@@ -12,11 +12,11 @@ class runFirstEnvironment {
 
 		// set token with cookie
 		$ci_env->load->helper('cookie');
-		if( empty( get_cookie('token') ) ){
-			$createcode = generate_code(8,false);
+		if( empty( get_cookie('sz_token') ) ){
+			$createcode = generate_code(6);
 			$createcookiecode = encoder($createcode ."##".base_url() );
             $cookie = array(
-                    'name'   => 'token',
+                    'name'   => 'sz_token',
                     'value'  => $createcookiecode,
                     'expire' => '0',
                     'path ' => '/'

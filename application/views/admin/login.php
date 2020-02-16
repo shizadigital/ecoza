@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				<!-- Login form -->
 				<?php echo form_open( admin_url('main/authlogin'), array( 'class'=> 'login-form' ) ); ?>
-					<input type="hidden" value="<?php echo $token; ?>" name="token">
+					<input type="hidden" value="<?php echo $CP; ?>" name="CP">
 
 					<div class="card mb-0">
 						<div class="card-body">

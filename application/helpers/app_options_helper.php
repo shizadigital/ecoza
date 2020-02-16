@@ -107,7 +107,9 @@ function admin_assets($rootassets = null){
 }
 
 function admin_url($rootaccess = null){
-    $adm_url = base_url() . get_option('admindirectory');
+    $ci =& get_instance();
+    
+    $adm_url = base_url() . $ci->config->item('admin_slug');
     if(!empty($rootaccess)){ $adm_url = $adm_url.'/'.$rootaccess; }
     return $adm_url;
 }

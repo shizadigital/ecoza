@@ -3,6 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class validationLicense {
 
+	public function __construct(){
+        $this->CI =& get_instance();
+	}
+
 	public function getLicense(){
 		global $license2016;
 
@@ -67,7 +71,7 @@ class validationLicense {
 				}
 			}
 			elseif( $return == 'admindirectory' ){
-				if( get_option('admindirectory') == $license['admindirectory']){ $result = true; } else { $result = false; }
+				if( $this->CI->config->item('admin_slug') == $license['admindirectory']){ $result = true; } else { $result = false; }
 			}
 			// disable language license for while
 			// elseif( $return == 'language' ){

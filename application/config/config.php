@@ -1,5 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+/*
+|--------------------------------------------------------------------------
+| Admin Slug
+|--------------------------------------------------------------------------
+|
+| Admin slug is slug for access admin root directory url
+*/
+$config['admin_slug'] = 'shiza_admin';
 
 /*
 |--------------------------------------------------------------------------

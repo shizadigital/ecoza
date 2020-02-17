@@ -33,6 +33,7 @@ class Main extends CI_Controller {
 
 		$username = esc_sql(filter_txt( $this->input->post('user') ) );
 		$password = esc_sql(filter_txt( $this->input->post('pass') ) );
+
 		$passwordunik = sha1( 
 							sha1($password .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT
 						);
@@ -56,16 +57,18 @@ class Main extends CI_Controller {
 		}
 
 		if(!$error){
-			if (!ctype_alnum($username) OR !ctype_alnum($password)){
+			if (!ctype_alnum($username)){
 
 				$error = true;
 				$msg = 'Maaf karakter untuk masuk pada halaman administrator tidak cocok';
 
 			} else {
 
-				$authlogin = $this->adminauth_model->login_auth($username, $passwordunik);
+				$authlogin = $this->adminauth_model->login_auth($username);
 
-				if ( $authlogin > 0 ){
+				if ( password_verify($passwordunik, $authlogin->userPass) ){
+
+					echo 'ok'; exit;
 
 					$logindata = $this->adminauth_model->get_auth_data($username, $passwordunik);
 

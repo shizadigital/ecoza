@@ -115,9 +115,18 @@ class Manage_users extends CI_Controller{
 			$username 	= esc_sql(filter_clear(filter_txt(strtolower($this->input->post('username')))));
 			$email 		= esc_sql(filter_txt($this->input->post('email')));
 			$nama 		= esc_sql(filter_txt($this->input->post('nama')));
-			$pass 		= esc_sql(filter_txt($this->input->post('pass')));
-			$pass 		= sha1( sha1($pass .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT );
 			$level 		= esc_sql(filter_int($this->input->post('level')));
+
+			$pass 		= esc_sql(filter_txt($this->input->post('pass')));
+			$pass 		= sha1( 
+							sha1($pass .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT
+						);
+
+			$passwordunik = password_hash( 
+								$pass,
+								PASSWORD_DEFAULT,
+								['cost' => 10]
+							); 
 
 			// username check
 			$usernum = $this->Env_model->countdata('users',"userLogin = '{$username}'");
@@ -163,7 +172,7 @@ class Manage_users extends CI_Controller{
 				$insvalue = array(
 		                      'userId'      	=> $nextID,
 		                      'userLogin'		=> $username,
-		                      'userPass'		=> $pass,
+		                      'userPass'		=> $passwordunik,
 		                      'userEmail' 		=> $email,
 		                      'userDisplayName'	=> $nama,
 		                      'levelId'   		=> $level,
@@ -277,9 +286,17 @@ class Manage_users extends CI_Controller{
 				}
 
 				$pass = esc_sql(filter_txt($this->input->post('pass')));
-				$pass = sha1( sha1($pass .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT );
+				$pass = sha1( 
+							sha1($pass .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT
+						);
+				
+				$passwordunik = password_hash( 
+									$pass,
+									PASSWORD_DEFAULT,
+									['cost' => 10]
+								);
 
-				$arraypass = array('userPass'=> $pass);
+				$arraypass = array('userPass'=> $passwordunik);
 			} else {
 				$arraypass = array();
 			}

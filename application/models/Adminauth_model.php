@@ -2,19 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Adminauth_model extends CI_model{
-    public function login_auth($username,$password){
+    public function login_auth($username){
         $result = false;
-    	$this->db->select('userId');
+    	$this->db->select('userId,userPass');
 	    $this->db->from( $this->db->dbprefix('users') );
 	    $this->db->where('userLogin', $username);
-        $this->db->where('userPass', $password);
         $this->db->where('userBlokir', 'n');
         $this->db->where('userDelete', '0');
-	    $query = $this->db->get();
-        $numrows = $query->num_rows();
-
-        if( $numrows > 0 ) $result = $numrows;
-        return $result;
+        $query = $this->db->get();
+        
+        return $query->row();
     }
 
     public function get_auth_data($username,$password){

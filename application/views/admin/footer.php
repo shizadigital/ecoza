@@ -36,28 +36,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
     <!-- END air__layout air__layout-\-hasSider -->
 
-    <?php echo $this->assetsloc->get_footer_element(); ?>
+<?php echo $this->assetsloc->get_footer_element(); ?>
 
-    <!-- custom app -->
-    
-    <script src="<?php echo admin_assets('vendors/jquery-mousewheel/jquery.mousewheel.min.js'); ?>"></script>
-    <script src="<?php echo admin_assets('vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js'); ?>"></script>
+<!-- custom app -->    
+<script src="<?php echo admin_assets('vendors/jquery-mousewheel/jquery.mousewheel.min.js'); ?>"></script>
+<script src="<?php echo admin_assets('vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js'); ?>"></script>
 
-    <script src="<?php echo admin_assets('components/core/index.js'); ?>"></script>
-    <script src="<?php echo admin_assets('components/menu-left/index.js'); ?>"></script>
-    <script src="<?php echo admin_assets('components/sidebar/index.js'); ?>"></script>
-    <script src="<?php echo admin_assets('components/topbar/index.js'); ?>"></script>
-    
-    <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-    <?php 
-    // LOAD JAVASCRIPT LIB
-    echo $this->assetsloc->get_admin_script('library');
+<?php 
+// LOAD JAVASCRIPT LIB
+echo $this->assetsloc->get_admin_script('library');
+?>
 
-    // LOAD JAVASCRIPT
-    echo $this->assetsloc->get_admin_script('manually');
-    ?>
+<script src="<?php echo admin_assets('components/core/index.js'); ?>"></script>
+<script src="<?php echo admin_assets('components/menu-left/index.js'); ?>"></script>
+<script src="<?php echo admin_assets('components/sidebar/index.js'); ?>"></script>
+<script src="<?php echo admin_assets('components/topbar/index.js'); ?>"></script>
 
-    <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+<?php 
+// LOAD JAVASCRIPT
+echo $this->assetsloc->get_admin_script('manually');
+?>
+
+<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 </body>
 
 </html>

@@ -13,7 +13,7 @@ $this->assetsloc->reg_admin_style($request_css_files,$request_style);
 		Register Script (JavaScript)
 *******************************************/
 $request_script_files = array(
-	'vendors/nestable-master/jquery.nestable.js',
+	'vendors/nestable/jquery.nestable.js',
 );
 
 $request_script = "
@@ -59,13 +59,8 @@ include V_ADMIN_PATH . "topbar.php";
 <div class="row">
 	<div class="col-md-12 col-sm-12">
 		<div class="card">
-			<div class="card-header header-elements-inline">
-				<h5 class="card-title">Menu</h5>
-				<div class="header-elements">
-					<div class="list-icons">
-		        		<a class="list-icons-item" data-action="collapse"></a>
-		        	</div>
-		    	</div>
+			<div class="card-header">
+				<h5 class="card-title mb-0">Menu</h5>
 			</div>
 
 			<div class="card-body">
@@ -74,7 +69,7 @@ include V_ADMIN_PATH . "topbar.php";
 		            echo '
 					<div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
 						<i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 					</div>
 					';
 				}
@@ -87,15 +82,15 @@ include V_ADMIN_PATH . "topbar.php";
 					';
 				}
 				?>
-				<ul class="nav nav-tabs nav-tabs-highlight">
+				<ul class="nav nav-tabs nav-tabs-line nav-tabs-line-bold">
 					<li class="nav-item">
 						<a href="#atur-menu" class="nav-link<?php if( empty($this->input->get('tab')) OR $this->input->get('tab')=="atur-menu"){ echo " active"; } ?>" data-toggle="tab">
-							<div><i class="icon-menu7 mr-2 d-block mb-1 mt-1"></i> Atur Menu</div>
+							<i class="fe fe-menu mr-1"></i> Atur Menu
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="#atur-izin-menu" class="nav-link<?php if( $this->input->get('tab')=="atur-izin-menu"){ echo " active"; } ?>" data-toggle="tab">
-							<div><i class="icon-puzzle2 mr-2 d-block mb-1 mt-1"></i> Atur Izin Menu</div>
+							<i class="fe fe-user-check mr-1"></i> Atur Izin Menu
 						</a>
 					</li>
 				</ul>
@@ -103,7 +98,7 @@ include V_ADMIN_PATH . "topbar.php";
 				<div class="tab-content">
 					<div class="tab-pane fade<?php if( empty($this->input->get('tab')) OR $this->input->get('tab')=="atur-menu"){ echo " show active"; } ?>" id="atur-menu">
 
-						<p class="mb-4"><i class="icon-info22"></i> Geser daftar menu sesuai urutan yang Anda inginkan, dan tekan tombol perbarui untuk menyimpan posisi menu</p>
+						<div class="mb-4 mt-4 alert alert-light" role="alert"><i class="fe fe-info"></i> Geser daftar menu sesuai urutan yang Anda inginkan, dan tekan tombol perbarui untuk menyimpan posisi menu</div>
 
 						<?php 
 						if( is_edit() ):
@@ -113,7 +108,7 @@ include V_ADMIN_PATH . "topbar.php";
 				            <div class="col-md-12">
 				                <div id="nestable-menu">
 				                	<div class="float-left">
-				                		<button class="btn btn-primary btn-sm" type="submit"><i class="icon-pencil7"></i> Perbarui</button>
+				                		<button class="btn btn-primary btn-sm" type="submit"><i class="fe fe-refresh-cw"></i> Perbarui</button>
 				                	</div>
 				                    <div class="float-right">
 				                        <button type="button" class="btn btn-warning btn-sm" data-action="expand-all"><span class="fa fa-expand"></span> <?php echo 'Expand'; ?></button>
@@ -135,8 +130,8 @@ include V_ADMIN_PATH . "topbar.php";
 				                                    <span class=\"{$dm1['menuIcon']}\"></span> ".$dm1['menuName'] . (($dm1['menuActive']!='y')?' <span class="badge bg-danger">Tidak Aktif</span>':'') . "
 				                                </div>
 				                                <div class=\"nestable-ctn\">
-				                                    " . ((is_edit()) ? "<a class=\"btn-xs btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm1['menuId'])."\">".'Edit'."</a> ":"") ."
-				                                    " . ((is_delete()) ? "<a class=\"btn-xs btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm1['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2).'/prosesdelete/'.$dm1['menuId'])."'; };\">".'Hapus'."</a>":"") . "
+				                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm1['menuId'])."\">".'Edit'."</a> ":"") ."
+				                                    " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm1['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2).'/prosesdelete/'.$dm1['menuId'])."'; };\">".'Hapus'."</a>":"") . "
 				                                </div>";
 
 				                            if(count($dm1['level_2'])>0){
@@ -146,8 +141,8 @@ include V_ADMIN_PATH . "topbar.php";
 				                                    echo "<li class=\"dd-item\" data-id=\"{$dm2['menuId']}\">
 				                                        <div class=\"dd-handle\">".$dm2['menuName'] . (($dm2['menuActive']!='y')?' <span class="badge bg-danger">Tidak Aktif</span>':'') . "</div>
 				                                        <div class=\"nestable-ctn\">
-				                                            " . ((is_edit()) ? "<a class=\"btn-xs btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm2['menuId'])."\">".'Edit'."</a> ":"") ."
-				                                            " . ((is_delete()) ? "<a class=\"btn-xs btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm2['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm2['menuId'])."'; };\">".'Hapus'."</a>":"") . "
+				                                            " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm2['menuId'])."\">".'Edit'."</a> ":"") ."
+				                                            " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm2['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm2['menuId'])."'; };\">".'Hapus'."</a>":"") . "
 				                                        </div>";
 
 				                                    if(count($dm2['level_3'])>0){
@@ -157,8 +152,8 @@ include V_ADMIN_PATH . "topbar.php";
 				                                            echo "<li class=\"dd-item\" data-id=\"{$dm3['menuId']}\">
 				                                                <div class=\"dd-handle\">".$dm3['menuName'] . (($dm3['menuActive']!='y')?' <span class="badge bg-danger">Tidak Aktif</span>':'') . "</div>
 				                                                <div class=\"nestable-ctn\">
-				                                                    " . ((is_edit()) ? "<a class=\"btn-xs btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm3['menuId'])."\">".'Edit'."</a> ":"") ."
-				                                                    " . ((is_delete()) ? "<a class=\"btn-xs btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm3['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm3['menuId'])."'; };\">".'Hapus'."</a>":"") . "
+				                                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm3['menuId'])."\">".'Edit'."</a> ":"") ."
+				                                                    " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm3['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm3['menuId'])."'; };\">".'Hapus'."</a>":"") . "
 				                                                </div>";
 
 				                                            if(count($dm3['level_4'])>0){
@@ -168,8 +163,8 @@ include V_ADMIN_PATH . "topbar.php";
 				                                                    echo "<li class=\"dd-item\" data-id=\"{$dm4['menuId']}\">
 				                                                    <div class=\"dd-handle\">".$dm4['menuName'] . (($dm4['menuActive']!='y')?' <span class="badge bg-danger">Tidak Aktif</span>':'') . "</div>
 				                                                    <div class=\"nestable-ctn\">
-				                                                        " . ((is_edit()) ? "<a class=\"btn-xs btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm4['menuId'])."\">".'Edit'."</a> ":"") ."
-				                                                        " . ((is_delete()) ? "<a class=\"btn-xs btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm4['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm4['menuId'])."'; };\">".'Delete'."</a>":"") . "
+				                                                        " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm4['menuId'])."\">".'Edit'."</a> ":"") ."
+				                                                        " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm4['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm4['menuId'])."'; };\">".'Delete'."</a>":"") . "
 				                                                    </div>";
 				                                                    echo "</li>";
 				                                                }
@@ -195,7 +190,7 @@ include V_ADMIN_PATH . "topbar.php";
 				                <input type="hidden" id="nestable-output" name="menu_data">
 				                <div class="form-group">
 				                	<hr/>
-				                    <button class="btn btn-primary btn-sm" type="submit"><i class="icon-pencil7"></i> <?php echo 'Perbarui'; ?></button>
+				                    <button class="btn btn-primary btn-sm" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui'; ?></button>
 				                </div>
 				            </div>
 
@@ -212,9 +207,9 @@ include V_ADMIN_PATH . "topbar.php";
 						if( is_edit() ):
 						echo form_open( admin_url( $this->uri->segment(2) . '/updatepermissionmenu'), array( 'class'=> 'validasi' ) ); ?>
 
-		                <div class="form-group">
+		                <div class="form-group mb-4 mt-4">
 		                    <div class="clearfix"></div>
-		                    <button class="btn btn-primary btn-sm float-right" type="submit"><i class="icon-loop3"></i> <?php echo 'Perbarui'; ?></button>
+		                    <button class="btn btn-primary btn-sm float-right" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui'; ?></button>
 		                    <div class="clearfix"></div>
 		                </div>
 
@@ -252,50 +247,48 @@ include V_ADMIN_PATH . "topbar.php";
 								</thead>
 								<tbody>
 									<?php
-									$no = 0;
-									foreach ($data_menu as $mn1) {
-										$no++;
+									function menuDataField($no, $mn){
 									?>
 										<tr>
 											<td class="text-center"><?php echo $no; ?></td>
 											<td>
-												<?php echo $mn1['menuName']; ?>
-												<input name="idmn[<?php echo $no; ?>]" type="hidden" value="<?php echo $mn1['menuId']; ?>"/>
+												<?php echo $mn['menuName']; ?>
+												<input name="idmn[<?php echo $no; ?>]" type="hidden" value="<?php echo $mn['menuId']; ?>"/>
 											</td>
 											<td class="text-center">
-												<input type="checkbox"<?php echo ($mn1['menuActive'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_active[<?php echo $mn1['menuId']; ?>]" id="mn_active<?php echo $mn1['menuId']; ?>" class="mn_active" value="y" />
+												<input type="checkbox"<?php echo ($mn['menuActive'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_active[<?php echo $mn['menuId']; ?>]" id="mn_active<?php echo $mn['menuId']; ?>" class="mn_active" value="y" />
 											</td>
 											<td class="text-center">
-												<input type="checkbox"<?php echo ($mn1['menuView'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_view[<?php echo $mn1['menuId']; ?>]" id="mn_view<?php echo $mn1['menuId']; ?>" class="mn_view" value="y" />
+												<input type="checkbox"<?php echo ($mn['menuView'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_view[<?php echo $mn['menuId']; ?>]" id="mn_view<?php echo $mn['menuId']; ?>" class="mn_view" value="y" />
 											</td>
 											<td class="text-center">
-												<input type="checkbox"<?php echo ($mn1['menuAdd'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_add[<?php echo $mn1['menuId']; ?>]" id="mn_add<?php echo $mn1['menuId']; ?>" class="mn_add" value="y" />
+												<input type="checkbox"<?php echo ($mn['menuAdd'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_add[<?php echo $mn['menuId']; ?>]" id="mn_add<?php echo $mn['menuId']; ?>" class="mn_add" value="y" />
 											</td>
 											<td class="text-center">
-												<input type="checkbox"<?php echo ($mn1['menuEdit'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_edit[<?php echo $mn1['menuId']; ?>]" id="mn_edit<?php echo $mn1['menuId']; ?>" class="mn_edit" value="y" />
+												<input type="checkbox"<?php echo ($mn['menuEdit'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_edit[<?php echo $mn['menuId']; ?>]" id="mn_edit<?php echo $mn['menuId']; ?>" class="mn_edit" value="y" />
 											</td>
 											<td class="text-center">
-												<input type="checkbox"<?php echo ($mn1['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_delete[<?php echo $mn1['menuId']; ?>]" id="mn_delete<?php echo $mn1['menuId']; ?>" class="mn_delete" value="y" />
+												<input type="checkbox"<?php echo ($mn['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_delete[<?php echo $mn['menuId']; ?>]" id="mn_delete<?php echo $mn['menuId']; ?>" class="mn_delete" value="y" />
 											</td>
 											<td class="text-center" style="background:#eaffe2;">
-												<input type="checkbox"<?php echo ($mn1['menuActive'] == 'y' AND $mn1['menuView'] == 'y' AND $mn1['menuAdd'] == 'y' AND $mn1['menuEdit'] == 'y' AND $mn1['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_all[<?php echo $mn1['menuId']; ?>]" id="mn_all<?php echo $mn1['menuId']; ?>" class="mn_all" value="y" />
+												<input type="checkbox"<?php echo ($mn['menuActive'] == 'y' AND $mn['menuView'] == 'y' AND $mn['menuAdd'] == 'y' AND $mn['menuEdit'] == 'y' AND $mn['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_all[<?php echo $mn['menuId']; ?>]" id="mn_all<?php echo $mn['menuId']; ?>" class="mn_all" value="y" />
 
 												<script type="text/javascript"> 
 	                                            $(document).ready(function(){
 	                                                //Check all Crud for a module
-	                                                $("#mn_all<?php echo $mn1['menuId']; ?>").click(function(){
+	                                                $("#mn_all<?php echo $mn['menuId']; ?>").click(function(){
 	                                                    if ( (this).checked == true ){
-	                                                       $('#mn_active<?php echo $mn1['menuId']; ?>').prop('checked', true);
-	                                                       $('#mn_view<?php echo $mn1['menuId']; ?>').prop('checked', true);
-	                                                       $('#mn_add<?php echo $mn1['menuId']; ?>').prop('checked', true);
-	                                                       $('#mn_edit<?php echo $mn1['menuId']; ?>').prop('checked', true);
-	                                                       $('#mn_delete<?php echo $mn1['menuId']; ?>').prop('checked', true);
+	                                                       $('#mn_active<?php echo $mn['menuId']; ?>').prop('checked', true);
+	                                                       $('#mn_view<?php echo $mn['menuId']; ?>').prop('checked', true);
+	                                                       $('#mn_add<?php echo $mn['menuId']; ?>').prop('checked', true);
+	                                                       $('#mn_edit<?php echo $mn['menuId']; ?>').prop('checked', true);
+	                                                       $('#mn_delete<?php echo $mn['menuId']; ?>').prop('checked', true);
 	                                                    } else {
-	                                                       $('#mn_active<?php echo $mn1['menuId']; ?>').prop('checked', false);
-	                                                       $('#mn_view<?php echo $mn1['menuId']; ?>').prop('checked', false);
-	                                                       $('#mn_add<?php echo $mn1['menuId']; ?>').prop('checked', false);
-	                                                       $('#mn_edit<?php echo $mn1['menuId']; ?>').prop('checked', false);
-	                                                       $('#mn_delete<?php echo $mn1['menuId']; ?>').prop('checked', false);
+	                                                       $('#mn_active<?php echo $mn['menuId']; ?>').prop('checked', false);
+	                                                       $('#mn_view<?php echo $mn['menuId']; ?>').prop('checked', false);
+	                                                       $('#mn_add<?php echo $mn['menuId']; ?>').prop('checked', false);
+	                                                       $('#mn_edit<?php echo $mn['menuId']; ?>').prop('checked', false);
+	                                                       $('#mn_delete<?php echo $mn['menuId']; ?>').prop('checked', false);
 	                                                    }
 	                                                });
 
@@ -304,161 +297,32 @@ include V_ADMIN_PATH . "topbar.php";
 											</td>
 										</tr>
 									<?php
+									}
+
+									$no = 0;
+									foreach ($data_menu as $mn1) {
+										$no++;
+										
+										menuDataField($no, $mn1);
+										
 										if(count($mn1['level_2']) > 0){											
 											foreach ($mn1['level_2'] as $mn2) {
 												$no++;
-											?>
-											<tr>
-												<td class="text-center"><?php echo $no; ?></td>
-												<td>
-													<i class="mi-remove"></i> <?php echo $mn2['menuName']; ?>
-													<input name="idmn[<?php echo $no; ?>]" type="hidden" value="<?php echo $mn2['menuId']; ?>"/>
-												</td>
-												<td class="text-center">
-													<input type="checkbox"<?php echo ($mn2['menuActive'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_active[<?php echo $mn2['menuId']; ?>]" id="mn_active<?php echo $mn2['menuId']; ?>" class="mn_active" value="y" />
-												</td>
-												<td class="text-center">
-													<input type="checkbox"<?php echo ($mn2['menuView'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_view[<?php echo $mn2['menuId']; ?>]" id="mn_view<?php echo $mn2['menuId']; ?>" class="mn_view" value="y" />
-												</td>
-												<td class="text-center">
-													<input type="checkbox"<?php echo ($mn2['menuAdd'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_add[<?php echo $mn2['menuId']; ?>]" id="mn_add<?php echo $mn2['menuId']; ?>" class="mn_add" value="y" />
-												</td>
-												<td class="text-center">
-													<input type="checkbox"<?php echo ($mn2['menuEdit'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_edit[<?php echo $mn2['menuId']; ?>]" id="mn_edit<?php echo $mn2['menuId']; ?>" class="mn_edit" value="y" />
-												</td>
-												<td class="text-center">
-													<input type="checkbox"<?php echo ($mn2['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_delete[<?php echo $mn2['menuId']; ?>]" id="mn_delete<?php echo $mn2['menuId']; ?>" class="mn_delete" value="y" />
-												</td>
-												<td class="text-center" style="background:#eaffe2;">
-													<input type="checkbox"<?php echo ($mn2['menuActive'] == 'y' AND $mn2['menuView'] == 'y' AND $mn2['menuAdd'] == 'y' AND $mn2['menuEdit'] == 'y' AND $mn2['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_all[<?php echo $mn2['menuId']; ?>]" id="mn_all<?php echo $mn2['menuId']; ?>" class="mn_all" value="y" />
-													<script type="text/javascript"> 
-		                                            $(document).ready(function(){
-		                                                //Check all Crud for a module
-		                                                $("#mn_all<?php echo $mn2['menuId']; ?>").click(function(){
-		                                                    if ( (this).checked == true ){
-		                                                       $('#mn_active<?php echo $mn2['menuId']; ?>').prop('checked', true);
-		                                                       $('#mn_view<?php echo $mn2['menuId']; ?>').prop('checked', true);
-		                                                       $('#mn_add<?php echo $mn2['menuId']; ?>').prop('checked', true);
-		                                                       $('#mn_edit<?php echo $mn2['menuId']; ?>').prop('checked', true);
-		                                                       $('#mn_delete<?php echo $mn2['menuId']; ?>').prop('checked', true);
-		                                                    } else {
-		                                                       $('#mn_active<?php echo $mn2['menuId']; ?>').prop('checked', false);
-		                                                       $('#mn_view<?php echo $mn2['menuId']; ?>').prop('checked', false);
-		                                                       $('#mn_add<?php echo $mn2['menuId']; ?>').prop('checked', false);
-		                                                       $('#mn_edit<?php echo $mn2['menuId']; ?>').prop('checked', false);
-		                                                       $('#mn_delete<?php echo $mn2['menuId']; ?>').prop('checked', false);
-		                                                    }
-		                                                });
 
-		                                            });
-		                                            </script>
-												</td>
-											</tr>
-											<?php
+												menuDataField($no, $mn2);											
+											
 												if(count($mn2['level_3']) > 0){
 													foreach ($mn2['level_3'] as $mn3) {
 														$no++;
-													?>
-													<tr>
-														<td class="text-center"><?php echo $no; ?></td>
-														<td>
-															<i class="mi-remove"></i><i class="mi-remove"></i> <?php echo $mn3['menuName']; ?>
-															<input name="idmn[<?php echo $no; ?>]" type="hidden" value="<?php echo $mn3['menuId']; ?>"/>
-														</td>
-														<td class="text-center">
-															<input type="checkbox"<?php echo ($mn3['menuActive'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_active[<?php echo $mn3['menuId']; ?>]" id="mn_active<?php echo $mn3['menuId']; ?>" class="mn_active" value="y" />
-														</td>
-														<td class="text-center">
-															<input type="checkbox"<?php echo ($mn3['menuView'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_view[<?php echo $mn3['menuId']; ?>]" id="mn_view<?php echo $mn3['menuId']; ?>" class="mn_view" value="y" />
-														</td>
-														<td class="text-center">
-															<input type="checkbox"<?php echo ($mn3['menuAdd'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_add[<?php echo $mn3['menuId']; ?>]" id="mn_add<?php echo $mn3['menuId']; ?>" class="mn_add" value="y" />
-														</td>
-														<td class="text-center">
-															<input type="checkbox"<?php echo ($mn3['menuEdit'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_edit[<?php echo $mn3['menuId']; ?>]" id="mn_edit<?php echo $mn3['menuId']; ?>" class="mn_edit" value="y" />
-														</td>
-														<td class="text-center">
-															<input type="checkbox"<?php echo ($mn3['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_delete[<?php echo $mn3['menuId']; ?>]" id="mn_delete<?php echo $mn3['menuId']; ?>" class="mn_delete" value="y" />
-														</td>
-														<td class="text-center" style="background:#eaffe2;">
-															<input type="checkbox"<?php echo ($mn3['menuActive'] == 'y' AND $mn3['menuView'] == 'y' AND $mn3['menuAdd'] == 'y' AND $mn3['menuEdit'] == 'y' AND $mn3['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_all[<?php echo $mn3['menuId']; ?>]" id="mn_all<?php echo $mn3['menuId']; ?>" class="mn_all" value="y" />
-															<script type="text/javascript"> 
-				                                            $(document).ready(function(){
-				                                                //Check all Crud for a module
-				                                                $("#mn_all<?php echo $mn3['menuId']; ?>").click(function(){
-				                                                    if ( (this).checked == true ){
-				                                                       $('#mn_active<?php echo $mn3['menuId']; ?>').prop('checked', true);
-				                                                       $('#mn_view<?php echo $mn3['menuId']; ?>').prop('checked', true);
-				                                                       $('#mn_add<?php echo $mn3['menuId']; ?>').prop('checked', true);
-				                                                       $('#mn_edit<?php echo $mn3['menuId']; ?>').prop('checked', true);
-				                                                       $('#mn_delete<?php echo $mn3['menuId']; ?>').prop('checked', true);
-				                                                    } else {
-				                                                       $('#mn_active<?php echo $mn3['menuId']; ?>').prop('checked', false);
-				                                                       $('#mn_view<?php echo $mn3['menuId']; ?>').prop('checked', false);
-				                                                       $('#mn_add<?php echo $mn3['menuId']; ?>').prop('checked', false);
-				                                                       $('#mn_edit<?php echo $mn3['menuId']; ?>').prop('checked', false);
-				                                                       $('#mn_delete<?php echo $mn3['menuId']; ?>').prop('checked', false);
-				                                                    }
-				                                                });
 
-				                                            });
-				                                            </script>
-														</td>
-													</tr>
-													<?php 
+														menuDataField($no, $mn3);
+													 
 														if(count($mn3['level_4']) > 0){
 															foreach ($mn3['level_4'] as $mn4) {
 																$no++;
-															?>
-															<tr>
-																<td class="text-center"><?php echo $no; ?></td>
-																<td>
-																	<i class="mi-remove"></i><i class="mi-remove"></i> <?php echo $mn4['menuName']; ?>
-																	<input name="idmn[<?php echo $no; ?>]" type="hidden" value="<?php echo $mn4['menuId']; ?>"/>
-																</td>
-																<td class="text-center">
-																	<input type="checkbox"<?php echo ($mn4['menuActive'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_active[<?php echo $mn4['menuId']; ?>]" id="mn_active<?php echo $mn4['menuId']; ?>" class="mn_active" value="y" />
-																</td>
-																<td class="text-center">
-																	<input type="checkbox"<?php echo ($mn4['menuView'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_view[<?php echo $mn4['menuId']; ?>]" id="mn_view<?php echo $mn4['menuId']; ?>" class="mn_view" value="y" />
-																</td>
-																<td class="text-center">
-																	<input type="checkbox"<?php echo ($mn4['menuAdd'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_add[<?php echo $mn4['menuId']; ?>]" id="mn_add<?php echo $mn4['menuId']; ?>" class="mn_add" value="y" />
-																</td>
-																<td class="text-center">
-																	<input type="checkbox"<?php echo ($mn4['menuEdit'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_edit[<?php echo $mn4['menuId']; ?>]" id="mn_edit<?php echo $mn4['menuId']; ?>" class="mn_edit" value="y" />
-																</td>
-																<td class="text-center">
-																	<input type="checkbox"<?php echo ($mn4['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_delete[<?php echo $mn4['menuId']; ?>]" id="mn_delete<?php echo $mn4['menuId']; ?>" class="mn_delete" value="y" />
-																</td>
-																<td class="text-center" style="background:#eaffe2;">
-																	<input type="checkbox"<?php echo ($mn4['menuActive'] == 'y' AND $mn4['menuView'] == 'y' AND $mn4['menuAdd'] == 'y' AND $mn4['menuEdit'] == 'y' AND $mn4['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_all[<?php echo $mn4['menuId']; ?>]" id="mn_all<?php echo $mn4['menuId']; ?>" class="mn_all" value="y" />
 
-																	<script type="text/javascript"> 
-						                                            $(document).ready(function(){
-						                                                //Check all Crud for a module
-						                                                $("#mn_all<?php echo $mn4['menuId']; ?>").click(function(){
-						                                                    if ( (this).checked == true ){
-						                                                       $('#mn_active<?php echo $mn4['menuId']; ?>').prop('checked', true);
-						                                                       $('#mn_view<?php echo $mn4['menuId']; ?>').prop('checked', true);
-						                                                       $('#mn_add<?php echo $mn4['menuId']; ?>').prop('checked', true);
-						                                                       $('#mn_edit<?php echo $mn4['menuId']; ?>').prop('checked', true);
-						                                                       $('#mn_delete<?php echo $mn4['menuId']; ?>').prop('checked', true);
-						                                                    } else {
-						                                                       $('#mn_active<?php echo $mn4['menuId']; ?>').prop('checked', false);
-						                                                       $('#mn_view<?php echo $mn4['menuId']; ?>').prop('checked', false);
-						                                                       $('#mn_add<?php echo $mn4['menuId']; ?>').prop('checked', false);
-						                                                       $('#mn_edit<?php echo $mn4['menuId']; ?>').prop('checked', false);
-						                                                       $('#mn_delete<?php echo $mn4['menuId']; ?>').prop('checked', false);
-						                                                    }
-						                                                });
-
-						                                            });
-						                                            </script>
-																</td>
-															</tr>
-
-															<?php
+																menuDataField($no, $mn4);
+															
 															}
 														}
 													}
@@ -544,7 +408,7 @@ include V_ADMIN_PATH . "topbar.php";
 
 						<div class="form-group mt-3">
 		                    <div class="clearfix"></div>
-		                    <button class="btn btn-primary btn-sm float-right" type="submit"><i class="icon-loop3"></i> <?php echo 'Perbarui'; ?></button>
+		                    <button class="btn btn-primary btn-sm float-right" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui'; ?></button>
 		                    <div class="clearfix"></div>
 		                </div>
 

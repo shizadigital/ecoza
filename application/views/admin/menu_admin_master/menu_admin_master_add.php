@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		Register style
 *****************************/
 $request_css_files = array(
+	'vendors/select2/dist/css/select2.min.css'
 );
 $request_style = "";
 $this->assetsloc->reg_admin_style($request_css_files,$request_style);
@@ -15,7 +16,7 @@ $this->assetsloc->reg_admin_style($request_css_files,$request_style);
 $request_script_files = array(
     'vendors/parsley/parsley.config.js',
     'vendors/parsley/parsley.min.js',
-    'global_assets/js/plugins/forms/selects/select2.min.js'
+    'vendors/select2/dist/js/select2.full.min.js'
 );
 $request_script = "
 function ajaxicon(thevalue){
@@ -45,7 +46,7 @@ $( document ).ready(function() {
         placeholder: \"Pilih induk menu...\"
     });
 
-    ajaxicon('icomoon');
+    ajaxicon('feather');
     $('#pilihanicon').change(function(){
         var val = $(this).val();
         ajaxicon(val);
@@ -103,13 +104,8 @@ include V_ADMIN_PATH . "topbar.php";
 <div class="row">
 	<div class="col-md-12 col-sm-12">
 		<div class="card">
-			<div class="card-header header-elements-inline">
-				<h5 class="card-title">Tambah Menu</h5>
-				<div class="header-elements">
-					<div class="list-icons">
-		        		<a class="list-icons-item" data-action="collapse"></a>
-		        	</div>
-		    	</div>
+			<div class="card-header">
+				<h5 class="card-title mb-0">Tambah Menu</h5>
 			</div>
 
 			<div class="card-body">
@@ -120,8 +116,8 @@ include V_ADMIN_PATH . "topbar.php";
 				if( !empty( $this->session->has_userdata('gagal') ) ){
 		            echo '
 					<div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-						<i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+						<i class="fe fe-x"></i> ' . $this->session->flashdata('gagal') . '
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 					</div>
 					';
 				}
@@ -200,7 +196,7 @@ include V_ADMIN_PATH . "topbar.php";
 								<div class="col-lg-10">
 									<input type="text" name="aksesmvc" class="form-control" id="modul" data-parsley-required="true">
 									<!-- Info alert -->
-									<div class="alert alert-info alert-styled-left alert-arrow-left mt-2 mb-0">
+									<div class="alert alert-light alert-arrow-left mt-2 mb-0" role="alert">
 										Direkomendasikan tidak menulisnya dengan menggunakan spasi. Semua kebutuhan MVC (Model View dan Controller) akan dibuat sesuai dengan penamaan pada bidang ini. Silahkan periksa file dengan struktur berikut setelah Anda melakukan penambahan.
 										<ol class="mb-0">
 											<li><code>models/{Nama_akses}_model.php</code></li>
@@ -228,7 +224,7 @@ include V_ADMIN_PATH . "topbar.php";
 							<label class="col-form-label col-lg-2" for="iconmenu">Icon Menu</label>
 							<div class="col-lg-10">
 								<input type="text" name="iconmenu" class="form-control" id="iconmenu">
-								<span class="form-text text-muted">Pilih icon disini <button data-toggle="modal" data-target="#pilihicon" id="modal_pilihicon" type="button" class="btn btn-xs btn-light" style="padding-top: 2px;padding-bottom: 2px;"><i class="icon-theater"></i> Pilih</button></span>
+								<span class="form-text text-muted">Pilih icon disini <button data-toggle="modal" data-target="#pilihicon" id="modal_pilihicon" type="button" class="btn btn-xs btn-light" style="padding-top: 2px;padding-bottom: 2px;"><i class="fe fe-gift"></i> Pilih</button></span>
 
 								<!-- Modal Icon -->
 				                <div class="modal fade" id="pilihicon" role="dialog" aria-hidden="true">
@@ -243,9 +239,10 @@ include V_ADMIN_PATH . "topbar.php";
 				                                <div class="row">
 				                                    <div class="col-md-6 mt-2">
 				                                        <select class="custom-select" id="pilihanicon">
-				                                            <option value="icomoon">Icomoon</option>
-				                                            <option value="material">Material</option>
+				                                            <option value="feather">Feather Icons</option>
 				                                            <option value="font-awesome">Font Awesome</option>
+				                                            <option value="icomoon">Icomoon Free</option>
+				                                            <option value="linearicons">Linearicons Free</option>
 				                                        </select>
 				                                    </div>
 				                                    <div class="col-md-12 mt-4">
@@ -320,7 +317,7 @@ include V_ADMIN_PATH . "topbar.php";
 					<div class="col-md-12 col-sm-12">
 						<hr/>
 						<div class="form-group">
-							<button class="btn btn-primary btn-sm" type="submit"><i class="icon-plus3"></i> <?php echo 'Tambah'; ?></button>
+							<button class="btn btn-primary" type="submit"><i class="icon-plus3"></i> <?php echo 'Tambah'; ?></button>
 						</div>
 					</div>
 				</div>

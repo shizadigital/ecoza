@@ -127,9 +127,9 @@ class Menu_admin_master extends CI_Controller {
 			$data = array( 
 							'title' => 'Edit Menu Admin Master - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Edit Menu Admin Master ' . $menu[0]['menuName'],
+							'title_page' => 'Edit Menu Admin Master ',
 							'title_page_icon' => '',
-							'title_page_secondary' => '',
+							'title_page_secondary' => $menu[0]['menuName'],
 							'header_button_action' => array(
 												array(
 													'title' => 'Tambah',
@@ -478,7 +478,7 @@ class {$c_filename} extends CI_Controller{
 			    $query = $this->Env_model->update( 'users_menu', $data, array("menuId"=>$id) );
 
 			    if($query){
-			    	$this->session->set_flashdata( 'sukses', 'Data berhasil ditambah');
+			    	$this->session->set_flashdata( 'sukses', 'Data berhasil disimpan');
 			    } else {
 			    	$this->session->set_flashdata( 'gagal', 'Data gagal disimpan' );
 			    }

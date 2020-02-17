@@ -1,0 +1,65 @@
+/* 
+*
+* Nestable button custom
+*/
+
+.nestable-ctn {
+    top: 3px;
+    position: absolute;
+    right: 10px;
+    left: auto;
+}
+
+
+/* 
+*
+* parsley validation
+*/
+
+.parsley-error,
+.parsley-error:focus {
+    border-color: #da4453;
+}
+
+.parsley-errors-list.filled {
+    padding: 5px;
+    list-style: none;
+    padding-left: 0px;
+    width: 100%;
+}
+
+ul.parsley-errors-list {
+    padding: 0;
+}
+
+.parsley-errors-list.filled li {
+    color: #cc0000;
+}
+
+.parsley-errors-list {
+    display: inherit;
+}
+
+.parsley-errors-list>span {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #da4453;
+}
+
+
+/* 
+*
+* Form Custom
+*/
+
+.req:after {
+    content: ' *';
+    color: #c0392b;
+    font-size: 17px;
+    line-height: 15px;
+}
+
+.row .col-form-label {
+    text-align: right;
+}

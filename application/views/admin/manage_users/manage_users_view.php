@@ -32,7 +32,7 @@ if( is_view() ):
                 <div class="row">
 
                     <div class="col-md-9">
-                        <h4 class="card-title"><?php echo $title_page; ?></h4>
+                        <h5 class="card-title mb-0"><?php echo $title_page; ?></h5>
                     </div>
                     
                     <div class="col-md-3">
@@ -57,7 +57,7 @@ if( is_view() ):
                     echo '
                     <div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
                         <i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
                 }
@@ -65,7 +65,7 @@ if( is_view() ):
                     echo '
                     <div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
                         <i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
                 }
@@ -120,7 +120,7 @@ if( is_view() ):
                                         <input type="checkbox" id="check_all" />
                                     </th>
                                     <th style="width:25px;" class="text-center">No</th>
-                                    <th style="min-width:80px;">Gambar</th>
+                                    <th style="min-width:44px;" class="text-center">Gambar</th>
                                     <th>Username</th>
                                     <th style="min-width:140px;">Nama</th>
                                     <th style="min-width:120px;" class="text-center">Level</th>
@@ -145,25 +145,25 @@ if( is_view() ):
                                     </td>
                                     <td class="text-center"><?php echo $no; ?></td>
                                     <?php 
-                                        $userpic = admin_assets()."/img/no-image2.png";
+                                        $userpic = admin_assets('components/core/img/avatars/avatar.png');
                                         if($r['userPic']){
-                                        $userpic = images_url().'/'. $r['userDir'].'/xsmall_'.$r['userPic']; 
+                                            $userpic = images_url($r['userDir'].'/xsmall_'.$r['userPic']); 
                                         }
                                     ?>
                                     <td class="text-center">
-                                        <img syle="width:80px;height:80px;" src="<?php print $userpic; ?>" />
+                                        <img style="width:42px;height:42px;" src="<?php print $userpic; ?>" />
                                     </td>
                                     <td>
                                         <?php 
                                             echo "<strong>$r[userLogin]</strong><br/>";
                                         ?>
-                                        <div class="btn-group btn-group-xs">
+                                        <div class="btn-group btn-group-sm" role="group">
                                             <?php if(is_edit()){ ?>
-                                            <a href="<?php echo admin_url($this->uri->segment(2)."/edit/".$r['userId']); ?>" class="btn btn-sm btn-info"><i class="icon-pencil"></i> Edit</a>
+                                            <a href="<?php echo admin_url($this->uri->segment(2)."/edit/".$r['userId']); ?>" class="btn btn-sm btn-info"><i class="fe fe-edit"></i> Edit</a>
                                             <?php }
                                             if($r['userId']!='1'){
                                             if(is_delete()) { ?>
-                                            <a data-toggle="modal" href="#myModal<?php echo $r['userId']; ?>" class="btn btn-sm btn-danger"><i class="icon-trash"></i> Hapus</a>
+                                            <a data-toggle="modal" href="#myModal<?php echo $r['userId']; ?>" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i> Hapus</a>
                                             <?php
                                             echo '
                                             <!-- Modal -->
@@ -196,17 +196,17 @@ if( is_view() ):
                                     <td class="text-center"><?php echo $r['levelName']; ?></td>
                                     <td class="text-center">
                                         <?php 
-                                        if($r['userBlokir']=='y'){ echo "<span class=\"label label-danger\">Tidak Aktif</span>"; }
-                                        else { echo "<span class=\"label label-success\">Aktif</span>"; }
+                                        if($r['userBlokir']=='y'){ echo "<span class=\"badge badge-danger\">Tidak Aktif</span>"; }
+                                        else { echo "<span class=\"badge badge-success\">Aktif</span>"; }
                                         ?>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <?php 
                                         if(empty($r['userLastLogin'])){ 
-                                            echo "<i class=\"icon_minus-06\"></i>";
+                                            echo "<i class=\"fe fe-minus\"></i>";
                                         } else {
                                             $iddate = date("d",$r['userLastLogin']) .' '. get_bulan(date("m",$r['userLastLogin'])) .' '. date("Y",$r['userLastLogin']) . ' ' . date("H:i",$r['userLastLogin']);
-                                            echo "<abbr class=\"bs_ttip\" title=\"".$iddate."\">".date("d/m/Y H:i",$r['userLastLogin'])."</abbr>";
+                                            echo "<abbr data-toggle=\"tooltip\" title=\"".$iddate."\">".date("d/m/Y H:i",$r['userLastLogin'])."</abbr>";
                                         } ?>
                                     </td>
                                 </tr>

@@ -47,7 +47,7 @@ echo form_open( admin_url( $this->uri->segment(2).'/prosesedit/' ), array( 'id'=
                     echo '
                     <div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
                         <i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
                 }
@@ -55,7 +55,7 @@ echo form_open( admin_url( $this->uri->segment(2).'/prosesedit/' ), array( 'id'=
                     echo '
                     <div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
                         <i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
                 }            
@@ -70,10 +70,14 @@ echo form_open( admin_url( $this->uri->segment(2).'/prosesedit/' ), array( 'id'=
                             </div>
                         </div>
 
+
                         <div class="form-group row">
                             <label class="col-sm-3 col-md-2 col-form-label" for="mod_active">Aktif</label>
 
                             <div class="col-sm-9 col-md-10">
+                                <?php
+                                if( $data['levelId']!='1'){
+                                ?>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input" name="mod_active" id="y" value="y"<?php echo ($data['levelActive']=='y') ? ' checked="checked"':''; ?> />
                                     <label class="custom-control-label" for="y">
@@ -86,6 +90,11 @@ echo form_open( admin_url( $this->uri->segment(2).'/prosesedit/' ), array( 'id'=
                                         Tidak
                                     </label>
                                 </div>
+                                <?php
+                                } else { 
+                                    echo '<p class="mt-3 badge badge-success">Ya</p>';
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -93,7 +102,7 @@ echo form_open( admin_url( $this->uri->segment(2).'/prosesedit/' ), array( 'id'=
                     <div class="col-md-12">
                         <hr/>
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit"><i class="icon-loop3"></i> Perbarui</button>
+                            <button class="btn btn-primary" type="submit"><i class="fe fe-refresh-cw"></i> Perbarui</button>
                         </div>
                     </div>
 

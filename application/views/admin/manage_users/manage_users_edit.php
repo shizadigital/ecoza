@@ -16,7 +16,7 @@ $request_script_files = array(
     'vendors/parsley/parsley.config.js',
     'vendors/parsley/parsley.min.js',
     'vendors/hideShowPassword/hideShowPassword.min.js',
-    'vendors/pwstrength.bootstrap-3.0.4/pwstrength-bootstrap.min.js'
+    'vendors/pwstrength.bootstrap/pwstrength-bootstrap.min.js'
 );
 $request_script = "
 $( document ).ready(function() {
@@ -51,7 +51,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
         <div class="card card-statistics">
             <div class="card-header">
                 <div class="card-heading">
-                    <h4 class="card-title"><?php echo $title_page; ?></h4>
+                    <h4 class="card-title mb-0"><?php echo $title_page; ?></h4>
                 </div>
             </div>
             <div class="card-body">
@@ -60,7 +60,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
                     echo '
                     <div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
                         <i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
                 }
@@ -68,7 +68,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
                     echo '
                     <div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
                         <i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
                 }
@@ -149,7 +149,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
                     <div class="col-md-12">
                         <hr/>
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit"><i class="icon-loop3"></i> Perbarui</button>
+                            <button class="btn btn-primary" type="submit"><i class="fe fe-refresh-cw"></i> Perbarui</button>
                         </div>
                     </div>
 

@@ -51,6 +51,7 @@ echo $this->assetsloc->get_admin_script('library');
 <script src="<?php echo admin_assets('components/menu-left/index.js'); ?>"></script>
 <script src="<?php echo admin_assets('components/sidebar/index.js'); ?>"></script>
 <script src="<?php echo admin_assets('components/topbar/index.js'); ?>"></script>
+<script src="<?php echo admin_assets('custom.js'); ?>"></script>
 
 <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 <?php 

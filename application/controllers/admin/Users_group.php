@@ -100,7 +100,7 @@ class Users_group extends CI_Controller{
 		if( is_edit() ){
 			$id = esc_sql( filter_int($id) );
 
-			$datagroup = $this->Env_model->view_where('users_level',"levelId='{$id}'")[0];
+			$datagroup = $this->Env_model->view_where('*','users_level',"levelId='{$id}'")[0];
 
 			$data = array( 
 							'title' => 'Group Pengguna - '.get_option('sitename'),
@@ -137,6 +137,8 @@ class Users_group extends CI_Controller{
 			if(!$error){
 				$id = esc_sql( filter_int($this->input->post('ID')) );
 				$modulName 	= esc_sql(filter_txt($this->input->post('access_name')));
+
+				$mod_active = empty( $this->input->post('mod_active') ) ? "n":"y";
 
 				$datavalue = array(
 		                      'levelName'	=> $modulName,

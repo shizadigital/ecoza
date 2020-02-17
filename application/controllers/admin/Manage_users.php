@@ -172,7 +172,8 @@ class Manage_users extends CI_Controller{
 		                      'userLastLogin'	=> '0',
 		                      'userRegistered'	=> $registered,
 							  'userDir'			=> $file_dir,
-							  'userPic'			=> $file_img
+							  'userPic'			=> $file_img,
+							  'userOnlineStatus'=> 'offline'
 		                );
 
 				$query = $this->Env_model->insert('users', $insvalue);
@@ -207,9 +208,9 @@ class Manage_users extends CI_Controller{
 
 			// admin picture
             if($getdata['userPic']){
-                $potoadmin = images_url().'/'.$getdata['userDir'].'/small_'.$getdata['userPic']; 
+                $potoadmin = images_url($getdata['userDir'].'/small_'.$getdata['userPic']); 
             }else{
-                $potoadmin = admin_assets()."/img/no_avatar.jpg";
+                $potoadmin = admin_assets('components/core/img/avatars/avatar.png');
             }
 
 			$data = array( 

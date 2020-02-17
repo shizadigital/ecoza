@@ -116,12 +116,12 @@ function admin_url($rootaccess = null){
 
 /**************** Files dir URL ********************/
 function files_url($dir_uri = '') {    
-    $files_url = base_url("files/files".$dir_uri);
+    $files_url = base_url("files/files/".$dir_uri);
         return $files_url;
 }
 
 function images_url($dir_uri = '') {
-    $images_url = base_url("files/images".$dir_uri);
+    $images_url = base_url("files/images/".$dir_uri);
         return $images_url;
 }
 

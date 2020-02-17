@@ -135,12 +135,12 @@
             </div>
 
             <?php 
-            $page_header_on = isset($page_header_on)? true:false;
+            $page_header_on = empty($page_header_on)? false:$page_header_on;
             $optheader = array(
-                'title_page' => isset($title_page) ? $title_page:'',
-                'title_page_icon' => isset($title_page_icon) ? $title_page_icon:'',
-                'title_page_secondary' => isset($title_page_secondary) ? $title_page_secondary:'',
-                'header_button_action' => isset($header_button_action) ? $header_button_action:array()
+                'title_page' => empty($title_page) ? '':$title_page,
+                'title_page_icon' => empty($title_page_icon) ? '':$title_page_icon,
+                'title_page_secondary' => empty($title_page_secondary) ? '':$title_page_secondary,
+                'header_button_action' => empty($header_button_action) ? array():$header_button_action
             );
             $CI->adminenv->adminPageHeader( $page_header_on, $optheader );
             ?>
@@ -152,11 +152,12 @@
     <div class="air__layout__content">
         <div class="air__utils__content">
             <?php 
-            if(isset($breadcrumb)){
+            $breadcrumb = empty($breadcrumb)? false:$breadcrumb;
+            if($breadcrumb){
             ?>
                 <nav aria-label="breadcrumb">
                     <?php $CI->adminenv->adminBreadcrumb(); ?>
-                </div>
+                </nav>
             <?php
             }
             ?>

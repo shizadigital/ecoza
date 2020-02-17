@@ -35,7 +35,9 @@ class Main extends CI_Controller {
 		$password = esc_sql(filter_txt( $this->input->post('pass') ) );
 
 		$passwordunik = sha1( 
-							sha1($password .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT
+							sha1(
+								encoder( $password .'>>>>'. LOGIN_SALT ) 
+							) . "#" . LOGIN_SALT
 						);
 
 		// validate first data

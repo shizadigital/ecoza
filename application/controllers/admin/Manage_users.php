@@ -119,7 +119,9 @@ class Manage_users extends CI_Controller{
 
 			$pass 		= esc_sql(filter_txt($this->input->post('pass')));
 			$pass 		= sha1( 
-							sha1($pass .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT
+							sha1(
+								encoder( $pass .'>>>>'. LOGIN_SALT )
+							) . "#" . LOGIN_SALT
 						);
 
 			$passwordunik = password_hash( 
@@ -287,7 +289,9 @@ class Manage_users extends CI_Controller{
 
 				$pass = esc_sql(filter_txt($this->input->post('pass')));
 				$pass = sha1( 
-							sha1($pass .'>>>>'. LOGIN_SALT ) . "#" . LOGIN_SALT
+							sha1(
+								encoder( $pass .'>>>>'. LOGIN_SALT ) 
+							) . "#" . LOGIN_SALT
 						);
 				
 				$passwordunik = password_hash( 

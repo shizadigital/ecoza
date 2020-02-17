@@ -83,7 +83,7 @@ if( $this->input->get('act')=='detail_access' ):
             echo '
 			<div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
 				<i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 			</div>
 			';
 		}
@@ -91,7 +91,7 @@ if( $this->input->get('act')=='detail_access' ):
             echo '
 			<div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
 				<i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 			</div>
 			';
 		}            

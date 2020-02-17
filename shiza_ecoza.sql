@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Feb 2020 pada 11.32
+-- Waktu pembuatan: 17 Feb 2020 pada 18.17
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -872,7 +872,7 @@ CREATE TABLE `shiza_testimonial` (
 CREATE TABLE `shiza_users` (
   `userId` int(11) UNSIGNED NOT NULL,
   `userLogin` varchar(65) NOT NULL,
-  `userPass` varchar(65) NOT NULL,
+  `userPass` varchar(255) NOT NULL,
   `userEmail` varchar(100) NOT NULL,
   `userTlp` varchar(25) NOT NULL,
   `userDisplayName` varchar(250) NOT NULL,
@@ -894,8 +894,8 @@ CREATE TABLE `shiza_users` (
 --
 
 INSERT INTO `shiza_users` (`userId`, `userLogin`, `userPass`, `userEmail`, `userTlp`, `userDisplayName`, `levelId`, `userBlokir`, `userDelete`, `userLastLogin`, `userActivationKey`, `userRegistered`, `userSession`, `userCheckPoint`, `userDir`, `userPic`, `userOnlineStatus`) VALUES
-(1, 'superadmin', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1581911215, '', 1358259589, '3ulu5sts4j3pls4o4s03pgba90d3ench', '', '', '', 'online'),
-(2, 'demo', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'demo@demo.com', '', 'Demo Administrator', 2, 'n', 0, 1565019560, '', 1565017383, 'uhugeprv49jpbfkonhp9bc3l52', '', '', '', 'online');
+(1, 'superadmin', '$2y$10$cBWDa0w1k4lGlqRTQIZWd.U37XG3gBw3gvBJkUXDo8Eiw3HliDmdq', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1581958752, '', 1358259589, 'hothgtr2rsk4al832mmd4onjvre35g69', '', '', '', 'online'),
+(2, 'demo', '$2y$10$cBWDa0w1k4lGlqRTQIZWd.U37XG3gBw3gvBJkUXDo8Eiw3HliDmdq', 'demo@demo.com', '', 'Demo Administrator', 2, 'n', 0, 1565019560, '', 1565017383, 'uhugeprv49jpbfkonhp9bc3l52', '', '', '', 'online');
 
 -- --------------------------------------------------------
 
@@ -944,16 +944,18 @@ CREATE TABLE `shiza_users_menu` (
 --
 
 INSERT INTO `shiza_users_menu` (`menuId`, `menuParentId`, `menuName`, `menuAccess`, `menuAddedDate`, `menuSort`, `menuIcon`, `menuAttrClass`, `menuActive`, `menuView`, `menuAdd`, `menuEdit`, `menuDelete`) VALUES
-(1, 0, 'Developer', '', 1452867589, 4, 'fe fe-award', '', 'y', 'y', 'n', 'n', 'n'),
+(1, 0, 'Developer', '', 1452867589, 5, 'fe fe-award', '', 'y', 'y', 'n', 'n', 'n'),
 (2, 1, 'Menu Admin Master ', 'a:1:{s:10:\"admin_link\";s:17:\"menu_admin_master\";}', 1452867589, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
 (3, 1, 'Menu Admin Privilage', 'a:1:{s:10:\"admin_link\";s:20:\"menu_admin_privilage\";}', 1577632987, 2, '', '', 'y', 'y', 'y', 'y', 'y'),
-(4, 0, 'Alat', '', 1577728905, 3, 'fe fe-settings', '', 'y', 'y', 'n', 'y', 'n'),
+(4, 0, 'Alat', '', 1577728905, 4, 'fe fe-settings', '', 'y', 'y', 'n', 'y', 'n'),
 (5, 4, 'Info Sistem', 'a:1:{s:10:\"admin_link\";s:11:\"info_sistem\";}', 1577729211, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
-(6, 0, 'Pengaturan', '', 1577892258, 2, 'fe fe-sliders', '', 'y', 'y', 'n', 'n', 'n'),
+(6, 0, 'Pengaturan', '', 1577892258, 3, 'fe fe-sliders', '', 'y', 'y', 'n', 'n', 'n'),
 (7, 6, 'Atur Web', 'a:1:{s:10:\"admin_link\";s:8:\"atur_web\";}', 1577892344, 1, '', '', 'y', 'y', 'n', 'y', 'n'),
-(8, 0, 'Pengguna', '', 1578138421, 1, 'fe fe-user', '', 'y', 'y', 'n', 'n', 'n'),
+(8, 0, 'Pengguna', '', 1578138421, 2, 'fe fe-user', '', 'y', 'y', 'n', 'n', 'n'),
 (9, 8, 'Kelola Pengguna', 'a:1:{s:10:\"admin_link\";s:12:\"manage_users\";}', 1578138586, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
-(10, 8, 'Grup Pengguna', 'a:1:{s:10:\"admin_link\";s:11:\"users_group\";}', 1579535259, 2, '', '', 'y', 'y', 'y', 'y', 'y');
+(10, 8, 'Grup Pengguna', 'a:1:{s:10:\"admin_link\";s:11:\"users_group\";}', 1579535259, 2, '', '', 'y', 'y', 'y', 'y', 'y'),
+(11, 0, 'Katalog', '', 1581957645, 1, 'fe fe-file-text', '', 'y', 'y', 'n', 'n', 'n'),
+(12, 11, 'Kategori Produk', 'a:1:{s:10:\"admin_link\";s:18:\"product_categories\";}', 1581958817, 1, '', '', 'y', 'y', 'y', 'y', 'y');
 
 -- --------------------------------------------------------
 
@@ -985,7 +987,9 @@ INSERT INTO `shiza_users_menu_access` (`lmnId`, `levelId`, `menuId`, `lmnView`, 
 (7, 1, 7, 'y', 'n', 'y', 'n'),
 (8, 1, 8, 'y', 'n', 'n', 'n'),
 (9, 1, 9, 'y', 'y', 'y', 'y'),
-(10, 1, 10, 'y', 'y', 'y', 'y');
+(10, 1, 10, 'y', 'y', 'y', 'y'),
+(11, 1, 11, 'y', 'n', 'n', 'n'),
+(12, 1, 12, 'y', 'y', 'y', 'y');
 
 --
 -- Indexes for dumped tables

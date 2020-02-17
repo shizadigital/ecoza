@@ -13,15 +13,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="air__footer__inner">
                         <div class="row">
                             <div class="col-md-8">
-                            
+                            <p><strong>EcoZa - Best solution for your online shop</strong></p>
                             <p>
-                                &copy; <?php echo date('Y'); ?>. <a href="<?php echo base_url(); ?>"><?php echo web_info(); ?></a>. Powered by <a href="https://shiza.id/" target="_blank">Shiza</a>. Version <?php echo SHIZA_VERSION; ?>
+                                &copy; <?php echo date('Y'); ?>. <a href="<?php echo base_url(); ?>"><?php echo web_info(); ?></a>. All rights reserved. Powered by <a href="https://shiza.id/" target="_blank">Shiza</a>. Version <?php echo SHIZA_VERSION; ?>
                             </p>
+                            <p>Page rendered in <strong>{elapsed_time}</strong> seconds</p>
                             </div>
                             <div class="col-md-4">
                                 <div class="air__footer__logo">
                                     <img src="<?php echo admin_assets('components/core/img/shiza-logo.png'); ?>" alt="<?php echo web_info(); ?>" />
-                                    <div class="air__footer__logo__name">Shiza.Id</div>
+                                    <div class="air__footer__logo__name">EcoZa</div>
                                     <div class="air__footer__logo__descr">Administrator</div>
                                 </div>
                             </div>

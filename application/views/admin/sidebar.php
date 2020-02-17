@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <a href="javascript: void(0);" class="air__menuLeft__logo">
             <img src="<?php echo admin_assets('components/core/img/shiza-logo.png'); ?>" alt="Ecoza" />
-            <div class="air__menuLeft__logo__name">Shiza.Id</div>
+            <div class="air__menuLeft__logo__name">EcoZa</div>
             <div class="air__menuLeft__logo__descr">Administrator</div>
         </a>
         

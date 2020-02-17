@@ -150,7 +150,7 @@ if( $this->input->get('act')=='detail_access' ):
                                 <?php 
                                 	if($totallevel > 0){
 	                                	for($i=1; $i<=$totallevel; $i++){
-	                                		echo '<i class="mi-remove"></i>';
+	                                		echo '<i class="fe fe-minus"></i>';
 	                                		if($i == $totallevel){ echo ' '; }
 	                                	}
 	                                }

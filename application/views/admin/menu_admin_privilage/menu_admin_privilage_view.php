@@ -38,9 +38,9 @@ echo form_open( admin_url( $this->uri->segment(2).'/' ), array( 'id'=>'valid', '
         <div class="card card-statistics">
             <div class="card-body">
                 <div class="form-row align-items-center">
-                    <div class="col-auto">
+                    <div class="col-auto form-inline">
                         <div class="input-group">
-                            <select name="levelaccess" class="custom-select" data-parsley-required="true">
+                            <select name="levelaccess" class="form-control custom-select" data-parsley-required="true">
                                 <option value="">-- Pilih Level --</option>
                                 <?php 
                                 foreach ($data['datalevel'] as $r) {                                    
@@ -70,9 +70,7 @@ if( $this->input->get('act')=='detail_access' ):
 ?>
 <div class="card card-statistics">
     <div class="card-header">
-        <div class="d-xxs-flex justify-content-between align-items-center">
-            <h4 class="card-title">Hak Akses Untuk <?php echo $data['accessname']; ?></h4>
-        </div>
+        <h5 class="card-title mb-0">Hak Akses Untuk <?php echo $data['accessname']; ?></h5>
     </div>
 
     <?php 
@@ -102,7 +100,7 @@ if( $this->input->get('act')=='detail_access' ):
         <div class="row">
             
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary btn-sm"><i class="icon-loop3"></i> <?php echo 'Perbarui List'; ?></button>
+                <button type="submit" class="btn btn-primary"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui List'; ?></button>
             </div>
             <div class="col-md-12 py-3 table-responsive-sm">
                 <table class="table table-striped table-hover">
@@ -304,7 +302,7 @@ if( $this->input->get('act')=='detail_access' ):
                 </table>
             </div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-primary btn-sm"><i class="icon-loop3"></i> <?php echo 'Perbarui List'; ?></button>
+                <button type="submit" class="btn btn-primary"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui List'; ?></button>
             </div>
             <div class="col-md-6">
                 <?php                                               

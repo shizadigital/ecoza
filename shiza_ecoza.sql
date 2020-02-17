@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Feb 2020 pada 18.07
+-- Waktu pembuatan: 17 Feb 2020 pada 11.32
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -686,22 +686,22 @@ CREATE TABLE `shiza_options` (
 
 INSERT INTO `shiza_options` (`optionId`, `optionName`, `optionValue`) VALUES
 (1, 'sitename', 'E-Commerce Shiza'),
-(2, 'sitekeywords', 'framework, ci, codeigniter,memo indo media'),
-(3, 'sitedescription', 'Framework memo indo media dibuat dengan source code base dari CodeIgniter'),
+(2, 'sitekeywords', 'framework, ci, codeigniter,shiza,ecommerce,ecoza'),
+(3, 'sitedescription', 'E-Commerce Shiza diciptakan untuk mempermudah pengguna dalam berjual beli online.'),
 (4, 'template', 'themekeren'),
 (6, 'timezone', 'Asia/Jakarta'),
 (7, 'phpsupport', '5.2.x'),
 (8, 'mysqlsupport', '5.2.x'),
 (9, 'robots', 'index,follow'),
-(10, 'socialmediaurl', 'a:7:{s:8:\"facebook\";s:38:\"https://www.facebook.com/memoindomedia\";s:7:\"twitter\";s:0:\"\";s:7:\"youtube\";s:0:\"\";s:9:\"instagram\";s:39:\"https://www.instagram.com/memoindomedia\";s:4:\"line\";s:0:\"\";s:8:\"whatsapp\";s:0:\"\";s:10:\"googleplay\";s:0:\"\";}'),
+(10, 'socialmediaurl', 'a:7:{s:8:\"facebook\";s:33:\"https://www.facebook.com/shiza.id\";s:7:\"twitter\";s:0:\"\";s:7:\"youtube\";s:0:\"\";s:9:\"instagram\";s:34:\"https://www.instagram.com/shiza.id\";s:4:\"line\";s:0:\"\";s:8:\"whatsapp\";s:0:\"\";s:10:\"googleplay\";s:0:\"\";}'),
 (11, 'ringkaspost', '197'),
 (12, 'favicon', ''),
-(13, 'siteemail', 'info@memoindomedia.com'),
+(13, 'siteemail', 'info@shiza.id'),
 (14, 'tagline', 'This is tagline'),
 (15, 'emailsignature', '--\r\nBest Regards,\r\n\r\nAdmin'),
 (16, 'emailheader', ''),
 (17, 'httpsmode', 'no'),
-(18, 'sitephone', '082283884599'),
+(18, 'sitephone', '081276540054'),
 (19, 'defaultlang', 'id_ID'),
 (20, 'smtp_password', 'TFJlbkV3R1BvOUt4Zlg3eWs1VlpOZz09'),
 (21, 'smtp_host', 'myhostmail.com'),
@@ -894,7 +894,7 @@ CREATE TABLE `shiza_users` (
 --
 
 INSERT INTO `shiza_users` (`userId`, `userLogin`, `userPass`, `userEmail`, `userTlp`, `userDisplayName`, `levelId`, `userBlokir`, `userDelete`, `userLastLogin`, `userActivationKey`, `userRegistered`, `userSession`, `userCheckPoint`, `userDir`, `userPic`, `userOnlineStatus`) VALUES
-(1, 'superadmin', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1581867085, '', 1358259589, 'ot9cbs98v67usa329k8ds5ags9li0t2q', '', '', '', 'online'),
+(1, 'superadmin', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1581911215, '', 1358259589, '3ulu5sts4j3pls4o4s03pgba90d3ench', '', '', '', 'online'),
 (2, 'demo', '123ddab3392adb83b5d99faca5f4404c64841aa6', 'demo@demo.com', '', 'Demo Administrator', 2, 'n', 0, 1565019560, '', 1565017383, 'uhugeprv49jpbfkonhp9bc3l52', '', '', '', 'online');
 
 -- --------------------------------------------------------
@@ -944,10 +944,10 @@ CREATE TABLE `shiza_users_menu` (
 --
 
 INSERT INTO `shiza_users_menu` (`menuId`, `menuParentId`, `menuName`, `menuAccess`, `menuAddedDate`, `menuSort`, `menuIcon`, `menuAttrClass`, `menuActive`, `menuView`, `menuAdd`, `menuEdit`, `menuDelete`) VALUES
-(1, 0, 'Developer', '', 1452867589, 4, 'fe fe-award', '', 'y', 'y', 'y', 'y', 'y'),
+(1, 0, 'Developer', '', 1452867589, 4, 'fe fe-award', '', 'y', 'y', 'n', 'n', 'n'),
 (2, 1, 'Menu Admin Master ', 'a:1:{s:10:\"admin_link\";s:17:\"menu_admin_master\";}', 1452867589, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
 (3, 1, 'Menu Admin Privilage', 'a:1:{s:10:\"admin_link\";s:20:\"menu_admin_privilage\";}', 1577632987, 2, '', '', 'y', 'y', 'y', 'y', 'y'),
-(4, 0, 'Alat', '', 1577728905, 3, 'fe fe-settings', '', 'y', 'y', 'y', 'y', 'y'),
+(4, 0, 'Alat', '', 1577728905, 3, 'fe fe-settings', '', 'y', 'y', 'n', 'y', 'n'),
 (5, 4, 'Info Sistem', 'a:1:{s:10:\"admin_link\";s:11:\"info_sistem\";}', 1577729211, 1, '', '', 'y', 'y', 'y', 'y', 'y'),
 (6, 0, 'Pengaturan', '', 1577892258, 2, 'fe fe-sliders', '', 'y', 'y', 'n', 'n', 'n'),
 (7, 6, 'Atur Web', 'a:1:{s:10:\"admin_link\";s:8:\"atur_web\";}', 1577892344, 1, '', '', 'y', 'y', 'n', 'y', 'n'),

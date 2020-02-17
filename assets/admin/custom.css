@@ -63,3 +63,25 @@ ul.parsley-errors-list {
 .row .col-form-label {
     text-align: right;
 }
+
+
+/* 
+*
+* Bootstrap tagsinput
+*/
+
+.bootstrap-tagsinput {
+    box-shadow: unset;
+    padding: 6px 6px 8px !important;
+    width: 100%;
+    border-color: #e4e9f0;
+}
+
+.bootstrap-tagsinput .tag {
+    padding: 2px 6px 4px;
+    width: 100%;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}

@@ -68,9 +68,7 @@ class Main extends CI_Controller {
 
 				if ( password_verify($passwordunik, $authlogin->userPass) ){
 
-					echo 'ok'; exit;
-
-					$logindata = $this->adminauth_model->get_auth_data($username, $passwordunik);
+					$logindata = $this->adminauth_model->get_auth_data($username, $authlogin->userPass);
 
 					// make session here
 					$newdata = array(

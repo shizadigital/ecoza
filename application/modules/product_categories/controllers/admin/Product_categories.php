@@ -26,39 +26,15 @@ class Product_categories extends CI_Controller{
 						'title_page_icon' => '',
 						'title_page_secondary' => '',
 						'breadcrumb' => false,
-						'header_button_action' => array(
-											array(
-												'title' => 'Tambah',
-												'icon'	=> 'fe fe-plus',
-												'access' => admin_url('product_categories/tambah'),
-												'permission' => 'add'
-											)
-										),
 					);
 			
-			$this->load->view( admin_root('product_categories/product_categories_view'), $data );
+			$this->load->view( admin_root('product_categories_view'), $data );
 		}
 	}
 
-	public function tambah(){
+	public function prosestambah(){
 		if( is_add() ){
-			$data = array( 
-							'title' => 'Kategori Produk - '.get_option('sitename'),
-							'page_header_on' => true,
-							'title_page' => 'Tambah Kategori Produk',
-							'title_page_icon' => '',
-							'title_page_secondary' => '',
-							'breadcrumb' => false,
-							'header_button_action' => array(
-												array(
-													'title' => 'Kembali',
-													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('product_categories')
-												)
-											),
-						);
 
-			$this->load->view( admin_root('product_categories/product_categories_add'), $data );
 		}
 	}
 
@@ -86,7 +62,7 @@ class Product_categories extends CI_Controller{
 											),
 						);
 
-			$this->load->view( admin_root('product_categories/product_categories_edit'), $data );
+			$this->load->view( admin_root('product_categories_edit'), $data );
 		}
 	}
 

@@ -31,9 +31,9 @@ $config['admin_slug'] = 'shiza_admin';
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https://" : "http://").$_SERVER['HTTP_HOST'].
-						str_replace(basename($_SERVER['SCRIPT_NAME']),"",
-						$_SERVER['SCRIPT_NAME']);
+$config['base_url'] = ( ( (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") OR $_SERVER['SERVER_PORT'] == 443 ) ? 
+						"https://" : "http://" ) . $_SERVER['HTTP_HOST'].
+						str_replace( basename( $_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME'] );
 
 /*
 |--------------------------------------------------------------------------
@@ -124,7 +124,7 @@ $config['enable_hooks'] = TRUE;
 | https://codeigniter.com/user_guide/general/creating_libraries.html
 |
 */
-$config['subclass_prefix'] = 'MEMO_';
+$config['subclass_prefix'] = 'MY_';
 
 /*
 |--------------------------------------------------------------------------

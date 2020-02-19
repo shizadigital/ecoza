@@ -21,6 +21,6 @@ class Dashboard extends CI_Controller {
 					'title_page_icon' => 'fe fe-home',
 					'title_page_secondary' => '',
 				);
-		$this->load->view( admin_root('dashboard/dashboard_view'), $data );
+		$this->load->view( admin_root('dashboard'), $data );
 	}
 }

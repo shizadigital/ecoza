@@ -91,7 +91,7 @@ class Menu_admin_master extends CI_Controller {
 						'data_menu' => $this->menu_data
 					);
 			
-			$this->load->view( admin_root('menu_admin_master/menu_admin_master_view'), $data );
+			$this->load->view( admin_root('menu_admin_master_view'), $data );
 		}
 	}
 
@@ -114,7 +114,7 @@ class Menu_admin_master extends CI_Controller {
 							'data_menu' => $this->menu_data
 						);
 				
-			$this->load->view( admin_root('menu_admin_master/menu_admin_master_add'), $data );
+			$this->load->view( admin_root('menu_admin_master_add'), $data );
 		}
 	}
 
@@ -147,7 +147,7 @@ class Menu_admin_master extends CI_Controller {
 							'data' => $menu[0]
 						);
 				
-			$this->load->view( admin_root('menu_admin_master/menu_admin_master_edit'), $data );
+			$this->load->view( admin_root('menu_admin_master_edit'), $data );
 		}
 	}
 
@@ -236,9 +236,11 @@ class Menu_admin_master extends CI_Controller {
 			    );
 
 			    // insert data menu here
-			    $query = $this->Env_model->insert('users_menu',$data);
+				//$query = $this->Env_model->insert('users_menu',$data);
+				
+				$query = true;
 
-			    $infosuccess = '';
+			    $infosuccess = 'Menu berhasil dibuat.';
 			    if($query){
 			    	// make file MVC start here
 
@@ -246,43 +248,108 @@ class Menu_admin_master extends CI_Controller {
 			    	if($this->input->post('menu_akses')=='admin_link'){
 
 			    		//format file name like url permalink but use underscore for separator
-			    		$filename = slugURL($aksesmvc, array('delimiter'=> '_'));
+						$filename = slugURL($aksesmvc, array('delimiter'=> '_'));
 
-				    	// make model file
-				    	define('MODEL_PATH', APPPATH.'models'.DIRECTORY_SEPARATOR);
-				    	$modelfilename = ucwords($filename);
-				    	if(!file_exists(MODEL_PATH . $modelfilename.'_model.php')){
+						$capitalize_filename = ucwords($filename);
+						
+						$sep = DIRECTORY_SEPARATOR;
+						
+						// check modular type for modules path file
+						if( $this->input->post('modulartype') =='mvc' ){
+							$controllerspath 	= APPPATH.'controllers';
+							$modelspath 		= APPPATH.'models';
+							$viewspath 			= APPPATH.'views';
+
+							$viewspath_adminmoduleloc = $viewspath.$sep.'admin'.$sep.$filename;
+							
+							$loadviewincontroller = $filename.'/';
+
+							// make view structure 
+							if(!is_dir($viewspath . $sep . 'admin' . $sep . $filename)){
+								$mkdirview = makeDir($viewspath . $sep . 'admin' . $sep . $filename, 0644);
+				    			if(!$mkdirview){
+									show_error('Direktori module tidak dapat dibuat silahkan periksa',503,'Pembuatan direktori error');
+									exit;
+								}
+							}
+							
+							$infosuccess = '<br/><br/>silahkan periksa direktori 
+								<ol>
+									<li><code>models/'.ucwords($capitalize_filename).'_model.php</code></li>
+									<li><code>views/admin/'.strtolower($filename).'/'.strtolower($filename).'_view.php</code></li>
+									<li><code>views/admin/'.strtolower($filename).'/'.strtolower($filename).'_add.php</code></li>
+									<li><code>views/admin/'.strtolower($filename).'/'.strtolower($filename).'_edit.php</code></li> <li><code>controllers/admin/'.ucwords($capitalize_filename).'.php</code></li>
+								</ol>';
+						} else {
+							$modulespath = APPPATH.'modules'.$sep.$filename;
+
+							$controllerspath 	= $modulespath.$sep.'controllers';
+							$modelspath 		= $modulespath.$sep.'models';
+							$viewspath 			= $modulespath.$sep.'views';
+
+							$viewspath_adminmoduleloc = $viewspath.$sep.'admin';
+
+							$loadviewincontroller = '';
+
+							// make dir module here
+							if(!is_dir($modulespath)){
+								$mkmodules = makeDir($modulespath, 0644);
+
+								if($mkmodules){
+									// make dir for controllers
+									$mkcontrollers = makeDir($controllerspath, 0644);
+									if($mkcontrollers){
+										makeDir($controllerspath.$sep.'admin', 0644);
+									}
+
+									// make dir for models
+									makeDir($modelspath, 0644);
+
+									// make dir for views
+									$mkviews = makeDir($viewspath, 0644);
+									if($mkviews){
+										makeDir($viewspath.$sep.'admin', 0644);
+									}
+								} else {
+									show_error('Direktori module tidak dapat dibuat silahkan periksa',503,'Pembuatan direktori error');
+									exit;
+								}
+							}
+
+							$infosuccess = '<br/><br/>silahkan periksa direktori 
+								<ol>
+									<li><code>modules/'.strtolower($filename).'/models/'.ucwords($capitalize_filename).'_model.php</code></li>
+									<li><code>modules/'.strtolower($filename).'/views/admin/'.strtolower($filename).'_view.php</code></li>
+									<li><code>modules/'.strtolower($filename).'/views/admin/'.strtolower($filename).'_add.php</code></li>
+									<li><code>modules/'.strtolower($filename).'/views/admin/'.strtolower($filename).'_edit.php</code></li>
+									<li><code>modules/'.strtolower($filename).'/controllers/admin/'.ucwords($capitalize_filename).'.php</code></li>
+								</ol>';
+						}
+
+				    	// make models file
+				    	if(!file_exists($modelspath . $sep . $capitalize_filename.'_model.php')){
 				    		// make model content
-				    		$filemodel = MODEL_PATH . $modelfilename.'_model.php';
+				    		$filemodel = $modelspath . $sep . $capitalize_filename.'_model.php';
 							$modelhandle = fopen ($filemodel, "w");
 							$modeldirnamecontent = "<?php\ndefined('BASEPATH') OR exit('No direct script access allowed');
 
-class {$modelfilename}_model extends CI_model{ 
+class {$capitalize_filename}_model extends CI_model{ 
 
 }\n?>";
 							fputs ($modelhandle, $modeldirnamecontent);
 							fclose($modelhandle);
-				    	}
+						}
 
-				    	// make view file
-				    	define('VIEW_PATH', APPPATH.'views'.DIRECTORY_SEPARATOR);
-				    	define('VIEW_ADMIN_PATH', VIEW_PATH.'admin'.DIRECTORY_SEPARATOR);
-				    	$viewdirname = strtolower($filename);
-				    	$viewfilename = strtolower($filename);
-				    	if(!is_dir(VIEW_ADMIN_PATH . $viewdirname)){
-
-				    		$mkdirview = makeDir(VIEW_ADMIN_PATH . $viewdirname, 0644);
-				    		if($mkdirview){
-
-				    			$pagesample = array('view','add','edit');
-				    			foreach ($pagesample as $key => $val) {
-				    				// make view content
-						    		$fileview = VIEW_ADMIN_PATH . $viewdirname . DIRECTORY_SEPARATOR . $viewfilename.'_'.$val.'.php';
-									$viewhandle = fopen ($fileview, "w");
-									$viewdirnamecontent = "<?php\ndefined('BASEPATH') OR exit('No direct script access allowed');
+				    	// make views files
+						$pagesample = array('view','add','edit');
+						foreach ($pagesample as $key => $val) {
+							// make view content
+							$fileview = $viewspath_adminmoduleloc . $sep . $filename.'_'.$val.'.php';
+							$viewhandle = fopen ($fileview, "w");
+							$viewdirnamecontent = "<?php\ndefined('BASEPATH') OR exit('No direct script access allowed');
 
 /************************************
-		Register style (CSS)
+Register style (CSS)
 ************************************/
 \$request_css_files = array(
 );
@@ -290,7 +357,7 @@ class {$modelfilename}_model extends CI_model{
 \$this->assetsloc->reg_admin_style(\$request_css_files,\$request_style);
 
 /*******************************************
-		Register Script (JavaScript)
+Register Script (JavaScript)
 *******************************************/
 \$request_script_files = array(
 );
@@ -302,27 +369,21 @@ include V_ADMIN_PATH . \"sidebar.php\";
 include V_ADMIN_PATH . \"topbar.php\";
 
 // Your code of view here
- 
+
 include V_ADMIN_PATH . \"footer.php\";
 ?>";
-									fputs ($viewhandle, $viewdirnamecontent);
-									fclose($viewhandle);
-				    			} // end foreach
-				    		}
-				    	}
+							fputs ($viewhandle, $viewdirnamecontent);
+							fclose($viewhandle);
+						} // end foreach
 
 				    	// make controller file
-				    	define('CONTROLLER_PATH', APPPATH.'controllers'.DIRECTORY_SEPARATOR);
-				    	define('CONTROLLER_ADMIN_PATH', CONTROLLER_PATH.'admin'.DIRECTORY_SEPARATOR);
-				    	$c_filename = ucwords($filename);
-				    	$c_filename_lower = strtolower($c_filename);
-				    	if(!file_exists(CONTROLLER_ADMIN_PATH . $c_filename.'.php')){
+				    	if(!file_exists($controllerspath . $sep . 'admin' . $sep . $capitalize_filename.'.php')){
 				    		// make controller content
-				    		$file_c = CONTROLLER_ADMIN_PATH . $c_filename.'.php';
+				    		$file_c = $controllerspath . $sep . 'admin' . $sep . $capitalize_filename.'.php';
 							$c_handle = fopen ($file_c, "w");
 							$c_dirnamecontent = "<?php\ndefined('BASEPATH') OR exit('No direct script access allowed');
 
-class {$c_filename} extends CI_Controller{ 
+class {$capitalize_filename} extends CI_Controller{ 
 
 	public function __construct(){
 		parent::__construct();
@@ -351,13 +412,13 @@ class {$c_filename} extends CI_Controller{
 											array(
 												'title' => 'Tambah',
 												'icon'	=> 'fe fe-plus',
-												'access' => admin_url('{$c_filename_lower}/tambah'),
+												'access' => admin_url('{$filename}/tambah'),
 												'permission' => 'add'
 											)
 										),
 					);
 			
-			\$this->load->view( admin_root('{$c_filename_lower}/{$c_filename_lower}_view'), \$data );
+			\$this->load->view( admin_root('{$loadviewincontroller}{$filename}_view'), \$data );
 		}
 	}
 
@@ -374,12 +435,12 @@ class {$c_filename} extends CI_Controller{
 												array(
 													'title' => 'Kembali',
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('{$c_filename_lower}')
+													'access' => admin_url('{$filename}')
 												)
 											),
 						);
 
-			\$this->load->view( admin_root('{$c_filename_lower}/{$c_filename_lower}_add'), \$data );
+			\$this->load->view( admin_root('{$loadviewincontroller}{$filename}_add'), \$data );
 		}
 	}
 
@@ -396,18 +457,18 @@ class {$c_filename} extends CI_Controller{
 												array(
 													'title' => 'Tambah',
 													'icon'	=> 'fe fe-plus',
-													'access' => admin_url('{$c_filename_lower}/tambah'),
+													'access' => admin_url('{$filename}/tambah'),
 													'permission' => 'add'
 												),
 												array(
 													'title' => 'Kembali',
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('{$c_filename_lower}')
+													'access' => admin_url('{$filename}')
 												)
 											),
 						);
 
-			\$this->load->view( admin_root('{$c_filename_lower}/{$c_filename_lower}_edit'), \$data );
+			\$this->load->view( admin_root('{$loadviewincontroller}{$filename}_edit'), \$data );
 		}
 	}
 
@@ -420,9 +481,8 @@ class {$c_filename} extends CI_Controller{
 }\n?>";
 							fputs ($c_handle, $c_dirnamecontent);
 							fclose($c_handle);
-				    	}
-
-				    	$infosuccess = ', silahkan periksa direktori <code>models/'.ucwords($filename).'_model.php</code>, <code>views/admin/'.strtolower($filename).'/'.strtolower($filename).'_view.php</code>, <code>views/admin/'.strtolower($filename).'/'.strtolower($filename).'_add.php</code>, <code>views/admin/'.strtolower($filename).'/'.strtolower($filename).'_edit.php</code> dan <code>controllers/admin/'.ucwords($filename).'.php</code>';
+						}
+										    	
 			    	}
 			    }
 

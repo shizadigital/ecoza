@@ -29,7 +29,7 @@ class Atur_web extends CI_Controller{
 										),
 					);
 			
-			$this->load->view( admin_root('atur_web/atur_web_view'), $data );
+			$this->load->view( admin_root('atur_web_view'), $data );
 		}
 	}
 

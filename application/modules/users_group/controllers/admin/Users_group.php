@@ -36,7 +36,7 @@ class Users_group extends CI_Controller{
 						'datalevel' => $this->users_group_model->getLevelUsers()
 					);
 			
-			$this->load->view( admin_root('users_group/users_group_view'), $data );
+			$this->load->view( admin_root('users_group_view'), $data );
 		}
 	}
 
@@ -57,7 +57,7 @@ class Users_group extends CI_Controller{
 											),
 						);
 
-			$this->load->view( admin_root('users_group/users_group_add'), $data );
+			$this->load->view( admin_root('users_group_add'), $data );
 		}
 	}
 	public function prosestambah(){
@@ -124,7 +124,7 @@ class Users_group extends CI_Controller{
 							'data' => $datagroup
 						);
 
-			$this->load->view( admin_root('users_group/users_group_edit'), $data );
+			$this->load->view( admin_root('users_group_edit'), $data );
 		}
 	}
 	public function prosesedit(){

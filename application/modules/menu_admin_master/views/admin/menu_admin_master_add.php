@@ -50,7 +50,17 @@ $( document ).ready(function() {
     $('#pilihanicon').change(function(){
         var val = $(this).val();
         ajaxicon(val);
-    });
+	});
+	
+	$('#modularmvc').change(function(){
+		if($( this ).val()=='hmvc'){
+			$('.alert-hmvc').show();
+			$('.alert-mvc').hide();
+		} else {
+			$('.alert-mvc').show();
+			$('.alert-hmvc').hide();
+		}
+	});
 });
 ";
 $this->assetsloc->reg_admin_script($request_script_files,$request_script);
@@ -191,22 +201,52 @@ include V_ADMIN_PATH . "topbar.php";
 						</div>
 
 						<div id="modulelink">
+
+							<div class="form-group row">
+								<label class="col-form-label col-lg-2" for="modularmvc">Tipe Modul</label>
+								<div class="col-lg-10">
+									<select class="form-control" id="modularmvc" name="modulartype">
+										<option value="hmvc" selected="selected">Modular HMVC</option>
+										<option value="mvc">Standar Codeigniter</option>
+									</select>
+								</div>
+							</div>
+							
 							<div class="form-group row">
 								<label class="col-form-label col-lg-2 req" for="modul">Akses MVC</label>
 								<div class="col-lg-10">
 									<input type="text" name="aksesmvc" class="form-control" id="modul" data-parsley-required="true">
-									<!-- Info alert -->
-									<div class="alert alert-light alert-arrow-left mt-2 mb-0" role="alert">
-										Direkomendasikan tidak menulisnya dengan menggunakan spasi. Semua kebutuhan MVC (Model View dan Controller) akan dibuat sesuai dengan penamaan pada bidang ini. Silahkan periksa file dengan struktur berikut setelah Anda melakukan penambahan.
-										<ol class="mb-0">
-											<li><code>models/{Nama_akses}_model.php</code></li>
-											<li><code>views/admin/{nama_akses}/{nama_akses}_view.php</code></li>
-											<li><code>views/admin/{nama_akses}/{nama_akses}_add.php</code></li>
-											<li><code>views/admin/{nama_akses}/{nama_akses}_edit.php</code></li>
-											<li><code>controllers/admin/{Nama_akses}.php</code></li>
-										</ol>
-								    </div>
-								    <!-- /info alert -->
+									
+									<div class="alert-hmvc">
+										<!-- Info alert -->
+										<div class="alert alert-light alert-arrow-left mt-2 mb-0" role="alert">
+											Direkomendasikan tidak menulisnya dengan menggunakan spasi. Semua kebutuhan MVC (Model View dan Controller) akan dibuat sesuai dengan penamaan pada bidang ini. Silahkan periksa file dengan struktur berikut setelah Anda melakukan penambahan.
+											<ol class="mb-0">
+												<li><code>modules/{nama_akses}/models/{Nama_akses}_model.php</code></li>
+												<li><code>modules/{nama_akses}/views/admin/{nama_akses}_view.php</code></li>
+												<li><code>modules/{nama_akses}/views/admin/{nama_akses}_add.php</code></li>
+												<li><code>modules/{nama_akses}/views/admin/{nama_akses}_edit.php</code></li>
+												<li><code>modules/{nama_akses}/controllers/admin/{Nama_akses}.php</code></li>
+											</ol>
+										</div>
+										<!-- /info alert -->
+									</div>
+
+									<div class="alert-mvc" style="display:none;">
+										<!-- Info alert -->
+										<div class="alert alert-light alert-arrow-left mt-2 mb-0" role="alert">
+											Direkomendasikan tidak menulisnya dengan menggunakan spasi. Semua kebutuhan MVC (Model View dan Controller) akan dibuat sesuai dengan penamaan pada bidang ini. Silahkan periksa file dengan struktur berikut setelah Anda melakukan penambahan.
+											<ol class="mb-0">
+												<li><code>models/{Nama_akses}_model.php</code></li>
+												<li><code>views/admin/{nama_akses}/{nama_akses}_view.php</code></li>
+												<li><code>views/admin/{nama_akses}/{nama_akses}_add.php</code></li>
+												<li><code>views/admin/{nama_akses}/{nama_akses}_edit.php</code></li>
+												<li><code>controllers/admin/{Nama_akses}.php</code></li>
+											</ol>
+										</div>
+										<!-- /info alert -->
+									</div>
+									
 								</div>
 							</div>
 						</div>

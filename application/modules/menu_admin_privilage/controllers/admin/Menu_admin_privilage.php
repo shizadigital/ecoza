@@ -18,7 +18,7 @@ class Menu_admin_privilage extends CI_Controller{
 		$this->load->model('menu_admin_privilage_model');
 
 		// load model menu admin master
-		$this->load->model('menu_admin_master_model');
+		$this->load->model('menu_admin_master/menu_admin_master_model');
 
 		// start load menu data here
 		$queryMenu1 = $this->menu_admin_master_model->getAdminMenuInPage();
@@ -138,7 +138,7 @@ class Menu_admin_privilage extends CI_Controller{
 						)
 					);
 			
-			$this->load->view( admin_root('menu_admin_privilage/menu_admin_privilage_view'), $data );
+			$this->load->view( admin_root('menu_admin_privilage_view'), $data );
 		}
 	}
 

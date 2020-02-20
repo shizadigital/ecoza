@@ -62,7 +62,7 @@ class Manage_users extends CI_Controller{
 						'totaldata' => $rows
 					);
 			
-			$this->load->view( admin_root('manage_users/manage_users_view'), $data );
+			$this->load->view( admin_root('manage_users_view'), $data );
 		}
 	}
 
@@ -92,7 +92,7 @@ class Manage_users extends CI_Controller{
 							'datalevel' => $datalevel
 						);
 
-			$this->load->view( admin_root('manage_users/manage_users_add'), $data );
+			$this->load->view( admin_root('manage_users_add'), $data );
 		}
 	}
 	public function prosestambah(){
@@ -248,7 +248,7 @@ class Manage_users extends CI_Controller{
 							'potoadmin' => $potoadmin
 						);
 
-			$this->load->view( admin_root('manage_users/manage_users_edit'), $data );
+			$this->load->view( admin_root('manage_users_edit'), $data );
 		}
 	}
 	public function prosesedit(){

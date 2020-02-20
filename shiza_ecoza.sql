@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Feb 2020 pada 18.35
+-- Waktu pembuatan: 20 Feb 2020 pada 18.37
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -707,7 +707,7 @@ INSERT INTO `shiza_rating` (`ratingId`, `mId`, `ratingRelasiId`, `ratingType`, `
 
 CREATE TABLE `shiza_seo_page` (
   `seoId` bigint(20) UNSIGNED NOT NULL,
-  `relationshipId` bigint(20) UNSIGNED NOT NULL,
+  `relatiedId` bigint(20) UNSIGNED NOT NULL,
   `seoTypePage` varchar(25) NOT NULL,
   `seoTitle` text NOT NULL,
   `seoDesc` text NOT NULL,
@@ -719,7 +719,7 @@ CREATE TABLE `shiza_seo_page` (
 -- Dumping data untuk tabel `shiza_seo_page`
 --
 
-INSERT INTO `shiza_seo_page` (`seoId`, `relationshipId`, `seoTypePage`, `seoTitle`, `seoDesc`, `seoKeyword`, `seoRobots`) VALUES
+INSERT INTO `shiza_seo_page` (`seoId`, `relatiedId`, `seoTypePage`, `seoTitle`, `seoDesc`, `seoKeyword`, `seoRobots`) VALUES
 (1, 4, 'post', 'Redmi Y3 Spesifikasi dan Harga', 'Setelah beberapa minggu ini Xiaomi mengeluarkan teaser tentang smartphone terbarunya, kini akhirnya perusahaan secara resmi telah meluncurkan smartphone seri Redmi terbaru miliknya yang bernama Redmi Y3', 'xiaomi,redmi,y3,redmi y3,smartphone,handphone,redmi 7', ''),
 (2, 8, 'post', 'Indonesia Kedatangan Ponsel 3 Kamera Oleh Vivo Y17', 'Beberapa waktu lalu sempat ada desas-desus akan ada smartphone dengan 3 kamera keluaran Vivo akan hadir di Indonesia. Hal tersebut ternyata bukan desas-desus belaka, Vivo Y17 akhirnya resmi mulai dipasarkan di Indonesia.', 'kamera,vivo,vivo y17,ponsel,indonesia,kamera vivo,spesifikasi', ''),
 (3, 9, 'post', 'Brand Smartphone Ini Akan Diluncurkan Untuk Menyambut Teknologi 5G', 'Samsung tidak menyebutkan merek ponsel tersebut, namun terdapat isu bahwa smartphone ini disinyalir merupakan smartphone flagship seri Galaxy S berikutnya, yakni Galaxy S10.', 'samsung,vivo,motorola,oppo,lg,5g,jaringan 5g,teknologi 5g,smartphone,hp,4g', ''),
@@ -1068,7 +1068,7 @@ ALTER TABLE `shiza_rating`
 --
 ALTER TABLE `shiza_seo_page`
   ADD PRIMARY KEY (`seoId`),
-  ADD KEY `kontenId` (`relationshipId`);
+  ADD KEY `kontenId` (`relatiedId`);
 
 --
 -- Indeks untuk tabel `shiza_slider`

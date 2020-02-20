@@ -79,7 +79,11 @@ class MX_Router extends CI_Router
 			 * 
 			 */
 			if($segments[1] == 'admin'){
-				$segments[2] = 'index';
+
+				if( empty($segments[2]) ){
+					$segments[2] = 'index';
+				}
+
 			} else {
 				$this->set_method($segments[1]);
 			}
@@ -176,24 +180,41 @@ class MX_Router extends CI_Router
 						$source .= $c_directory.'/';
 						$this->directory .= $c_directory.'/';
 
-						/* module sub-directory controller exists? */
-						if($controller)
-						{
-							if(is_file($source.ucfirst($controller).$ext))
+						/*
+						*
+						* 
+						*  SHIZA ADMIN LOCATE CONTROL FOR CHECK MODULES
+						* 
+						* 
+						*/
+						if($c_directory == 'admin'){
+
+							$this->located = 3;
+							return array_slice($segments, 1);
+
+						} else {
+
+							/* module sub-directory controller exists? */
+							if($controller)
 							{
-								$this->located = 3;
-								return array_slice($c_segments, 2);
+								if(is_file($source.ucfirst($controller).$ext))
+								{
+									$this->located = 3;
+									return array_slice($c_segments, 2);
+								}
+								else { $this->located = -1; }
 							}
-							else $this->located = -1;
+
 						}
 					}
-					else
-					if(is_file($source.ucfirst($c_directory).$ext))
-					{
-						$this->located = 2;
-						return array_slice($c_segments, 1);
+					else {
+						if(is_file($source.ucfirst($c_directory).$ext))
+						{
+							$this->located = 2;
+							return array_slice($c_segments, 1);
+						}
+						else { $this->located = -1; }
 					}
-					else $this->located = -1;
 				}
 
 				/* module controller exists? */

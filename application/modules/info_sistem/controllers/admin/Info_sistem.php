@@ -175,7 +175,7 @@ class Info_sistem extends CI_Controller{
 						'mysqlversion' => $this->info_sistem_model->getMysqlVersion(),
 					);
 			
-			$this->load->view( admin_root('info_sistem/info_sistem_view'), $data );
+			$this->load->view( admin_root('info_sistem_view'), $data );
 		}
 	}
 

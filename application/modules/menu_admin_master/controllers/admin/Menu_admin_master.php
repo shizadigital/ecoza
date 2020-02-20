@@ -91,7 +91,7 @@ class Menu_admin_master extends CI_Controller {
 						'data_menu' => $this->menu_data
 					);
 			
-			$this->load->view( admin_root('menu_admin_master/menu_admin_master_view'), $data );
+			$this->load->view( admin_root('menu_admin_master_view'), $data );
 		}
 	}
 
@@ -114,7 +114,7 @@ class Menu_admin_master extends CI_Controller {
 							'data_menu' => $this->menu_data
 						);
 				
-			$this->load->view( admin_root('menu_admin_master/menu_admin_master_add'), $data );
+			$this->load->view( admin_root('menu_admin_master_add'), $data );
 		}
 	}
 
@@ -147,7 +147,7 @@ class Menu_admin_master extends CI_Controller {
 							'data' => $menu[0]
 						);
 				
-			$this->load->view( admin_root('menu_admin_master/menu_admin_master_edit'), $data );
+			$this->load->view( admin_root('menu_admin_master_edit'), $data );
 		}
 	}
 

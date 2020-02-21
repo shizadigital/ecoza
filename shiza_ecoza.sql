@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Feb 2020 pada 18.37
+-- Waktu pembuatan: 21 Feb 2020 pada 15.40
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -809,16 +809,17 @@ CREATE TABLE `shiza_users` (
   `userCheckPoint` longtext NOT NULL,
   `userDir` varchar(20) NOT NULL,
   `userPic` text NOT NULL,
-  `userOnlineStatus` enum('online','offline','busy') NOT NULL
+  `userOnlineStatus` enum('online','offline','busy') NOT NULL,
+  `userLang` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `shiza_users`
 --
 
-INSERT INTO `shiza_users` (`userId`, `userLogin`, `userPass`, `userEmail`, `userTlp`, `userDisplayName`, `levelId`, `userBlocked`, `userDelete`, `userLastLogin`, `userActivationKey`, `userRegistered`, `userSession`, `userCheckPoint`, `userDir`, `userPic`, `userOnlineStatus`) VALUES
-(1, 'superadmin', '$2y$10$cBWDa0w1k4lGlqRTQIZWd.U37XG3gBw3gvBJkUXDo8Eiw3HliDmdq', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1582206001, '', 1358259589, 'mtqhh5hdnkr4n2723vjl84cr4b60cob7', '', '', '', 'offline'),
-(2, 'demo', '$2y$10$cBWDa0w1k4lGlqRTQIZWd.U37XG3gBw3gvBJkUXDo8Eiw3HliDmdq', 'demo@demo.com', '', 'Demo Administrator', 2, 'n', 0, 1565019560, '', 1565017383, 'uhugeprv49jpbfkonhp9bc3l52', '', '', '', 'online');
+INSERT INTO `shiza_users` (`userId`, `userLogin`, `userPass`, `userEmail`, `userTlp`, `userDisplayName`, `levelId`, `userBlocked`, `userDelete`, `userLastLogin`, `userActivationKey`, `userRegistered`, `userSession`, `userCheckPoint`, `userDir`, `userPic`, `userOnlineStatus`, `userLang`) VALUES
+(1, 'superadmin', '$2y$10$cBWDa0w1k4lGlqRTQIZWd.U37XG3gBw3gvBJkUXDo8Eiw3HliDmdq', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1582271410, '', 1358259589, '41gmuap059r539jsq6dib3aguatk0u2j', '', '', '', 'online', 'id_ID'),
+(2, 'demo', '$2y$10$cBWDa0w1k4lGlqRTQIZWd.U37XG3gBw3gvBJkUXDo8Eiw3HliDmdq', 'demo@demo.com', '', 'Demo Administrator', 2, 'n', 0, 1565019560, '', 1565017383, 'uhugeprv49jpbfkonhp9bc3l52', '', '', '', 'online', 'id_ID');
 
 -- --------------------------------------------------------
 

@@ -32,18 +32,35 @@
                 
                 <div class="dropdown mr-4 d-none d-sm-block">
                     <a href="" class="dropdown-toggle text-nowrap" data-toggle="dropdown" data-offset="5,15">
-                    <span class="dropdown-toggle-text">EN</span>
+                        <span class="dropdown-toggle-text"><?php echo strtoupper(getAdminLocaleCode(false)); ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                    <a class="dropdown-item" href="javascript:void(0)"
-                        ><span class="text-uppercase font-size-12 mr-1 align-text-bottom">EN</span> English</a
-                    >
-                    <a class="dropdown-item" href="javascript:void(0)"
-                        ><span class="text-uppercase font-size-12 mr-1 align-text-bottom">RU</span> Русский</a
-                    >
-                    <a class="dropdown-item" href="javascript:void(0)"
-                        ><span class="text-uppercase font-size-12 mr-1 align-text-bottom">CN</span> 简体中文</a
-                    >
+                        <?php
+                        foreach( langlist() AS $lv ){
+
+                            echo '
+                            <a class="dropdown-item';
+                            if($lv == getAdminLocaleCode()) { 
+                                echo ' bg-primary text-white';
+                            } 
+                            echo '" href="';
+
+                            if( $lv == getAdminLocaleCode() ) {
+                                echo 'javascript:void(0)';
+                            } else {
+                                echo admin_url('setlang/setadminlang/'.$lv);
+                            }
+
+                            $shortname = explode("_", $lv)[0];
+                            $countryName = locales($lv);
+
+                            echo '">
+                                <span class="text-uppercase font-size-12 mr-1 align-text-bottom">'.strtoupper($shortname).'</span>
+                                '.$countryName.'
+                            </a>
+                            ';
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="air__topbar__actionsDropdown dropdown mr-4 d-none d-sm-block">

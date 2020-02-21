@@ -15,7 +15,7 @@ class Adminauth_model extends CI_model{
     }
 
     public function get_auth_data($username,$password){
-    	$this->db->select('a.userId,a.userLogin,a.userPass,a.userEmail,a.userDisplayName,a.levelId, b.levelActive');
+    	$this->db->select('a.userId,a.userLogin,a.userPass,a.userEmail,a.userDisplayName,a.levelId,a.userLang, b.levelActive');
         $this->db->from( $this->db->dbprefix('users') . ' a' );
 
         $this->db->join($this->db->dbprefix('users_level') . ' b' , 'b.levelId = a.levelId', 'left');

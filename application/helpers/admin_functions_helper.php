@@ -196,3 +196,33 @@ function uploadFavicon($filekeyarray, $ext_allowed = array('jpg','jpeg','png','g
         }
     endif;
 }
+
+/**
+ *
+ * get admin locale code
+ * 
+ * @param bool
+ * 
+ * @return string
+ */
+function getAdminLocaleCode($short = TRUE){
+    $ci =& get_instance();
+
+    // load cookie helper
+    $ci->load->helper('cookie');
+    
+    $locale = $ci->config->item('language');
+
+    if( empty( $ci->session->userdata('namauser') ) AND empty( $ci->session->userdata('passuser') ) ){
+        $locale = $locale;
+    } else {
+        if( !empty( get_cookie('admin_lang') ) ){
+            $locale = get_cookie('admin_lang');
+		}
+    }    
+    
+    if( $short === TRUE ) { $result = $locale;}
+    else { $result = explode("_",  $locale )[0]; }
+    
+    return $result;
+}

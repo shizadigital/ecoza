@@ -11,7 +11,7 @@ $CI->load->library('AdminEnv');
 $CI->load->helper('admin_functions');
 ?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="<?php echo getAdminLocaleCode(false); ?>">
 
 <head>
 <title><?php echo $title; ?></title>

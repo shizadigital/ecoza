@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Feb 2020 pada 15.40
+-- Waktu pembuatan: 21 Feb 2020 pada 20.00
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -668,12 +668,11 @@ INSERT INTO `shiza_options` (`optionId`, `optionName`, `optionValue`) VALUES
 (16, 'emailheader', ''),
 (17, 'httpsmode', 'no'),
 (18, 'sitephone', '081276540054'),
-(19, 'defaultlang', 'id_ID'),
+(19, 'smtp_username', 'info@mail.com'),
 (20, 'smtp_password', 'TFJlbkV3R1BvOUt4Zlg3eWs1VlpOZz09'),
 (21, 'smtp_host', 'myhostmail.com'),
 (22, 'smtp_port', '465'),
-(23, 'smtp_ssltype', 'ssl'),
-(24, 'smtp_username', 'info@mail.com');
+(23, 'smtp_ssltype', 'ssl');
 
 -- --------------------------------------------------------
 
@@ -818,7 +817,7 @@ CREATE TABLE `shiza_users` (
 --
 
 INSERT INTO `shiza_users` (`userId`, `userLogin`, `userPass`, `userEmail`, `userTlp`, `userDisplayName`, `levelId`, `userBlocked`, `userDelete`, `userLastLogin`, `userActivationKey`, `userRegistered`, `userSession`, `userCheckPoint`, `userDir`, `userPic`, `userOnlineStatus`, `userLang`) VALUES
-(1, 'superadmin', '$2y$10$cBWDa0w1k4lGlqRTQIZWd.U37XG3gBw3gvBJkUXDo8Eiw3HliDmdq', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1582271410, '', 1358259589, '41gmuap059r539jsq6dib3aguatk0u2j', '', '', '', 'online', 'id_ID'),
+(1, 'superadmin', '$2y$10$cBWDa0w1k4lGlqRTQIZWd.U37XG3gBw3gvBJkUXDo8Eiw3HliDmdq', 'afrioni@afrioni.web.id', '081276540054', 'Afrioni', 1, 'n', 0, 1582310633, '', 1358259589, '1g77ng04l81u5trq7clj7hpfl9m4fg00', '', '', '', 'online', 'id_ID'),
 (2, 'demo', '$2y$10$cBWDa0w1k4lGlqRTQIZWd.U37XG3gBw3gvBJkUXDo8Eiw3HliDmdq', 'demo@demo.com', '', 'Demo Administrator', 2, 'n', 0, 1565019560, '', 1565017383, 'uhugeprv49jpbfkonhp9bc3l52', '', '', '', 'online', 'id_ID');
 
 -- --------------------------------------------------------
@@ -1206,7 +1205,7 @@ ALTER TABLE `shiza_message`
 -- AUTO_INCREMENT untuk tabel `shiza_options`
 --
 ALTER TABLE `shiza_options`
-  MODIFY `optionId` bigint(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `optionId` bigint(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `shiza_seo_page`

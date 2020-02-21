@@ -48,7 +48,7 @@
                 </div>
                 <div class="air__topbar__actionsDropdown dropdown mr-4 d-none d-sm-block">
                     <?php
-                    $totalcomments = countdata("komentar","komenApproved='0'");
+                    $totalcomments = countdata("comments","commentApproved='0'");
                     ?>
                     <a href="javascript:void(0)" class="dropdown-toggle text-nowrap" data-toggle="dropdown" aria-expanded="false" data-offset="0,15">
                         <i class="dropdown-toggle-icon fe fe-message-square"></i>

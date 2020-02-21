@@ -196,7 +196,7 @@ if( is_view() ):
                                     <td class="text-center"><?php echo $r['levelName']; ?></td>
                                     <td class="text-center">
                                         <?php 
-                                        if($r['userBlokir']=='y'){ echo "<span class=\"badge badge-danger\">Tidak Aktif</span>"; }
+                                        if($r['userBlocked']=='y'){ echo "<span class=\"badge badge-danger\">Tidak Aktif</span>"; }
                                         else { echo "<span class=\"badge badge-success\">Aktif</span>"; }
                                         ?>
                                     </td>

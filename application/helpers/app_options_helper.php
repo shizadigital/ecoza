@@ -145,9 +145,6 @@ function web_info($info = '') {
             if( SYSTEM_INFO_LOCKED == FALSE ){ $sysfo = phpversion(); } else { $sysfo = ''; }
             $output = $sysfo;
             break;
-        case 'mysql_support':
-            $output = get_option('mysqlsupport');
-            break;
         case 'mysql_versi':
             if( SYSTEM_INFO_LOCKED == FALSE ){ $sysfo = mysql_get_server_info(); } else { $sysfo = ''; }
             $output = $sysfo;

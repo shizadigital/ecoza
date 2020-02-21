@@ -178,7 +178,7 @@ class Manage_users extends CI_Controller{
 		                      'userEmail' 		=> $email,
 		                      'userDisplayName'	=> $nama,
 		                      'levelId'   		=> $level,
-		                      'userBlokir'    	=> 'n',
+		                      'userBlocked'    	=> 'n',
 		                      'userDelete'		=> '0',
 		                      'userLastLogin'	=> '0',
 		                      'userRegistered'	=> $registered,
@@ -342,7 +342,7 @@ class Manage_users extends CI_Controller{
 		                      'userEmail' 		=> $email,
 		                      'userDisplayName'	=> $nama,
 		                      'levelId'   		=> $level,
-		                      'userBlokir'    	=> $block
+		                      'userBlocked'    	=> $block
 		                );
 
 				$dataupdate = array_merge($thevalue, $arrayfile_img, $arraypass);
@@ -370,7 +370,7 @@ class Manage_users extends CI_Controller{
 
 			// update to delete
 			$deleted = time2timestamp();
-			$data = array('userDelete'=>$deleted, 'userBlokir'=>'y');
+			$data = array('userDelete'=>$deleted, 'userBlocked'=>'y');
 
 			$queryact = $this->Env_model->update('users', $data, "userId='{$id}'");
 			if($queryact){
@@ -401,7 +401,7 @@ class Manage_users extends CI_Controller{
 
 							$deleted = time2timestamp();
 
-						    $data = array('userDelete'=>$deleted, 'userBlokir'=>'y');
+						    $data = array('userDelete'=>$deleted, 'userBlocked'=>'y');
 							$queryact = $this->Env_model->update('users', $data, "userId='{$id}'");
 							
 							if($queryact){ $stat_hapus = TRUE; } else { $stat_hapus = FALSE; break; }

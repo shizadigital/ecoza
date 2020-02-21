@@ -7,7 +7,7 @@ class Adminauth_model extends CI_model{
     	$this->db->select('userId,userPass');
 	    $this->db->from( $this->db->dbprefix('users') );
 	    $this->db->where('userLogin', $username);
-        $this->db->where('userBlokir', 'n');
+        $this->db->where('userBlocked', 'n');
         $this->db->where('userDelete', '0');
         $query = $this->db->get();
         
@@ -22,7 +22,7 @@ class Adminauth_model extends CI_model{
 
         $this->db->where('a.userLogin', $username);
         $this->db->where('a.userPass', $password);
-        $this->db->where('a.userBlokir', 'n');
+        $this->db->where('a.userBlocked', 'n');
         $this->db->where('a.userDelete', '0');
         $query = $this->db->get();
         return $query->row();

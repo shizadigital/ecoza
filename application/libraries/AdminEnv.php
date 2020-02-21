@@ -13,11 +13,11 @@ class AdminEnv {
 	}
 
 	public function topBarComments($limit = 20){
-		$field = "komenId,komenPenulis,komenIsi,komenEmail,komenTimestamp";
-		$table = "komentar";
-		$where = "komenApproved='0'";
+		$field = "commentId,commentAuthor,commentComment,commentEmail,commentTimestamp";
+		$table = "comments";
+		$where = "commentApproved='0'";
 		
-		return $this->CI->env_model->view_where_order_limit($field, $table, $where, "komenId", "DESC", $limit);
+		return $this->CI->env_model->view_where_order_limit($field, $table, $where, "commentId", "DESC", $limit);
 	}
 
 	public function adminData(){

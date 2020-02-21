@@ -112,7 +112,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
                         <div class="form-group">
                             <label for="blokir">Blokir akun ini</label>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="blokir" name="block" value="y"<?php if($data['userBlokir']=='y'){ echo " checked=\"checked\""; } ?> />
+                                <input type="checkbox" class="form-check-input" id="blokir" name="block" value="y"<?php if($data['userBlocked']=='y'){ echo " checked=\"checked\""; } ?> />
                                 <label for="blokir" class="form-check-label">Ya</label>
                             </div>
                         </div>

@@ -95,7 +95,16 @@ class Main extends CI_Controller {
 		          				'userOnlineStatus' => 'online'
 		          			);
 
-		          	$logindata = $this->adminauth_model->update_login($logindata->userId, $updt);
+					$updatedata = $this->adminauth_model->update_login($logindata->userId, $updt);
+					
+					// update language in cookie
+					$lang = array(
+								'name'   => 'admin_lang',
+								'value'  => $logindata->userLang,
+								'expire' => $this->config->item('sess_expiration'),
+								'path ' => '/'
+							);
+					$this->input->set_cookie($lang);
 
 		          	redirect($this->uri->segment(1).'/dashboard/');
 

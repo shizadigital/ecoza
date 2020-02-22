@@ -36,6 +36,20 @@
  * @filesource
  */
 
+/**
+ * Vendor PHP [Composer]
+ * 
+ */
+        
+require_once(__DIR__ . '/vendor/autoload.php');
+
+/**
+ * for can read .env file
+ * @return .env files
+ */
+$dotenv = new \Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

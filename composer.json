@@ -1,0 +1,16 @@
+{
+    "name": "shizadigital/shiza",
+    "description": "Shiza CMS base Codeigniter",
+    "type": "project",
+    "require": {
+        "php": "^7.2",
+        "vlucas/phpdotenv": "^2.2"
+    },
+    "authors": [
+        {
+            "name": "Shiza",
+            "email": "shizadigitalsolution@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

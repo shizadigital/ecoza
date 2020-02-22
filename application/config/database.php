@@ -74,10 +74,10 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost; dbname=shiza_ecoza; charset=utf8;',
+	'dsn'	=> 'mysql:host=localhost; dbname=_shiza_ecoza; charset=utf8;',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'pass',
 	'database' => '',
 	'dbdriver' => 'pdo',
 	'dbprefix' => 'shiza_',

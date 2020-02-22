@@ -129,7 +129,7 @@
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
                         <a class="dropdown-item" href="<?php echo base_url(); ?>" target="_blank">
                             <i class="dropdown-icon fe fe-globe"></i>
-                            Lihat Website
+                            <?php echo t('viewtheweb'); ?>
                         </a>
                         <div class="dropdown-divider"></div>
                         <div class="dropdown-header">

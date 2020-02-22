@@ -1177,3 +1177,18 @@ function langlist(){
     
     return $result;
 }
+
+/**
+ *
+ * Fetching a line of text in multilanguage
+ *
+ * @param string
+ * @param bool
+ * 
+ * @return string
+ */
+function t($line, $log_errors=FALSE){
+    $ci =& get_instance();
+        
+    return $ci->lang->line($line, $log_errors);
+}

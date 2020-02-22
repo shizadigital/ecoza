@@ -24,5 +24,7 @@ composer.lock
 /tests/tests/
 /tests/results/
 
+/system/sessions/
+
 /vendor/
 .env

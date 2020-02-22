@@ -13,25 +13,29 @@ class Setlang extends CI_Controller {
 
 	public function setAdminLang($lang){
 
-		// filter lang data
-		$langdata = filter_txt( $this->security->xss_clean( $lang ) );
-		
-		$lang_cook = array(
-			'name'   => 'admin_lang',
-			'value'  => $langdata,
-			'expire' => $this->config->item('sess_expiration'),
-			'path ' => '/'
-		);
-		$this->input->set_cookie($lang_cook);
+		if( in_array($lang, langlist()) ){
 
-		// save lang to user
-		if( !empty( $this->session->userdata('namauser') ) AND !empty( $this->session->userdata('passuser') ) ){
+			// filter lang data
+			$langdata = filter_txt( $this->security->xss_clean( $lang ) );
+			
+			$lang_cook = array(
+				'name'   => 'admin_lang',
+				'value'  => $langdata,
+				'expire' => $this->config->item('sess_expiration'),
+				'path ' => '/'
+			);
+			$this->input->set_cookie($lang_cook);
 
-			$adminid = $this->session->userdata('adminid');
+			// save lang to user
+			if( !empty( $this->session->userdata('namauser') ) AND !empty( $this->session->userdata('passuser') ) ){
 
-			// load model admin auth
-			$this->load->model('adminauth_model');
-			$this->adminauth_model->update_login( $adminid, array( 'userLang' => $langdata ) );
+				$adminid = $this->session->userdata('adminid');
+
+				// load model admin auth
+				$this->load->model('adminauth_model');
+				$this->adminauth_model->update_login( $adminid, array( 'userLang' => $langdata ) );
+
+			}
 
 		}
 
@@ -42,11 +46,40 @@ class Setlang extends CI_Controller {
 
 	public function setLang($lang){
 
-		// filter lang data
-		$langdata = filter_txt( $this->security->xss_clean( $lang ) );		
+		$referrer = $this->agent->referrer();
+
+		if( in_array($lang, langlist()) AND strpos($referrer, base_url()) ){
+
+			// filter lang data
+			$langdata = filter_txt( $this->security->xss_clean( $lang ) );	
+
+			// get locale code
+			$langcode = explode('_',$langdata)[0];
+			
+			// force slash to the last base_url()
+			$baseurislash = ( substr(base_url(), -1) == '/' ) ? base_url():base_url() .'/';
+			
+			// check uri availability lang
+			$lenuri = strlen($baseurislash);
+			$getlanguri = substr($referrer, $lenuri, 2);
+
+			$baseurl_lang = $baseurislash . $langcode;
+
+			$referrer = str_replace($baseurislash.$getlanguri, $baseurl_lang, $referrer);
+
+			// set lang cookies
+			$lang_cook = array(
+				'name'   => 'lang',
+				'value'  => $langdata,
+				'expire' => 0,
+				'path ' => '/'
+			);
+			$this->input->set_cookie($lang_cook);
+		
+		}
 		
 		// redirect
-		redirect( $this->agent->referrer() );
+		redirect( $referrer );
 		
 	}
 }

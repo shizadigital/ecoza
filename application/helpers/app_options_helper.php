@@ -1,4 +1,12 @@
 <?php 
+/**************** CHECKMIGRATION ********************/
+function isNotMigration() {
+    $ci =& get_instance();
+    $segment = $ci->uri->segment(1);
+    if($segment != 'Migration' && $segment != 'migration') return true;
+    else return false;
+}
+
 /**************** Encription ********************/
 function encoder($str){
     $iv = substr(hash('sha256', AUTH_SALT), 0, 16); 
@@ -23,11 +31,13 @@ function decoder($str){
 /**************** Options from DB ********************/
 function get_option($optname){
     $ci =& get_instance();
-    $ci->db->select('optionValue');
-    $ci->db->from( $ci->db->dbprefix('options') );
-    $ci->db->where('optionName', $optname);
-    $query = $ci->db->get();
-    return $query->row()->optionValue;
+    if(isNotMigration()) {
+        $ci->db->select('optionValue');
+        $ci->db->from( $ci->db->dbprefix('options') );
+        $ci->db->where('optionName', $optname);
+        $query = $ci->db->get();
+        return $query->row()->optionValue;
+    }
 }
 
 function check_option($optname){

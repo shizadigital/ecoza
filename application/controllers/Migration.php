@@ -3,6 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * CREATED BY SHIZA
+ * 
+ * 
+ * php index.php migration install
+ * 
+ * or with seed
+ * 
+ * php index.php migration install seed
+ * 
  */
 
 class Migration extends CI_Controller {

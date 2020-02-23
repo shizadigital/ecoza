@@ -10,7 +10,6 @@ class multilangLoader {
         $this->ci =& get_instance();
 
         // load helper
-        $this->ci->load->helper('language');
 		$this->ci->load->helper('cookie');
     }
 

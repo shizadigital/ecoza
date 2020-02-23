@@ -55,26 +55,45 @@ include V_ADMIN_PATH . "topbar.php";
 			<div class="card-header"><h5 class="mb-0">Tambah Kategori</h5></div>
 
 			<div class="card-body">
-				<?php echo form_open( admin_url( $this->uri->segment(2) . '/prosestambah'), array( 'id'=>'valid' ) ); ?>
-				<div class="form-group">
-					<label class="req" for="nama">Nama Kategori</label>
-					<input type="text" class="form-control" id="nama" name="nama" required />
-				</div>
-
-				<div class="form-group">
-					<label for="desc">Deskripsi</label>
-					<textarea name="desc" id="desc" class="form-control"></textarea>
-				</div>
+				<?php 
+				// make tag form structure
+				$tagForm = array(
+					'action' 		=> admin_url( $this->uri->segment(2) . '/prosestambah'),
+					'attributes' 	=> array( 'id'=>'valid' )					
+				);
 				
-				<div class="form-group">
-					<label class="req" for="nama">Warna</label>
-					<input type="text" class="form-control" id="warna" name="warna" />
-				</div>
+				// make input structure
+				$inputs = array(
+					'layout' => 'vertical',
+					'inputs' => array(
+						array(
+							'type' => 'text',
+							'label' => 'Nama Ketegori',
+							'name' => 'nama',
+							'required' => true,
+						),
+						array(
+							'type' => 'textarea',
+							'label' => 'Deskripsi',
+							'name' => 'desc'
+						),
+						array(
+							'type' => 'text',
+							'label' => 'warna',
+							'name' => 'warna',
+							'required' => true,
+						),
+						array(
+							'type' => 'submit',
+							'label' => '<i class="fe fe-plus"></i> Tambah',
+							'class' => 'btn-primary btn-block',
+						)
+					),
+								
+				);
 
-				<div class="form-group">
-					<button class="btn btn-primary btn-block" type="submit"><i class="fe fe-plus"></i> Tambah</button>
-				</div>
-				<?php echo form_close(); ?>
+				$this->formcontrol->buildForm($tagForm, $inputs);
+				?>
 			</div>
 		</div>
 

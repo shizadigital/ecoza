@@ -103,7 +103,7 @@ class FormControl {
                     /**
                      * input button
                      */
-                    if( $formType == 'button' ){
+                    elseif( $formType == 'button' ){
                         $attrClass = "";
 
                         if( isset($val['class']) ){
@@ -130,7 +130,7 @@ class FormControl {
                     /**
                      * input button
                      */
-                    if( $formType == 'submit' ){
+                    elseif( $formType == 'submit' ){
                         $attrClass = "";
                         $clearfix = false;
 
@@ -143,8 +143,7 @@ class FormControl {
                                 $attrClass .= " float-".$val['position'];
                                 $clearfix = true;
                             }
-                        }
-                        
+                        }                        
 
                         // make standard attributes
                         $class_input = array(
@@ -168,14 +167,14 @@ class FormControl {
                     /**
                      * input select
                      */
-                    if( $formType == 'select' ){
+                    elseif( $formType == 'select' ){
 
                     }
 
                     /**
                      * input text
                      */
-                    if( $formType == 'text' ){                        
+                    elseif( $formType == 'text' ){                        
                         
                         $attrClass = "";
                         $attrId = $name;
@@ -201,6 +200,75 @@ class FormControl {
                         echo form_input($val);                        
                     }
 
+                    /**
+                     * input file
+                     */
+                    elseif( $formType == 'file' ){
+
+                    }
+
+                    /**
+                     * input hidden
+                     */
+                    elseif( $formType == 'hidden' ){
+
+                    }
+
+                    /**
+                     * input radio button
+                     */
+                    elseif( $formType == 'radio' ){
+
+                    }
+
+                    /**
+                     * input checkbox
+                     */
+                    elseif( $formType == 'checkbox' ){
+
+                    }
+
+                    /**
+                     * input multiple select
+                     */
+                    elseif( $formType == 'multipleselect' ){
+
+                    }
+
+                    /**
+                     * input multiple select
+                     */
+                    elseif( $formType == 'password' ){
+
+                    }
+
+                    /**
+                     * input another type in input tag
+                     */
+                    else {
+                        $attrClass = "";
+                        $attrId = $name;
+
+                        if( isset($val['class']) OR isset($val['id']) ){
+                            if(!empty($val['class'])){
+                                $attrClass = " ".$val['class'];
+                            }
+                            
+                            if(!empty($val['id'])){
+                                $attrId = $val['id'];
+                            }
+                        }
+
+                        // make standard attributes
+                        $class_input = array(
+                            'class' => 'form-control' . $attrClass,
+                            'id' => $attrId
+                        );
+
+                        $val = array_merge($val, $class_input, $required);
+
+                        echo form_input($val);
+                    }
                     
                     if($layout == 'horizontal'){ echo '</div>'."\n"; }
 

@@ -97,6 +97,12 @@ include V_ADMIN_PATH . "topbar.php";
 			</div>
 		</div>
 
+		<?php 
+		/**
+		 * implement addon for another position.
+		 */
+		?>
+
 	</div>
 	<?php endif; ?>
 	<?php if( is_view() ): ?>

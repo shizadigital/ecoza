@@ -67,6 +67,8 @@ $route['(\w{2})'] = $route['default_controller'];
  */
 $route['admin'] = '404';
 $route['admin/(.*)'] = '404';
+$route['migration'] = '404';
+$route['migration/(.*)'] = '404';
 
 $varadmin = $this->config->item('admin_slug');
 

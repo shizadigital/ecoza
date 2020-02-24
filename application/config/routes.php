@@ -56,6 +56,8 @@ $route['default_controller'] = 'home';
  * Front Page Routes 
  * 
  */
+
+// Multilanguage routes
 $route['(\w{2})/(.*)'] = '$2';
 $route['(\w{2})'] = $route['default_controller'];
 

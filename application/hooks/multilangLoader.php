@@ -81,12 +81,12 @@ class multilangLoader {
     
                             } else {
     
-                                $ci->lang->load('frontpage', $default);
+                                redirect(base_url());
     
                             }
                         } else {
     
-                            $ci->lang->load('frontpage', $default);
+                            redirect(base_url());
     
                         }
                     }

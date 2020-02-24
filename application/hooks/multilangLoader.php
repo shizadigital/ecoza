@@ -55,7 +55,7 @@ class multilangLoader {
                         $baseurislash = ( substr(base_url(), -1) == '/' ) ? base_url():base_url() .'/';
     
                         // remove url lang code with base url and redirect
-                        $uriredirect = str_replace( $baseurislash.$segment_1, $baseurl_lang, current_url() );
+                        $uriredirect = str_replace( $baseurislash.$segment_1, '', current_url() );
     
                         redirect($uriredirect);
                     } else {

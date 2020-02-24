@@ -236,9 +236,7 @@ class Menu_admin_master extends CI_Controller {
 			    );
 
 			    // insert data menu here
-				//$query = $this->Env_model->insert('users_menu',$data);
-				
-				$query = true;
+				$query = $this->Env_model->insert('users_menu',$data);
 
 			    $infosuccess = 'Menu berhasil dibuat.';
 			    if($query){

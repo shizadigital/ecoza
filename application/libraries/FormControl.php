@@ -101,7 +101,7 @@ class FormControl {
                     } 
 
                     /**
-                     * input button
+                     * button
                      */
                     elseif( $formType == 'button' ){
                         $attrClass = "";
@@ -125,10 +125,10 @@ class FormControl {
                             echo ' '.$attr.'="'.$value.'"';
                         }
                         echo '>'.$label.'</button>'."\n";
-                    } 
+                    }
 
                     /**
-                     * input button
+                     * submit
                      */
                     elseif( $formType == 'submit' ){
                         $attrClass = "";
@@ -211,7 +211,7 @@ class FormControl {
                      * input hidden
                      */
                     elseif( $formType == 'hidden' ){
-
+                        echo form_hidden($val['name'], $val['value']);
                     }
 
                     /**
@@ -287,7 +287,6 @@ class FormControl {
     /**
      * Make the form and inputs field in content
      * 
-     * @param string $type (insert|update)
      * @param array $tagform
      * @param array $inputs
      * @param array $formtype (multipart)

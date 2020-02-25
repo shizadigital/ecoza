@@ -333,7 +333,7 @@ class Menu_admin_master extends CI_Controller {
 
 class {$capitalize_filename}_model extends CI_model{ 
 
-}\n?>";
+}\n";
 							fputs ($modelhandle, $modeldirnamecontent);
 							fclose($modelhandle);
 						}
@@ -369,7 +369,7 @@ include V_ADMIN_PATH . \"topbar.php\";
 // Your code of view here
 
 include V_ADMIN_PATH . \"footer.php\";
-?>";
+";
 							fputs ($viewhandle, $viewdirnamecontent);
 							fclose($viewhandle);
 						} // end foreach
@@ -476,7 +476,7 @@ class {$capitalize_filename} extends CI_Controller{
 		}
 	}
 
-}\n?>";
+}\n";
 							fputs ($c_handle, $c_dirnamecontent);
 							fclose($c_handle);
 						}

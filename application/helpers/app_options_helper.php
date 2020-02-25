@@ -12,8 +12,8 @@ function isNotMigration() {
  *
  * get locales name
  *
- * @param string
- * @param bool
+ * @param string $locales
+ * @param bool $country
  * 
  * @return string
  */
@@ -34,10 +34,7 @@ function locales($locales=null, $country=FALSE){
  *
  * get language directory code
  *
- * @param string
- * @param bool
- * 
- * @return string
+ * @return array 
  */
 function langlist(){
     $ci =& get_instance();

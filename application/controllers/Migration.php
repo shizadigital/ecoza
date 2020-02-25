@@ -347,7 +347,7 @@ class Migration extends CI_Controller {
         $schema = $this->schema->create_table('options');
         $schema->increments('optionId', ['type' => 'BIGINT', 'length' => '30']);
         $schema->string('optionName', ['length' => '100']);
-        $schema->text('contentTitle', ['type' => 'LONGTEXT']);
+        $schema->text('optionValue', ['type' => 'LONGTEXT']);
         $schema->run();
 
         // ADD index
@@ -468,7 +468,7 @@ class Migration extends CI_Controller {
     protected function create_shiza_users_menu_table() {
 
         $schema = $this->schema->create_table('users_menu');
-        $schema->integer('menuId', ['length' => '10', 'unsigned' => TRUE]);
+        $schema->increments('menuId', ['length' => '10', 'unsigned' => TRUE]);
         $schema->integer('menuParentId', ['length' => '10', 'unsigned' => TRUE]);
         $schema->string('menuName');
         $schema->text('menuAccess');
@@ -612,16 +612,46 @@ class Migration extends CI_Controller {
     }
 
     protected function seeder_options_table() {
+		$arr = [
+			['optionName' => 'sitename', 'optionValue' => 'E-Commerce Shiza'],
+			['optionName' => 'sitekeywords', 'optionValue' => 'framework, ci, codeigniter,shiza,ecommerce,ecoza'],
+			['optionName' => 'sitedescription', 'optionValue' => 'E-Commerce Shiza diciptakan untuk mempermudah pengguna dalam berjual beli online.'],
+			['optionName' => 'template', 'optionValue' => 'themekeren'],
+            ['optionName' => 'timezone', 'optionValue' => 'Asia/Jakarta'],
+            ['optionName' => 'phpminsupport', 'optionValue' => '5.6.x'],
+            ['optionName' => 'siteaddress', 'optionValue' => 'Jalan Cumi-cumi II No. 6 Kec. Marphoyan Damai - Pekanbaru'],
+            ['optionName' => 'robots', 'optionValue' => 'index,follow'],
+            ['optionName' => 'socialmediaurl', 'optionValue' => 'a:7:{s:8:"facebook";s:33:"https://www.facebook.com/shiza.id";s:7:"twitter";s:0:"";s:7:"youtube";s:0:"";s:9:"instagram";s:34:"https://www.instagram.com/shiza.id";s:4:"line";s:0:"";s:8:"whatsapp";s:0:"";s:10:"googleplay";s:0:"";}'],
+            ['optionName' => 'ringkaspost', 'optionValue' => '197'],
+            ['optionName' => 'favicon', 'optionValue' => ''],
+            ['optionName' => 'siteemail', 'optionValue' => 'info@shiza.id'],
+            ['optionName' => 'tagline', 'optionValue' => 'This is tagline'],
+            ['optionName' => 'emailsignature', 'optionValue' => '-- <br/>Best Regards, <br/>Admin'],
+            ['optionName' => 'emailheader', 'optionValue' => ''],
+            ['optionName' => 'httpsmode', 'optionValue' => 'no'],
+            ['optionName' => 'sitephone', 'optionValue' => '081276540054'],
+            ['optionName' => 'smtp_username', 'optionValue' => 'info@mail.com'],
+            ['optionName' => 'smtp_password', 'optionValue' => 'TFJlbkV3R1BvOUt4Zlg3eWs1VlpOZz09'],
+            ['optionName' => 'smtp_host', 'optionValue' => 'myhostmail.com'],
+            ['optionName' => 'smtp_ssltype', 'optionValue' => 'ssl'],
+		];
+		foreach ( $arr as $item ) {
+			$data = [
+				'optionName' => $item['optionName'],
+				'optionValue' => $item['optionValue'],
+			];
+			$this->mc->save('shiza_options', $data);
+		}
     }
     
     protected function seeder_users_table() {
         
-		$pass 	= sha1( sha1( encoder( 'pass' .'>>>>'. LOGIN_SALT )) . "#" . LOGIN_SALT);
+		$pass 	= sha1( sha1( encoder( 'password' .'>>>>'. LOGIN_SALT )) . "#" . LOGIN_SALT);
         $passwordunik = password_hash( $pass, PASSWORD_DEFAULT, ['cost' => 10]); 
 		$arr = [
             [
 				'userLogin' => 'superadmin',
-				'userPass' => $pass,
+				'userPass' => $passwordunik,
 				'userEmail' => 'shizadigitalsolution@gmail.com',
 				'userTlp' => '081276540054',
 				'userDisplayName' => 'Shiza',
@@ -640,7 +670,7 @@ class Migration extends CI_Controller {
             ],
             [
 				'userLogin' => 'demo',
-				'userPass' => $pass,
+				'userPass' => $passwordunik,
 				'userEmail' => 'demo@demo.com',
 				'userTlp' => '',
 				'userDisplayName' => 'Demo Shiza',
@@ -699,10 +729,319 @@ class Migration extends CI_Controller {
     }
     
     protected function seeder_users_menu_table() {
+		$arr = [
+			[
+                'menuParentId' => '0',
+                'menuName' => 'Developer', 
+                'menuAccess' => '',
+                'menuAddedDate' => '1452867589', 
+                'menuSort' => '5',
+                'menuIcon' => 'fe fe-award', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'n', 
+                'menuEdit' => 'n',
+                'menuDelete' => 'n',
+            ],
+			[
+                'menuParentId' => '1',
+                'menuName' => 'Menu Admin Master ', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:17:"menu_admin_master";}',
+                'menuAddedDate' => '1452867589', 
+                'menuSort' => '1',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+			[
+                'menuParentId' => '1',
+                'menuName' => 'Menu Admin Privilage', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:20:"menu_admin_privilage";}',
+                'menuAddedDate' => '1577632987', 
+                'menuSort' => '2',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+			[
+                'menuParentId' => '0',
+                'menuName' => 'Alat', 
+                'menuAccess' => '',
+                'menuAddedDate' => '1577728905', 
+                'menuSort' => '4',
+                'menuIcon' => 'fe fe-settings', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'n', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'n',
+            ],
+			[
+                'menuParentId' => '4',
+                'menuName' => 'Info Sistem', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"info_sistem";}',
+                'menuAddedDate' => '1577729211', 
+                'menuSort' => '1',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+			[
+                'menuParentId' => '0',
+                'menuName' => 'Pengaturan', 
+                'menuAccess' => '',
+                'menuAddedDate' => '1577892258', 
+                'menuSort' => '3',
+                'menuIcon' => 'fe fe-sliders', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'n', 
+                'menuEdit' => 'n',
+                'menuDelete' => 'n',
+            ],
+			[
+                'menuParentId' => '6',
+                'menuName' => 'Atur Web', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:8:"atur_web";}',
+                'menuAddedDate' => '1577892344', 
+                'menuSort' => '1',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'n', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'n',
+            ],
+			[
+                'menuParentId' => '0',
+                'menuName' => 'Pengguna', 
+                'menuAccess' => '',
+                'menuAddedDate' => '1578138421', 
+                'menuSort' => '2',
+                'menuIcon' => 'fe fe-user', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'n', 
+                'menuEdit' => 'n',
+                'menuDelete' => 'n',
+            ],
+			[
+                'menuParentId' => '8',
+                'menuName' => 'Kelola Pengguna', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:12:"manage_users";}',
+                'menuAddedDate' => '1578138586', 
+                'menuSort' => '1',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+			[
+                'menuParentId' => '8',
+                'menuName' => 'Grup Pengguna', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"users_group";}',
+                'menuAddedDate' => '1579535259', 
+                'menuSort' => '2',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+			[
+                'menuParentId' => '0',
+                'menuName' => 'Katalog', 
+                'menuAccess' => '',
+                'menuAddedDate' => '1581957645', 
+                'menuSort' => '1',
+                'menuIcon' => 'fe fe-file-text', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'n', 
+                'menuEdit' => 'n',
+                'menuDelete' => 'n',
+            ],
+			[
+                'menuParentId' => '11',
+                'menuName' => 'Kategori Produk', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:18:"product_categories";}',
+                'menuAddedDate' => '1581958817', 
+                'menuSort' => '1',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+		];
+		foreach ( $arr as $item ) {
+			$data = [
+				'menuParentId' => $item['menuParentId'],
+				'menuName' => $item['menuName'],
+				'menuAccess' => $item['menuAccess'],
+				'menuAddedDate' => $item['menuAddedDate'],
+				'menuSort' => $item['menuSort'],
+				'menuIcon' => $item['menuIcon'],
+				'menuAttrClass' => $item['menuAttrClass'],
+				'menuActive' => $item['menuActive'],
+				'menuView' => $item['menuView'],
+				'menuAdd' => $item['menuAdd'],
+				'menuEdit' => $item['menuEdit'],
+				'menuDelete' => $item['menuDelete'],
+			];
+			$this->mc->save('shiza_users_menu', $data);
+		}
     }
 
     protected function seeder_users_menu_access_table() {
         
+		$arr = [
+			[
+                'lmnId' => '1', 
+                'levelId' => '1',
+                'menuId' => '1', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '2', 
+                'levelId' => '1',
+                'menuId' => '2', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '3', 
+                'levelId' => '1',
+                'menuId' => '3', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '4', 
+                'levelId' => '1',
+                'menuId' => '4', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '5', 
+                'levelId' => '1',
+                'menuId' => '5', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '6', 
+                'levelId' => '1',
+                'menuId' => '6', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'n', 
+                'lmnEdit' => 'n',
+                'lmnDelete' => 'n',
+            ],
+			[
+                'lmnId' => '7', 
+                'levelId' => '1',
+                'menuId' => '7', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'n', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'n',
+            ],
+			[
+                'lmnId' => '8', 
+                'levelId' => '1',
+                'menuId' => '8', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'n', 
+                'lmnEdit' => 'n',
+                'lmnDelete' => 'n',
+            ],
+			[
+                'lmnId' => '9', 
+                'levelId' => '1',
+                'menuId' => '9', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '10', 
+                'levelId' => '1',
+                'menuId' => '10', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '11', 
+                'levelId' => '1',
+                'menuId' => '11', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'n', 
+                'lmnEdit' => 'n',
+                'lmnDelete' => 'n',
+            ],
+			[
+                'lmnId' => '12', 
+                'levelId' => '1',
+                'menuId' => '12', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+		];
+		foreach ( $arr as $item ) {
+			$data = [
+				'lmnId' => $item['lmnId'],
+				'levelId' => $item['levelId'],
+				'menuId' => $item['menuId'],
+				'lmnView' => $item['lmnView'],
+				'lmnAdd' => $item['lmnAdd'],
+				'lmnEdit' => $item['lmnEdit'],
+				'lmnDelete' => $item['lmnDelete'],
+			];
+			$this->mc->save('shiza_users_menu_access', $data);
+		}
     }
     
     protected function seeder_email_template_table() {

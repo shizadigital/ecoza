@@ -29,19 +29,19 @@ include V_ADMIN_PATH . "topbar.php";
 ?>
 <div class="row">
 	<?php 
-	if( !empty( $this->session->has_userdata('sukses') ) ){
+	if( !empty( $this->session->has_userdata('succeed') ) ){
 		echo '<div class="col-md-12">
 		<div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
-			<i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
+			<i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 		</div>
 		</div>
 		';
 	}
-	if( !empty( $this->session->has_userdata('gagal') ) ){
+	if( !empty( $this->session->has_userdata('failed') ) ){
 		echo '<div class="col-md-12">
 		<div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-			<i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
+			<i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 		</div>
 		</div>
@@ -52,7 +52,7 @@ include V_ADMIN_PATH . "topbar.php";
 	<div class="col-md-4">
 
 		<div class="card">
-			<div class="card-header"><h5 class="mb-0">Tambah Kategori</h5></div>
+			<div class="card-header"><h5 class="mb-0"><?php echo t('addnew'); ?></h5></div>
 
 			<div class="card-body">
 				<?php 
@@ -68,23 +68,24 @@ include V_ADMIN_PATH . "topbar.php";
 					'inputs' => array(
 						array(
 							'type' => 'text',
-							'label' => 'Nama Ketegori',
+							'label' => t('name'),
 							'name' => 'nama',
 							'required' => true,
 						),
 						array(
 							'type' => 'textarea',
-							'label' => 'Deskripsi',
+							'label' => t('description'),
 							'name' => 'desc'
 						),
 						array(
 							'type' => 'text',
-							'label' => 'warna',
-							'name' => 'warna'
+							'label' => t('color'),
+							'name' => 'warna',
+							'help' => t('infocategcolor')
 						),
 						array(
 							'type' => 'submit',
-							'label' => '<i class="fe fe-plus"></i> Tambah',
+							'label' => '<i class="fe fe-plus"></i> '.t('btnadd'),
 							'class' => 'btn-primary btn-block',
 						)
 					),
@@ -112,7 +113,7 @@ include V_ADMIN_PATH . "topbar.php";
 					<div class="col-md-4">
 						<?php echo form_open( admin_url( $this->uri->segment(2).'/' ), array( 'method'=>'get' ) ); ?>
                         <div class="input-group float-right">
-                            <input type="text" class="form-control form-control-sm" name="kw" value="<?php if(!empty($this->input->get('kw'))){ echo $this->input->get('kw'); } ?>" placeholder="Cari . . ."/>
+                            <input type="text" class="form-control form-control-sm" name="kw" value="<?php if(!empty($this->input->get('kw'))){ echo $this->input->get('kw'); } ?>" placeholder="<?php echo t('search'); ?> . . ."/>
                             <div class="input-group-append">
                                <button class="btn btn-light btn-sm" type="submit"><i class="fa fa-search"></i></button>
                             </div>
@@ -185,8 +186,8 @@ include V_ADMIN_PATH . "topbar.php";
 											</div>
 										</th>
 										<th style="width:25px;" class="text-center"><?php echo t('no_number'); ?></th>
-										<th><?php echo t('name'); ?></th>
-										<th style="width:80px;" class="text-center"><?php echo t('categories'); ?></th>
+										<th><?php echo t('categories'); ?></th>
+										<th style="width:80px;" class="text-center"><?php echo t('active'); ?></th>
 										<th style="width:120px;" class="text-center"><?php echo t('totalcontent'); ?></th>
 									</tr>
 								</thead>

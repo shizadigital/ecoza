@@ -28,22 +28,24 @@ class FormControl {
         if(count( $inputs ) > 0){
             
             foreach( $inputs AS $key => $val ){
+                
+                // define key before process the form
                 $required = ( isset($val['required']) ) ? $val['required']:false;
                 $label = ( isset($val['label']) ) ? $val['label']:'';
                 $name = ( isset($val['name']) ) ? $val['name']:'';
                 $colsetting_label = ( isset($colsetting['label']) ) ? $colsetting['label']:'';
                 $colsetting_input = ( isset($colsetting['input']) ) ? $colsetting['input']:'';
                 
-                // define type
                 $formType = $val['type'];
+                $help = ( isset($val['help']) ) ? $val['help']:'';
                 
-                echo '<div class="form-group'.(($layout == 'horizontal') ? ' row':'').'">'."\n";
+                echo ($formType !='hidden')?'<div class="form-group'.(($layout == 'horizontal') ? ' row':'').'">'."\n":'';
 
-                if( $formType !=  'button' AND $formType !=  'submit'){
+                if( $formType !=  'button' AND $formType !=  'submit' AND $formType !='hidden'){
                     echo '<label';
 
                     if($required OR $layout == 'horizontal'){
-                        echo ' class="'.( ($required)?'req':'' ) . ( ($layout == 'horizontal') ? ' '.$colsetting_label.' col-form-label':'' ).'"';
+                        echo ' class="'.( ($layout == 'horizontal') ? $colsetting_label.' col-form-label':'' ).( ($required)?' req':'' ) . '"';
                     }
 
                     echo ' for="'.( ( isset($val['id']) )? $val['id']:$name).'">' . $label . '</label>'."\n";
@@ -54,7 +56,7 @@ class FormControl {
                     $col_element = $colsetting_input;
                     if( $formType =='submit'){ $col_element='col-md-12'; }
 
-                    if($layout == 'horizontal'){ echo '<div class="'.$col_element.'">'; }
+                    if($layout == 'horizontal' AND $formType !='hidden'){ echo '<div class="'.$col_element.'">'; }
                     
                     // remove type key
                     unset($val['type']);
@@ -225,7 +227,80 @@ class FormControl {
                      * input checkbox
                      */
                     elseif( $formType == 'checkbox' ){
+                        $title = (!empty($val['title'])) ? $val['title'] :'';
+                        $layout_box = (!empty($val['layout'])) ? $val['layout'] :'vertical';
 
+                        // unset title
+                        unset($val['title'],$val['layout']);
+
+                        if( is_array( $val['value'] ) ){
+
+                            if( !empty($val['checked'] ) ) unset($val['checked']);
+
+                            $xx = 1;
+                            foreach($val['value'] as $key => $value ){
+                                $title = (!empty($value['title'])) ? $value['title'] :'';
+                                unset( $value['title'] );
+
+                                echo '<div class="form-check pt-2'.(( $layout_box == 'horizontal') ? ' form-check-inline':'').'">'."\n";
+                                $attrClass = "";
+                                $attrId = $name;
+
+                                if( isset($val['class']) OR isset($val['id']) ){
+                                    if(!empty($val['class'])){
+                                        $attrClass = " ".$val['class'];
+                                    }
+
+                                    if(!empty($val['id'])){
+                                        $attrId = $val['id'];
+                                    }
+                                }
+
+                                // make standard attributes
+                                $class_input = array(
+                                    'class' => 'form-check-input' . $attrClass,
+                                    'id' => $attrId.$xx
+                                );
+
+                                $v_aray = array_merge($val, $value, $class_input, $required );
+
+                                echo form_checkbox($v_aray);
+                                echo '<label class="form-check-label" for="'.$attrId.$xx.'">';
+                                echo $title;
+                                echo '</label>'."\n".'</div>'."\n";
+                                
+                                $xx++;
+                            }
+
+                        } else {
+
+                            echo '<div class="form-check pt-2'.(( $layout_box == 'horizontal')? ' form-check-inline':'').'">';
+                            $attrClass = "";
+                            $attrId = $name;
+
+                            if( isset($val['class']) OR isset($val['id']) ){
+                                if(!empty($val['class'])){
+                                    $attrClass = " ".$val['class'];
+                                }
+
+                                if(!empty($val['id'])){
+                                    $attrId = $val['id'];
+                                }
+                            }
+
+                            // make standard attributes
+                            $class_input = array(
+                                'class' => 'form-check-input' . $attrClass,
+                                'id' => $attrId
+                            );
+
+                            $val = array_merge($val, $class_input, $required);
+
+                            echo form_checkbox($val);
+                            echo '<label class="form-check-label" for="'.$attrId.'">';
+                            echo $title;
+                            echo '</label></div>'."\n";
+                        }
                     }
 
                     /**
@@ -269,14 +344,16 @@ class FormControl {
 
                         echo form_input($val);
                     }
+
+                    if(!empty($help AND $formType !='hidden')) { echo '<small class="form-text text-muted">'.$help.'</small>'; }
                     
-                    if($layout == 'horizontal'){ echo '</div>'."\n"; }
+                    if($layout == 'horizontal' AND $formType !='hidden'){ echo '</div>'."\n"; }
 
                 } else {
                     show_error("Variable type cannot empty",503,'Parameter Error');
                 }
 
-                echo '</div>'."\n\n";
+                echo ($formType !='hidden')?'</div>'."\n\n":"";
             }
 
         } else {

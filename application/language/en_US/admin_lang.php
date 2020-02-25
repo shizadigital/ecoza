@@ -46,8 +46,6 @@ $lang['no_number'] = "No";
 $lang['title'] = "Title";
 $lang['description'] = "Description";
 $lang['be_read'] = "Read";
-$lang['categories'] = "Categories";
-$lang['category'] = "Category";
 $lang['delete'] = "Delete";
 $lang['add'] = "Add";
 $lang['edit'] = "Edit";
@@ -87,14 +85,14 @@ $lang['addnew'] = "Add New";
 $lang['optimizationtitle'] = "Search Engine Optimization";
 $lang['infooptimization'] = "To make easier to search at the search engines, please fill in the fields below.";
 $lang['done'] = "Done";
-$lang['successfullydeleted'] = "Successfully Deleted";
-$lang['successfullyadd'] = "Successfully Added";
-$lang['successfullysaved'] = "Successfully Saved";
-$lang['successfullyupdated'] = "Successfully Updated";
-$lang['successfullyreturned'] = "Successfully Returned";
-$lang['successfullymovedtrash'] = "Successfully Move to Trash";
-$lang['successfullyreset'] = "Successfully Reset";
-$lang['statussuccessfullyupdated'] = "Status Successfully Updated";
+$lang['successfullydeleted'] = "Data successfully deleted";
+$lang['successfullyadd'] = "Data successfully added";
+$lang['successfullysaved'] = "Data successfully saved";
+$lang['successfullyupdated'] = "Data successfully updated";
+$lang['successfullyreturned'] = "Data successfully returned";
+$lang['successfullymovedtrash'] = "Data successfully move to trash";
+$lang['successfullyreset'] = "Data successfully Reset";
+$lang['statussuccessfullyupdated'] = "Status successfully updated";
 $lang['type'] = "Type";
 $lang['status'] = "Status";
 $lang['image'] = "Image";
@@ -128,7 +126,6 @@ $lang['imageslist'] = "Images List";
 $lang['addimages'] = "Add Images";
 $lang['addimage'] = "Add Image";
 $lang['action'] = "Action";
-$lang['infocategcolor'] = "Giving color to a category can make it easier for you to differentiate categories or specify categories.";
 $lang['pending'] = "Pending";
 $lang['approved'] = "Approved";
 $lang['unapproved'] = "Unapproved";
@@ -274,7 +271,6 @@ $lang['imgpriority'] = "Images Priority";
 $lang['primaryimg'] = "Primary Image";
 $lang['withoutvariation'] = "Without Variation";
 $lang['withvariation'] = "With Variation";
-$lang['origin'] = "Origin";
 $lang['stocktype'] = "Stock Type";
 $lang['unlimited'] = "Unlimited";
 $lang['limited'] = "Limited";
@@ -465,6 +461,7 @@ $lang['endperiod'] = "End Periode";
 $lang['year_s'] = "Year(s)";
 $lang['quantity'] = "Qty";
 $lang['totalcontent'] = "Total Content";
+$lang['color'] = "Color";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -486,3 +483,119 @@ $lang['september'] = 'September';
 $lang['october'] = 'October';
 $lang['november'] = 'November';
 $lang['december'] = 'December';
+
+// lang module
+
+/**
+ * category (General)
+ */
+$lang['categories'] = "Categories";
+$lang['category'] = "Category";
+$lang['edit_category'] = 'Edit Category';
+$lang['infocategcolor'] = "Giving color to the category can make it easier for you to differentiate categories or specify categories.";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///																							///
+///					 			 THIS PART FOR ERROR VARIABLE 								///
+///																							///
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// general
+$lang['datacannotbeloaded'] = "Data cannot be loaded";
+$lang['emptyfield'] = "Empty Field";
+$lang['systemerror'] = 'System Error';
+$lang['error'] = 'Error';
+$lang['serverbusy'] = 'Server is busy. The data cannot be processed';
+$lang['functionerror'] = 'Function Error';
+$lang['emptyrequiredfield'] = 'Required fields cannot be empty';
+$lang['wrongextentionfile'] = 'File extensions are not permitted, please try again';
+$lang['wrongfile'] = 'Wrong File';
+$lang['wrongprovision'] = 'Worng Provision';
+$lang['deletefailed'] = 'Delete Failed';
+$lang['processfailed'] = 'Process Failed';
+$lang['cannotprocessdata'] = 'Data cannot be processed, please try again';
+$lang['cannotresetdata'] = 'Data cannot be reset, please try again';
+$lang['bulkactionnotselectedyet'] = 'Please select the bulk action first';
+$lang['bulkactionnotselecteditemyet'] = 'Please select the item to be processed first';
+$lang['actionfailed'] = 'Action Failed';
+$lang['erroremptyimages'] = 'Please insert at least 1 image';
+$lang['textempty'] = 'Text cannot be empty';
+$lang['fileempty'] = 'File cannot be empty';
+$lang['msgcannotbemoved'] = 'Message cannot be moved';
+$lang['wrongextentionfavicon'] = 'Favicon extensions are not permitted, please try again';
+$lang['emailinvalid'] = 'Email is not valid';
+$lang['usernameavailebleerror'] = 'Please choose another username because it is already used by another person.';
+$lang['emailavailebleerror'] = 'Please choose another email because it is already used by another person.';
+$lang['passtotalcharerror'] = 'Password must be more than %s characters';
+$lang['confirmpasserror'] = 'Password confirmation failed. Try again';
+$lang['cronnameavailableerror'] = 'The name of cron already exists, please try using another name.';
+$lang['directoryformaterror'] = 'Please make the module directory according to the example';
+$lang['cannotmakemodule'] = "Dirctory of \"<code>%s</code>\" is failed to process, please check the \"directory permission\"";
+$lang['cannotdeletemodule'] = "Module cannot be deleted";
+$lang['emptycategories'] = "Categories field cannot be empty";
+$lang['dynamicimgisempty'] = "Images is required, please insert the images of at least 1 image";
+$lang['wrongurlvideo'] = "Please insert the Video URL correctly";
+$lang['mainimgerror'] = "Please select the primary image";
+$lang['errorprocess'] = "Failed, please refresh the page and try again";
+$lang['startenddateerror'] = "End date must not be smaller than than start date. Please check again.";
+$lang['productcatgempty'] = "Please choose the products or categories first";
+$lang['percentageerror'] = "Percentage value must not be greater than 100%.";
+$lang['couponcharactercodeerror'] = "Character of coupon code only letter and number";
+$lang['couponcodenotavailable'] = "The code \"%s\" cannot to be used, because this code has been used by another coupon or this coupon code is active";
+$lang['couponhaveordered'] = "Sorry, coupon cannot be deleted yet, because it still have ordered. Please finish the ordered fisrt.";
+$lang['datausedanotherdata'] = "This data cannot be deleted because it is connected by other data.";
+$lang['producttypeempty'] = "Product type cannot be empty";
+$lang['weightunitempty'] = "Weight unit cannot be empty";
+$lang['prefixsuffixempty'] = "Prefix and Suffix is empty kosong. Please fill beetwen suffix or prefix";
+$lang['cannotremovedefault'] = "Default currency (%s) cannot be deleted";
+$lang['invoiceformatnumberempty'] = "{NUMBER} tag cannot be empty";
+$lang['invoicestartingwrongdata'] = "Invoice number must be number (Integers)";
+$lang['invoicestartingstillsmaller'] = "Invoice number must be greater than last %s (Blank for no change)";
+$lang['taxnotnumeric'] = "Please insert the tax field with numeric";
+$lang['taxmax100'] = "Tax value must not be greater than 100%";
+$lang['stocknotenough'] = "Sorry, the stock of produk \"%s\" not enough. Available stock is only %s, please add the stock first through the PRODUCT STOCK menu.";
+$lang['phonenumbererror'] = "Please insert valid phone number";
+$lang['addresspriorityerror'] = "Priority of address cannot be change. because this address is priority";
+
+// Product Error
+$lang['variationsamewithorigin'] = "There should be no option of the same product for the same origin";
+$lang['variationnotyetcorrectly'] = "You have not filled out the options / variations of the product correctly. Check again!";
+$lang['optoriginmissing'] = "You have not specified origin / warehouse of this product.";
+$lang['normalpriceempty'] = "Normal price cannot be empty";
+$lang['basicpriceempty'] = "Basic/Capital price cannot be empty";
+$lang['specialpricemorebigthancapitalandnormal'] = "Special price must not be smaller than the Capital Price and must be less than the Normal Price. Please check again.";
+$lang['capitalmorebignormal'] = "Capital price must not be greater than the Normal Price. Please check again.";
+$lang['onlyyoutube'] = "Video that are allowed are youtube video";
+$lang['stocktypeerro1'] = "Sorry, the number of %s with %s %s and %s %s must not be smaller than the current order.<br /> The current total order is %s. Please increase the total order of physical stock";
+$lang['stocktypeerro2'] = "Sorry, the number of %s with %s %s must not be smaller than the current order.<br /> The current total order is %s. Please increase the total order of physical stock.";
+$lang['novariation'] = "Sorry, the number of %s must not be smaller than the current order.<br /> The current total ordered is %s. Please increase the total order of physical stock.";
+$lang['optionnameerror'] = "Sorry, option name cannot be same. Please check again.";
+$lang['cannotdeleteproductstillorder'] = "Sorry, product cannot be deleted, because they still have order. Please complete the order first.";
+
+// Function Error
+$lang['getsomeerror'] = 'There are some errors, please check';
+$lang['makesomedirerror'] = 'The process of creating the "<code>{VARIABLE}</code>" directory failed, please check the "pemission of directory" or contact the webmaster';
+$lang['extensionfileerror1'] = 'Currently the allowed file extensions are ';
+$lang['extensionfileerror2'] = ', please check the "pemission of directory" or contact the webmaster';
+$lang['extensionimageerror1'] = 'Currently the allowed images file extensions are ';
+$lang['extensionimageerror2'] = ', please check the "pemission of directory" or contact the webmaster';
+$lang['errormakethedir'] = 'Error creating directory';
+
+// error admin login
+$lang['emptyusernamefield'] = "You have not filled in your Username";
+$lang['emptypasswordfield'] = "You have not filled in your Password";
+$lang['emptyusernamepasswordfield'] = "You have not filled in your Username or Password";
+$lang['injectiondetected'] = "Injection Detected";
+$lang['logininjectionwarning'] = "Sorry, login cannot be injected";
+$lang['errorinjectiontittle'] = "Injection Error Detected";
+$lang['cannotaccessadmnistrator'] = "Sorry, you cannot sign in";
+$lang['accessdenied'] = "Access Denied";
+$lang['incorrectusernamepassword'] = "Username / password that you entered is not valid or your account being blocked.";
+
+// error menuPage fields are still empty, please fill in first
+$lang['pagefieldempty'] = "Page field still empty, please fill in first";
+$lang['categoryfieldempty'] = "Category field still empty, please fill in first";
+$lang['externallinkfieldempty'] = "External link still empty, please fill in first";
+$lang['availableurlfieldempty'] = "Available URL still empty, please fill in first";
+$lang['deepmenuerror'] = "Sorry, You can only make menus to a certain depth.";

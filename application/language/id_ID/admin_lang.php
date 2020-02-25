@@ -46,8 +46,6 @@ $lang['no_number'] = "No";
 $lang['title'] = "Judul";
 $lang['description'] = "Deskripsi";
 $lang['be_read'] = "Dibaca";
-$lang['categories'] = "Kategori";
-$lang['category'] = "Kategori";
 $lang['delete'] = "Hapus";
 $lang['add'] = "Tambah";
 $lang['edit'] = "Edit";
@@ -87,13 +85,13 @@ $lang['addnew'] = "Tambah Baru";
 $lang['optimizationtitle'] = "Optimasi Ke Mesin Pencari";
 $lang['infooptimization'] = "Untuk memudahkan pencarian dalam mesin pencari, silahkan isi kolom dibawah ini.";
 $lang['done'] = "Selesai";
-$lang['successfullydeleted'] = "Berhasil Dihapus";
-$lang['successfullyadd'] = "Berhasil Ditambah";
-$lang['successfullysaved'] = "Berhasil Disimpan";
-$lang['successfullyupdated'] = "Berhasil Diperbarui";
-$lang['successfullyreturned'] = "Berhasil Dikembalikan";
-$lang['successfullymovedtrash'] = "Berhasil dimasukkan ke tong sampah";
-$lang['successfullyreset'] = "Berhasil Direset";
+$lang['successfullydeleted'] = "Data berhasil Dihapus";
+$lang['successfullyadd'] = "Data berhasil Ditambah";
+$lang['successfullysaved'] = "Data berhasil Disimpan";
+$lang['successfullyupdated'] = "Data berhasil Diperbarui";
+$lang['successfullyreturned'] = "Data berhasil Dikembalikan";
+$lang['successfullymovedtrash'] = "Data berhasil dimasukkan ke tong sampah";
+$lang['successfullyreset'] = "Data berhasil Direset";
 $lang['statussuccessfullyupdated'] = "Status Berhasil Diperbarui";
 $lang['type'] = "Tipe";
 $lang['status'] = "Status";
@@ -128,7 +126,6 @@ $lang['imageslist'] = "Daftar Gambar";
 $lang['addimages'] = "Tambah Gambar";
 $lang['addimage'] = "Tambah Gambar";
 $lang['action'] = "Aksi";
-$lang['infocategcolor'] = "Memberi warna pada kategori memudahkan untuk melihat perbedaan kategori atau menentukan ciri khas kategori.";
 $lang['pending'] = "Tertunda";
 $lang['approved'] = "Disetujui";
 $lang['unapproved'] = "Tidak Disetujui";
@@ -274,7 +271,6 @@ $lang['imgpriority'] = "Prioritas Gambar";
 $lang['primaryimg'] = "Gambar Utama";
 $lang['withoutvariation'] = "Tanpa Variasi";
 $lang['withvariation'] = "Dengan Variasi";
-$lang['origin'] = "Gudang";
 $lang['stocktype'] = "Jenis Stok";
 $lang['unlimited'] = "Tak Terbatas";
 $lang['limited'] = "Terbatas";
@@ -465,6 +461,7 @@ $lang['endperiod'] = "Periode Selesai";
 $lang['year_s'] = "Tahun";
 $lang['quantity'] = "Kuantitas";
 $lang['totalcontent'] = "Total Konten";
+$lang['color'] = "Warna";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -486,3 +483,119 @@ $lang['september'] = 'September';
 $lang['october'] = 'Oktober';
 $lang['november'] = 'November';
 $lang['december'] = 'Desember';
+
+// lang module
+
+/**
+ * category General
+ */
+$lang['categories'] = "Kategori";
+$lang['category'] = "Kategori";
+$lang['edit_category'] = 'Edit Kategori';
+$lang['infocategcolor'] = "Memberi warna pada kategori memudahkan untuk melihat perbedaan kategori atau menentukan ciri khas kategori.";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///																							///
+///					 			 THIS PART FOR ERROR VARIABLE 								///
+///																							///
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// general
+$lang['datacannotbeloaded'] = "Data tidak dapat dimuat";
+$lang['emptyfield'] = "Bidang Kosong";
+$lang['systemerror'] = 'System Error';
+$lang['error'] = 'Error';
+$lang['serverbusy'] = 'Server sedang sibuk. Data tidak dapat diproses';
+$lang['functionerror'] = 'Function Error';
+$lang['emptyrequiredfield'] = 'Bidang yang wajib diisi tidak boleh kosong';
+$lang['wrongextentionfile'] = 'Ekstensi file tidak diizinkan, silahkan coba lagi';
+$lang['wrongfile'] = 'Kesalahan File';
+$lang['wrongprovision'] = 'Kesalahan Format';
+$lang['deletefailed'] = 'Hapus Gagal';
+$lang['processfailed'] = 'Gagal diproses';
+$lang['cannotprocessdata'] = 'Data tidak dapat diproses, silahkan coba lagi';
+$lang['cannotresetdata'] = 'Data tidak dapat direset, silahkan coba lagi';
+$lang['bulkactionnotselectedyet'] = 'Silahkan pilih tipe tindakan masal terlebih dahulu';
+$lang['bulkactionnotselecteditemyet'] = 'Silahkan pilih item yang akan diproses terlebih dahulu';
+$lang['actionfailed'] = 'Tindakan Gagal';
+$lang['erroremptyimages'] = 'Silahkan masukkan minimal 1 gambar';
+$lang['textempty'] = 'Text tidak boleh kosong';
+$lang['fileempty'] = 'File tidak boleh kosong';
+$lang['msgcannotbemoved'] = 'Pesan gagal dipindahkan';
+$lang['wrongextentionfavicon'] = 'Ekstensi favicon tidak diizinkan, silahkan coba lagi';
+$lang['emailinvalid'] = 'Email titdak valid';
+$lang['usernameavailebleerror'] = 'Nama pengguna telah tersedia pada database. silahkan coba dengan nama pengguna lain';
+$lang['emailavailebleerror'] = 'Email telah tersedia pada database. silahkan coba dengan email lain';
+$lang['passtotalcharerror'] = 'Password harus lebih dari %s karakter';
+$lang['confirmpasserror'] = 'Password gagal dikonfirmasi. Ulangi kembali';
+$lang['cronnameavailableerror'] = 'Nama cron telah tersedia, silahkan coba menggunakan nama lain.';
+$lang['directoryformaterror'] = 'Harap membuat direktori modul sesuai format pada contoh';
+$lang['cannotmakemodule'] = "direktori \"<code>%s</code>\" gagal diproses, silahkan periksa \"permisi folder\"";
+$lang['cannotdeletemodule'] = "Modul tidak bisa dihapus";
+$lang['emptycategories'] = "bidang kategori tidak boleh kosong";
+$lang['dynamicimgisempty'] = "Gambar diwajibkan, silahkan masukkan gambar minimal 1 gambar";
+$lang['wrongurlvideo'] = "Silahkan masukkan URL Video dengan benar";
+$lang['mainimgerror'] = "Silahkan pilih gambar primary";
+$lang['errorprocess'] = "Gagal, silahkan refresh halaman dan ulangi kembali";
+$lang['startenddateerror'] = "Tanggal berakhir tidak boleh lebih kecil daripada tanggal mulai. Silahkan periksa kembali.";
+$lang['productcatgempty'] = "Silahkan pilih produk atau kategori terlebih dahulu.";
+$lang['percentageerror'] = "Nilai persentase tidak boleh lebih dari 100%.";
+$lang['couponcharactercodeerror'] = "Karakter kode kupon diperbolehkan hanya huruf dan angka.";
+$lang['couponcodenotavailable'] = "Kode kupon \"%s\" tidak dapat digunakan, dikarenakan kode tersebut telah digunakan oleh kupon yang lain yang sedang aktif.";
+$lang['couponhaveordered'] = "Maaf, kupon belum dapat dihapus, dikarenakan masih memiliki pesanan. Silahkan selesaikan pesanan terlebih dahulu.";
+$lang['datausedanotherdata'] = "Data ini tidak dapat dihapus karena terhubung oleh data lain";
+$lang['producttypeempty'] = "Tipe Produk wajib diisi tidak boleh kosong";
+$lang['weightunitempty'] = "Satuan berat wajib diisi tidak boleh kosong";
+$lang['prefixsuffixempty'] = "Simbol Prefix dan Suffix kosong. Silahkan isi salah satunya";
+$lang['cannotremovedefault'] = "Mata Uang %s tidak bisa dihapus";
+$lang['invoiceformatnumberempty'] = "Tag {NUMBER} tidak boleh kosong";
+$lang['invoicestartingwrongdata'] = "Nomor faktur yang diperbolehkan adalah angka (Bilangan Bulat)";
+$lang['invoicestartingstillsmaller'] = "Nomor faktur berikutnya, harus lebih besar dari %s (Kosongkan form jika tidak ada perubahan)";
+$lang['taxnotnumeric'] = "Masukkan bidang pajak dengan angka";
+$lang['taxmax100'] = "Pajak tidak boleh lebih dari 100%";
+$lang['stocknotenough'] = "Maaf, stok untuk produk %s tidak cukup. Hanya tersedia %s, silahkan tambah stok terdahulu melalui menu PRODUCT STOCK.";
+$lang['phonenumbererror'] = "Silahkan masukkan nomor telp/handphone yang valid";
+$lang['addresspriorityerror'] = "Prioritas alamat ini tidak bisa diganti dikarenakan alamat ini adalah alamat utama.";
+
+// Product Error
+$lang['variationsamewithorigin'] = "Tidak boleh ada variasi produk yang sama untuk gudang yang sama";
+$lang['variationnotyetcorrectly'] = "Anda belum mengisi variasi produk dengan benar. Periksa kembali!";
+$lang['optoriginmissing'] = "Anda belum menentukan origin/gudang dari produk ini.";
+$lang['normalpriceempty'] = "Harga normal tidak boleh kosong";
+$lang['basicpriceempty'] = "Harga modal tidak boleh kosong";
+$lang['specialpricemorebigthancapitalandnormal'] = "Harga Spesial tidak boleh lebih kecil dari Harga Modal dan harus lebih kecil dari Harga Normal. Silahkan periksa kembali.";
+$lang['capitalmorebignormal'] = "Harga Modal tidak boleh lebih besar dari Harga Normal. Silahkan periksa kembali.";
+$lang['onlyyoutube'] = "Video yang diizinkan adalah video youtube";
+$lang['stocktypeerro1'] = "Maaf, jumlah produk %s dengan %s %s dan %s %s tidak boleh lebih kecil dari pesanan saat ini.<br /> Jumlah pesanan saat ini adalah %s. Silahkan tambah jumlah stok fisik.";
+$lang['stocktypeerro2'] = "Maaf, jumlah produk %s dengan %s %s tidak boleh lebih kecil dari pesanan saat ini.<br /> Jumlah pesanan saat ini adalah %s. Silahkan tambah jumlah stok fisik.";
+$lang['novariation'] = "Maaf, jumlah produk %s tidak boleh lebih kecil dari pesanan saat ini.<br /> Jumlah pesanan saat ini adalah %s. Silahkan tambah jumlah stok fisik.";
+$lang['optionnameerror'] = "Maaf, tidak boleh ada nama opsi yang sama. Silahkan periksa kembali.";
+$lang['cannotdeleteproductstillorder'] = "Maaf, produk belum dapat dihapus, dikarenakan masih memiliki pesanan. Silahkan selesaikan pesanan terlebih dahulu.";
+
+// Function Error
+$lang['getsomeerror'] = 'Terdapat beberapa kesalahan, silahkan periksa';
+$lang['makesomedirerror'] = 'Proses pembuatan direktori "<code>{VARIABLE}</code>" gagal, silahkan periksa "permisi folder" atau hubungi webmaster';
+$lang['extensionfileerror1'] = 'Saat ini ekstensi file yang diizinkan adalah ';
+$lang['extensionfileerror2'] = ', silahkan periksa "permisi folder" atau hubungi webmaster';
+$lang['extensionimageerror1'] = 'Saat ini ekstensi file gambar yang diizinkan adalah ';
+$lang['extensionimageerror2'] = ', silahkan periksa "permisi folder" atau hubungi webmaster';
+$lang['errormakethedir'] = 'Kesalahan membuat direktori';
+
+// error admin login
+$lang['emptyusernamefield'] = "Anda belum mengisikan Username";
+$lang['emptypasswordfield'] = "Anda belum mengisikan Password";
+$lang['emptyusernamepasswordfield'] = "Anda belum mengisikan Username maupun Password";
+$lang['injectiondetected'] = "Injeksi Terdeteksi";
+$lang['logininjectionwarning'] = "Maaf login tidak bisa diinjeksi";
+$lang['errorinjectiontittle'] = "Error Injeksi Terdeteksi";
+$lang['cannotaccessadmnistrator'] = "Maaf login tidak bisa masuk";
+$lang['accessdenied'] = "Akses Ditolak";
+$lang['incorrectusernamepassword'] = "Username atau Password salah atau akun Anda sedang diblokir";
+
+// error menu
+$lang['pagefieldempty'] = "Bidang Halaman masih kosong, silahkan diisi terlebih dahulu";
+$lang['categoryfieldempty'] = "Bidang Kategori masih kosong, silahkan diisi terlebih dahulu";
+$lang['externallinkfieldempty'] = "Bidang External Link masih kosong, silahkan diisi terlebih dahulu";
+$lang['availableurlfieldempty'] = "Bidang URL Tersedia masih kosong, silahkan diisi terlebih dahulu";
+$lang['deepmenuerror'] = "Maaf, Anda hanya dapat membuat menu hingga kedalaman tertentu saja.";

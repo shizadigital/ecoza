@@ -97,6 +97,8 @@ $lang['type'] = "Tipe";
 $lang['status'] = "Status";
 $lang['image'] = "Gambar";
 $lang['images'] = "Gambar";
+$lang['picture'] = "Gambar";
+$lang['pictures'] = "Gambar";
 $lang['content'] = "Konten";
 $lang['activated'] = "Diaktifkan";
 $lang['deactivated'] = "Dinonaktifkan";
@@ -493,7 +495,12 @@ $lang['categories'] = "Kategori";
 $lang['category'] = "Kategori";
 $lang['edit_category'] = 'Edit Kategori';
 $lang['infocategcolor'] = "Memberi warna pada kategori memudahkan untuk melihat perbedaan kategori atau menentukan ciri khas kategori.";
+$lang['productcategories'] = "Kategori Produk";
 
+/**
+ * User Management
+ */
+$lang['usermanagement'] = 'Kelola Pengguna';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

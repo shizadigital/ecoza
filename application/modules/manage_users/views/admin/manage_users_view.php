@@ -38,7 +38,7 @@ if( is_view() ):
                     <div class="col-md-3">
                     	<?php echo form_open( admin_url( $this->uri->segment(2).'/' ), array( 'method'=>'get' ) ); ?>
                         <div class="input-group float-right">
-                            <input type="text" class="form-control form-control-sm" name="kw" value="<?php if(!empty($this->input->get('kw'))){ echo $this->input->get('kw'); } ?>" placeholder="Cari . . ."/>
+                            <input type="text" class="form-control form-control-sm" name="kw" value="<?php if(!empty($this->input->get('kw'))){ echo $this->input->get('kw'); } ?>" placeholder="<?php echo t('search'); ?> . . ."/>
                             <div class="input-group-append">
                                <button class="btn btn-light btn-sm" type="submit"><i class="fa fa-search"></i></button>
                             </div>
@@ -53,18 +53,18 @@ if( is_view() ):
 
             <div class="card-body">
             	<?php 
-                if( !empty( $this->session->has_userdata('sukses') ) ){
+                if( !empty( $this->session->has_userdata('succeed') ) ){
                     echo '
                     <div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
-                        <i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
+                        <i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
                 }
-                if( !empty( $this->session->has_userdata('gagal') ) ){
+                if( !empty( $this->session->has_userdata('failed') ) ){
                     echo '
                     <div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
+                        <i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
@@ -75,8 +75,8 @@ if( is_view() ):
                     <div class="col-md-12 form-inline">
                         <div class="input-group">
                             <select name="bulktype" class="form-control form-control-sm custom-select" required>
-                                <option value="">-- Tindakan Masal --</option>
-                                <option value="bulk_delete">Hapus</option>
+                                <option value="">-- <?php echo t('bulkaction'); ?> --</option>
+                                <option value="bulk_delete"><?php echo t('delete'); ?></option>
                             </select>
                             <div class="input-group-append">
                                 <button class="btn btn-light btn-sm submit_bulk" type="button"><i class="fa fa-cog"></i></button>
@@ -89,7 +89,7 @@ if( is_view() ):
                                 var bulktype = $( "select[name=bulktype]" ).val();
 
                                 if(bulktype=='bulk_delete'){
-                                    var apply = confirm("Apakah Anda yakin menghapus item yang dipilih?");
+                                    var apply = confirm("<?php echo t('confirmbulkactiondelete'); ?>");
                                     if(apply == true){
                                         $('.form_bulk').submit();
                                     }
@@ -119,13 +119,13 @@ if( is_view() ):
                                     <th style="width:25px;" class="text-center">
                                         <input type="checkbox" id="check_all" />
                                     </th>
-                                    <th style="width:25px;" class="text-center">No</th>
-                                    <th style="min-width:44px;" class="text-center">Gambar</th>
-                                    <th>Username</th>
-                                    <th style="min-width:140px;">Nama</th>
-                                    <th style="min-width:120px;" class="text-center">Level</th>
-                                    <th style="min-width:70px;" class="text-center">Status</th>
-                                    <th style="min-width:70px;">Login Terakhir</th>
+                                    <th style="width:25px;" class="text-center"><?php echo t('no_number'); ?></th>
+                                    <th style="min-width:44px;" class="text-center"><?php echo t('images'); ?></th>
+                                    <th><?php echo t('username'); ?></th>
+                                    <th style="min-width:140px;"><?php echo t('name'); ?></th>
+                                    <th style="min-width:120px;" class="text-center"><?php echo t('level'); ?></th>
+                                    <th style="min-width:70px;" class="text-center"><?php echo t('status'); ?></th>
+                                    <th style="min-width:70px;" class="text-center"><?php echo t('lastlogin'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -159,11 +159,11 @@ if( is_view() ):
                                         ?>
                                         <div class="btn-group btn-group-sm" role="group">
                                             <?php if(is_edit()){ ?>
-                                            <a href="<?php echo admin_url($this->uri->segment(2)."/edit/".$r['userId']); ?>" class="btn btn-sm btn-info"><i class="fe fe-edit"></i> Edit</a>
+                                            <a href="<?php echo admin_url($this->uri->segment(2)."/edit/".$r['userId']); ?>" class="btn btn-sm btn-info"><i class="fe fe-edit"></i> <?php echo t('edit'); ?></a>
                                             <?php }
                                             if($r['userId']!='1'){
                                             if(is_delete()) { ?>
-                                            <a data-toggle="modal" href="#myModal<?php echo $r['userId']; ?>" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i> Hapus</a>
+                                            <a data-toggle="modal" href="#myModal<?php echo $r['userId']; ?>" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i> <?php echo t('delete'); ?></a>
                                             <?php
                                             echo '
                                             <!-- Modal -->
@@ -171,16 +171,16 @@ if( is_view() ):
                                                 <div class="modal-dialog" style="width:400px;">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">Hapus</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Tutup</span></button>
+                                                            <h5 class="modal-title">'.t('delete').'</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.t('close').'</span></button>
                                                         </div>
                                                         <div class="modal-body text-center">
-                                                            <p>Apakah Anda yakin menghapus ini?</p>
+                                                            <p>'.t('deleteconfirm').'</p>
                                                             <strong>'.$r['userDisplayName'].' ('.$r['userLogin'].')</strong>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Batal</button>
-                                                            <a class="btn btn-danger btn-sm" href="'.admin_url( $this->uri->segment(2).'/delete/'.$r['userId']).'"><i class="icon_trash_alt"></i> Hapus</a>
+                                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">'.t('cancel').'</button>
+                                                            <a class="btn btn-danger btn-sm" href="'.admin_url( $this->uri->segment(2).'/delete/'.$r['userId']).'"><i class="icon_trash_alt"></i> '.t('delete').'</a>
                                                         </div>
                                                     </div><!-- /.modal-content -->
                                                 </div>
@@ -196,8 +196,8 @@ if( is_view() ):
                                     <td class="text-center"><?php echo $r['levelName']; ?></td>
                                     <td class="text-center">
                                         <?php 
-                                        if($r['userBlocked']=='y'){ echo "<span class=\"badge badge-danger\">Tidak Aktif</span>"; }
-                                        else { echo "<span class=\"badge badge-success\">Aktif</span>"; }
+                                        if($r['userBlocked']=='y'){ echo "<span class=\"badge badge-danger\">".t('inactive')."</span>"; }
+                                        else { echo "<span class=\"badge badge-success\">".t('active')."</span>"; }
                                         ?>
                                     </td>
                                     <td class="text-center">
@@ -205,7 +205,7 @@ if( is_view() ):
                                         if(empty($r['userLastLogin'])){ 
                                             echo "<i class=\"fe fe-minus\"></i>";
                                         } else {
-                                            $iddate = date("d",$r['userLastLogin']) .' '. get_bulan(date("m",$r['userLastLogin'])) .' '. date("Y",$r['userLastLogin']) . ' ' . date("H:i",$r['userLastLogin']);
+                                            $iddate = date("d",$r['userLastLogin']) .' '. getMonth(date("m",$r['userLastLogin'])) .' '. date("Y",$r['userLastLogin']) . ' ' . date("H:i",$r['userLastLogin']);
                                             echo "<abbr data-toggle=\"tooltip\" title=\"".$iddate."\">".date("d/m/Y H:i",$r['userLastLogin'])."</abbr>";
                                         } ?>
                                     </td>

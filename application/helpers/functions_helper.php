@@ -30,8 +30,8 @@ function timestamp2time($timestamp = null, $format = 'Y-m-d H:i:s'){
     }
 }
 
-function get_hari($date){
-    $seminggu = array( 'Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu' );
+function getDay($date){
+    $seminggu = array( t('sunday'),t('monday'),t('tuesday'),t('wednesday'),t('thursday'),t('friday'),t('saturday') );
     if($date){
         $timestamp = date('w', strtotime($date));
         $hari = $seminggu[$timestamp];
@@ -42,44 +42,44 @@ function get_hari($date){
     }
 }
 
-function get_bulan($bln){
+function getMonth($bln){
     
     switch ($bln){
         case 1: 
-            return 'Januari';
+            return t('january');
             break;
         case 2:
-            return 'Februari';
+            return t('february');
             break;
         case 3:
-            return 'Maret';
+            return t('march');
             break;
         case 4:
-            return 'April';
+            return t('april');
             break;
         case 5:
-            return 'Mei';
+            return t('may');
             break;
         case 6:
-            return 'Juni';
+            return t('june');
             break;
         case 7:
-            return 'Juli';
+            return t('july');
             break;
         case 8:
-            return 'Agustus';
+            return t('august');
             break;
         case 9:
-            return 'September';
+            return t('september');
             break;
         case 10:
-            return 'Oktober';
+            return t('october');
             break;
         case 11:
-            return 'November';
+            return t('november');
             break;
         case 12:
-            return 'Desember';
+            return t('december');
             break;
     }
 }
@@ -1117,78 +1117,4 @@ function phoneConvertFormat($hp, $format='0'){
     }
 
 	return $hp;
-}
-
-/**
- *
- * get locales name
- *
- * @param string
- * @param bool
- * 
- * @return string
- */
-function locales($locales=null, $country=FALSE){
-    $ci =& get_instance();
-
-    if( $locales == null ){ $locales = $ci->config->item('language'); }
-
-    $locale = $ci->config->load('locales')[$locales];
-    
-    if( $country === TRUE ) { $result = $locale; }
-    else { $result = preg_replace('# \((.*?)\)#', '', $locale); }
-    
-    return $result;
-}
-
-/**
- *
- * get language directory code
- *
- * @param string
- * @param bool
- * 
- * @return string
- */
-function langlist(){
-    $ci =& get_instance();
-
-    // get language directory
-    $filedir = scandir(APPPATH . 'language');
-
-    $result = array();
-
-    if( is_dir(APPPATH . 'language') ){
-        
-        foreach ($filedir as $key => $thefile) {
-            if ($thefile != "." && $thefile != ".." && $thefile != 'index.html'){
-                $filename = pathinfo($thefile, PATHINFO_FILENAME );
-
-                // check lang array availability here
-                if( !array_key_exists( $filename, $ci->config->load('locales') ) ){
-                    show_error('Terdapat nama direktori bahasa yang tidak valid', 503, 'Bahasa tidak valid'); exit;
-                }
-
-                $result[]  = $filename;
-            }
-        }        
-
-    }
-    
-    return $result;
-}
-
-/**
- *
- * Fetching a line of text in multilanguage
- *
- * @param string
- * @param bool
- * 
- * @return string
- */
-function t($line, $log_errors=FALSE){
-    $ci =& get_instance();
-        
-    return $ci->lang->line($line, $log_errors);
 }

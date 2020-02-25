@@ -97,6 +97,8 @@ $lang['type'] = "Type";
 $lang['status'] = "Status";
 $lang['image'] = "Image";
 $lang['images'] = "Images";
+$lang['picture'] = "Picture";
+$lang['pictures'] = "Pictures";
 $lang['content'] = "Content";
 $lang['activated'] = "Activated";
 $lang['deactivated'] = "Deactivated";
@@ -493,6 +495,12 @@ $lang['categories'] = "Categories";
 $lang['category'] = "Category";
 $lang['edit_category'] = 'Edit Category';
 $lang['infocategcolor'] = "Giving color to the category can make it easier for you to differentiate categories or specify categories.";
+$lang['productcategories'] = "Product Categories";
+
+/**
+ * User Management
+ */
+$lang['usermanagement'] = ' User Management';
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

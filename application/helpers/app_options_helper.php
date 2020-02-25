@@ -7,6 +7,81 @@ function isNotMigration() {
     else return false;
 }
 
+/**************** MULTILANG OPTION ********************/
+/**
+ *
+ * get locales name
+ *
+ * @param string
+ * @param bool
+ * 
+ * @return string
+ */
+function locales($locales=null, $country=FALSE){
+    $ci =& get_instance();
+
+    if( $locales == null ){ $locales = $ci->config->item('language'); }
+
+    $locale = $ci->config->load('locales')[$locales];
+    
+    if( $country === TRUE ) { $result = $locale; }
+    else { $result = preg_replace('# \((.*?)\)#', '', $locale); }
+    
+    return $result;
+}
+
+/**
+ *
+ * get language directory code
+ *
+ * @param string
+ * @param bool
+ * 
+ * @return string
+ */
+function langlist(){
+    $ci =& get_instance();
+
+    // get language directory
+    $filedir = scandir(APPPATH . 'language');
+
+    $result = array();
+
+    if( is_dir(APPPATH . 'language') ){
+        
+        foreach ($filedir as $key => $thefile) {
+            if ($thefile != "." && $thefile != ".." && $thefile != 'index.html'){
+                $filename = pathinfo($thefile, PATHINFO_FILENAME );
+
+                // check lang array availability here
+                if( !array_key_exists( $filename, $ci->config->load('locales') ) ){
+                    show_error('Terdapat nama direktori bahasa yang tidak valid', 503, 'Bahasa tidak valid'); exit;
+                }
+
+                $result[]  = $filename;
+            }
+        }        
+
+    }
+    
+    return $result;
+}
+
+/**
+ *
+ * Fetching a line of text in multilanguage
+ *
+ * @param string
+ * @param bool
+ * 
+ * @return string
+ */
+function t($line, $log_errors=FALSE){
+    $ci =& get_instance();
+        
+    return $ci->lang->line($line, $log_errors);
+}
+
 /**************** Encription ********************/
 function encoder($str){
     $iv = substr(hash('sha256', AUTH_SALT), 0, 16); 
@@ -91,7 +166,7 @@ function get_social_url($social=''){
     return $social_url;
 }
 
-/**************** Template location ********************/
+/**************** Templating location ********************/
 function template_root($themeroot = null){
     $mainroot = get_option('template').'/main';
     if(!empty($themeroot)){ $mainroot = $mainroot.'/'.$themeroot; }

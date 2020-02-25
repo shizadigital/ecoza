@@ -44,14 +44,14 @@ class Manage_users extends CI_Controller{
 			$pagination = $this->paging->PaginationAdmin( $pagingURI, $rows, $perPage );
 
 			$data = array( 
-						'title' => 'Kelola Pengguna - '.get_option('sitename'),
+						'title' => t('usermanagement') .' - '.get_option('sitename'),
 						'page_header_on' => true,
-						'title_page' => 'Kelola Pengguna',
+						'title_page' => t('usermanagement'),
 						'title_page_icon' => '',
 						'title_page_secondary' => '',
 						'header_button_action' => array(
 											array(
-												'title' => 'Tambah',
+												'title' => t('addnew'),
 												'icon'	=> 'fe fe-plus',
 												'access' => admin_url('manage_users/tambah'),
 												'permission' => 'add'
@@ -77,14 +77,14 @@ class Manage_users extends CI_Controller{
 			$datalevel = $this->Env_model->view_where_order('levelId,levelName','users_level', $whereclause, 'levelId', 'ASC');
 
 			$data = array( 
-							'title' => 'Kelola Pengguna - '.get_option('sitename'),
+							'title' => t('usermanagement') .' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Tambah Kelola Pengguna',
+							'title_page' => t('usermanagement'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'header_button_action' => array(
 												array(
-													'title' => 'Kembali',
+													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('manage_users')
 												)
@@ -190,7 +190,7 @@ class Manage_users extends CI_Controller{
 				$query = $this->Env_model->insert('users', $insvalue);
 				
 				if($query){ 
-					$this->session->set_flashdata( 'sukses', 'Data berhasil ditambah' );
+					$this->session->set_flashdata( 'succeed', 'Data berhasil ditambah' );
 	    			redirect( admin_url('manage_users/edit/'.$nextID) );
 				} else {
 					$error = "<strong>Error</strong> Data tidak dapat diproses, silahkan coba lagi";
@@ -198,7 +198,7 @@ class Manage_users extends CI_Controller{
 			}
 
 			if($error){
-				$this->session->set_flashdata( 'gagal', $error );
+				$this->session->set_flashdata( 'failed', $error );
 		    	redirect( admin_url('manage_users/tambah') );
 			}
 		}

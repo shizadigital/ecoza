@@ -42,9 +42,9 @@ class Product_categories extends CI_Controller{
 			$pagination = $this->paging->PaginationAdmin( $pagingURI, $rows, $perPage );
 
 			$data = array( 
-						'title' => 'Kategori Produk - '.get_option('sitename'),
+						'title' => t('productcategories').' - '.get_option('sitename'),
 						'page_header_on' => true,
-						'title_page' => 'Kategori Produk',
+						'title_page' => t('productcategories'),
 						'title_page_icon' => '',
 						'title_page_secondary' => '',
 						'breadcrumb' => false,
@@ -110,15 +110,15 @@ class Product_categories extends CI_Controller{
 			$getdata = $this->Env_model->getval("*","categories", "catId='{$id}'");
 
 			$data = array( 
-							'title' => 'Kategori Produk - '.get_option('sitename'),
+							'title' => t('productcategories') .' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Edit Kategori Produk',
+							'title_page' => t('edit_category'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'breadcrumb' => false,
 							'header_button_action' => array(
 												array(
-													'title' => 'Kembali',
+													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('product_categories')
 												)

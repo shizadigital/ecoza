@@ -51,7 +51,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
         <div class="card card-statistics">
             <div class="card-header">
                 <div class="card-heading">
-                    <h4 class="card-title mb-0"><?php echo $title_page; ?></h4>
+                    <h4 class="card-title mb-0"><?php echo t('edit'); ?></h4>
                 </div>
             </div>
             <div class="card-body">

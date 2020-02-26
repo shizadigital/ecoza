@@ -108,7 +108,7 @@ class Manage_users extends CI_Controller{
 				$extensi_allowed = array('jpg','jpeg','png');
 
 				if(!in_array($ext_file,$extensi_allowed)) {
-					$error = "<strong>Error</strong> Ekstensi file tidak diizinkan. silahkan pilih file dengan ekstensi yang sesuai";
+					$error = "<strong>".t('error')."!!</strong> " . t('wrongextentionfile');
 				}
 			}
 
@@ -133,18 +133,18 @@ class Manage_users extends CI_Controller{
 			// username check
 			$usernum = $this->Env_model->countdata('users',"userLogin = '{$username}'");
 			if($usernum > 0){
-				$error = "<strong>Error</strong> Username ini sudah digunakan silahkan gunakan username yang lain";
+				$error = "<strong>".t('error')."!!</strong> ". t('usernameavailebleerror');
 			}
 
 			// email check
 			$emailnum = $this->Env_model->countdata('users',"userEmail = '{$email}'");
 			if($emailnum > 0){
-				$error = "<strong>Error</strong> Email ini sudah digunakan silahkan gunakan email yang lain";
+				$error = "<strong>".t('error')."!!</strong> ". t('emailavailebleerror');
 			}
 
 			// password check
 			if(strlen($this->input->post('pass'))<4){
-				$error = "<strong>Error</strong> Gunakan minimal 3 huruf untuk password";
+				$error = "<strong>".t('error')."!!</strong> ". sprintf(t('passtotalcharerror'), 3);
 			}
 			
 			if(!$error){
@@ -193,7 +193,7 @@ class Manage_users extends CI_Controller{
 					$this->session->set_flashdata( 'succeed', 'Data berhasil ditambah' );
 	    			redirect( admin_url('manage_users/edit/'.$nextID) );
 				} else {
-					$error = "<strong>Error</strong> Data tidak dapat diproses, silahkan coba lagi";
+					$error = "<strong>".t('error')."!!</strong> ".t('cannotprocessdata');
 				}
 			}
 
@@ -225,20 +225,20 @@ class Manage_users extends CI_Controller{
             }
 
 			$data = array( 
-							'title' => 'Kelola Pengguna - '.get_option('sitename'),
+							'title' => t('usermanagement') . ' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Edit Kelola Pengguna',
+							'title_page' =>  t('usermanagement'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'header_button_action' => array(
 												array(
-													'title' => 'Tambah',
+													'title' => t('addnew'),
 													'icon'	=> 'fe fe-plus',
 													'access' => admin_url('manage_users/tambah'),
 													'permission' => 'add'
 												),
 												array(
-													'title' => 'Kembali',
+													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('manage_users')
 												)

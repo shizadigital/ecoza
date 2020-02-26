@@ -50,23 +50,23 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosestambah'), 
         <div class="card card-statistics">
             <div class="card-header">
                 <div class="card-heading">
-                    <h4 class="card-title mb-0"><?php echo $title_page; ?></h4>
+                    <h4 class="card-title mb-0"><?php echo t('addnew'); ?></h4>
                 </div>
             </div>
             <div class="card-body">
             	<?php 
-                if( !empty( $this->session->has_userdata('sukses') ) ){
+                if( !empty( $this->session->has_userdata('succeed') ) ){
                     echo '
                     <div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
-                        <i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
+                        <i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
                 }
-                if( !empty( $this->session->has_userdata('gagal') ) ){
+                if( !empty( $this->session->has_userdata('failed') ) ){
                     echo '
                     <div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
+                        <i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
@@ -75,39 +75,47 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosestambah'), 
 
                 <div class="row">
                     <div class="col-md-6">
+                        <?php 
+                            $optionlevel = array(''=>'-- Pilih Level --');
+                            foreach ($datalevel AS $dua) {
+                                $optionlevel[$dua['levelId']] = $dua['levelName'];
+                            }
 
-                        <div class="form-group">
-                            <label class="req" for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required />
-                        </div>
+                            $buildform1 = array(
+                                array(
+                                    'type' => 'text',
+                                    'label' => t('username'),
+                                    'name' => 'username',
+                                    'required' => true,
+                                ),
+                                array(
+                                    'type' => 'email',
+                                    'label' => t('email'),
+                                    'name' => 'email',
+                                    'required' => true,
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label' => t('name'),
+                                    'name' => 'nama',
+                                    'required' => true,
+                                ),
+                                array(
+                                    'type' => 'select',
+                                    'label' => t('level'),
+                                    'name' => 'level',
+                                    'option' => $optionlevel,
+                                    'required' => true,
+                                )
+                            );
 
-                        <div class="form-group">
-                            <label class="req" for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required />
-                        </div>
-
-                        <div class="form-group">
-                            <label class="req" for="nama">Nama</label>
-                            <input type="text" class="form-control" id="nama" name="nama" required />
-                        </div>
-
-                        <div class="form-group">
-                            <label class="req" for="level">Level</label>
-                            <select class="custom-select form-control" id="level" name="level" data-parsley-required="true">
-                                <option value="">-- Pilih Level --</option>
-                                <?php 
-                                foreach ($datalevel AS $dua) {
-                                    echo "<option value=\"{$dua['levelId']}\">{$dua['levelName']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        
+                            $this->formcontrol->buildInputs($buildform1);
+                        ?>                        
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="req" for="pwdSt_password">Password</label>
+                            <label class="req" for="pwdSt_password"><?php echo t('password'); ?></label>
                             <div id="pwd-container">
                                 <input type="password" class="form-control sepH_a" id="pwdSt_password" name="pass" required />
                                 <div class="pwstrength_viewport_progress sepH_b"></div>
@@ -116,23 +124,28 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosestambah'), 
                         </div>
 
                         <div class="form-group">
-                            <label class="req" for="repeat_password">Ulangi Password</label>
+                            <label class="req" for="repeat_password"><?php echo t('repeatpassword'); ?></label>
                             <input type="password" class="form-control" id="repeat_password" name="ulang_pass" data-parsley-equalto="#pwdSt_password" required />
                         </div>
 
-                        <div class="form-group">
-                            <label for="fupload" class="req">Gambar</label>
-                            <div class="custom-file">
-                                <input type="file" name="fupload" id="fupload" class="fileInput" />
-                                <small class="form-text text-muted">Ekstensi yang diizinkan *.jpg, *.jpeg, *.png</small>
-                            </div>
-                        </div>
+                        <?php                             
+                            $buildform2 = array(
+                                array(
+                                    'type' => 'file',
+                                    'label' => t('picture'),
+                                    'name' => 'fupload',
+                                    'help' => t('infofile') . ' *.jpg, *.jpeg, *.png'
+                                )
+                            );
+
+                            $this->formcontrol->buildInputs($buildform2);
+                        ?>
                     </div>
 
                     <div class="col-md-12">
                         <hr/>
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit"><i class="fe fe-plus"></i> Tambah</button>
+                            <button class="btn btn-primary" type="submit"><i class="fe fe-plus"></i> <?php echo t('btnadd'); ?></button>
                         </div>
                     </div>
 

@@ -30,11 +30,14 @@ class FormControl {
             foreach( $inputs AS $key => $val ){
                 
                 // define key before process the form
-                $required = ( isset($val['required']) ) ? $val['required']:false;
-                $label = ( isset($val['label']) ) ? $val['label']:'';
-                $name = ( isset($val['name']) ) ? $val['name']:'';
-                $colsetting_label = ( isset($colsetting['label']) ) ? $colsetting['label']:'';
-                $colsetting_input = ( isset($colsetting['input']) ) ? $colsetting['input']:'';
+                $required           = ( isset($val['required']) ) ? $val['required']:false;
+                $label              = ( isset($val['label']) ) ? $val['label']:'';
+                $name               = ( isset($val['name']) ) ? $val['name']:'';
+                $colsetting_label   = ( isset($colsetting['label']) ) ? $colsetting['label']:'';
+                $colsetting_input   = ( isset($colsetting['input']) ) ? $colsetting['input']:'';
+
+                $selectoption       = ( isset($val['option']) ) ? $val['option']:null;
+                $selectedoption     = ( isset($val['selected']) ) ? $val['selected']:array();
                 
                 $formType = $val['type'];
                 $help = ( isset($val['help']) ) ? $val['help']:'';
@@ -45,7 +48,9 @@ class FormControl {
                     echo '<label';
 
                     if($required OR $layout == 'horizontal'){
-                        echo ' class="'.( ($layout == 'horizontal') ? $colsetting_label.' col-form-label':'' ).( ($required)?' req':'' ) . '"';
+                        $classval = ( ($layout == 'horizontal') ? $colsetting_label.' col-form-label':'' ).( ($required)?' req':'' );
+                        $classval = trim($classval);
+                        echo ' class="'.$classval.'"';
                     }
 
                     echo ' for="'.( ( isset($val['id']) )? $val['id']:$name).'">' . $label . '</label>'."\n";
@@ -58,10 +63,8 @@ class FormControl {
 
                     if($layout == 'horizontal' AND $formType !='hidden'){ echo '<div class="'.$col_element.'">'; }
                     
-                    // remove type key
-                    unset($val['type']);
-                    unset($val['label']);
-                    unset($val['required']);
+                    // remove key so as not to insert to attribute
+                    unset( $val['type'], $val['help'], $val['label'], $val['required'], $val['option'], $val['selected'] );
 
                     // define required to attribute
                     $required = ($required) ? array('required'=>'required'): array();
@@ -97,9 +100,9 @@ class FormControl {
                             'cols' => ''
                         );
 
-                        $val = array_merge($val, $class_input, $required);
+                        $val_ = array_merge($val, $class_input, $required);
 
-                        echo form_textarea($val);  
+                        echo form_textarea($val_);  
                     } 
 
                     /**
@@ -107,10 +110,16 @@ class FormControl {
                      */
                     elseif( $formType == 'button' ){
                         $attrClass = "";
+                        $clearfix = false;
 
-                        if( isset($val['class']) ){
+                        if( isset($val['class']) OR isset($val['position']) ){
                             if(!empty($val['class'])){
                                 $attrClass = " ".$val['class'];
+                            }
+
+                            if(!empty($val['position'])){
+                                $attrClass .= " float-".$val['position'];
+                                $clearfix = true;
                             }
                         }
 
@@ -119,14 +128,18 @@ class FormControl {
                             'class' => 'btn' . $attrClass
                         );
 
-                        $val = array_merge($val, $class_input);
+                        $val_ = array_merge($val, $class_input);
+                        
+                        if( isset($val['bordertop']) ){ echo '<hr/>'; }   
                         
                         echo '<button type="button"';
-                        foreach( $val AS $attr => $value){
+                        foreach( $val_ AS $attr => $value){
                             if($attr == 'label'){ continue; }
                             echo ' '.$attr.'="'.$value.'"';
                         }
                         echo '>'.$label.'</button>'."\n";
+
+                        if( $clearfix ){ echo '<div class="clearfix"></div>'; }
                     }
 
                     /**
@@ -152,12 +165,12 @@ class FormControl {
                             'class' => 'btn' . $attrClass
                         );
 
-                        $val = array_merge($val, $class_input);
+                        $val_ = array_merge($val, $class_input);
                         
                         if( isset($val['bordertop']) ){ echo '<hr/>'; }                        
 
                         echo '<button type="submit"';
-                        foreach( $val AS $attr => $value){
+                        foreach( $val_ AS $attr => $value){
                             if($attr == 'label' OR $attr == 'position' OR $attr == 'bordertop'){ continue; }
                             echo ' '.$attr.'="'.$value.'"';
                         }
@@ -170,7 +183,66 @@ class FormControl {
                      * input select
                      */
                     elseif( $formType == 'select' ){
+                        $attrClass = "";
+                        $attrId = $name;
 
+                        // unset key name in $val
+                        unset($val['name']);
+
+                        $selectrequired = (count($required)>0) ? array('data-parsley-required'=>'true'):array();
+
+                        if( isset($val['class']) OR isset($val['id']) ){
+                            if(!empty($val['class'])){
+                                $attrClass = " ".$val['class'];
+                            }
+                            
+                            if(!empty($val['id'])){
+                                $attrId = $val['id'];
+                            }
+                        }
+
+                        // make standard attributes
+                        $class_input = array(
+                            'class' => 'custom-select form-control' . $attrClass,
+                            'id' => $attrId
+                        );
+
+                        $val_ = array_merge($val, $class_input, $selectrequired);
+
+                        echo form_dropdown($name, $selectoption, $selectedoption, $val_);
+                    }
+
+                    /**
+                     * input multiple select
+                     */
+                    elseif( $formType == 'multipleselect' ){
+                        $attrClass = "";
+                        $attrId = $name;
+
+                        // unset key name in $val
+                        unset($val['name']);
+
+                        $selectrequired = (count($required)>0) ? array('data-parsley-required'=>'true'):array();
+
+                        if( isset($val['class']) OR isset($val['id']) ){
+                            if(!empty($val['class'])){
+                                $attrClass = " ".$val['class'];
+                            }
+                            
+                            if(!empty($val['id'])){
+                                $attrId = $val['id'];
+                            }
+                        }
+
+                        // make standard attributes
+                        $class_input = array(
+                            'class' => 'custom-select form-control' . $attrClass,
+                            'id' => $attrId
+                        );
+
+                        $val_ = array_merge($val, $class_input, $selectrequired);
+
+                        echo form_multiselect($name, $selectoption, $selectedoption, $val_);
                     }
 
                     /**
@@ -197,16 +269,69 @@ class FormControl {
                             'id' => $attrId
                         );
 
-                        $val = array_merge($val, $class_input, $required);
+                        $val_ = array_merge($val, $class_input, $required);
 
-                        echo form_input($val);                        
+                        echo form_input($val_);
+                    }
+
+                    /**
+                     * input text
+                     */
+                    elseif( $formType == 'email' ){                        
+                        
+                        $attrClass = "";
+                        $attrId = $name;
+
+                        if( isset($val['class']) OR isset($val['id']) ){
+                            if(!empty($val['class'])){
+                                $attrClass = " ".$val['class'];
+                            }
+                            
+                            if(!empty($val['id'])){
+                                $attrId = $val['id'];
+                            }
+                        }
+
+                        // make standard attributes
+                        $class_input = array(
+                            'type' => 'email',
+                            'class' => 'form-control' . $attrClass,
+                            'id' => $attrId
+                        );
+
+                        $val_ = array_merge($val, $class_input, $required);
+
+                        echo form_input($val_);
                     }
 
                     /**
                      * input file
                      */
                     elseif( $formType == 'file' ){
+                        $attrClass = "";
+                        $attrId = $name;
 
+                        $filerequired = (count($required)>0) ? array('data-parsley-required'=>'true'):array();
+
+                        if( isset($val['class']) OR isset($val['id']) ){
+                            if(!empty($val['class'])){
+                                $attrClass = " ".$val['class'];
+                            }
+                            
+                            if(!empty($val['id'])){
+                                $attrId = $val['id'];
+                            }
+                        }
+
+                        // make standard attributes
+                        $class_input = array(
+                            'class' => 'form-control-file' . $attrClass,
+                            'id' => $attrId
+                        );
+
+                        $val_ = array_merge($val, $class_input, $filerequired);
+
+                        echo form_upload($val_);
                     }
 
                     /**
@@ -214,14 +339,7 @@ class FormControl {
                      */
                     elseif( $formType == 'hidden' ){
                         echo form_hidden($val['name'], $val['value']);
-                    }
-
-                    /**
-                     * input radio button
-                     */
-                    elseif( $formType == 'radio' ){
-
-                    }
+                    }                   
 
                     /**
                      * input checkbox
@@ -242,7 +360,7 @@ class FormControl {
                                 $title = (!empty($value['title'])) ? $value['title'] :'';
                                 unset( $value['title'] );
 
-                                echo '<div class="form-check pt-2'.(( $layout_box == 'horizontal') ? ' form-check-inline':'').'">'."\n";
+                                echo '<div class="custom-control custom-checkbox pt-2'.(( $layout_box == 'horizontal') ? ' custom-control-inline':'').'">'."\n";
                                 $attrClass = "";
                                 $attrId = $name;
 
@@ -258,14 +376,14 @@ class FormControl {
 
                                 // make standard attributes
                                 $class_input = array(
-                                    'class' => 'form-check-input' . $attrClass,
+                                    'class' => 'custom-control-input' . $attrClass,
                                     'id' => $attrId.$xx
                                 );
 
                                 $v_aray = array_merge($val, $value, $class_input, $required );
 
                                 echo form_checkbox($v_aray);
-                                echo '<label class="form-check-label" for="'.$attrId.$xx.'">';
+                                echo '<label class="custom-control-label" for="'.$attrId.$xx.'">';
                                 echo $title;
                                 echo '</label>'."\n".'</div>'."\n";
                                 
@@ -274,7 +392,7 @@ class FormControl {
 
                         } else {
 
-                            echo '<div class="form-check pt-2'.(( $layout_box == 'horizontal')? ' form-check-inline':'').'">';
+                            echo '<div class="custom-control custom-checkbox pt-2'.(( $layout_box == 'horizontal')? ' custom-control-inline':'').'">';
                             $attrClass = "";
                             $attrId = $name;
 
@@ -290,14 +408,94 @@ class FormControl {
 
                             // make standard attributes
                             $class_input = array(
-                                'class' => 'form-check-input' . $attrClass,
+                                'class' => 'custom-control-input' . $attrClass,
                                 'id' => $attrId
                             );
 
-                            $val = array_merge($val, $class_input, $required);
+                            $val_ = array_merge($val, $class_input, $required);
 
-                            echo form_checkbox($val);
-                            echo '<label class="form-check-label" for="'.$attrId.'">';
+                            echo form_checkbox($val_);
+                            echo '<label class="custom-control-label" for="'.$attrId.'">';
+                            echo $title;
+                            echo '</label></div>'."\n";
+                        }
+                    }
+
+                    /**
+                     * input radio button
+                     */
+                    elseif( $formType == 'radio' ){
+                        $title = (!empty($val['title'])) ? $val['title'] :'';
+                        $layout_box = (!empty($val['layout'])) ? $val['layout'] :'vertical';
+
+                        // unset title
+                        unset($val['title'],$val['layout']);
+
+                        if( is_array( $val['value'] ) ){
+
+                            if( !empty($val['checked'] ) ) unset($val['checked']);
+
+                            $xx = 1;
+                            foreach($val['value'] as $key => $value ){
+                                $title = (!empty($value['title'])) ? $value['title'] :'';
+                                unset( $value['title'] );
+
+                                echo '<div class="custom-control custom-radio pt-2'.(( $layout_box == 'horizontal') ? ' custom-control-inline':'').'">'."\n";
+                                $attrClass = "";
+                                $attrId = $name;
+
+                                if( isset($val['class']) OR isset($val['id']) ){
+                                    if(!empty($val['class'])){
+                                        $attrClass = " ".$val['class'];
+                                    }
+
+                                    if(!empty($val['id'])){
+                                        $attrId = $val['id'];
+                                    }
+                                }
+
+                                // make standard attributes
+                                $class_input = array(
+                                    'class' => 'custom-control-input' . $attrClass,
+                                    'id' => $attrId.$xx
+                                );
+
+                                $v_aray = array_merge($val, $value, $class_input, $required );
+
+                                echo form_radio($v_aray);
+                                echo '<label class="custom-control-label" for="'.$attrId.$xx.'">';
+                                echo $title;
+                                echo '</label>'."\n".'</div>'."\n";
+                                
+                                $xx++;
+                            }
+
+                        } else {
+
+                            echo '<div class="custom-control custom-radio pt-2'.(( $layout_box == 'horizontal')? ' custom-control-inline':'').'">';
+                            $attrClass = "";
+                            $attrId = $name;
+
+                            if( isset($val['class']) OR isset($val['id']) ){
+                                if(!empty($val['class'])){
+                                    $attrClass = " ".$val['class'];
+                                }
+
+                                if(!empty($val['id'])){
+                                    $attrId = $val['id'];
+                                }
+                            }
+
+                            // make standard attributes
+                            $class_input = array(
+                                'class' => 'custom-control-input' . $attrClass,
+                                'id' => $attrId
+                            );
+
+                            $val_ = array_merge($val, $class_input, $required);
+
+                            echo form_radio($val_);
+                            echo '<label class="custom-control-label" for="'.$attrId.'">';
                             echo $title;
                             echo '</label></div>'."\n";
                         }
@@ -306,15 +504,30 @@ class FormControl {
                     /**
                      * input multiple select
                      */
-                    elseif( $formType == 'multipleselect' ){
-
-                    }
-
-                    /**
-                     * input multiple select
-                     */
                     elseif( $formType == 'password' ){
+                        $attrClass = "";
+                        $attrId = $name;
 
+                        if( isset($val['class']) OR isset($val['id']) ){
+                            if(!empty($val['class'])){
+                                $attrClass = " ".$val['class'];
+                            }
+                            
+                            if(!empty($val['id'])){
+                                $attrId = $val['id'];
+                            }
+                        }
+
+                        // make standard attributes
+                        $class_input = array(
+                            'type' => 'password',
+                            'class' => 'form-control' . $attrClass,
+                            'id' => $attrId
+                        );
+
+                        $val_ = array_merge($val, $class_input, $required);
+
+                        echo form_input($val_);
                     }
 
                     /**
@@ -340,9 +553,9 @@ class FormControl {
                             'id' => $attrId
                         );
 
-                        $val = array_merge($val, $class_input, $required);
+                        $val_ = array_merge($val, $class_input, $required);
 
-                        echo form_input($val);
+                        echo form_input($val_);
                     }
 
                     if(!empty($help AND $formType !='hidden')) { echo '<small class="form-text text-muted">'.$help.'</small>'; }

@@ -99,7 +99,7 @@ class Manage_users extends CI_Controller{
 		if( is_add() ){
 
 			if(empty($this->input->post('username')) OR empty($this->input->post('email')) OR empty($this->input->post('nama')) OR empty($this->input->post('pass')) OR empty($this->input->post('level')) OR empty($this->input->post('ulang_pass'))){
-				$error = "<strong>Error</strong> Bidang wajib tidak boleh kosong";
+				$error = "<strong>".t('error')."</strong> ".t('emptyrequiredfield');
 			}
 			
 			if(!empty($_FILES['fupload']['tmp_name'])){
@@ -190,7 +190,7 @@ class Manage_users extends CI_Controller{
 				$query = $this->Env_model->insert('users', $insvalue);
 				
 				if($query){ 
-					$this->session->set_flashdata( 'succeed', 'Data berhasil ditambah' );
+					$this->session->set_flashdata( 'succeed', t('successfullyadd') );
 	    			redirect( admin_url('manage_users/edit/'.$nextID) );
 				} else {
 					$error = "<strong>".t('error')."!!</strong> ".t('cannotprocessdata');
@@ -256,7 +256,7 @@ class Manage_users extends CI_Controller{
 			$id = $this->input->post('ID');
 
 			if( empty($this->input->post('email')) OR empty($this->input->post('nama')) OR empty($this->input->post('level')) ){
-				$error = "<strong>Error</strong> Bidang wajib tidak boleh kosong";
+				$error = "<strong>".t('error')."</strong> ".t('emptyrequiredfield');
 			}
 			
 			if(!empty($_FILES['fupload']['tmp_name'])){
@@ -265,7 +265,7 @@ class Manage_users extends CI_Controller{
 				$extensi_allowed = array('jpg','jpeg','png');
 
 				if(!in_array($ext_file,$extensi_allowed)) {
-					$error = "<strong>Error</strong> Ekstensi file tidak diizinkan. silahkan pilih file dengan ekstensi yang sesuai";
+					$error = "<strong>".t('error')."!!</strong> " . t('wrongextentionfile');
 				}
 			}
 
@@ -277,14 +277,14 @@ class Manage_users extends CI_Controller{
 			// username check
 			$usernum = $this->Env_model->countdata('users',"userLogin = '{$username}'");
 			if($usernum > 0){
-				$error = "<strong>Error</strong> Username ini sudah digunakan silahkan gunakan username yang lain";
+				$error = "<strong>".t('error')."!!</strong> ". t('usernameavailebleerror');
 			}
 
 			// password check
 			if( !empty($this->input->post('pass')) ){
 				// password check
 				if(strlen($this->input->post('pass'))<4){
-					$error = "<strong>Error</strong> Gunakan minimal 3 huruf untuk password";
+					$error = "<strong>".t('error')."!!</strong> ". sprintf(t('passtotalcharerror'), 3);
 				}
 
 				$pass = esc_sql(filter_txt($this->input->post('pass')));
@@ -308,7 +308,7 @@ class Manage_users extends CI_Controller{
 			// email check
 			$emailnum = $this->Env_model->countdata('users',"userEmail = '{$email}' AND userEmail !='$old_email'");
 			if($emailnum > 0){
-				$error = "<strong>Error</strong> Email ini sudah digunakan silahkan gunakan email yang lain";
+				$error = "<strong>".t('error')."!!</strong> ". t('emailavailebleerror');
 			}			
 			
 			if(!$error){
@@ -350,15 +350,15 @@ class Manage_users extends CI_Controller{
 				$query = $this->Env_model->update('users', $dataupdate, "userId='{$id}'");
 				
 				if($query){ 
-					$this->session->set_flashdata( 'sukses', 'Data berhasil diperbarui' );
+					$this->session->set_flashdata( 'succeed', t('successfullyupdated') );
 	    			redirect( admin_url('manage_users/edit/'.$id) );
 				} else {
-					$error = "<strong>Error</strong> Data tidak dapat diproses, silahkan coba lagi";
+					$error = "<strong>".t('error')."!!</strong> ".t('cannotprocessdata');
 				}
 			}
 
 			if($error){
-				$this->session->set_flashdata( 'gagal', $error );
+				$this->session->set_flashdata( 'failed', $error );
 		    	redirect( admin_url('manage_users/tambah') );
 			}
 		}
@@ -374,9 +374,9 @@ class Manage_users extends CI_Controller{
 
 			$queryact = $this->Env_model->update('users', $data, "userId='{$id}'");
 			if($queryact){
-				$this->session->set_flashdata( 'sukses', 'Data berhasil dihapus' );
+				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
 			} else {
-				$this->session->set_flashdata( 'sukses', 'Data gagal dihapus' );
+				$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
 			}
 			redirect( admin_url('manage_users') );
 		}
@@ -385,7 +385,7 @@ class Manage_users extends CI_Controller{
 	public function bulk_action(){
 		$error = false;
 		if(empty($this->input->post('bulktype'))){
-			$error = "<strong>Error</strong> Tindakan masal belum dipilih, silahkan pilih jenis tindakan masal terlebih dahulu";
+			$error = "<strong>".t('error')."!!</strong> ". t('bulkactionnotselectedyet');
 		}
 
 		if(!$error){
@@ -409,15 +409,15 @@ class Manage_users extends CI_Controller{
 					}
 
 					if($stat_hapus){
-						$this->session->set_flashdata( 'sukses', 'Data berhasil dihapus' );
+						$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
 					} else {
-					  	$this->session->set_flashdata( 'sukses', 'Data gagal dihapus' );
+					  	$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
 					}
 					redirect( admin_url('manage_users') );
 					exit;
 
 				} else {
-					$error = "<strong>Error</strong> Silahkan pilih item pada tindakan masal terlebih dahulu";
+					$error = "<strong>".t('error')."</strong>".t('bulkactionnotselecteditemyet');
 				}
 
 			}
@@ -425,7 +425,7 @@ class Manage_users extends CI_Controller{
 		}
 
 		if($error){
-			show_error($error, 503,'Tindakan masal gagal');
+			show_error($error, 503,t('actionfailed'));
 			exit;
 		}
 	}

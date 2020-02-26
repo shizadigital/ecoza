@@ -56,18 +56,18 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
             </div>
             <div class="card-body">
             	<?php 
-                if( !empty( $this->session->has_userdata('sukses') ) ){
+                if( !empty( $this->session->has_userdata('succeed') ) ){
                     echo '
                     <div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
-                        <i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
+                        <i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';
                 }
-                if( !empty( $this->session->has_userdata('gagal') ) ){
+                if( !empty( $this->session->has_userdata('failed') ) ){
                     echo '
                     <div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
+                        <i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
                     </div>
                     ';

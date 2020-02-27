@@ -32,9 +32,8 @@ $config['admin_slug'] = 'shiza_admin';
 |
 */
 $sapi_type = php_sapi_name();
-$config['base_url'] = (substr($sapi_type, 0, 3) == 'cli' || empty($_SERVER['REMOTE_ADDR'])) ? '' : ( ( (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") OR $_SERVER['SERVER_PORT'] == 443 ) ? 
-						"https://" : "http://" ) . $_SERVER['HTTP_HOST'].
-						str_replace( basename( $_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME'] );
+$config['base_url'] = (substr($sapi_type, 0, 3) == 'cli' || empty($_SERVER['REMOTE_ADDR'])) ? '' : ( ( ( is_https() ) OR $_SERVER['SERVER_PORT'] == 443 ) ? "https://" : "http://" ) . $_SERVER['HTTP_HOST'] .
+						str_replace( basename( $_SERVER['SCRIPT_NAME'] ), "", $_SERVER['SCRIPT_NAME'] );
 
 /*
 |--------------------------------------------------------------------------

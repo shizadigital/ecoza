@@ -230,7 +230,7 @@ class Env_model extends CI_model{
         $error=false;
 
         $result_ = '';
-        if( $this->countdata($table, $fieldReference) > 0 ){
+        if( Self::countdata($table, $fieldReference) > 0 ){
 
             if($fieldToDisplay!='*'){ $fieldToDisplay = preg_replace('/\s*/m', "", $fieldToDisplay); }
 

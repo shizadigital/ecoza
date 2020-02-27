@@ -129,22 +129,22 @@ function hijriah($time){
 
     //Realisasikan
     switch ($time){
-        case 'tanggal':
+        case 'date':
             return $hijriDay;
             break;
-        case 'bulan':
+        case 'month':
             return $theMonth;
             break;
-        case 'nama_bulan':
+        case 'monthname':
             return $hijriMonthName;
             break;
-        case 'tahun':
+        case 'year':
             return $hijriYear;
             break;
-        case 'jam':
+        case 'hour':
             return date("H:i:s");
             break;
-        case 'hari':
+        case 'day':
             return $hijriDayString;
             break;
     }
@@ -163,19 +163,19 @@ function dateSays($timestamp){
     $tahun = round($selisih / 31207680 );
 
     if ($detik <= 60) {
-        $waktu = $detik.' Detik';
+        $waktu = $detik.' '.t('seconds');
     } elseif ($menit <= 60) {
-        $waktu = $menit.' Menit';
+        $waktu = $menit.' '.t('minutes');
     } elseif ($jam <= 24) {
-        $waktu = $jam.' Jam';
+        $waktu = $jam.' '.t('hours');
     } elseif ($hari <= 7) {
-        $waktu = $hari.' Hari';
+        $waktu = $hari.' '.t('days');
     } elseif ($minggu <= 4.3) {
-        $waktu = $minggu.' Minggu';
+        $waktu = $minggu.' '.t('weeks');
     } elseif ($bulan <= 12) {
-        $waktu = $bulan.' Bulan';
+        $waktu = $bulan.' '.t('months');
     } else {
-        $waktu = $tahun.' Tahun';
+        $waktu = $tahun.' '.t('years');
     }
     
     return $waktu;
@@ -380,61 +380,28 @@ function slugURL($str, $options = array()) {
 }
 
 function getOS() {
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $ci =& get_instance();
+    $ci->load->library('user_agent');
 
     $os_platform =   "Unknown";
 
-    $os_array    =   array(
-                            '/windows nt 10/i'      =>  'Windows 10',
-                            '/windows nt 6.3/i'     =>  'Windows 8.1',
-                            '/windows nt 6.2/i'     =>  'Windows 8',
-                            '/windows nt 6.1/i'     =>  'Windows 7',
-                            '/windows nt 6.0/i'     =>  'Windows Vista',
-                            '/windows nt 5.2/i'     =>  'Windows Server 2003/XP x64',
-                            '/windows nt 5.1/i'     =>  'Windows XP',
-                            '/windows xp/i'         =>  'Windows XP',
-                            '/windows nt 5.0/i'     =>  'Windows 2000',
-                            '/windows me/i'         =>  'Windows ME',
-                            '/win98/i'              =>  'Windows 98',
-                            '/win95/i'              =>  'Windows 95',
-                            '/win16/i'              =>  'Windows 3.11',
-                            '/mspie/i'              =>  'Windows CE',
-                            '/pocket/i'             =>  'Windows CE',
-                            '/macintosh|mac os x/i' =>  'Mac OS X',
-                            '/mac_powerpc/i'        =>  'Mac OS 9',
-                            '/linux/i'              =>  'Linux',
-                            '/ubuntu/i'             =>  'Ubuntu',
-                            '/iphone/i'             =>  'iPhone',
-                            '/ipod/i'               =>  'iPod',
-                            '/ipad/i'               =>  'iPad',
-                            '/android/i'            =>  'Android',
-                            '/blackberry/i'         =>  'BlackBerry',
-                            '/Nokia/i'              =>  'Nokia',
-                            '/OS\/2/i'              =>  'OS/2',
-                            '/BeOS/i'               =>  'BeOS',
-                            '/FreeBSD/i'            =>  'FreeBSD',
-                            '/OpenBSD/i'            =>  'OpenBSD',
-                            '/NetBSD/i'             =>  'NetBSD',
-                            '/SunOS/i'              =>  'SunOS',
-                            '/OpenSolaris/i'        =>  'OpenSolaris',
-                            '/webos/i'              =>  'Mobile'
-                     );
-
-    foreach ($os_array as $regex => $value) {
-        if (preg_match($regex, $user_agent)) {
-            $os_platform    =   $value;
-            break;
-        }
-    }   
+    if( $ci->agent->platform() ){
+        $os_platform =   $ci->agent->platform();
+    }
 
     return $os_platform;
 }
 
-function getBrowser() {
+function getBrowser($versionview = false) {
     $ci =& get_instance();
     $ci->load->library('browser');
 
-    return $ci->browser->getBrowser();
+    $browser = $ci->browser->getBrowser();
+    if( $versionview == true){
+        $browser .= ' ' .$ci->browser->getVersion();
+    }
+
+    return $browser;
 }
 
 /**
@@ -691,7 +658,7 @@ function makeDir($namadir, $permission = 0755, $recursive = false){
         $makedirname = mkdir($namadir, $permission, $recursive);
         if($makedirname){
             // Buat file index
-            $dirnamefileindex = "$namadir/index.html";
+            $dirnamefileindex = "{$namadir}/index.html";
             $dirnamehandle = fopen ($dirnamefileindex, "w");
             $fileindexdirnamecontent = "<!DOCTYPE html>
 <html>

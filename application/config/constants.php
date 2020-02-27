@@ -104,13 +104,13 @@ define('SERIAL_KEY'			, 'AFWSp29lAqqoAMs7BQFQFMPD4foDl3Fv');
 define('PHP_CLI_FILENAME'	, 'php');
 define('EMAIL_OPTION'		, 'queue'); // queue | standard
 define('MOBILE_APPS_AGENT'	, FALSE); // Mobile Apps USER_AGENT name, if not apps the value is FALSE
-define('SHIZA_VERSION'	, '1.0');
+define('SHIZA_VERSION'	    , '1.0');
 
 // Deep limit admin menu
 define( 'ADMINMENUDEEPLIMIT', 2 );
 
 // Deep limit web menu
-define( 'WEBMENUDEEPLIMIT', 3 );
+define( 'WEBMENUDEEPLIMIT'  , 3 );
 
 /*
 * PATH FILE

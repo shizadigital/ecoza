@@ -81,13 +81,13 @@ include V_ADMIN_PATH . "topbar.php";
 										if (function_exists($this->input->get('functionexists'))){
 										?>
 											<div class="alert alert-icon alert-success fade show" role="alert">
-												<i class="fa fa-check"></i> <code><?php echo $this->input->get('functionexists'); ?>()</code> is AVAILABLE
+												<i class="fa fa-check"></i> <code style="text-transform: unset;" class="badge badge-light"><?php echo $this->input->get('functionexists'); ?>()</code> is AVAILABLE
 											</div>
 										<?php
 										} else {
 										?>
 											<div class="alert alert-icon alert-danger fade show" role="alert">
-												<i class="fa fa-times"></i> <code><?php echo $this->input->get('functionexists'); ?>()</code> is NOT AVAILABLE
+												<i class="fa fa-times"></i> <code style="text-transform: unset;" class="badge badge-light"><?php echo $this->input->get('functionexists'); ?>()</code> is NOT AVAILABLE
 											</div>
 										<?php 		
 										}
@@ -110,13 +110,13 @@ include V_ADMIN_PATH . "topbar.php";
 										if (class_exists($this->input->get('classexists'))){
 										?>
 											<div class="alert alert-icon alert-success fade show" role="alert">
-												<i class="zmdi zmdi-check-circle"></i> <code>class <?php echo $this->input->get('classexists'); ?></code> is AVAILABLE
+												<i class="fa fa-check"></i> <code style="text-transform: unset;" class="badge badge-light">class <?php echo $this->input->get('classexists'); ?></code> is AVAILABLE
 											</div>
 										<?php
 										} else {
 										?>
 											<div class="alert alert-icon alert-danger fade show" role="alert">
-												<i class="fa fa-times"></i> <code>class <?php echo $this->input->get('classexists'); ?></code> is NOT AVAILABLE
+												<i class="fa fa-times"></i> <code style="text-transform: unset;" class="badge badge-light">class <?php echo $this->input->get('classexists'); ?></code> is NOT AVAILABLE
 											</div>
 										<?php 		
 										}
@@ -164,7 +164,7 @@ include V_ADMIN_PATH . "topbar.php";
 									<hr/>
 									<p><strong>Your IP</strong>: <?php echo getIP(); ?></p>
 									<p><strong>Your OS</strong>: <?php echo getOS(); ?></p>
-									<p><strong>Your Browser</strong>: <?php echo getBrowser(); ?></p>
+									<p><strong>Your Browser</strong>: <?php echo getBrowser(true); ?></p>
 									</div>
 								</div>
 							</div>

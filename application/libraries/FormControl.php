@@ -291,7 +291,7 @@ class FormControl {
                     }
 
                     /**
-                     * input text
+                     * input email
                      */
                     elseif( $formType == 'email' ){                        
                         
@@ -327,6 +327,8 @@ class FormControl {
                         $attrClass = "";
                         $attrId = $name;
 
+                        if( !empty($val['value']) ){ unset($val['value']); }
+
                         $filerequired = (count($required)>0) ? array('data-parsley-required'=>'true'):array();
 
                         if( isset($val['class']) OR isset($val['id']) ){
@@ -349,6 +351,50 @@ class FormControl {
 
                         echo form_upload($val_);
                     }
+
+                    /**
+                     * input file for image file
+                     */
+                    elseif( $formType == 'file-img' ){
+                        $attrClass = "";
+                        $attrId = $name;
+                        $imglocation = "";
+
+                        if( !empty($val['value']) ){ 
+                            $imglocation = $val['value'];
+                            unset($val['value']);
+                        }
+
+                        $filerequired = (count($required)>0) ? array('data-parsley-required'=>'true'):array();
+
+                        if( isset($val['class']) OR isset($val['id']) ){
+                            if(!empty($val['class'])){
+                                $attrClass = " ".$val['class'];
+                            }
+                            
+                            if(!empty($val['id'])){
+                                $attrId = $val['id'];
+                            }
+                        }
+
+                        // make standard attributes
+                        $class_input = array(
+                            'class' => 'form-control-file' . $attrClass,
+                            'id' => $attrId
+                        );
+
+                        $val_ = array_merge($val, $class_input, $filerequired);
+
+                        if(!empty($imglocation)){
+                            echo '
+                            <div class="mb-2 d-flex">
+                                <img class="pull-left" src="'.$imglocation.'" alt="image" style="padding:3px; height:80px; max-width: 100%;border:1px solid #ddd; margin-right:10px; background: #eee;" />
+                            </div>
+                            ';
+                        }
+
+                        echo form_upload($val_);
+                    }                    
 
                     /**
                      * input hidden

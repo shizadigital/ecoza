@@ -3,6 +3,8 @@
 $lang['locale'] = "id_ID";
 
 // general
+$lang['sitename'] = "Nama Situs";
+$lang['webdescription'] = "Deskripsi Website";
 $lang['cannotprocessdata'] = "Data tidak dapat diproses";
 $lang['noavailabledata'] = "Data tidak tersedia";
 $lang['ago'] = "Lalu";
@@ -64,6 +66,7 @@ $lang['imgcaption'] = "Keterangan Gambar";
 $lang['imgscaption'] = "Keterangan Gambar";
 $lang['infodescseo'] = "Masukkan sebagian konten posting atau kalimat yang mendeskripsikan posting";
 $lang['keyword'] = "Kata Kunci";
+$lang['keywords'] = "Kata Kunci";
 $lang['infokeyword'] = "Pisahkan kata kunci dengan tanda koma (,).";
 $lang['infonoindex'] = "Direktif ini memungkinkan robot mesin pencari tidak mengindeks halaman berita.";
 $lang['infonofollow'] = "Direktif ini memungkinkan robot mesin pencari untuk tidak mengikuti link keluar pada halaman posting";
@@ -464,6 +467,12 @@ $lang['year_s'] = "Tahun";
 $lang['quantity'] = "Kuantitas";
 $lang['totalcontent'] = "Total Konten";
 $lang['color'] = "Warna";
+$lang['smtp_useremail'] = "Nama User/Email SMTP";
+$lang['smtp_password'] = "Kata Sandi SMTP";
+$lang['smtp_host'] = "Host SMTP";
+$lang['smtp_port'] = "Port SMTP";
+$lang['smtp_securetype'] = "Tipe Keamanan SMTP";
+$lang['emailsignature'] = "Tanda Tangan Email";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -509,6 +518,11 @@ $lang['usergroup'] = 'Group Pengguna';
 $lang['addnewusergroup'] = 'Tambah Group';
 $lang['editusergroup'] = 'Perbarui Group';
 
+/**
+ * Web Setting
+ */
+$lang['websetting'] = 'Atur Website';
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///
@@ -516,6 +530,9 @@ $lang['editusergroup'] = 'Perbarui Group';
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 // general
+$lang['faviconuploadfailed'] = "Ekstensi favicon yang diizinkan adalah ";
+$lang['logoextentionfailed'] = "Ekstensi logo tidak diizinkan";
+$lang['uploadfailed'] = "Upload Gagal";
 $lang['datacannotbeloaded'] = "Data tidak dapat dimuat";
 $lang['emptyfield'] = "Bidang Kosong";
 $lang['systemerror'] = 'System Error';
@@ -538,7 +555,7 @@ $lang['textempty'] = 'Text tidak boleh kosong';
 $lang['fileempty'] = 'File tidak boleh kosong';
 $lang['msgcannotbemoved'] = 'Pesan gagal dipindahkan';
 $lang['wrongextentionfavicon'] = 'Ekstensi favicon tidak diizinkan, silahkan coba lagi';
-$lang['emailinvalid'] = 'Email titdak valid';
+$lang['emailinvalid'] = 'Alamat email tidak valid';
 $lang['usernameavailebleerror'] = 'Nama pengguna telah tersedia pada database. silahkan coba dengan nama pengguna lain';
 $lang['emailavailebleerror'] = 'Email telah tersedia pada database. silahkan coba dengan email lain';
 $lang['passtotalcharerror'] = 'Password harus lebih dari %s karakter';

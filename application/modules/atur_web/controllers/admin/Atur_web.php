@@ -20,7 +20,7 @@ class Atur_web extends CI_Controller{
 		if( is_view() ){
 
 			$data = array( 
-						'title' => 'Atur Web - '.get_option('sitename'),
+						'title' => t('websetting') . ' - '.get_option('sitename'),
 						'page_header_on' => true,
 						'title_page' => '',
 						'title_page_icon' => '',
@@ -38,12 +38,12 @@ class Atur_web extends CI_Controller{
 		if( is_edit() ){
 
 			if( empty($this->input->post('sitename')) ){
-				$error = "<strong>Error</strong> Bidang wajib tidak boleh kosong";
+				$error = "<strong>".t('error')."!!</strong> ".t('emptyrequiredfield');
 			}
 
 			// Validate Email
 			if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-				$error = "<strong>Error</strong> alamat email tidak valid";
+				$error = "<strong>".t('error')."!!</strong> " . t('emailinvalid');
 			}
 
 			if(!$error){
@@ -73,7 +73,7 @@ class Atur_web extends CI_Controller{
 						$favserialize = serialize($favUpload);
 						set_option('favicon', $favserialize);
 					} else {
-						$error = "<strong>ERROR</strong> Ekstensi favicon yang diizinkan hanya ".implode(", ", $fav_ext);
+						$error = "<strong>".t('error')."!!</strong> " .t('faviconuploadfailed') . ' '.implode(", ", $fav_ext);
 						show_error($error, 503,'Upload logo gagal'); exit;
 				  	}		
 					
@@ -127,8 +127,8 @@ class Atur_web extends CI_Controller{
 							add_option('weblogo', $logoserialize);
 						}
 					} else {
-						$error = "<strong>Error</strong> Ekstensi logo tidak diizinkan";
-						show_error($error, 503,'Upload logo gagal'); exit;
+						$error = "<strong>".t('error')."</strong> ".t('logoextentionfailed');
+						show_error($error, 503,t('uploadfailed')); exit;
 					}
 				}
 
@@ -178,11 +178,11 @@ class Atur_web extends CI_Controller{
 				$sosmedurl = serialize($social_url_array);
 				set_option('socialmediaurl', $sosmedurl);
 
-				$this->session->set_flashdata( 'sukses', 'Data berhasil diperbarui' );
+				$this->session->set_flashdata( 'succeed', t('successfullyupdated') );
 			}
 
 			if($error){
-				$this->session->set_flashdata( 'gagal', $error );
+				$this->session->set_flashdata( 'failed', $error );
 			}
 
 			redirect( admin_url( $this->uri->segment(2) ) );			

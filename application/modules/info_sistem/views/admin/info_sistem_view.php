@@ -32,7 +32,7 @@ include V_ADMIN_PATH . "topbar.php";
 					
 					<ul class="nav nav-tabs nav-tabs-line nav-tabs-line-bold nav-tabs-noborder nav-tabs-stretched">
 						<li class="nav-item">
-							<a class="nav-link active show" id="umum-tab" data-toggle="tab" href="#umum" role="tab" aria-controls="umum" aria-selected="true">Umum</a>
+							<a class="nav-link active show" id="umum-tab" data-toggle="tab" href="#umum" role="tab" aria-controls="umum" aria-selected="true"><?php echo t('general'); ?></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" id="phpinfo-tab" data-toggle="tab" href="#phpinfo" role="tab" aria-controls="phpinfo" aria-selected="false">PHP Info</a>

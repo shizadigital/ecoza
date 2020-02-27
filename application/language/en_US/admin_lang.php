@@ -3,6 +3,8 @@
 $lang['locale'] = "en_US";
 
 // general
+$lang['sitename'] = "Site Name";
+$lang['webdescription'] = "Web Description";
 $lang['cannotprocessdata'] = "Data cannot be processed";
 $lang['noavailabledata'] = "No available data";
 $lang['ago'] = "Ago";
@@ -64,6 +66,7 @@ $lang['imgcaption'] = "Image Caption";
 $lang['imgscaption'] = "Images Caption";
 $lang['infodescseo'] = "Fill in some of the post content or the sentence that describes the post";
 $lang['keyword'] = "Keyword";
+$lang['keywords'] = "Keywords";
 $lang['infokeyword'] = "Separate keywords with commas (,).";
 $lang['infonoindex'] = "This directive allows search engine robots not to index post pages.";
 $lang['infonofollow'] = "This directive allows search engine robots not to follow outbound links on the post page.";
@@ -464,6 +467,12 @@ $lang['year_s'] = "Year(s)";
 $lang['quantity'] = "Qty";
 $lang['totalcontent'] = "Total Content";
 $lang['color'] = "Color";
+$lang['smtp_useremail'] = "SMTP Username/Email";
+$lang['smtp_password'] = "SMTP Password";
+$lang['smtp_host'] = "SMTP Host";
+$lang['smtp_port'] = "SMTP Port";
+$lang['smtp_securetype'] = " SMTP Secure Type";
+$lang['emailsignature'] = "Email Signature";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -509,6 +518,11 @@ $lang['usergroup'] = 'User Group';
 $lang['addnewusergroup'] = 'Add New Group';
 $lang['editusergroup'] = 'Edit Group';
 
+/**
+ * Web Setting
+ */
+$lang['websetting'] = 'Web Setting';
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///
@@ -516,6 +530,9 @@ $lang['editusergroup'] = 'Edit Group';
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 // general
+$lang['faviconuploadfailed'] = "Allowed favicon extensions are ";
+$lang['logoextentionfailed'] = "Logo extension not allowed";
+$lang['uploadfailed'] = "Upload failed";
 $lang['datacannotbeloaded'] = "Data cannot be loaded";
 $lang['emptyfield'] = "Empty Field";
 $lang['systemerror'] = 'System Error';

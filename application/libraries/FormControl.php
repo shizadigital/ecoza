@@ -70,9 +70,25 @@ class FormControl {
                     $required = ($required) ? array('required'=>'required'): array();
 
                     /**
+                     * content
+                     */
+                    if( $formType == 'content' ){
+                        echo '<div class="pt-2">';
+                        echo $val['value'];
+                        echo '</div>';
+                    }
+
+                    /**
+                     * plain text
+                     */
+                    elseif( $formType == 'plaintext' ){
+                        echo '<input type="text" readonly class="form-control-plaintext" value="'.$val['value'].'">';
+                    }
+
+                    /**
                      * input textarea
                      */
-                    if( $formType == 'textarea' ){
+                    elseif( $formType == 'textarea' ){
 
                         $attrClass = "";
                         $attrId = $name;

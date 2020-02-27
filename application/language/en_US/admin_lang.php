@@ -502,6 +502,12 @@ $lang['productcategories'] = "Product Categories";
  */
 $lang['usermanagement'] = ' User Management';
 
+/**
+ * User Group
+ */
+$lang['usergroup'] = 'User Group';
+$lang['addnewusergroup'] = 'Add New Group';
+$lang['editusergroup'] = 'Edit Group';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

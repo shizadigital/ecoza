@@ -502,6 +502,13 @@ $lang['productcategories'] = "Kategori Produk";
  */
 $lang['usermanagement'] = 'Kelola Pengguna';
 
+/**
+ * User Group
+ */
+$lang['usergroup'] = 'Group Pengguna';
+$lang['addnewusergroup'] = 'Tambah Group';
+$lang['editusergroup'] = 'Perbarui Group';
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///

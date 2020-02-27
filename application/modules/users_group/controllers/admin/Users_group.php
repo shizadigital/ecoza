@@ -20,14 +20,14 @@ class Users_group extends CI_Controller{
 		if( is_view() ){
 
 			$data = array( 
-						'title' => 'Grup Pengguna - '.get_option('sitename'),
+						'title' => t('usergroup') . ' - '.get_option('sitename'),
 						'page_header_on' => true,
 						'title_page' => '',
 						'title_page_icon' => '',
 						'title_page_secondary' => '',
 						'header_button_action' => array(
 											array(
-												'title' => 'Tambah',
+												'title' => t('addnew'),
 												'icon'	=> 'fe fe-plus',
 												'access' => admin_url('users_group/tambah'),
 												'permission' => 'add'
@@ -43,14 +43,14 @@ class Users_group extends CI_Controller{
 	public function tambah(){
 		if( is_add() ){
 			$data = array( 
-							'title' => 'Grup Pengguna - '.get_option('sitename'),
+							'title' => t('usergroup') . ' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Tambah Grup Pengguna',
+							'title_page' => t('addnewusergroup'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'header_button_action' => array(
 												array(
-													'title' => 'Kembali',
+													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('users_group')
 												)
@@ -64,7 +64,7 @@ class Users_group extends CI_Controller{
 		if( is_add() ){
 			$error = false;
 			if( empty($this->input->post('access_name')) ){
-				$error = "<strong>Error</strong> Bidang wajib tidak boleh kosong";
+				$error = "<strong>".t('error')."</strong> ".t('emptyrequiredfield');
 			}
 
 			if(!$error){
@@ -81,16 +81,16 @@ class Users_group extends CI_Controller{
 				$query = $this->Env_model->insert('users_level', $insvalue);
 
 				if($query){
-					$this->session->set_flashdata( 'sukses', 'Data berhasil disimpan' );
+					$this->session->set_flashdata( 'succeed', t('successfullyadd') );
 		    		redirect( admin_url('users_group/edit/'.$nextID) );
 				} else {
-					$error = "<strong>Error</strong> Data gagal disimpan";
+					$error = "<strong>".t('error')."!!</strong> ".t('cannotprocessdata');
 				}
 
 			}
 
 			if($error){
-		    	$this->session->set_flashdata( 'gagal', $error );
+		    	$this->session->set_flashdata( 'failed', $error );
 		    	redirect( admin_url('users_group/tambah') );
 		    }
 		}
@@ -103,20 +103,20 @@ class Users_group extends CI_Controller{
 			$datagroup = $this->Env_model->view_where('*','users_level',"levelId='{$id}'")[0];
 
 			$data = array( 
-							'title' => 'Group Pengguna - '.get_option('sitename'),
+							'title' => t('usergroup') . ' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Edit Group Pengguna',
+							'title_page' => t('editusergroup'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'header_button_action' => array(
 												array(
-													'title' => 'Tambah',
+													'title' => t('addnew'),
 													'icon'	=> 'fe fe-plus',
 													'access' => admin_url('users_group/tambah'),
 													'permission' => 'add'
 												),
 												array(
-													'title' => 'Kembali',
+													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('users_group')
 												)
@@ -131,7 +131,7 @@ class Users_group extends CI_Controller{
 		if( is_edit() ){
 			$error = false;
 			if( empty($this->input->post('access_name')) ){
-				$error = "<strong>Error</strong> Bidang wajib tidak boleh kosong";
+				$error = "<strong>".t('error')."!!</strong> ".t('emptyrequiredfield');
 			}
 
 			if(!$error){
@@ -148,16 +148,16 @@ class Users_group extends CI_Controller{
 				$query = $this->Env_model->update('users_level', $datavalue, "levelId='{$id}'");
 
 				if($query){
-					$this->session->set_flashdata( 'sukses', 'Data berhasil disimpan' );
+					$this->session->set_flashdata( 'succeed', t('successfullyupdated') );
 		    		redirect( admin_url('users_group/edit/'.$id) );
 				} else {
-					$error = "<strong>Error</strong> Data gagal disimpan";
+					$error = "<strong>".t('error')."!!</strong> ". t('cannotprocessdata');
 				}
 
 			}
 
 			if($error){
-		    	$this->session->set_flashdata( 'gagal', $error );
+		    	$this->session->set_flashdata( 'failed', $error );
 		    	redirect( admin_url('users_group/tambah') );
 		    }
 		}
@@ -177,10 +177,9 @@ class Users_group extends CI_Controller{
 				$queryact = $this->Env_model->update('users_level', $data, "levelId='{$value}'");
 			}
 
-			$this->session->set_flashdata( 'sukses', 'Data berhasil diperbarui' );
+			$this->session->set_flashdata( 'succeed', t('successfullyupdated') );
 		    redirect( admin_url('users_group') );
 		}
 	}
 
 }
-?>

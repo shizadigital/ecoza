@@ -31,18 +31,18 @@ echo form_open( admin_url( $this->uri->segment(2).'/updatelist/' ) );
 
             <div class="card-body">
             	<?php 
-				if( !empty( $this->session->has_userdata('sukses') ) ){
+				if( !empty( $this->session->has_userdata('succeed') ) ){
 				    echo '
 					<div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
-						<i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
+						<i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 					</div>
 					';
 				}
-				if( !empty( $this->session->has_userdata('gagal') ) ){
+				if( !empty( $this->session->has_userdata('failed') ) ){
 				    echo '
 					<div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-						<i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
+						<i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 					</div>
 					';
@@ -52,7 +52,7 @@ echo form_open( admin_url( $this->uri->segment(2).'/updatelist/' ) );
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-sm"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui List'; ?></button>
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fe fe-refresh-cw"></i> <?php echo t('updatelist'); ?></button>
                         </div>
                     </div>
 
@@ -60,10 +60,10 @@ echo form_open( admin_url( $this->uri->segment(2).'/updatelist/' ) );
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th style="width:25px;" class="text-center">No</th>
-                                    <th style="min-width:220px;">Nama</th>                                       
+                                    <th style="width:25px;" class="text-center"><?php echo t('no_number'); ?></th>
+                                    <th style="min-width:220px;"><?php echo t('name'); ?></th>                                       
                                     <th class="text-center" style="min-width:60px;">
-                                        Aktif<br/>
+                                        <?php echo t('active'); ?><br/>
                                         <input type="checkbox" id="mod_active_all" />
                                     </th>
                                     <th class="text-center" style="width:160px;">&nbsp;</th>
@@ -98,7 +98,7 @@ echo form_open( admin_url( $this->uri->segment(2).'/updatelist/' ) );
                                     <td class="text-center">
                                         <?php 
                                         if( is_edit() ){
-                                            echo "<a href=\"".admin_url($this->uri->segment(2)."/edit/".$r['levelId'])."\" class=\"btn btn-info btn-sm\"><i class=\"fe fe-edit\"></i> Edit</a>";
+                                            echo "<a href=\"".admin_url($this->uri->segment(2)."/edit/".$r['levelId'])."\" class=\"btn btn-info btn-sm\"><i class=\"fe fe-edit\"></i> ".t('edit')."</a>";
                                         }
                                         ?>
                                     </td>
@@ -110,13 +110,13 @@ echo form_open( admin_url( $this->uri->segment(2).'/updatelist/' ) );
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-sm"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui List'; ?></button>
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fe fe-refresh-cw"></i> <?php echo t('updatelist'); ?></button>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <?php                                               
-                            echo "<div class=\"float-right\" style=\"font-style:italic;\">Total {$totalnya}</div>";
+                            echo "<div class=\"float-right\" style=\"font-style:italic;\">".t('total')." {$totalnya}</div>";
                         ?>
                     </div>
                 </div>

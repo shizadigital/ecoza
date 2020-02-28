@@ -75,14 +75,14 @@ class Menu_admin_master extends CI_Controller {
 		if( is_view() ){
 
 			$data = array( 
-						'title' => 'Menu Admin Master - '.get_option('sitename'),
+						'title' => t('menuadminmaster') . ' - '.get_option('sitename'),
 						'page_header_on' => true,
 						'title_page' => '',
 						'title_page_icon' => '',
 						'title_page_secondary' => '',
 						'header_button_action' => array(
 											array(
-												'title' => 'Tambah',
+												'title' => t('addnew'),
 												'icon'	=> 'fe fe-plus',
 												'access' => admin_url('menu_admin_master/tambah'),
 												'permission' => 'add'
@@ -99,14 +99,14 @@ class Menu_admin_master extends CI_Controller {
 		if( is_add() ){
 
 			$data = array( 
-							'title' => 'Tambah Menu Admin Master - '.get_option('sitename'),
+							'title' => t('addnewmenuadminmaster') . ' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Tambah Menu Admin Master',
+							'title_page' => t('addnewmenuadminmaster'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'header_button_action' => array(
 												array(
-													'title' => 'Kembali',
+													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('menu_admin_master')
 												)
@@ -125,20 +125,20 @@ class Menu_admin_master extends CI_Controller {
 			$menu = $this->Env_model->view_where('*','users_menu', "menuId='{$id}'");
 
 			$data = array( 
-							'title' => 'Edit Menu Admin Master - '.get_option('sitename'),
+							'title' => t('updatemenuadminmaster').' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Edit Menu Admin Master ',
+							'title_page' => t('updatemenuadminmaster'),
 							'title_page_icon' => '',
 							'title_page_secondary' => $menu[0]['menuName'],
 							'header_button_action' => array(
 												array(
-													'title' => 'Tambah',
+													'title' => t('addnew'),
 													'icon'	=> 'fe fe-plus',
 													'access' => admin_url('menu_admin_master/tambah'),
 													'permission' => 'add'
 												),
 												array(
-													'title' => 'Kembali',
+													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('menu_admin_master')
 												)
@@ -158,27 +158,27 @@ class Menu_admin_master extends CI_Controller {
 		        $CekDataAccess = $this->input->post('aksesmvc');
 
 		        if( empty( $this->input->post('aksesmvc') ) ){
-		        	$error = "<strong>Error</strong> Akses MVC tidak boleh kosong";
+		        	$error = "<strong>".t('error')."!!</strong> ".t('mvcaccessempty');
 		        }
 		    } elseif($this->input->post('menu_akses')=='out_link'){
 		        $CekDataAccess = $this->input->post('outlink');		        
 
 		        if( empty( $this->input->post('outlink') ) ){
-		        	$error = "<strong>Error</strong> URL tidak boleh kosong";
+		        	$error = "<strong>".t('error')."!!</strong> ".t('urlempty');
 		        }
 		    } elseif($this->input->post('menu_akses')=='no_link'){
 		        $CekDataAccess = "ok";
 		    }
 
 		    if( empty($this->input->post('menu_name')) OR empty($CekDataAccess) ){
-		        $error = "<strong>Error</strong> Bidang wajib tidak boleh kosong";
+		        $error = "<strong>".t('error')."!!</strong> ". t('emptyrequiredfield');
 		    }
 
 		    $exp_induk = explode("-",$this->input->post('induk'));
     		$levelberikut=$exp_induk[0]+1;
 
     		if($levelberikut > ADMINMENUDEEPLIMIT ){
-		        $error = "<strong>Error</strong> Maaf, Anda hanya dapat membuat menu hingga kedalaman tertentu saja.";
+		        $error = "<strong>".t('error')."!!</strong> ".t('deepmenuerror');
 		    }
 
 		    if(!$error){
@@ -238,7 +238,7 @@ class Menu_admin_master extends CI_Controller {
 			    // insert data menu here
 				$query = $this->Env_model->insert('users_menu',$data);
 
-			    $infosuccess = 'Menu berhasil dibuat.';
+			    $infosuccess = t('createmenusuccess');
 			    if($query){
 			    	// make file MVC start here
 
@@ -271,7 +271,7 @@ class Menu_admin_master extends CI_Controller {
 								}
 							}
 							
-							$infosuccess = '<br/><br/>silahkan periksa direktori 
+							$infosuccess = '<br/><br/>'.t('checkdirectory').'
 								<ol>
 									<li><code>models/'.ucwords($capitalize_filename).'_model.php</code></li>
 									<li><code>views/admin/'.strtolower($filename).'/'.strtolower($filename).'_view.php</code></li>
@@ -314,7 +314,7 @@ class Menu_admin_master extends CI_Controller {
 								}
 							}
 
-							$infosuccess = '<br/><br/>silahkan periksa direktori 
+							$infosuccess = '<br/><br/>'.t('checkdirectory').'
 								<ol>
 									<li><code>modules/'.strtolower($filename).'/models/'.ucwords($capitalize_filename).'_model.php</code></li>
 									<li><code>modules/'.strtolower($filename).'/views/admin/'.strtolower($filename).'_view.php</code></li>
@@ -484,12 +484,12 @@ class {$capitalize_filename} extends CI_Controller{
 			    	}
 			    }
 
-			    $this->session->set_flashdata( 'sukses', 'Data berhasil ditambah'.$infosuccess );
+			    $this->session->set_flashdata( 'succeed',  t('successfullyadd').$infosuccess );
 		    	redirect( admin_url('menu_admin_master/edit/'.$nextId) );
 		    }
 
 		    if($error){
-		    	$this->session->set_flashdata( 'gagal', $error );
+		    	$this->session->set_flashdata( 'failed', $error );
 		    	redirect( admin_url('menu_admin_master/tambah') );
 		    }
 		}
@@ -499,14 +499,14 @@ class {$capitalize_filename} extends CI_Controller{
 		$error = false;
 		if( is_edit() ){
 		    if( empty($this->input->post('menu_name')) ){
-		        $error = "<strong>Error</strong> Bidang wajib tidak boleh kosong";
+		        $error = "<strong>".t('error')."!!</strong> ".t('emptyrequiredfield');
 		    }
 
 		    $exp_induk = explode("-",$this->input->post('induk'));
     		$levelberikut=$exp_induk[0]+1;
 
     		if($levelberikut > ADMINMENUDEEPLIMIT ){
-		        $error = "<strong>Error</strong> Maaf, Anda hanya dapat membuat menu hingga kedalaman tertentu saja.";
+		        $error = "<strong>".t('error')."!!</strong> ".t('deepmenuerror');
 		    }
 
 		    if(!$error){
@@ -536,14 +536,14 @@ class {$capitalize_filename} extends CI_Controller{
 			    $query = $this->Env_model->update( 'users_menu', $data, array("menuId"=>$id) );
 
 			    if($query){
-			    	$this->session->set_flashdata( 'sukses', 'Data berhasil disimpan');
+			    	$this->session->set_flashdata( 'succeed',  t('successfullyupdated'));
 			    } else {
-			    	$this->session->set_flashdata( 'gagal', 'Data gagal disimpan' );
+			    	$this->session->set_flashdata( 'failed', t('processfailed') );
 			    }
 		    }
 
 		    if($error){
-		    	$this->session->set_flashdata( 'gagal', $error );
+		    	$this->session->set_flashdata( 'failed', $error );
 		    }
 		    redirect( admin_url('menu_admin_master/edit/'.$id) );	
 		}
@@ -604,9 +604,9 @@ class {$capitalize_filename} extends CI_Controller{
 			if( $delete ){
 				// remove data relationship from database
 				$delaccess = $this->Env_model->delete('users_menu_access', "menuId='{$id}'" );
-		    	$this->session->set_flashdata( 'sukses', 'Data berhasil dihapus' );
+		    	$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
 			} else {
-		    	$this->session->set_flashdata( 'gagal', 'Data gagal dihapus' );
+		    	$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
 		    }
 		    redirect( admin_url('menu_admin_master') );
 		}
@@ -647,7 +647,7 @@ class {$capitalize_filename} extends CI_Controller{
 		        $sort1++;
 		    }
 
-		    $this->session->set_flashdata( 'sukses', 'Data berhasil diperbarui' );
+		    $this->session->set_flashdata( 'succeed',  t('successfullyupdated') );
 		    redirect( admin_url('menu_admin_master') );
 
 		}
@@ -677,9 +677,9 @@ class {$capitalize_filename} extends CI_Controller{
 			}
 
 			if($query){
-				$this->session->set_flashdata( 'sukses', 'Data berhasil diperbarui' );
+				$this->session->set_flashdata( 'succeed',  t('successfullyupdated') );
 			} else {
-				$this->session->set_flashdata( 'gagal', 'Data gagal diperbarui' );
+				$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
 			}
 
 			redirect( admin_url('menu_admin_master/?tab=atur-izin-menu') );

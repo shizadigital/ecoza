@@ -59,24 +59,21 @@ include V_ADMIN_PATH . "topbar.php";
 <div class="row">
 	<div class="col-md-12 col-sm-12">
 		<div class="card">
-			<div class="card-header">
-				<h5 class="card-title mb-0">Menu</h5>
-			</div>
 
 			<div class="card-body">
 				<?php 
-				if( !empty( $this->session->has_userdata('sukses') ) ){
+				if( !empty( $this->session->has_userdata('succeed') ) ){
 		            echo '
 					<div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
-						<i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
+						<i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 					</div>
 					';
 				}
-				if( !empty( $this->session->has_userdata('gagal') ) ){
+				if( !empty( $this->session->has_userdata('failed') ) ){
 		            echo '
 					<div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-						<i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
+						<i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="mi-close"></i></button>
 					</div>
 					';
@@ -85,12 +82,12 @@ include V_ADMIN_PATH . "topbar.php";
 				<ul class="nav nav-tabs nav-tabs-line nav-tabs-line-bold">
 					<li class="nav-item">
 						<a href="#atur-menu" class="nav-link<?php if( empty($this->input->get('tab')) OR $this->input->get('tab')=="atur-menu"){ echo " active"; } ?>" data-toggle="tab">
-							<i class="fe fe-menu mr-1"></i> Atur Menu
+							<i class="fe fe-menu mr-1"></i> <?php echo t('menusetting'); ?>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="#atur-izin-menu" class="nav-link<?php if( $this->input->get('tab')=="atur-izin-menu"){ echo " active"; } ?>" data-toggle="tab">
-							<i class="fe fe-user-check mr-1"></i> Atur Izin Menu
+							<i class="fe fe-user-check mr-1"></i> <?php echo t('setprivilege'); ?>
 						</a>
 					</li>
 				</ul>
@@ -98,7 +95,7 @@ include V_ADMIN_PATH . "topbar.php";
 				<div class="tab-content">
 					<div class="tab-pane fade<?php if( empty($this->input->get('tab')) OR $this->input->get('tab')=="atur-menu"){ echo " show active"; } ?>" id="atur-menu">
 
-						<div class="mb-4 mt-4 alert alert-light" role="alert"><i class="fe fe-info"></i> Geser daftar menu sesuai urutan yang Anda inginkan, dan tekan tombol perbarui untuk menyimpan posisi menu</div>
+						<div class="mb-4 mt-4 alert alert-light" role="alert"><i class="fe fe-info"></i> <?php echo t('menuinfo'); ?></div>
 
 						<?php 
 						if( is_edit() ):
@@ -108,11 +105,11 @@ include V_ADMIN_PATH . "topbar.php";
 				            <div class="col-md-12">
 				                <div id="nestable-menu">
 				                	<div class="float-left">
-				                		<button class="btn btn-primary btn-sm" type="submit"><i class="fe fe-refresh-cw"></i> Perbarui</button>
+				                		<button class="btn btn-primary btn-sm" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo t('btnupdate'); ?></button>
 				                	</div>
 				                    <div class="float-right">
-				                        <button type="button" class="btn btn-warning btn-sm" data-action="expand-all"><span class="fa fa-expand"></span> <?php echo 'Expand'; ?></button>
-				                        <button type="button" class="btn btn-danger btn-sm" data-action="collapse-all"><span class="fa fa-compress"></span> <?php echo 'Collapse'; ?></button>
+				                        <button type="button" class="btn btn-warning btn-sm" data-action="expand-all"><span class="fa fa-expand"></span> <?php echo t('expand'); ?></button>
+				                        <button type="button" class="btn btn-danger btn-sm" data-action="collapse-all"><span class="fa fa-compress"></span> <?php echo t('collapse'); ?></button>
 				                    </div>
 				                    <div class="clearfix"></div>
 				                </div>
@@ -127,11 +124,11 @@ include V_ADMIN_PATH . "topbar.php";
 				                        foreach ($data_menu as $dm1) {
 				                            echo "<li class=\"dd-item\" data-id=\"{$dm1['menuId']}\">
 				                                <div class=\"dd-handle\">
-				                                    <span class=\"{$dm1['menuIcon']}\"></span> ".$dm1['menuName'] . (($dm1['menuActive']!='y')?' <span class="badge bg-danger">Tidak Aktif</span>':'') . "
+				                                    <span class=\"{$dm1['menuIcon']}\"></span> ".$dm1['menuName'] . (($dm1['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "
 				                                </div>
 				                                <div class=\"nestable-ctn\">
-				                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm1['menuId'])."\">".'Edit'."</a> ":"") ."
-				                                    " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm1['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2).'/prosesdelete/'.$dm1['menuId'])."'; };\">".'Hapus'."</a>":"") . "
+				                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm1['menuId'])."\">".t('edit')."</a> ":"") ."
+				                                    " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm1['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2).'/prosesdelete/'.$dm1['menuId'])."'; };\">".t('delete')."</a>":"") . "
 				                                </div>";
 
 				                            if(count($dm1['level_2'])>0){
@@ -139,10 +136,10 @@ include V_ADMIN_PATH . "topbar.php";
 				                                echo "<ol class=\"dd-list\">";
 				                                foreach ($dm1['level_2'] as $dm2) {
 				                                    echo "<li class=\"dd-item\" data-id=\"{$dm2['menuId']}\">
-				                                        <div class=\"dd-handle\">".$dm2['menuName'] . (($dm2['menuActive']!='y')?' <span class="badge bg-danger">Tidak Aktif</span>':'') . "</div>
+				                                        <div class=\"dd-handle\">".$dm2['menuName'] . (($dm2['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
 				                                        <div class=\"nestable-ctn\">
-				                                            " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm2['menuId'])."\">".'Edit'."</a> ":"") ."
-				                                            " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm2['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm2['menuId'])."'; };\">".'Hapus'."</a>":"") . "
+				                                            " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm2['menuId'])."\">".t('edit')."</a> ":"") ."
+				                                            " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm2['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm2['menuId'])."'; };\">".t('delete')."</a>":"") . "
 				                                        </div>";
 
 				                                    if(count($dm2['level_3'])>0){
@@ -150,10 +147,10 @@ include V_ADMIN_PATH . "topbar.php";
 				                                        echo "<ol class=\"dd-list\">";
 				                                        foreach ($dm2['level_3'] as $dm3) {
 				                                            echo "<li class=\"dd-item\" data-id=\"{$dm3['menuId']}\">
-				                                                <div class=\"dd-handle\">".$dm3['menuName'] . (($dm3['menuActive']!='y')?' <span class="badge bg-danger">Tidak Aktif</span>':'') . "</div>
+				                                                <div class=\"dd-handle\">".$dm3['menuName'] . (($dm3['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
 				                                                <div class=\"nestable-ctn\">
-				                                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm3['menuId'])."\">".'Edit'."</a> ":"") ."
-				                                                    " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm3['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm3['menuId'])."'; };\">".'Hapus'."</a>":"") . "
+				                                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm3['menuId'])."\">".t('edit')."</a> ":"") ."
+				                                                    " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm3['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm3['menuId'])."'; };\">".t('delete')."</a>":"") . "
 				                                                </div>";
 
 				                                            if(count($dm3['level_4'])>0){
@@ -161,10 +158,10 @@ include V_ADMIN_PATH . "topbar.php";
 				                                                echo "<ol class=\"dd-list\">";
 				                                                foreach ($dm3['level_4'] as $dm4) {
 				                                                    echo "<li class=\"dd-item\" data-id=\"{$dm4['menuId']}\">
-				                                                    <div class=\"dd-handle\">".$dm4['menuName'] . (($dm4['menuActive']!='y')?' <span class="badge bg-danger">Tidak Aktif</span>':'') . "</div>
+				                                                    <div class=\"dd-handle\">".$dm4['menuName'] . (($dm4['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
 				                                                    <div class=\"nestable-ctn\">
-				                                                        " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm4['menuId'])."\">".'Edit'."</a> ":"") ."
-				                                                        " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm4['menuName'].") ".'Apakah Anda yakin menghapus menu ini'."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm4['menuId'])."'; };\">".'Delete'."</a>":"") . "
+				                                                        " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm4['menuId'])."\">".t('edit')."</a> ":"") ."
+				                                                        " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm4['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm4['menuId'])."'; };\">".t('delete')."</a>":"") . "
 				                                                    </div>";
 				                                                    echo "</li>";
 				                                                }
@@ -190,7 +187,7 @@ include V_ADMIN_PATH . "topbar.php";
 				                <input type="hidden" id="nestable-output" name="menu_data">
 				                <div class="form-group">
 				                	<hr/>
-				                    <button class="btn btn-primary btn-sm" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui'; ?></button>
+				                    <button class="btn btn-primary btn-sm" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo t('btnupdate'); ?></button>
 				                </div>
 				            </div>
 
@@ -209,7 +206,7 @@ include V_ADMIN_PATH . "topbar.php";
 
 		                <div class="form-group mb-4 mt-4">
 		                    <div class="clearfix"></div>
-		                    <button class="btn btn-primary btn-sm float-right" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui'; ?></button>
+		                    <button class="btn btn-primary btn-sm float-right" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo t('btnupdate'); ?></button>
 		                    <div class="clearfix"></div>
 		                </div>
 
@@ -217,30 +214,30 @@ include V_ADMIN_PATH . "topbar.php";
 							<table class="table table-bordered table-striped table-hover">
 								<thead>
 									<tr>
-										<th style="width:25px;" class="text-center">No</th>
-										<th style="min-width:200px;">First Name</th>
+										<th style="width:25px;" class="text-center"><?php echo t('no_number'); ?></th>
+										<th style="min-width:200px;"><?php echo t('menu'); ?></th>
 										<th class="text-center" style="width:85px;">
-											Active<br/>
+											<?php echo t('active'); ?><br/>
 			                                <input type="checkbox" id="mod_active_all" />
 										</th>
 										<th class="text-center" style="width:85px;">
-											View<br/>
+											<?php echo t('view'); ?><br/>
 			                                <input type="checkbox" id="mod_view_all" />
 										</th>
 										<th class="text-center" style="width:85px;">
-											Tambah<br/>
+											<?php echo t('add'); ?><br/>
 			                                <input type="checkbox" id="mod_add_all" />
 										</th>
 										<th class="text-center" style="width:85px;">
-											Edit<br/>
+											<?php echo t('edit'); ?><br/>
 			                                <input type="checkbox" id="mod_edit_all" />
 										</th>
 										<th class="text-center" style="width:85px;">
-											Hapus<br/>
+											<?php echo t('delete'); ?><br/>
 			                                <input type="checkbox" id="mod_delete_all" />
 										</th>
 										<th class="text-center" style="width:125px; background:#eaffe2;">
-											Semua<br/>
+											<?php echo t('all'); ?><br/>
 			                                <input type="checkbox" id="mod_all_all" />
 										</th>
 									</tr>
@@ -408,7 +405,7 @@ include V_ADMIN_PATH . "topbar.php";
 
 						<div class="form-group mt-3">
 		                    <div class="clearfix"></div>
-		                    <button class="btn btn-primary btn-sm float-right" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui'; ?></button>
+		                    <button class="btn btn-primary btn-sm float-right" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo t('btnupdate'); ?></button>
 		                    <div class="clearfix"></div>
 		                </div>
 

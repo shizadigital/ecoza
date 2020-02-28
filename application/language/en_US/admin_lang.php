@@ -473,6 +473,8 @@ $lang['smtp_host'] = "SMTP Host";
 $lang['smtp_port'] = "SMTP Port";
 $lang['smtp_securetype'] = " SMTP Secure Type";
 $lang['emailsignature'] = "Email Signature";
+$lang['setprivilege'] = 'Set Privilege';
+$lang['menu'] = 'Menu';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -522,6 +524,14 @@ $lang['editusergroup'] = 'Edit Group';
  * Web Setting
  */
 $lang['websetting'] = 'Web Setting';
+
+/**
+ * Menu Admin Master
+ */
+$lang['menuadminmaster'] = 'Menu Admin Master';
+$lang['addnewmenuadminmaster'] = 'Add New Menu Admin Master';
+$lang['updatemenuadminmaster'] = 'Update Menu Admin Master';
+$lang['menusetting'] = 'Menu Setting';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
@@ -630,3 +640,8 @@ $lang['categoryfieldempty'] = "Category field still empty, please fill in first"
 $lang['externallinkfieldempty'] = "External link still empty, please fill in first";
 $lang['availableurlfieldempty'] = "Available URL still empty, please fill in first";
 $lang['deepmenuerror'] = "Sorry, You can only make menus to a certain depth.";
+$lang['urlempty'] = "Sorry, URL cannot be empty.";
+
+$lang['mvcaccessempty'] = "Sorry, MVC access cannot be empty.";
+$lang['createmenusuccess'] = "Menu has been created.";
+$lang['checkdirectory'] = "Please check the following directory ";

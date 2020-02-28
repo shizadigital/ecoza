@@ -431,7 +431,7 @@ $lang['here'] = "disini";
 $lang['addressnotavailable'] = "Alamat Tidak Tersedia";
 $lang['class'] = "Kelas";
 $lang['classinfo'] = "Atribut kelas pada html";
-$lang['menuinfo'] = "Geser daftar menu sesuai urutan yang Anda inginkan, dan tekan tombol perbarui untuk menyimpan posisi menu";
+$lang['menuinfo'] = "Geser daftar menu sesuai urutan yang Anda inginkan, dan tekan tombol Perbarui untuk menyimpan posisi menu";
 $lang['choosegroup'] = "Pilih Grup";
 $lang['secondary'] = "Sekunder";
 $lang['addnewmenuinfo'] = "Silahkan tambahkan grup menu Anda";
@@ -473,6 +473,8 @@ $lang['smtp_host'] = "Host SMTP";
 $lang['smtp_port'] = "Port SMTP";
 $lang['smtp_securetype'] = "Tipe Keamanan SMTP";
 $lang['emailsignature'] = "Tanda Tangan Email";
+$lang['setprivilege'] = 'Atur Perizinan';
+$lang['menu'] = 'Menu';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -522,6 +524,14 @@ $lang['editusergroup'] = 'Perbarui Group';
  * Web Setting
  */
 $lang['websetting'] = 'Atur Website';
+
+/**
+ * Menu Admin Master
+ */
+$lang['menuadminmaster'] = 'Master Menu Admin';
+$lang['addnewmenuadminmaster'] = 'Tambah Master Menu Admin';
+$lang['updatemenuadminmaster'] = 'Perbarui Master Menu Admin';
+$lang['menusetting'] = 'Atur Menu';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
@@ -630,3 +640,8 @@ $lang['categoryfieldempty'] = "Bidang Kategori masih kosong, silahkan diisi terl
 $lang['externallinkfieldempty'] = "Bidang External Link masih kosong, silahkan diisi terlebih dahulu";
 $lang['availableurlfieldempty'] = "Bidang URL Tersedia masih kosong, silahkan diisi terlebih dahulu";
 $lang['deepmenuerror'] = "Maaf, Anda hanya dapat membuat menu hingga kedalaman tertentu saja.";
+$lang['urlempty'] = "Maaf, Alamat URL tidak boleh kosong.";
+
+$lang['mvcaccessempty'] = "Maaf, Akses MVC tidak boleh kosong.";
+$lang['createmenusuccess'] = "Menu berhasil dibuat.";
+$lang['checkdirectory'] = "Silahkan periksa direktori berikut";

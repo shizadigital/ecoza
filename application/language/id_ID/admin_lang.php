@@ -231,7 +231,7 @@ $lang['nomodule'] = "Tidak ada Modul";
 $lang['filedirectory'] = "Direktori File";
 $lang['provision'] = "Ketentuan";
 $lang['access'] = "Akses";
-$lang['defaultlanguage'] = "Bahasa Default";
+$lang['defaultlanguage'] = "Bahasa Standar";
 $lang['totalaccount'] = "Total Akun";
 $lang['product'] = "Produk";
 $lang['products'] = "Produk";
@@ -669,3 +669,5 @@ $lang['urlempty'] = "Maaf, Alamat URL tidak boleh kosong.";
 $lang['mvcaccessempty'] = "Maaf, Akses MVC tidak boleh kosong.";
 $lang['createmenusuccess'] = "Menu berhasil dibuat.";
 $lang['checkdirectory'] = "Silahkan periksa direktori berikut";
+
+$lang['inputtypetranslationerror'] = "Tipe input tidak valid untuk inputan multi bahasa. silahkan gunakan inputan bertipe text, textarea dan texteditor";

@@ -37,7 +37,8 @@ $CI->load->helper('admin_functions');
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('vendors/font-linearicons/style.css'); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('vendors/font-icomoon/style.css'); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('vendors/perfect-scrollbar/css/perfect-scrollbar.css'); ?>">
-
+<!-- LOAD FLAG -->
+<link rel="stylesheet" type="text/css" href="<?php echo web_assets('vendors/flag-icon-css-master/css/flag-icon.min.css'); ?>">
 
 <!-- AIR UI HTML ADMIN TEMPLATE MODULES-->
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('components/vendors/style.css'); ?>">

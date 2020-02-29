@@ -22,7 +22,7 @@ $request_script = "
 function ajaxicon(thevalue){
     $.ajax({
         type: 'GET',
-        url: '".admin_url()."/main/iconscomponent/',
+        url: '".admin_url('main/iconscomponent')."',
         data : { theval: thevalue },
         beforeSend: function(data){
             $('#content_icon').show().html('<div class=\"h-100 d-flex justify-content-center\"><i class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i></div>');

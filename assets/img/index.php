@@ -1,0 +1,3 @@
+<?php
+/* diam itu emas */
+?>

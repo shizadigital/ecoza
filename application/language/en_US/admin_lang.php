@@ -668,3 +668,5 @@ $lang['urlempty'] = "Sorry, URL cannot be empty.";
 $lang['mvcaccessempty'] = "Sorry, MVC access cannot be empty.";
 $lang['createmenusuccess'] = "Menu has been created.";
 $lang['checkdirectory'] = "Please check the following directory ";
+
+$lang['inputtypetranslationerror'] = "Input type is not valid for multi language input type, please use text, textarea and texteditor for input type";

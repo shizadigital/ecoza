@@ -1,3 +1,3 @@
 $(document).ready(function() {
-    $('.tooltip').tooltip();
+    $('.shiza_tooltip').tooltip();
 });

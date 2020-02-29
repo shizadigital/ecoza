@@ -14,6 +14,245 @@ class FormControl {
     }
 
     /**
+     * Make the multilanguage inputs field
+     * 
+     * @param array $inputs
+     * @param string $formtype
+     * @param string $dbfield
+     * @param string $dbrelid
+     * 
+     * @return string
+     */
+    public function buildTranslationInputs( $inputs = array(), $dbtable='', $dbfield='', $dbrelid='' ){
+        $CI = $this->CI;
+        $result = '';
+
+        // get default lang
+        $defaultlang = $CI->config->item('language');
+
+        $required  = ( isset($inputs['required']) ) ? $inputs['required']:false;
+        $inputsType  = ( isset($inputs['type']) ) ? $inputs['type']:false;
+        $label  = ( isset($inputs['label']) ) ? $inputs['label']:false;
+
+        $result .= '<div class="input-group mb-3"'.( ($inputsType=='texteditor') ? ' style="display:block;"':'').'>'."\n";        
+        
+        // unset variable
+        unset($inputs['type'], $inputs['required'], $inputs['label']);
+
+        
+        /**
+         * 
+         * Multilanguage for input text editor like tinyMCE
+         * 
+         */
+        if($inputsType == 'texteditor'){
+            
+        }
+
+        /**
+         * 
+         * Multilanguage for input textarea
+         * 
+         */
+        elseif($inputsType == 'textarea'){
+            // define required to attribute
+            $required = ($required) ? array('data-parsley-required'=>'true'): array();
+
+            $attrClass = "";
+            $attrId = $inputs['name'];
+            $attrRows = 5;
+
+            if( isset($inputs['class']) OR isset($inputs['id']) OR isset($inputs['rows']) ){
+                if(!empty($inputs['class'])){
+                    $attrClass = " ".$inputs['class'];
+                }
+                
+                if(!empty($inputs['id'])){
+                    $attrId = $inputs['id'];
+                }
+
+                if(!empty($inputs['rows'])){
+                    $attrRows = $inputs['rows'];
+                }
+            }
+
+            // make standard attributes
+            $attrStandard = array(
+                'class' => 'form-control' . $attrClass,
+                'id' => $attrId,
+                'rows' => $attrRows,
+                'cols' => '',
+                'placeholder' => ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')'
+            );
+
+            $val_ = array_merge($inputs, $attrStandard, $required);
+
+            $result .= form_textarea($val_);
+        }
+
+        /**
+         * 
+         * Multilanguage for input type text
+         * 
+         */
+        elseif($inputsType == 'text'){
+            // define required to attribute
+            $required = ($required) ? array('required'=>'required'): array();
+
+            $attrClass = "";
+            $attrId = $inputs['name'];
+
+            if( isset($inputs['class']) OR isset($inputs['id']) ){
+                if(!empty($inputs['class'])){
+                    $attrClass = " ".$inputs['class'];
+                }
+                
+                if(!empty($inputs['id'])){
+                    $attrId = $inputs['id'];
+                }
+            }
+
+            // make standard attributes
+            $attrStandard = array(
+                'class' => 'form-control' . $attrClass,
+                'id' => $attrId,
+                'placeholder' => ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')'
+            );
+
+            $val_ = array_merge($inputs, $attrStandard, $required);
+
+            $result .= form_input($val_);
+        } 
+
+        else {
+            show_error( t('inputtypetranslationerror'), 503, t('error') ); exit;
+        }
+
+        // check if this web is multilang
+        if( is_multilang() ){
+            $result .= '
+	        <div class="input-group-append">
+	            <button data-toggle="modal" data-target="#translate_'.$inputs['name'].'" class="btn btn-light shiza_tooltip" title="'.t('translate').'" id="modal_'.$inputs['name'].'" type="button"><i class="fa fa-language"></i></button>
+	        </div>';
+        }
+
+        $result .= '</div>'."\n";
+
+        /************************************
+         * 
+         * ajax and result start here
+         * 
+         ************************************/
+        if( is_multilang() ){
+            $result .= "\n".'<div id="thelang_'.$inputs['name'].'"';
+
+            $result .= '></div>
+            
+            <div id="translateresult_'.$inputs['name'].'">';
+
+            $result .= '</div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="translate_'.$inputs['name'].'" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" style="max-width:380px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">'.t('translate').' - '.$label.'</h5>
+                            <button type="button" class="close btncancel_'.$inputs['name'].'" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.t('close').'</span></button>
+                        </div>
+
+                        <div class="modal-body" id="content_'.$inputs['name'].'"></div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm btnmodallang_'.$inputs['name'].' btncancel_'.$inputs['name'].'" data-dismiss="modal">'.t('cancel').'</button>
+                            <button type="button" class="btn btn-danger btn-sm btnmodallang_'.$inputs['name'].'" id="btnsubmit_'.$inputs['name'].'">'.t('btnapply').'</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- End Modal -->
+            
+            <script type="text/javascript">
+	    	jQuery(function($) {
+	    		$("#modal_'.$inputs['name'].'").click(function(){
+
+	    			$("#btnsubmit_'.$inputs['name'].'").attr(\'disabled\',\'disabled\');
+
+	    			var langs = $("#thelang_'.$inputs['name'].'").attr("class");
+
+	    			$.ajax({
+			            type: "POST",
+			            url: "'. base_url('ajax/translation').'",
+			            data : { 
+	                        fieldname: "'.$inputs['name'].'",
+	                        availabellang: langs,
+	                        CP: "'.get_cookie('sz_token').'"
+	                    },
+			            beforeSend: function(data){
+			                $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
+			                $(this).attr(\'disabled\',\'disabled\');
+			            },
+			            success: function(data) {
+			                if(data){
+			                	$(\'#content_'.$inputs['name'].'\').show().html(data);
+			                } else {
+			                	$(\'content_'.$inputs['name'].'\').show().html(\'<center><h4>'.t('datacannotbeloaded').'</h4></center>\');
+			                }
+			                $(this).removeAttr("disabled");
+			            }
+			        });
+                });
+                
+                $("#btnsubmit_'.$inputs['name'].'").click(function(){
+
+	    			var vallang = $("input[name=\'chooselang[]\'].choose_'.$inputs['name'].':checked").map(function(){return $(this).val();}).get();
+
+	    			var jsondata = { 
+			            	fieldtype: "'.$inputsType.'",
+			            	fieldname: "'.$inputs['name'].'",
+			            	';
+			            	// if($inputsType=='texteditor'){
+			            	// 	echo 'classeditor: "'.$fieldclass.'",';
+			            	// }
+                            $result .= '
+	                        CP: "'.get_cookie('sz_token').'",
+	                        val: vallang
+	                    };
+
+	    			$.ajax({
+			            type: "POST",
+			            url: "'. base_url('ajax/translation/langproccess') .'",
+			            data : jsondata,
+			            async: true,
+			            beforeSend: function(data){
+			                $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
+			                $(".btnmodallang_'.$inputs['name'].'").attr(\'disabled\',\'disabled\');
+			            },
+			            success: function(data) {
+			                if(data){
+			                	if(data == \'503\'){
+			                		$(\'#translateresult_'.$inputs['name'].'\').show().html(\''.t('error').' 503\');
+			                	} else {
+			                		$(\'#translateresult_'.$inputs['name'].'\').show().append(data);
+			                	}
+			                } else {
+			                	$(\'#translateresult_'.$inputs['name'].'\').show().html(\''.t('datacannotbeloaded').'\');
+			                }
+			                $(".btnmodallang_'.$inputs['name'].'").removeAttr("disabled");
+			                $("#translate_'.$inputs['name'].'").modal(\'hide\');
+			            }
+			        });
+	    		});
+	    	});
+            </script>
+            ';
+        }
+
+        return $result;
+    }
+
+    /**
      * Make inputs field in content
      * 
      * @param array $inputs
@@ -86,6 +325,44 @@ class FormControl {
                     }
 
                     /**
+                     * input type text multilanguage
+                     */
+                    elseif( $formType == 'multilanguage_text' ){
+                        // make standard attributes
+                        $attrStandard = array(
+                            'type' => 'text',
+                            'label' => $label,
+                            'name' => $name,
+                            'required' => ( count( $required ) > 0 ) ? true:false
+                        );
+                        
+                        $val_ = array_merge($val, $attrStandard);
+
+                        $dbtable=''; $dbfield=''; $dbrelid='';
+
+                        echo self::buildTranslationInputs( $val_, $dbtable, $dbfield, $dbrelid );
+                    }
+
+                    /**
+                     * input textarea multilanguage
+                     */
+                    elseif( $formType == 'multilanguage_textarea' ){
+                        // make standard attributes
+                        $attrStandard = array(
+                            'type' => 'textarea',
+                            'label' => $label,
+                            'name' => $name,
+                            'required' => ( count( $required ) > 0 ) ? true:false
+                        );
+                        
+                        $val_ = array_merge($val, $attrStandard);
+
+                        $dbtable=''; $dbfield=''; $dbrelid='';
+
+                        echo self::buildTranslationInputs( $val_, $dbtable, $dbfield, $dbrelid );
+                    }
+
+                    /**
                      * input textarea
                      */
                     elseif( $formType == 'textarea' ){
@@ -109,14 +386,14 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'class' => 'form-control' . $attrClass,
                             'id' => $attrId,
                             'rows' => $attrRows,
                             'cols' => ''
                         );
 
-                        $val_ = array_merge($val, $class_input, $required);
+                        $val_ = array_merge($val, $attrStandard, $required);
 
                         echo form_textarea($val_);  
                     } 
@@ -140,11 +417,11 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'class' => 'btn' . $attrClass
                         );
 
-                        $val_ = array_merge($val, $class_input);
+                        $val_ = array_merge($val, $attrStandard);
                         
                         if( isset($val['bordertop']) ){ echo '<hr/>'; }   
                         
@@ -177,11 +454,11 @@ class FormControl {
                         }                        
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'class' => 'btn' . $attrClass
                         );
 
-                        $val_ = array_merge($val, $class_input);
+                        $val_ = array_merge($val, $attrStandard);
                         
                         if( isset($val['bordertop']) ){ echo '<hr/>'; }                        
 
@@ -218,12 +495,12 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'class' => 'custom-select form-control' . $attrClass,
                             'id' => $attrId
                         );
 
-                        $val_ = array_merge($val, $class_input, $selectrequired);
+                        $val_ = array_merge($val, $attrStandard, $selectrequired);
 
                         echo form_dropdown($name, $selectoption, $selectedoption, $val_);
                     }
@@ -251,12 +528,12 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'class' => 'custom-select form-control' . $attrClass,
                             'id' => $attrId
                         );
 
-                        $val_ = array_merge($val, $class_input, $selectrequired);
+                        $val_ = array_merge($val, $attrStandard, $selectrequired);
 
                         echo form_multiselect($name, $selectoption, $selectedoption, $val_);
                     }
@@ -280,12 +557,12 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'class' => 'form-control' . $attrClass,
                             'id' => $attrId
                         );
 
-                        $val_ = array_merge($val, $class_input, $required);
+                        $val_ = array_merge($val, $attrStandard, $required);
 
                         echo form_input($val_);
                     }
@@ -309,13 +586,13 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'type' => 'email',
                             'class' => 'form-control' . $attrClass,
                             'id' => $attrId
                         );
 
-                        $val_ = array_merge($val, $class_input, $required);
+                        $val_ = array_merge($val, $attrStandard, $required);
 
                         echo form_input($val_);
                     }
@@ -342,12 +619,12 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'class' => 'form-control-file' . $attrClass,
                             'id' => $attrId
                         );
 
-                        $val_ = array_merge($val, $class_input, $filerequired);
+                        $val_ = array_merge($val, $attrStandard, $filerequired);
 
                         echo form_upload($val_);
                     }
@@ -378,12 +655,12 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'class' => 'form-control-file' . $attrClass,
                             'id' => $attrId
                         );
 
-                        $val_ = array_merge($val, $class_input, $filerequired);
+                        $val_ = array_merge($val, $attrStandard, $filerequired);
 
                         if(!empty($imglocation)){
                             echo '
@@ -437,12 +714,12 @@ class FormControl {
                                 }
 
                                 // make standard attributes
-                                $class_input = array(
+                                $attrStandard = array(
                                     'class' => 'custom-control-input' . $attrClass,
                                     'id' => $attrId.$xx
                                 );
 
-                                $v_aray = array_merge($val, $value, $class_input, $required );
+                                $v_aray = array_merge($val, $value, $attrStandard, $required );
 
                                 echo form_checkbox($v_aray);
                                 echo '<label class="custom-control-label" for="'.$attrId.$xx.'">';
@@ -469,12 +746,12 @@ class FormControl {
                             }
 
                             // make standard attributes
-                            $class_input = array(
+                            $attrStandard = array(
                                 'class' => 'custom-control-input' . $attrClass,
                                 'id' => $attrId
                             );
 
-                            $val_ = array_merge($val, $class_input, $required);
+                            $val_ = array_merge($val, $attrStandard, $required);
 
                             echo form_checkbox($val_);
                             echo '<label class="custom-control-label" for="'.$attrId.'">';
@@ -517,12 +794,12 @@ class FormControl {
                                 }
 
                                 // make standard attributes
-                                $class_input = array(
+                                $attrStandard = array(
                                     'class' => 'custom-control-input' . $attrClass,
                                     'id' => $attrId.$xx
                                 );
 
-                                $v_aray = array_merge($val, $value, $class_input, $required );
+                                $v_aray = array_merge($val, $value, $attrStandard, $required );
 
                                 echo form_radio($v_aray);
                                 echo '<label class="custom-control-label" for="'.$attrId.$xx.'">';
@@ -549,12 +826,12 @@ class FormControl {
                             }
 
                             // make standard attributes
-                            $class_input = array(
+                            $attrStandard = array(
                                 'class' => 'custom-control-input' . $attrClass,
                                 'id' => $attrId
                             );
 
-                            $val_ = array_merge($val, $class_input, $required);
+                            $val_ = array_merge($val, $attrStandard, $required);
 
                             echo form_radio($val_);
                             echo '<label class="custom-control-label" for="'.$attrId.'">';
@@ -581,13 +858,13 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'type' => 'password',
                             'class' => 'form-control' . $attrClass,
                             'id' => $attrId
                         );
 
-                        $val_ = array_merge($val, $class_input, $required);
+                        $val_ = array_merge($val, $attrStandard, $required);
 
                         echo form_input($val_);
                     }
@@ -610,12 +887,12 @@ class FormControl {
                         }
 
                         // make standard attributes
-                        $class_input = array(
+                        $attrStandard = array(
                             'class' => 'form-control' . $attrClass,
                             'id' => $attrId
                         );
 
-                        $val_ = array_merge($val, $class_input, $required);
+                        $val_ = array_merge($val, $attrStandard, $required);
 
                         echo form_input($val_);
                     }

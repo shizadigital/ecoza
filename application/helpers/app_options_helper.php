@@ -66,6 +66,20 @@ function langlist(){
 
 /**
  *
+ * Check if this site is multilanguage
+ *
+ * @return bool 
+ */
+function is_multilang(){
+
+	$result = FALSE;
+	if( count( langlist() ) > 1 ) $result = TRUE;
+
+	return $result;
+}
+
+/**
+ *
  * Fetching a line of text in multilanguage
  *
  * @param string

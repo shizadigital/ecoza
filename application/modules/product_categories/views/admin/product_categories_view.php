@@ -56,6 +56,56 @@ include V_ADMIN_PATH . "topbar.php";
 
 			<div class="card-body">
 				<?php 
+				// echo '
+				// <form>
+				// <div class="form-group">
+				// 	<label class="req" for="tesmultilang">Tes</label>
+				// ';
+				// $inputstr = array (
+				// 	'type' => 'text',
+				// 	'label' => 'Tes',
+				// 	'name' => 'tesmultilang',
+				// 	'required' => true,
+				// );
+				// echo $this->formcontrol->buildTranslationInputs( $inputstr );
+				// echo '
+				// </div>
+
+				// <div class="form-group">
+				// 	<label class="req" for="tesmultilang">Tes Textarea</label>
+				// ';
+				// $inputstr2 = array (
+				// 	'type' => 'textarea',
+				// 	'label' => 'tes text area',
+				// 	'name' => 'testextareamultilang',
+				// 	'required' => true,
+				// );
+				// echo $this->formcontrol->buildTranslationInputs( $inputstr2 );
+				// echo '
+				// </div>
+				// </form>
+				// ';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				// make tag form structure
 				$tagForm = array(
 					'action' 		=> admin_url( $this->uri->segment(2) . '/prosestambah'),
@@ -67,13 +117,13 @@ include V_ADMIN_PATH . "topbar.php";
 					'layout' => 'vertical',
 					'inputs' => array(
 						array(
-							'type' => 'text',
+							'type' => 'multilanguage_text',
 							'label' => t('name'),
 							'name' => 'nama',
 							'required' => true,
 						),
 						array(
-							'type' => 'textarea',
+							'type' => 'multilanguage_textarea',
 							'label' => t('description'),
 							'name' => 'desc'
 						),

@@ -14,7 +14,7 @@ class FormControl {
     }
 
     /**
-     * Make the multilanguage inputs field
+     * Make the multilanguage inputs field 
      * 
      * @param array $inputs
      * @param string $dbtable

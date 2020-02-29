@@ -32,7 +32,7 @@ function ajaxicon(thevalue){
             if(data){
                 $('#content_icon').html(data);
             } else {
-                $('#content_icon').html('<center><h4>Data tidak dapat dimuat</h4></center>');
+                $('#content_icon').html('<center><h4>".t('datacannotbeloaded')."</h4></center>');
             }
             $(this).removeAttr('disabled');
         }
@@ -105,7 +105,7 @@ include V_ADMIN_PATH . "topbar.php";
 	<div class="col-md-12 col-sm-12">
 		<div class="card">
 			<div class="card-header">
-				<h5 class="card-title mb-0">Perbarui Menu - <?php echo $data['menuName']; ?></h5>
+				<h5 class="card-title mb-0"><?php echo t('updatemenuadminmaster'); ?> - <?php echo $data['menuName']; ?></h5>
 			</div>
 
 			<div class="card-body">
@@ -113,18 +113,18 @@ include V_ADMIN_PATH . "topbar.php";
 				if( is_edit() ):
 				echo form_open( admin_url( $this->uri->segment(2) . '/prosesedit/'.$data['menuId']), array( 'id'=>'valid' ) ); ?>
 				<?php 
-				if( !empty( $this->session->has_userdata('sukses') ) ){
+				if( !empty( $this->session->has_userdata('succeed') ) ){
 		            echo '
 					<div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
-						<i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
+						<i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 					</div>
 					';
 				}
-				if( !empty( $this->session->has_userdata('gagal') ) ){
+				if( !empty( $this->session->has_userdata('failed') ) ){
 		            echo '
 					<div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-						<i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
+						<i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 					</div>
 					';
@@ -135,10 +135,10 @@ include V_ADMIN_PATH . "topbar.php";
 					<div class="col-md-9 col-sm-12">
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="module_name">Induk</label>
+							<label class="col-form-label col-lg-2" for="module_name"><?php echo t('parent'); ?></label>
 							<div class="col-lg-10">
 								<select class="form-control select2" id="induk" name="induk">
-                        			<option value="0-0">Tidak ada induk</option>
+                        			<option value="0-0"><?php echo t('noparent'); ?></option>
                         			<?php 
 		                            $queryinduk = $data_menu;
 		                            $xx1 = 1;
@@ -193,24 +193,24 @@ include V_ADMIN_PATH . "topbar.php";
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2 req" for="menu_name">Nama</label>
+							<label class="col-form-label col-lg-2 req" for="menu_name"><?php echo t('name'); ?></label>
 							<div class="col-lg-10">
 								<input type="text" name="menu_name" value="<?php echo $data['menuName']; ?>" class="form-control" id="menu_name" required>
 							</div>
 						</div>						
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="iconmenu">Icon Menu</label>
+							<label class="col-form-label col-lg-2" for="iconmenu"><?php echo t('menuicon'); ?></label>
 							<div class="col-lg-10">
 								<input type="text" name="iconmenu" value="<?php echo $data['menuIcon']; ?>" class="form-control" id="iconmenu">
-								<span class="form-text text-muted">Pilih icon disini <button data-toggle="modal" data-target="#pilihicon" id="modal_pilihicon" type="button" class="btn btn-xs btn-light" style="padding-top: 2px;padding-bottom: 2px;"><i class="fe fe-gift"></i> Pilih</button></span>
+								<span class="form-text text-muted"><?php echo t('chooseiconhere'); ?> <button data-toggle="modal" data-target="#pilihicon" id="modal_pilihicon" type="button" class="btn btn-xs btn-light" style="padding-top: 2px;padding-bottom: 2px;"><i class="fe fe-gift"></i> <?php echo t('choose'); ?></button></span>
 
 								<!-- Modal Icon -->
 				                <div class="modal fade" id="pilihicon" role="dialog" aria-hidden="true">
 				                    <div class="modal-dialog" style="max-width:90%;">
 				                        <div class="modal-content">
 				                            <div class="modal-header">
-				                                <h5 class="modal-title"><?php echo 'Pilih icon disini'; ?></h5>
+				                                <h5 class="modal-title"><?php echo t('chooseiconhere'); ?></h5>
 				                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo 'tutup'; ?></span></button>
 				                            </div>
 
@@ -230,7 +230,7 @@ include V_ADMIN_PATH . "topbar.php";
 				                                </div>
 				                            </div>
 				                            <div class="modal-footer">
-				                                <button type="button" class="btn btn-secondary btn-sm btnmodallang_nama_menu" id="btncancel_nama_menu" data-dismiss="modal"><?php echo 'Tutup'; ?></button>
+				                                <button type="button" class="btn btn-secondary btn-sm btnmodallang_nama_menu" id="btncancel_nama_menu" data-dismiss="modal"><?php echo t('close'); ?></button>
 				                            </div>
 				                        </div><!-- /.modal-content -->
 				                    </div>
@@ -242,23 +242,23 @@ include V_ADMIN_PATH . "topbar.php";
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="attrclass">Class</label>
+							<label class="col-form-label col-lg-2" for="attrclass"><?php echo t('classnameattr'); ?></label>
 							<div class="col-lg-10">
 								<input type="text" name="attrclass" value="<?php echo $data['menuAttrClass']; ?>" class="form-control" id="attrclass">
-								<span class="form-text text-muted">Class adalah attribut dari tag HTML. Gunakan spasi untuk penamaan class yang lebih dari 1 class.</span>
+								<span class="form-text text-muted"><?php echo t('infoattrclass'); ?></span>
 							</div>
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2 req">Aktif</label>
-							<div class="col-lg-10">
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="aktif" id="yaktif" value="y"<?php echo ( $data['menuActive']=='y' )?' checked="checked"':''; ?>>
-									<label class="form-check-label" for="yaktif">Ya</label>
+							<label class="col-form-label col-lg-2 req"><?php echo t('active'); ?></label>
+							<div class="col-lg-10 pt-2">
+								<div class="custom-control custom-radio custom-control-inline">
+									<input class="custom-control-input" type="radio" name="aktif" id="yaktif" value="y"<?php echo ( $data['menuActive']=='y' )?' checked="checked"':''; ?>>
+									<label class="custom-control-label" for="yaktif"><?php echo t('yes'); ?></label>
 								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="aktif" id="naktif" value="n"<?php echo ( $data['menuActive']=='n' )?' checked="checked"':''; ?>>
-									<label class="form-check-label" for="naktif">Tidak</label>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input class="custom-control-input" type="radio" name="aktif" id="naktif" value="n"<?php echo ( $data['menuActive']=='n' )?' checked="checked"':''; ?>>
+									<label class="custom-control-label" for="naktif"><?php echo t('no'); ?></label>
 								</div>
 							</div>
 						</div>
@@ -266,29 +266,29 @@ include V_ADMIN_PATH . "topbar.php";
 					</div>
 
 					<div class="col-md-3 col-sm-12">
-						<h5>Hak Akses</h5><hr/>
+						<h5><?php echo t('setprivilege'); ?></h5><hr/>
 						<div class="form-check">
 							<label class="form-check-label">
 								<input type="checkbox" class="form-check-input" name="mn_view" value="y"<?php echo ( $data['menuView']=='y' )?' checked="checked"':''; ?>>
-								View
+								<?php echo t('view'); ?>
 							</label>
 						</div>
 						<div class="form-check">
 							<label class="form-check-label">
 								<input type="checkbox" class="form-check-input" name="mn_add" value="y"<?php echo ( $data['menuAdd']=='y' )?' checked="checked"':''; ?>>
-								Tambah
+								<?php echo t('add'); ?>
 							</label>
 						</div>
 						<div class="form-check">
 							<label class="form-check-label">
 								<input type="checkbox" class="form-check-input" name="mn_edit" value="y"<?php echo ( $data['menuEdit']=='y' )?' checked="checked"':''; ?>>
-								Edit
+								<?php echo t('edit'); ?>
 							</label>
 						</div>
 						<div class="form-check">
 							<label class="form-check-label">
 								<input type="checkbox" class="form-check-input" name="mn_hapus" value="y"<?php echo ( $data['menuDelete']=='y' )?' checked="checked"':''; ?>>
-								Hapus
+								<?php echo t('delete'); ?>
 							</label>
 						</div>
 					</div>
@@ -296,7 +296,7 @@ include V_ADMIN_PATH . "topbar.php";
 					<div class="col-md-12 col-sm-12">
 						<hr/>
 						<div class="form-group">
-							<button class="btn btn-primary" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui'; ?></button>
+							<button class="btn btn-primary" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo t('btnupdate'); ?></button>
 						</div>
 					</div>
 				</div>

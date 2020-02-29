@@ -32,7 +32,7 @@ function ajaxicon(thevalue){
             if(data){
                 $('#content_icon').html(data);
             } else {
-                $('#content_icon').html('<center><h4>Data tidak dapat dimuat</h4></center>');
+                $('#content_icon').html('<center><h4>".t('datacannotbeloaded')."</h4></center>');
             }
             $(this).removeAttr('disabled');
         }
@@ -43,7 +43,7 @@ $( document ).ready(function() {
     $('#valid').parsley();
 
     $('.select2').select2({
-        placeholder: \"Pilih induk menu...\"
+        placeholder: \"".t('chooseparent')."...\"
     });
 
     ajaxicon('feather');
@@ -115,7 +115,7 @@ include V_ADMIN_PATH . "topbar.php";
 	<div class="col-md-12 col-sm-12">
 		<div class="card">
 			<div class="card-header">
-				<h5 class="card-title mb-0">Tambah Menu</h5>
+				<h5 class="card-title mb-0"><?php echo t('addnew'); ?></h5>
 			</div>
 
 			<div class="card-body">
@@ -123,10 +123,10 @@ include V_ADMIN_PATH . "topbar.php";
 				if( is_add() ):
 				echo form_open( admin_url( $this->uri->segment(2) . '/prosestambah'), array( 'id'=>'valid' ) ); ?>
 				<?php 
-				if( !empty( $this->session->has_userdata('gagal') ) ){
+				if( !empty( $this->session->has_userdata('failed') ) ){
 		            echo '
 					<div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-						<i class="fe fe-x"></i> ' . $this->session->flashdata('gagal') . '
+						<i class="fe fe-x"></i> ' . $this->session->flashdata('failed') . '
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 					</div>
 					';
@@ -137,10 +137,10 @@ include V_ADMIN_PATH . "topbar.php";
 					<div class="col-md-9 col-sm-12">
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="module_name">Induk</label>
+							<label class="col-form-label col-lg-2" for="module_name"><?php echo t('parent'); ?></label>
 							<div class="col-lg-10">
 								<select class="form-control select2" id="induk" name="induk">
-                        			<option value="0-0">Tidak ada induk</option>
+                        			<option value="0-0"><?php echo t('noparent'); ?></option>
                         			<?php 
 		                            $queryinduk = $data_menu;
 		                            $xx1 = 1;
@@ -182,51 +182,51 @@ include V_ADMIN_PATH . "topbar.php";
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2 req" for="menu_name">Nama</label>
+							<label class="col-form-label col-lg-2 req" for="menu_name"><?php echo t('name'); ?></label>
 							<div class="col-lg-10">
 								<input type="text" name="menu_name" class="form-control" id="menu_name" required>
 							</div>
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="menu_akses">Metode Akses</label>
+							<label class="col-form-label col-lg-2" for="menu_akses"><?php echo t('accessmethod'); ?></label>
 							<div class="col-lg-10">
 								<select class="form-control" id="menu_akses" name="menu_akses" onchange="linktype(this.value);">
-			                        <option value="admin_link" selected="selected">Modul MVC</option>
-			                        <option value="out_link">Outside URL</option>
-			                        <option value="no_link">Tidak ada akses</option>
+			                        <option value="admin_link" selected="selected"><?php echo t('mvcmodule'); ?></option>
+			                        <option value="out_link"><?php echo t('outsideurl'); ?></option>
+			                        <option value="no_link"><?php echo t('noaccess'); ?></option>
 			                    </select>
-			                    <span class="form-text text-muted">Bagian ini tidak akan dapat diperbarui. Mohon untuk memperhatikan inputan data.</span>
+			                    <span class="form-text text-muted"><?php t('infomethodacces'); ?></span>
 							</div>
 						</div>
 
 						<div id="modulelink">
 
 							<div class="form-group row">
-								<label class="col-form-label col-lg-2" for="modularmvc">Tipe Modul</label>
+								<label class="col-form-label col-lg-2" for="modularmvc"><?php echo t('moduletype'); ?></label>
 								<div class="col-lg-10">
 									<select class="form-control" id="modularmvc" name="modulartype">
-										<option value="hmvc" selected="selected">Modular HMVC</option>
-										<option value="mvc">Standar Codeigniter</option>
+										<option value="hmvc" selected="selected"><?php echo t('hmvcmodular'); ?></option>
+										<option value="mvc"><?php echo t('codeigniterstandard'); ?></option>
 									</select>
 								</div>
 							</div>
 							
 							<div class="form-group row">
-								<label class="col-form-label col-lg-2 req" for="modul">Akses MVC</label>
+								<label class="col-form-label col-lg-2 req" for="modul"><?php echo t('mvcmodulename'); ?></label>
 								<div class="col-lg-10">
 									<input type="text" name="aksesmvc" class="form-control" id="modul" data-parsley-required="true">
 									
 									<div class="alert-hmvc">
 										<!-- Info alert -->
 										<div class="alert alert-light alert-arrow-left mt-2 mb-0" role="alert">
-											Direkomendasikan tidak menulisnya dengan menggunakan spasi. Semua kebutuhan MVC (Model View dan Controller) akan dibuat sesuai dengan penamaan pada bidang ini. Silahkan periksa file dengan struktur berikut setelah Anda melakukan penambahan.
+											<?php echo t('infomvcmodulename'); ?>
 											<ol class="mb-0">
-												<li><code>modules/{nama_akses}/models/{Nama_akses}_model.php</code></li>
-												<li><code>modules/{nama_akses}/views/admin/{nama_akses}_view.php</code></li>
-												<li><code>modules/{nama_akses}/views/admin/{nama_akses}_add.php</code></li>
-												<li><code>modules/{nama_akses}/views/admin/{nama_akses}_edit.php</code></li>
-												<li><code>modules/{nama_akses}/controllers/admin/{Nama_akses}.php</code></li>
+												<li><code>modules/{<?php echo t('module_name'); ?>}/models/{<?php echo ucwords(t('module_name')); ?>}_model.php</code></li>
+												<li><code>modules/{<?php echo t('module_name'); ?>}/views/admin/{<?php echo t('module_name'); ?>}_view.php</code></li>
+												<li><code>modules/{<?php echo t('module_name'); ?>}/views/admin/{<?php echo t('module_name'); ?>}_add.php</code></li>
+												<li><code>modules/{<?php echo t('module_name'); ?>}/views/admin/{<?php echo t('module_name'); ?>}_edit.php</code></li>
+												<li><code>modules/{<?php echo t('module_name'); ?>}/controllers/admin/{<?php echo ucwords(t('module_name')); ?>}.php</code></li>
 											</ol>
 										</div>
 										<!-- /info alert -->
@@ -235,13 +235,13 @@ include V_ADMIN_PATH . "topbar.php";
 									<div class="alert-mvc" style="display:none;">
 										<!-- Info alert -->
 										<div class="alert alert-light alert-arrow-left mt-2 mb-0" role="alert">
-											Direkomendasikan tidak menulisnya dengan menggunakan spasi. Semua kebutuhan MVC (Model View dan Controller) akan dibuat sesuai dengan penamaan pada bidang ini. Silahkan periksa file dengan struktur berikut setelah Anda melakukan penambahan.
+											<?php echo t('infomvcmodulename'); ?>
 											<ol class="mb-0">
-												<li><code>models/{Nama_akses}_model.php</code></li>
-												<li><code>views/admin/{nama_akses}/{nama_akses}_view.php</code></li>
-												<li><code>views/admin/{nama_akses}/{nama_akses}_add.php</code></li>
-												<li><code>views/admin/{nama_akses}/{nama_akses}_edit.php</code></li>
-												<li><code>controllers/admin/{Nama_akses}.php</code></li>
+												<li><code>models/{<?php echo ucwords(t('module_name')); ?>}_model.php</code></li>
+												<li><code>views/admin/{<?php echo t('module_name'); ?>}/{<?php echo t('module_name'); ?>}_view.php</code></li>
+												<li><code>views/admin/{<?php echo t('module_name'); ?>}/{<?php echo t('module_name'); ?>}_add.php</code></li>
+												<li><code>views/admin/{<?php echo t('module_name'); ?>}/{<?php echo t('module_name'); ?>}_edit.php</code></li>
+												<li><code>controllers/admin/{<?php echo ucwords(t('module_name')); ?>}.php</code></li>
 											</ol>
 										</div>
 										<!-- /info alert -->
@@ -252,26 +252,26 @@ include V_ADMIN_PATH . "topbar.php";
 						</div>
 						<div id="urllink">
 							<div class="form-group row">
-								<label class="col-form-label col-lg-2 req" for="outlink">URL</label>
+								<label class="col-form-label col-lg-2 req" for="outlink"><?php echo t('url'); ?></label>
 								<div class="col-lg-10">
 			                        <input type="text" class="form-control" id="outlink" disabled="disabled" name="outlink" data-parsley-required="false" data-parsley-type="url" />
-			                        <span class="form-text text-muted">Contoh: http://url-tujuan.com/</span>
+			                        <span class="form-text text-muted"><?php echo t('example'); ?>: http://website.com/</span>
 			                    </div>
 							</div>
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="iconmenu">Icon Menu</label>
+							<label class="col-form-label col-lg-2" for="iconmenu"><?php echo t('menuicon'); ?></label>
 							<div class="col-lg-10">
 								<input type="text" name="iconmenu" class="form-control" id="iconmenu">
-								<span class="form-text text-muted">Pilih icon disini <button data-toggle="modal" data-target="#pilihicon" id="modal_pilihicon" type="button" class="btn btn-xs btn-light" style="padding-top: 2px;padding-bottom: 2px;"><i class="fe fe-gift"></i> Pilih</button></span>
+								<span class="form-text text-muted"><?php echo t('chooseiconhere'); ?> <button data-toggle="modal" data-target="#pilihicon" id="modal_pilihicon" type="button" class="btn btn-xs btn-light" style="padding-top: 2px;padding-bottom: 2px;"><i class="fe fe-gift"></i> <?php echo t('choose'); ?></button></span>
 
 								<!-- Modal Icon -->
 				                <div class="modal fade" id="pilihicon" role="dialog" aria-hidden="true">
 				                    <div class="modal-dialog" style="max-width:90%;">
 				                        <div class="modal-content">
 				                            <div class="modal-header">
-				                                <h5 class="modal-title"><?php echo 'Pilih icon disini'; ?></h5>
+				                                <h5 class="modal-title"><?php echo t('chooseiconhere'); ?></h5>
 				                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo 'tutup'; ?></span></button>
 				                            </div>
 
@@ -291,7 +291,7 @@ include V_ADMIN_PATH . "topbar.php";
 				                                </div>
 				                            </div>
 				                            <div class="modal-footer">
-				                                <button type="button" class="btn btn-secondary btn-sm btnmodallang_nama_menu" id="btncancel_nama_menu" data-dismiss="modal"><?php echo 'Tutup'; ?></button>
+				                                <button type="button" class="btn btn-secondary btn-sm btnmodallang_nama_menu" id="btncancel_nama_menu" data-dismiss="modal"><?php echo t('close'); ?></button>
 				                            </div>
 				                        </div><!-- /.modal-content -->
 				                    </div>
@@ -303,23 +303,23 @@ include V_ADMIN_PATH . "topbar.php";
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="attrclass">Class</label>
+							<label class="col-form-label col-lg-2" for="attrclass"><?php echo t('classnameattr'); ?></label>
 							<div class="col-lg-10">
 								<input type="text" name="attrclass" class="form-control" id="attrclass">
-								<span class="form-text text-muted">Class adalah attribut dari tag HTML. Gunakan spasi untuk penamaan class yang lebih dari 1 class.</span>
+								<span class="form-text text-muted"><?php echo t('infoattrclass'); ?></span>
 							</div>
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2 req">Aktif</label>
-							<div class="col-lg-10">
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="aktif" id="yaktif" value="y" checked="checked">
-									<label class="form-check-label" for="yaktif">Ya</label>
+							<label class="col-form-label col-lg-2 req"><?php echo t('active'); ?></label>
+							<div class="col-lg-10 pt-2">
+								<div class="custom-control custom-radio custom-control-inline">
+									<input class="custom-control-input" type="radio" name="aktif" id="yaktif" value="y" checked="checked">
+									<label class="custom-control-label" for="yaktif"><?php echo t('yes'); ?></label>
 								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="aktif" id="naktif" value="n">
-									<label class="form-check-label" for="naktif">Tidak</label>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input class="custom-control-input" type="radio" name="aktif" id="naktif" value="n">
+									<label class="custom-control-label" for="naktif"><?php echo t('no'); ?></label>
 								</div>
 							</div>
 						</div>
@@ -327,29 +327,29 @@ include V_ADMIN_PATH . "topbar.php";
 					</div>
 
 					<div class="col-md-3 col-sm-12">
-						<h5>Hak Akses</h5><hr/>
+						<h5><?php echo t('setprivilege'); ?></h5><hr/>
 						<div class="form-check">
 							<label class="form-check-label">
 								<input type="checkbox" class="form-check-input" name="mn_view" value="y">
-								View
+								<?php echo t('view'); ?>
 							</label>
 						</div>
 						<div class="form-check">
 							<label class="form-check-label">
 								<input type="checkbox" class="form-check-input" name="mn_add" value="y">
-								Tambah
+								<?php echo t('add'); ?>
 							</label>
 						</div>
 						<div class="form-check">
 							<label class="form-check-label">
 								<input type="checkbox" class="form-check-input" name="mn_edit" value="y">
-								Edit
+								<?php echo t('edit'); ?>
 							</label>
 						</div>
 						<div class="form-check">
 							<label class="form-check-label">
 								<input type="checkbox" class="form-check-input" name="mn_hapus" value="y">
-								Hapus
+								<?php echo t('delete'); ?>
 							</label>
 						</div>
 					</div>
@@ -357,7 +357,7 @@ include V_ADMIN_PATH . "topbar.php";
 					<div class="col-md-12 col-sm-12">
 						<hr/>
 						<div class="form-group">
-							<button class="btn btn-primary" type="submit"><i class="icon-plus3"></i> <?php echo 'Tambah'; ?></button>
+							<button class="btn btn-primary" type="submit"><i class="fe fe-plus"></i> <?php echo t('btnadd'); ?></button>
 						</div>
 					</div>
 				</div>

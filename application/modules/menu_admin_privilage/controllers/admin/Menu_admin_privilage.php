@@ -123,7 +123,7 @@ class Menu_admin_privilage extends CI_Controller{
 			}
 
 			$data = array( 
-						'title' => 'Menu Admin Privilage- '.get_option('sitename'),
+						'title' => t('menuadminprivilege').' - '.get_option('sitename'),
 						'page_header_on' => true,
 						'title_page' => '',
 						'title_page_icon' => '',
@@ -161,7 +161,7 @@ class Menu_admin_privilage extends CI_Controller{
 					);
 					$query = $this->Env_model->update('users_menu_access', $updatedata, array('levelId'=>$this->input->post('levelaccess'),'menuId'=>$value) );
 					if(!$query){
-						$error = "<strong>ERROR</strong> Data tidak dapat diproses";
+						$error = "<strong>".t('error')."!!</strong> ".t('serverbusy');
 						break;
 					}
 				} else {
@@ -179,16 +179,16 @@ class Menu_admin_privilage extends CI_Controller{
 
 					$query = $this->Env_model->insert('users_menu_access', $datains);
 					if(!$query){
-						$error = "<strong>Error</strong> Data tidak dapat diproses";
+						$error = "<strong>".t('error')."!!</strong> ".t('serverbusy');
 						break;
 					}
 				}		
 			}
 			
 			if(!$error){ 
-				$this->session->set_flashdata( 'sukses', 'Data berhasil diperbarui' );
+				$this->session->set_flashdata( 'succeed', t('successfullyupdated') );
 			} else {		
-				$this->session->set_flashdata( 'gagal', $error );
+				$this->session->set_flashdata( 'failed', $error );
 			}
 			redirect( admin_url('menu_admin_privilage/?act=detail_access&levelaccess='.$this->input->post('levelaccess')) );
 		}

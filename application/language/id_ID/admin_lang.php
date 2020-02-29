@@ -532,6 +532,29 @@ $lang['menuadminmaster'] = 'Master Menu Admin';
 $lang['addnewmenuadminmaster'] = 'Tambah Master Menu Admin';
 $lang['updatemenuadminmaster'] = 'Perbarui Master Menu Admin';
 $lang['menusetting'] = 'Atur Menu';
+$lang['chooseparent'] = "Pilih Induk";
+$lang['noparent'] = "Tidak Ada Induk";
+$lang['accessmethod'] = "Metode Akses";
+$lang['mvcmodule'] = "Modul MVC";
+$lang['outsideurl'] = "URL Keluar";
+$lang['noaccess'] = "Tidak Ada Akses";
+$lang['infomethodacces'] = "Bagian ini tidak dapat diperbarui. Mohon untuk memperhatikan pilihan Anda dengan baik.";
+$lang['moduletype'] = "Tipe Modul";
+$lang['hmvcmodular'] = "Modular HMVC";
+$lang['codeigniterstandard'] = "Standar Codeigniter";
+$lang['mvcmodulename'] = "Nama Modul MVC";
+$lang['infomvcmodulename'] = "Direkomendasikan tidak menulisnya dengan menggunakan spasi. Semua kebutuhan MVC (Model View dan Controller) akan dibuat sesuai dengan penamaan pada bidang ini. Silahkan periksa file dengan struktur berikut setelah Anda melakukan penambahan.";
+$lang['module_name'] = "nama_modul";
+$lang['menuicon'] = "Icon Menu";
+$lang['classnameattr'] = "Nama Atribut Kelas";
+$lang['infoattrclass'] = "Class adalah attribut dari tag HTML. Gunakan spasi untuk penamaan class yang lebih dari 1 class.";
+
+/**
+ * Menu Admin Master
+ */
+$lang['privilegefor'] = "Hak akses untuk %s";
+$lang['menuadminprivilege'] = "Hak Akses Menu Admin";
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
@@ -622,6 +645,7 @@ $lang['extensionfileerror2'] = ', silahkan periksa "permisi folder" atau hubungi
 $lang['extensionimageerror1'] = 'Saat ini ekstensi file gambar yang diizinkan adalah ';
 $lang['extensionimageerror2'] = ', silahkan periksa "permisi folder" atau hubungi webmaster';
 $lang['errormakethedir'] = 'Kesalahan membuat direktori';
+$lang['errormakemoduledir'] = 'Direktori modul gagal dibuat';
 
 // error admin login
 $lang['emptyusernamefield'] = "Anda belum mengisikan Username";

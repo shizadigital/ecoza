@@ -41,7 +41,7 @@ echo form_open( admin_url( $this->uri->segment(2).'/' ), array( 'id'=>'valid', '
                     <div class="col-auto form-inline">
                         <div class="input-group">
                             <select name="levelaccess" class="form-control custom-select" data-parsley-required="true">
-                                <option value="">-- Pilih Level --</option>
+                                <option value="">-- <?php echo t('level'); ?> --</option>
                                 <?php 
                                 foreach ($data['datalevel'] as $r) {                                    
                                     echo "<option value=\"{$r['levelId']}\"";
@@ -53,7 +53,7 @@ echo form_open( admin_url( $this->uri->segment(2).'/' ), array( 'id'=>'valid', '
                                 ?>
                             </select>
                             <div class="input-group-append">
-                                <button class="btn btn-light btn-sm" type="submit">Pilih <span class="fa fa-angle-double-right"></span></button>
+                                <button class="btn btn-light btn-sm" type="submit"><?php echo t('choose'); ?> <span class="fa fa-angle-double-right"></span></button>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ if( $this->input->get('act')=='detail_access' ):
 ?>
 <div class="card card-statistics">
     <div class="card-header">
-        <h5 class="card-title mb-0">Hak Akses Untuk <?php echo $data['accessname']; ?></h5>
+        <h5 class="card-title mb-0"><?php echo sprintf(t('privilegefor'), $data['accessname']); ?></h5>
     </div>
 
     <?php 
@@ -79,18 +79,18 @@ if( $this->input->get('act')=='detail_access' ):
     <input type="hidden" name="levelaccess" value="<?php echo $this->input->get('levelaccess'); ?>">
     <div class="card-body">
     	<?php 
-		if( !empty( $this->session->has_userdata('sukses') ) ){
+		if( !empty( $this->session->has_userdata('succeed') ) ){
             echo '
 			<div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
-				<i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
+				<i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 			</div>
 			';
 		}
-		if( !empty( $this->session->has_userdata('gagal') ) ){
+		if( !empty( $this->session->has_userdata('failed') ) ){
             echo '
 			<div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-				<i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
+				<i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 			</div>
 			';
@@ -100,36 +100,36 @@ if( $this->input->get('act')=='detail_access' ):
         <div class="row">
             
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui List'; ?></button>
+                <button type="submit" class="btn btn-primary"><i class="fe fe-refresh-cw"></i> <?php echo t('updatelist'); ?></button>
             </div>
             <div class="col-md-12 py-3 table-responsive-sm">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th style="width:25px;" class="text-center"><?php echo 'No'; ?></th>
-                            <th style="min-width:220px;"><?php echo 'Nama'; ?></th>
+                            <th style="width:25px;" class="text-center"><?php echo t('no_number'); ?></th>
+                            <th style="min-width:220px;"><?php echo t('name'); ?></th>
                             <th class="text-center">
-                                <?php echo 'View'; ?><br/>
+                                <?php echo t('view'); ?><br/>
                                 <input type="checkbox" id="mod_view_all" />
                             </th>
                             <th class="text-center">
-                                <?php echo 'Tambah'; ?><br/>
+                                <?php echo t('add'); ?><br/>
                                 <input type="checkbox" id="mod_add_all" />
                             </th>
                             <th class="text-center">
-                                <?php echo 'Edit'; ?><br/>
+                                <?php echo t('edit'); ?><br/>
                                 <input type="checkbox" id="mod_edit_all" />
                             </th>
                             <th class="text-center">
-                                <?php echo 'Delete'; ?><br/>
+                                <?php echo t('delete'); ?><br/>
                                 <input type="checkbox" id="mod_delete_all" />
                             </th>
                             <th class="text-center" style="background:#eaffe2;">
-                                <?php echo 'Semua'; ?><br/>
+                                <?php echo t('all'); ?><br/>
                                 <input type="checkbox" id="mod_all_all" />
                             </th>
                             <th class="text-center" style="min-width:90px;">
-                                <?php echo 'Aktif'; ?>
+                                <?php echo t('active'); ?>
                             </th>
                         </tr>
                     </thead>
@@ -256,10 +256,10 @@ if( $this->input->get('act')=='detail_access' ):
                             <td class="text-center">
                                 <?php 
                                 if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4'){
-                                    echo "<i class=\"icon-minus2\"></i>";
+                                    echo "<i class=\"fe fe-minus\"></i>";
                                 } else { 
-                                    if($r['menuActive']=='y'){ echo "<i class=\"icon-checkmark2\"></i>"; }
-                                    else { echo "<i class=\"icon-minus2\"></i>"; }
+                                    if($r['menuActive']=='y'){ echo "<i class=\"fe fe-check\"></i>"; }
+                                    else { echo "<i class=\"fe fe-minus\"></i>"; }
                                 } 
                                 ?>
                             </td>
@@ -302,11 +302,11 @@ if( $this->input->get('act')=='detail_access' ):
                 </table>
             </div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-primary"><i class="fe fe-refresh-cw"></i> <?php echo 'Perbarui List'; ?></button>
+                <button type="submit" class="btn btn-primary"><i class="fe fe-refresh-cw"></i> <?php echo t('updatelist'); ?></button>
             </div>
             <div class="col-md-6">
                 <?php                                               
-                    echo "<div class=\"float-right\" style=\"margin-top:5px;font-style:italic;\">Total {$data['totalmenudata']}</div>"
+                    echo "<div class=\"float-right\" style=\"margin-top:5px;font-style:italic;\">".t('total')." {$data['totalmenudata']}</div>"
                 ?>
             </div>
         </div>

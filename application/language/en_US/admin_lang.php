@@ -532,6 +532,28 @@ $lang['menuadminmaster'] = 'Menu Admin Master';
 $lang['addnewmenuadminmaster'] = 'Add New Menu Admin Master';
 $lang['updatemenuadminmaster'] = 'Update Menu Admin Master';
 $lang['menusetting'] = 'Menu Setting';
+$lang['chooseparent'] = "Choose Parent";
+$lang['noparent'] = "No Parent";
+$lang['accessmethod'] = "Access Method";
+$lang['mvcmodule'] = "MVC Module";
+$lang['outsideurl'] = "Outside URL";
+$lang['noaccess'] = "No Access";
+$lang['infomethodacces'] = "This section cannot be update. Please pay close attention to your choices.";
+$lang['moduletype'] = "Module Type";
+$lang['hmvcmodular'] = "HMVC Modular";
+$lang['codeigniterstandard'] = "Codeigniter Standard";
+$lang['mvcmodulename'] = "MVC Module Name";
+$lang['infomvcmodulename'] = "It's not recommended to write using spaces. All MVC (Model View and Controller) requirements will be made according to the naming in this field. Please check the file with the following structure after you make the additions.";
+$lang['module_name'] = "module_name";
+$lang['menuicon'] = "Menu Icon";
+$lang['classnameattr'] = "Class Name Attribute";
+$lang['infoattrclass'] = "Class is the html attribute. Use spaces for naming classes that are more than 1 class.";
+
+/**
+ * Menu Admin Master
+ */
+$lang['privilegefor'] = "Privilege for %s";
+$lang['menuadminprivilege'] = "Menu Admin Privilege";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
@@ -622,6 +644,7 @@ $lang['extensionfileerror2'] = ', please check the "pemission of directory" or c
 $lang['extensionimageerror1'] = 'Currently the allowed images file extensions are ';
 $lang['extensionimageerror2'] = ', please check the "pemission of directory" or contact the webmaster';
 $lang['errormakethedir'] = 'Error creating directory';
+$lang['errormakemoduledir'] = 'Module directory failed to create';
 
 // error admin login
 $lang['emptyusernamefield'] = "You have not filled in your Username";

@@ -266,7 +266,7 @@ class Menu_admin_master extends CI_Controller {
 							if(!is_dir($viewspath . $sep . 'admin' . $sep . $filename)){
 								$mkdirview = makeDir($viewspath . $sep . 'admin' . $sep . $filename, 0644);
 				    			if(!$mkdirview){
-									show_error('Direktori module tidak dapat dibuat silahkan periksa',503,'Pembuatan direktori error');
+									show_error(t('errormakemoduledir'),503,t('errormakethedir'));
 									exit;
 								}
 							}
@@ -309,7 +309,7 @@ class Menu_admin_master extends CI_Controller {
 										makeDir($viewspath.$sep.'admin', 0644);
 									}
 								} else {
-									show_error('Direktori module tidak dapat dibuat silahkan periksa',503,'Pembuatan direktori error');
+									show_error(t('errormakemoduledir'),503,t('errormakethedir'));
 									exit;
 								}
 							}

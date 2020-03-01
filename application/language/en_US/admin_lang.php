@@ -670,3 +670,5 @@ $lang['createmenusuccess'] = "Menu has been created.";
 $lang['checkdirectory'] = "Please check the following directory ";
 
 $lang['inputtypetranslationerror'] = "Input type is not valid for multi language input type, please use text, textarea and texteditor for input type";
+
+$lang['errormultilangvalue'] = "Value for multilanguage is incorrect.";

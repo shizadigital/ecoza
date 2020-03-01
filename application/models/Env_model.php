@@ -220,7 +220,7 @@ class Env_model extends CI_model{
 
         $this->db->select("count(*) AS total");
         $this->db->from( $theTable );
-        if($whereClause){ $this->db->where($whereClause); }
+        if($whereClause!==null){ $this->db->where($whereClause); }
         $query = $this->db->get();
         return $query->row()->total;
     }

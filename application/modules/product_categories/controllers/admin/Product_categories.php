@@ -88,6 +88,10 @@ class Product_categories extends CI_Controller{
 				$query = $this->Env_model->insert('categories', $datacat);
 				
 			    if($query){
+					// insert or update data translation
+					translate_pushdata('nama', 'categories', 'catName', $nextId );
+					translate_pushdata('desc', 'categories', 'catDesc', $nextId );
+
 					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
 					redirect( admin_url('product_categories/edit/'.$nextId) ); exit;
 			    } else {
@@ -160,6 +164,10 @@ class Product_categories extends CI_Controller{
 				$query = $this->Env_model->update('categories', $datacat, "catId='{$id}'");
 				
 			    if($query){
+					// insert or update data translation
+					translate_pushdata('nama', 'categories', 'catName', $id );
+					translate_pushdata('desc', 'categories', 'catDesc', $id );
+
 					$this->session->set_flashdata( 'succeed', t('successfullyupdated'));
 			    } else {
 			    	$this->session->set_flashdata( 'failed', t('cannotprocessdata') );

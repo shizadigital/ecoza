@@ -56,56 +56,6 @@ include V_ADMIN_PATH . "topbar.php";
 
 			<div class="card-body">
 				<?php 
-				// echo '
-				// <form>
-				// <div class="form-group">
-				// 	<label class="req" for="tesmultilang">Tes</label>
-				// ';
-				// $inputstr = array (
-				// 	'type' => 'text',
-				// 	'label' => 'Tes',
-				// 	'name' => 'tesmultilang',
-				// 	'required' => true,
-				// );
-				// echo $this->formcontrol->buildTranslationInputs( $inputstr );
-				// echo '
-				// </div>
-
-				// <div class="form-group">
-				// 	<label class="req" for="tesmultilang">Tes Textarea</label>
-				// ';
-				// $inputstr2 = array (
-				// 	'type' => 'textarea',
-				// 	'label' => 'tes text area',
-				// 	'name' => 'testextareamultilang',
-				// 	'required' => true,
-				// );
-				// echo $this->formcontrol->buildTranslationInputs( $inputstr2 );
-				// echo '
-				// </div>
-				// </form>
-				// ';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				// make tag form structure
 				$tagForm = array(
 					'action' 		=> admin_url( $this->uri->segment(2) . '/prosestambah'),
@@ -264,7 +214,7 @@ include V_ADMIN_PATH . "topbar.php";
 													}
 												?>
 											</div>
-											<strong><?php echo $r['catName']; ?></strong><br/>
+											<strong><?php echo  t( array( 'table'=>'categories', 'field'=>'catName', 'id'=>$r['catId']) ); ?></strong><br/>
 											<div class="btn-group btn-group-xs">
 												<?php if(is_edit()){ ?>
 												<a href="<?php echo admin_url($this->uri->segment(2).'/edit/'.$r['catId']); ?>" class="btn btn-sm btn-info"><i class="fe fe-edit"></i> <?php echo t('edit'); ?></a> 

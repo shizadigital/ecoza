@@ -17,15 +17,17 @@ class FormControl {
      * Make the multilanguage inputs field
      * 
      * @param array $inputs
-     * @param string $dbtable
-     * @param string $dbfield
-     * @param string $dbrelid
      * 
      * @return string
      */
-    public function buildTranslationInputs( $inputs = array(), $dbtable='', $dbfield='', $dbrelid='' ){
+    public function buildTranslationInputs( $inputs = array() ){
         $CI = $this->CI;
-        $result = '';
+        $result     = '';
+        $dbtable    = '';
+        $dbfield    = '';
+        $dbrelid    = '';
+        $value      = '';
+        $attrClass  = '';
 
         // get default lang
         $defaultlang = $CI->config->item('language');
@@ -34,10 +36,33 @@ class FormControl {
         $inputsType  = ( isset($inputs['type']) ) ? $inputs['type']:false;
         $label  = ( isset($inputs['label']) ) ? $inputs['label']:false;
 
-        $result .= '<div class="input-group mb-3"'.( ($inputsType=='texteditor') ? ' style="display:block;"':'').'>'."\n";        
+        $result .= '<div class="input-group mb-3"'.( ($inputsType=='texteditor') ? ' style="display:block;"':'').'>'."\n";
+            
+        // check if value data is not empty
+        if( isset($inputs['value']) ){
+            if( is_array($inputs['value']) ){                               
+                $dbtable    = $inputs['value']['table'];
+                $dbfield    = $inputs['value']['field'];
+                $dbrelid    = $inputs['value']['id'];
+
+                if( !empty($dbtable) AND !empty($dbfield) AND  !empty($dbrelid) ){
+                    $querymysql = $CI->db->query("SHOW KEYS FROM ".$CI->db->dbprefix($dbtable)." WHERE Key_name = 'PRIMARY'");
+                    $theDB = $querymysql->result_array()[0];
+            
+                    $value = getval($dbfield, $dbtable,"{$theDB['Column_name']}='{$dbrelid}'");
+                } else {
+                    show_error( t('errormultilangvalue'),503, t('datacannotbeloaded') );
+                }
+            } else {
+                show_error( t('errormultilangvalue'),503, t('datacannotbeloaded') );
+            }
+        }
+
+        $sqlclause = "dtRelatedField='{$dbfield}' AND dtRelatedTable='{$dbtable}' AND dtRelatedId='{$dbrelid}'";
+	    $sql = "SELECT dtLang,dtTranslation,dtInputType FROM ".$CI->db->dbprefix('dynamic_translations')." WHERE ".$sqlclause;
         
         // unset variable
-        unset($inputs['type'], $inputs['required'], $inputs['label']);
+        unset($inputs['type'], $inputs['required'], $inputs['label'], $inputs['value']);
 
         
         /**
@@ -58,7 +83,6 @@ class FormControl {
             // define required to attribute
             $required = ($required) ? array('data-parsley-required'=>'true'): array();
 
-            $attrClass = "";
             $attrId = $inputs['name'];
             $attrRows = 5;
 
@@ -82,7 +106,8 @@ class FormControl {
                 'id' => $attrId,
                 'rows' => $attrRows,
                 'cols' => '',
-                'placeholder' => ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')'
+                'placeholder' => ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')',
+                'value' => $value
             );
 
             $val_ = array_merge($inputs, $attrStandard, $required);
@@ -99,7 +124,6 @@ class FormControl {
             // define required to attribute
             $required = ($required) ? array('required'=>'required'): array();
 
-            $attrClass = "";
             $attrId = $inputs['name'];
 
             if( isset($inputs['class']) OR isset($inputs['id']) ){
@@ -116,7 +140,8 @@ class FormControl {
             $attrStandard = array(
                 'class' => 'form-control' . $attrClass,
                 'id' => $attrId,
-                'placeholder' => ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')'
+                'placeholder' => ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')',
+                'value' => $value
             );
 
             $val_ = array_merge($inputs, $attrStandard, $required);
@@ -146,9 +171,89 @@ class FormControl {
         if( is_multilang() ){
             $result .= "\n".'<div id="thelang_'.$inputs['name'].'"';
 
+            if( !empty($dbtable) AND !empty($dbfield) AND  !empty($dbrelid) ){
+                $countdata = countdata("dynamic_translations",$sqlclause);
+                if($countdata > 0){
+                    $result .= ' class="';
+                    $querythelang = $CI->db->query($sql);
+                    $x=1;
+                    foreach ( $querythelang->result_array() as $rthelang ) {
+                        $result .= "{$rthelang['dtLang']}";
+                        if($x!=$countdata){ $result .= ' '; }
+                        $x++;
+                    }
+                    $result .= '"';
+                }
+            }
+
             $result .= '></div>
             
             <div id="translateresult_'.$inputs['name'].'">';
+
+            // if value is available show the result
+            if( !empty($dbtable) AND !empty($dbfield) AND  !empty($dbrelid) ){
+                $query =  $CI->db->query($sql);
+                foreach ($query->result_array() as $r ) {
+    
+                    $theflagcode = strtolower( explode("_",  $r['dtLang'])[1] );
+                    $country = locales($r['dtLang']);
+    
+                    $result .= '
+                    <div id="langelement_'.$inputs['name'].'_'.$r['dtLang'].'">';
+    
+                    if($r['dtInputType']=='text'){
+                        $attrinput = array(
+							'class' 		=> 'form-control inputlang'.$attrClass,
+							'name' 			=> 'datalang['.$inputs['name'].']['.$r['dtLang'].'][translation]',
+                            'placeholder' 	=> $country,
+                            'value'         => $r['dtTranslation']
+						);
+                        $result .='
+                            <div class="input-group mb-3 mt-15">
+                                '. form_input($attrinput) .'
+                                <div class="input-group-append"><span class="input-group-text"><i class="flag-icon flag-icon-'.$theflagcode.'"></i></span></div>
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger" id="rmlang_'.$inputs['name'].'_'.$r['dtLang'].'" type="button"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="datalang['.$inputs['name'].']['.$r['dtLang'].'][InputType]" value="'.$r['dtInputType'].'">';
+    
+                    }
+                    elseif($r['dtInputType']=='textarea'){
+                        $attrinput = array(
+							'class' 		=> 'form-control inputlang'.$attrClass,
+							'name' 			=> 'datalang['.$inputs['name'].']['.$r['dtLang'].'][translation]',
+							'placeholder' 	=> $country,
+							'rows' 			=> 5,
+                			'cols' 			=> '',
+                            'value'         => $r['dtTranslation']
+						);
+                        $result .= '
+                            <div class="input-group mb-3 mt-15">
+                                '.form_textarea($attrinput).'
+                                <div class="input-group-append align-top"><span class="input-group-text"><i class="flag-icon flag-icon-'.$theflagcode.'"></i></span></div>
+                                <div class="input-group-append align-top">
+                                    <button class="btn btn-danger" id="rmlang_'.$inputs['name'].'_'.$r['dtLang'].'" type="button"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="datalang['.$inputs['name'].']['.$r['dtLang'].'][InputType]" value="textarea">
+                        ';
+                    }
+    
+                    $result .= '
+                        <script type="text/javascript">
+                        $(function () {';
+                            $result .= '
+                            $("#rmlang_'.$inputs['name'].'_'.$r['dtLang'].'").click(function(){
+                                $("#thelang_'.$inputs['name'].'").removeClass(\''.$r['dtLang'].'\');
+                                $("#langelement_'.$inputs['name'].'_'.$r['dtLang'].'").remove(\'#langelement_'.$inputs['name'].'_'.$r['dtLang'].'\');
+                            });
+                        });
+                        </script>
+                    </div>
+                    ';
+                }
+            }
 
             $result .= '</div>
             
@@ -338,9 +443,7 @@ class FormControl {
                         
                         $val_ = array_merge($val, $attrStandard);
 
-                        $dbtable=''; $dbfield=''; $dbrelid='';
-
-                        echo self::buildTranslationInputs( $val_, $dbtable, $dbfield, $dbrelid );
+                        echo self::buildTranslationInputs( $val_ );
                     }
 
                     /**
@@ -357,9 +460,7 @@ class FormControl {
                         
                         $val_ = array_merge($val, $attrStandard);
 
-                        $dbtable=''; $dbfield=''; $dbrelid='';
-
-                        echo self::buildTranslationInputs( $val_, $dbtable, $dbfield, $dbrelid );
+                        echo self::buildTranslationInputs( $val_ );
                     }
 
                     /**

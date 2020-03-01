@@ -197,6 +197,12 @@ function uploadFavicon($filekeyarray, $ext_allowed = array('jpg','jpeg','png','g
     endif;
 }
 
+//------------------------------------
+//
+// TRANSLATE FEATURE
+//
+//------------------------------------
+
 /**
  *
  * get admin locale code
@@ -225,4 +231,146 @@ function getAdminLocaleCode($short = TRUE){
     else { $result = explode("_",  $locale )[0]; }
     
     return $result;
+}
+
+/**
+ * Check dynamic translator data
+ * 
+ * @param string $db_table
+ * @param string $relid
+ * @param string $db_field
+ * @param string $lang
+ * 
+ * @return int|bool
+ */
+function translate_datacheck($db_table, $relid, $db_field='', $lang='' ){
+	$fieldDB = '';
+	if(!empty($db_field)){
+		$fieldDB = " AND dtRelatedField='{$db_field}'";
+	}
+
+	$langDB = '';
+	if(!empty($lang)){
+		$langDB = " AND dtLang='{$lang}'";
+	}
+
+	$datacount = countdata("dynamic_translations", "dtRelatedTable='{$db_table}' AND dtRelatedId='{$relid}'".$fieldDB.$langDB);
+
+	if($datacount > 0){
+		$result = $datacount;
+	} else {
+		$result = FALSE;
+	}
+
+	return $result;
+}
+
+/**
+ * Remove dynamic translator data
+ * 
+ * @param string $db_table
+ * @param string $relid
+ * @param string $db_field
+ * 
+ * @return int|bool
+ */
+function translate_removedata($db_table, $relid, $db_field='' ){
+    $ci =& get_instance();
+
+	$fieldtable = '';
+	if(!empty($db_field)){
+		$fieldtable = " AND dtRelatedField='{$db_field}'";
+	}
+
+	$checking = translate_datacheck($db_table, $relid, $db_field );
+
+	$result = true;
+	if( $checking ):
+		$clause = "dtRelatedTable='{$db_table}' AND dtRelatedId='{$relid}'".$fieldtable;
+		$result  = $ci->Env_model->delete("dynamic_translations",$clause);
+
+	endif;
+
+	return $result;
+}
+
+/**
+ * Remove dynamic translator data
+ * 
+ * @param string $db_table
+ * @param string $relid
+ * @param string $db_field
+ * 
+ * @return int|bool
+ */
+function translate_pushdata($inputname, $db_table, $db_field, $relid ){
+    $ci =& get_instance();
+
+    $result = '';
+    $datapostlang = $ci->input->post('datalang');
+
+	if($datapostlang[$inputname] AND count($datapostlang[$inputname]) > 0):
+
+		foreach ($datapostlang[$inputname] as $key => $value) {
+
+			if( empty($value['translation']) ){ continue; }
+			
+			$lang = $key;
+
+			$type = $value['InputType'];
+
+			$translation = $value['translation'];
+			if($type=='text'){
+				$translation = filter_txt($value['translation']);
+			} elseif($type=='texteditor'){
+				$translation = $value['translation'];
+			} elseif($type=='textarea'){
+				$translation = $value['translation'];
+			}
+
+			$checking = translate_datacheck($db_table, $relid, $db_field, $lang );
+
+			if( $checking > 0 ){
+				if( empty($translation) ){
+					$clause = "dtRelatedTable='{$db_table}' AND dtRelatedField='{$db_field}' AND dtRelatedId='{$relid}'";
+					translate_removedata( $db_table, $relid, $db_field );
+				} else {
+
+					$data = array(
+						'dtTranslation'	=> esc_sql($translation),
+						'dtInputType' 	=> $type,
+						'dtUpdateDate' 	=> time2timestamp()
+					);
+
+					$result = $ci->Env_model->update("dynamic_translations",$data,"dtRelatedTable='{$db_table}' AND dtRelatedField='{$db_field}' AND dtRelatedId='{$relid}' AND dtLang='{$lang}'");
+
+				}
+			} else {
+				$nextid = getNextId('dtId','dynamic_translations');
+				$data = array(
+					'dtId' 				=> (int)$nextid,
+					'dtRelatedTable' 	=> $db_table,
+					'dtRelatedField' 	=> $db_field,
+					'dtRelatedId' 		=> $relid,
+					'dtLang' 			=> $lang,
+					'dtTranslation' 	=> esc_sql($translation),
+					'dtInputType' 		=> $type,
+					'dtCreateDate' 		=> time2timestamp(),
+					'dtUpdateDate' 		=> time2timestamp()
+				);
+
+				$result = $ci->Env_model->insert("dynamic_translations",$data);
+			}
+		}
+	else :
+		$countdata = translate_datacheck($db_table, $relid, $db_field );
+
+		if( $countdata ){
+			$clause = "dtRelatedTable='{$db_table}' AND dtRelatedField='{$db_field}' AND dtRelatedId='{$relid}'";
+			translate_removedata( $db_table, $relid, $db_field );
+		} 
+		
+	endif;
+
+	return $result;
 }

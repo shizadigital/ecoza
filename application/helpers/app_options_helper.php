@@ -82,15 +82,59 @@ function is_multilang(){
  *
  * Fetching a line of text in multilanguage
  *
- * @param string
+ * @param string|array
  * @param bool
  * 
  * @return string
  */
 function t($line, $log_errors=FALSE){
     $ci =& get_instance();
+    $result = '';
+
+    if( is_array( $line ) ){
+        $db_table   = $line['table'];
+        $db_field   = $line['field'];
+        $relid      = $line['id'];
+
+        $ci->load->helper('cookie');        
+
+        if( is_multilang() AND (get_cookie('admin_lang')!==null OR get_cookie('lang')!==null ) ){
+            $lang = '';
+            if( strpos(current_url(), $ci->config->item('admin_slug') ) ){
+                $lang = empty(get_cookie('admin_lang')) ? t('locale'):get_cookie('admin_lang');
+            } else {
+                $lang = empty(get_cookie('lang')) ? t('locale'):get_cookie('lang');
+            }
+
+            $sqlclause = "dtRelatedField='{$db_field}' AND dtRelatedTable='{$db_table}' AND dtRelatedId='{$relid}' AND dtLang='{$lang}'";
+            $countdata = countdata("dynamic_translations",$sqlclause);
+
+            if($countdata > 0){
+                $data = getval("dtLang,dtTranslation,dtInputType","dynamic_translations",$sqlclause);
+                $result = $data['dtTranslation'];
+            } else {
+                // get ID field on table
+                $querymysql = $ci->db->query("SHOW KEYS FROM ".$ci->db->dbprefix($db_table)." WHERE Key_name = 'PRIMARY'");
+                $theDB = $querymysql->result_array()[0];
+                
+                $data = getval($db_field, $db_table, "{$theDB['Column_name']}='{$relid}'");
+                $result = $data;
+            }
+            
+        } else {
+            // get ID field on table
+            $querymysql = $ci->db->query("SHOW KEYS FROM ".$ci->db->dbprefix($db_table)." WHERE Key_name = 'PRIMARY'");
+            $theDB = $querymysql->result_array()[0];
+
+            $data = getval($db_field, $db_table, "{$theDB['Column_name']}='{$relid}'");
+            $result = $data;
+        }
+
+    } else {
+        $result = $ci->lang->line($line, $log_errors);
+    }
         
-    return $ci->lang->line($line, $log_errors);
+    return $result;
 }
 
 /**************** Encription ********************/

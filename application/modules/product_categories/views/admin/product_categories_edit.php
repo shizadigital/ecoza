@@ -25,19 +25,19 @@ if( is_edit() ){
 ?>
 <div class="row">
 	<?php 
-	if( !empty( $this->session->has_userdata('sukses') ) ){
+	if( !empty( $this->session->has_userdata('succeed') ) ){
 		echo '<div class="col-md-12">
 		<div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
-			<i class="fa fa-check"></i> ' . $this->session->flashdata('sukses') . '
+			<i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 		</div>
 		</div>
 		';
 	}
-	if( !empty( $this->session->has_userdata('gagal') ) ){
+	if( !empty( $this->session->has_userdata('failed') ) ){
 		echo '<div class="col-md-12">
 		<div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
-			<i class="fa fa-times"></i> ' . $this->session->flashdata('gagal') . '
+			<i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
 		</div>
 		</div>
@@ -68,11 +68,15 @@ if( is_edit() ){
 					'colsetting' => array('label'=>'col-md-2','input'=>'col-md-9'),
 					'inputs' => array(
 						array(
-							'type' => 'text',
+							'type' => 'multilanguage_text',
 							'label' => t('name'),
 							'name' => 'nama',
 							'required' => true,
-							'value' => $data['catName']
+							'value' => array(
+								'table' => 'categories',
+								'field' => 'catName',
+								'id' => $data['catId']
+							)
 						),
 						array(
 							'type' => 'text',
@@ -83,10 +87,14 @@ if( is_edit() ){
 							'help' => t('sluginfo')
 						),
 						array(
-							'type' => 'textarea',
+							'type' => 'multilanguage_textarea',
 							'label' => t('description'),
 							'name' => 'desc',
-							'value' => $data['catDesc']
+							'value' => array(
+								'table' => 'categories',
+								'field' => 'catDesc',
+								'id' => $data['catId']
+							)
 						),
 						array(
 							'type' => 'text',

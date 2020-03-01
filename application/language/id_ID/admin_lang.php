@@ -671,3 +671,5 @@ $lang['createmenusuccess'] = "Menu berhasil dibuat.";
 $lang['checkdirectory'] = "Silahkan periksa direktori berikut";
 
 $lang['inputtypetranslationerror'] = "Tipe input tidak valid untuk inputan multi bahasa. silahkan gunakan inputan bertipe text, textarea dan texteditor";
+
+$lang['errormultilangvalue'] = "Nilai masukan multi bahasa tidak tepat. Harus menggunakan array";

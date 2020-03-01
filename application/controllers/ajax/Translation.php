@@ -19,7 +19,7 @@ class Translation extends CI_Controller {
 
 		if( is_multilang() ){
 
-			$defaultlang =  $this->config->item('language');;
+			$defaultlang =  $this->config->item('language');
 			$theflagcodedefault = strtolower( explode("_",  $defaultlang)[1] );
 
 			echo '<div class="row">

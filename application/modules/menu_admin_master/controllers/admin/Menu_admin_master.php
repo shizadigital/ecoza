@@ -240,6 +240,10 @@ class Menu_admin_master extends CI_Controller {
 
 			    $infosuccess = t('createmenusuccess');
 			    if($query){
+					
+					// insert or update data translation
+					translate_pushdata('menu_name', 'users_menu', 'menuName', $nextId );
+
 			    	// make file MVC start here
 
 			    	// check MVC access first
@@ -535,7 +539,9 @@ class {$capitalize_filename} extends CI_Controller{
 			    // insert data menu here
 			    $query = $this->Env_model->update( 'users_menu', $data, array("menuId"=>$id) );
 
-			    if($query){
+			    if($query){// insert or update data translation
+					translate_pushdata('menu_name', 'users_menu', 'menuName', $id );
+
 			    	$this->session->set_flashdata( 'succeed',  t('successfullyupdated'));
 			    } else {
 			    	$this->session->set_flashdata( 'failed', t('processfailed') );

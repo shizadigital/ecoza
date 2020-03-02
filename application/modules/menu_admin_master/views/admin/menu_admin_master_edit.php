@@ -42,11 +42,11 @@ function ajaxicon(thevalue){
 $( document ).ready(function() {
     $('#valid').parsley();
 
-    $('.select2').select2({
-        placeholder: \"Pilih induk menu...\"
-    });
+    $('.select2').select2();
 
-    ajaxicon('feather');
+    $('#modal_pilihicon').click( function(){
+		ajaxicon('feather');
+	});
     $('#pilihanicon').change(function(){
         var val = $(this).val();
         ajaxicon(val);
@@ -195,7 +195,20 @@ include V_ADMIN_PATH . "topbar.php";
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2 req" for="menu_name"><?php echo t('name'); ?></label>
 							<div class="col-lg-10">
-								<input type="text" name="menu_name" value="<?php echo $data['menuName']; ?>" class="form-control" id="menu_name" required>
+								<?php
+								$datalang = array(
+									'type' => 'text',
+									'label' => t('name'),
+									'name' => 'menu_name',
+									'required' => true,
+									'value' => array(
+										'table' => 'users_menu',
+										'field' => 'menuName',
+										'id' =>  $data['menuId']
+									)
+								);
+								echo $this->formcontrol->buildTranslationInputs( $datalang );
+								?>
 							</div>
 						</div>						
 

@@ -124,7 +124,7 @@ include V_ADMIN_PATH . "topbar.php";
 				                        foreach ($data_menu as $dm1) {
 				                            echo "<li class=\"dd-item\" data-id=\"{$dm1['menuId']}\">
 				                                <div class=\"dd-handle\">
-				                                    <span class=\"{$dm1['menuIcon']}\"></span> ".$dm1['menuName'] . (($dm1['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "
+				                                    <span class=\"{$dm1['menuIcon']}\"></span> ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm1['menuId']) ) . (($dm1['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "
 				                                </div>
 				                                <div class=\"nestable-ctn\">
 				                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm1['menuId'])."\">".t('edit')."</a> ":"") ."
@@ -136,7 +136,7 @@ include V_ADMIN_PATH . "topbar.php";
 				                                echo "<ol class=\"dd-list\">";
 				                                foreach ($dm1['level_2'] as $dm2) {
 				                                    echo "<li class=\"dd-item\" data-id=\"{$dm2['menuId']}\">
-				                                        <div class=\"dd-handle\">".$dm2['menuName'] . (($dm2['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
+				                                        <div class=\"dd-handle\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm2['menuId']) ) . (($dm2['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
 				                                        <div class=\"nestable-ctn\">
 				                                            " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm2['menuId'])."\">".t('edit')."</a> ":"") ."
 				                                            " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm2['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm2['menuId'])."'; };\">".t('delete')."</a>":"") . "
@@ -147,7 +147,7 @@ include V_ADMIN_PATH . "topbar.php";
 				                                        echo "<ol class=\"dd-list\">";
 				                                        foreach ($dm2['level_3'] as $dm3) {
 				                                            echo "<li class=\"dd-item\" data-id=\"{$dm3['menuId']}\">
-				                                                <div class=\"dd-handle\">".$dm3['menuName'] . (($dm3['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
+				                                                <div class=\"dd-handle\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm3['menuId']) ) . (($dm3['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
 				                                                <div class=\"nestable-ctn\">
 				                                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm3['menuId'])."\">".t('edit')."</a> ":"") ."
 				                                                    " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm3['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm3['menuId'])."'; };\">".t('delete')."</a>":"") . "
@@ -158,7 +158,7 @@ include V_ADMIN_PATH . "topbar.php";
 				                                                echo "<ol class=\"dd-list\">";
 				                                                foreach ($dm3['level_4'] as $dm4) {
 				                                                    echo "<li class=\"dd-item\" data-id=\"{$dm4['menuId']}\">
-				                                                    <div class=\"dd-handle\">".$dm4['menuName'] . (($dm4['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
+				                                                    <div class=\"dd-handle\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm4['menuId']) ) . (($dm4['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
 				                                                    <div class=\"nestable-ctn\">
 				                                                        " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm4['menuId'])."\">".t('edit')."</a> ":"") ."
 				                                                        " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm4['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm4['menuId'])."'; };\">".t('delete')."</a>":"") . "
@@ -249,7 +249,7 @@ include V_ADMIN_PATH . "topbar.php";
 										<tr>
 											<td class="text-center"><?php echo $no; ?></td>
 											<td>
-												<?php echo $mn['menuName']; ?>
+												<?php echo t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$mn['menuId']) ); ?>
 												<input name="idmn[<?php echo $no; ?>]" type="hidden" value="<?php echo $mn['menuId']; ?>"/>
 											</td>
 											<td class="text-center">

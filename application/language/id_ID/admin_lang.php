@@ -23,6 +23,7 @@ $lang['language'] = "Bahasa";
 $lang['myaccount'] = "Akunku";
 $lang['viewtheweb'] = "Kunjungi Web";
 $lang['logout'] = "Keluar";
+$lang['signout'] = "Keluar";
 $lang['from'] = "Dari";
 $lang['addeddate'] = "Tanggal Ditambahkan";
 $lang['timeadded'] = "Waktu Ditambahkan";
@@ -498,6 +499,10 @@ $lang['november'] = 'November';
 $lang['december'] = 'Desember';
 
 // lang module
+/**
+ * category General
+ */
+$lang['dashboard'] = "Dasbor";
 
 /**
  * category General

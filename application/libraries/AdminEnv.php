@@ -64,7 +64,7 @@ class AdminEnv {
         <li class="air__menuLeft__item<?php echo $menu_li_active . (($numnumMenu2 > 0) ? ' air__menuLeft__submenu':'') . $menu_li_active_expand; ?>">
             <a href="<?php echo $menu_url; ?>" class="air__menuLeft__link<?php echo (!empty($dm1['menuAttrClass']) ? ' '.$dm1['menuAttrClass']:''); ?>">
                 <i class="air__menuLeft__icon <?php if($dm1['menuIcon']!='') { echo $dm1['menuIcon']; } else { echo "fe fe-more-horizontal"; } ?>"></i>
-                <span><?php echo $dm1['menuName']; ?></span>
+                <span><?php echo t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm1['menuId']) ); ?></span>
             </a>
             <?php
                 if($numnumMenu2>0){
@@ -100,7 +100,7 @@ class AdminEnv {
                         $numnumMenu3 = $this->CI->Adminenv_model->rowsAdminMenuData($dm1['levelId'],$dm2['menuId']);
 
                         echo "<li class=\"air__menuLeft__item".$menu_a_active2 . (($numnumMenu3 > 0) ? ' air__menuLeft__submenu':'') . $menu_a_active_expand2."\">";
-                        echo "<a href=\"{$menu_url2}\" class=\"air__menuLeft__link".(!empty($dm2['menuAttrClass']) ? ' '.$dm2['menuAttrClass']:'') . "\"><span>".$dm2['menuName']."</span></a>";
+                        echo "<a href=\"{$menu_url2}\" class=\"air__menuLeft__link".(!empty($dm2['menuAttrClass']) ? ' '.$dm2['menuAttrClass']:'') . "\"><span>".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm2['menuId']) )."</span></a>";
 
                         if($numnumMenu3>0){
                         	echo "<ul class=\"air__menuLeft__list\">";
@@ -135,7 +135,7 @@ class AdminEnv {
                                 $numnumMenu4 = $this->CI->Adminenv_model->rowsAdminMenuData($dm1['levelId'],$dm3['menuId']);
 
                                 echo "<li class=\"air__menuLeft__item".$menu_a_active3 . (($numnumMenu4 > 0) ? ' air__menuLeft__submenu':'') . $menu_a_active_expand3."\">";
-                                echo "<a href=\"{$menu_url3}\" class=\"air__menuLeft__link".(!empty($dm3['menuAttrClass']) ? ' '.$dm3['menuAttrClass']:'')."\"><span>".$dm3['menuName']."</span></a>";
+                                echo "<a href=\"{$menu_url3}\" class=\"air__menuLeft__link".(!empty($dm3['menuAttrClass']) ? ' '.$dm3['menuAttrClass']:'')."\"><span>".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm3['menuId']) )."</span></a>";
 
                                 if($numnumMenu4>0){
                         			echo "<ul class=\"air__menuLeft__list\">";
@@ -162,7 +162,7 @@ class AdminEnv {
                                             }
                                         }
 
-                                        echo "<li class=\"air__menuLeft__item".$menu_a_active4."\"><a href=\"{$menu_url4}\" class=\"nav-link" . (!empty($dm4['menuAttrClass']) ? ' '.$dm4['menuAttrClass']:'')."\">".$dm4['menuName']."</a></li>";
+                                        echo "<li class=\"air__menuLeft__item".$menu_a_active4."\"><a href=\"{$menu_url4}\" class=\"nav-link" . (!empty($dm4['menuAttrClass']) ? ' '.$dm4['menuAttrClass']:'')."\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm4['menuId']) )."</a></li>";
 
                                     } // END while $dm4
                                     echo "</ul>";
@@ -212,7 +212,7 @@ class AdminEnv {
                         echo '<i class="'.$title_page_icon.'"></i> ';
                     }
                     
-                    echo empty($title_page)? $getmenu['menuName']:$title_page;
+                    echo empty($title_page)? t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$getmenu['menuId']) ):$title_page;
                     ?>
                     </a>
                 </li>
@@ -289,16 +289,16 @@ class AdminEnv {
 
                             $getmenu4 = getval("menuId,menuParentId,menuName,menuAccess,menuSort,menuActive,menuIcon","users_menu","menuId = '{$getmenu3['menuParentId']}'");
 
-                            echo '<span class="breadcrumb-item active">'.$getmenu4['menuName'].'</span>';
+                            echo '<span class="breadcrumb-item active">'.t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$getmenu4['menuId']) ).'</span>';
 
                         }
-                        echo '<span class="breadcrumb-item active">'.$getmenu3['menuName'].'</span>';
+                        echo '<span class="breadcrumb-item active">'.t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$getmenu3['menuId']) ).'</span>';
 
                     }
-                    echo '<span class="breadcrumb-item active">'.$getmenu2['menuName'].'</span>';
+                    echo '<span class="breadcrumb-item active">'.t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$getmenu2['menuId']) ).'</span>';
 
                 }                 
-                echo '<span class="breadcrumb-item active">'.$getmenu1['menuName'].'</span>';
+                echo '<span class="breadcrumb-item active">'.t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$getmenu1['menuId']) ).'</span>';
             }
 
         }

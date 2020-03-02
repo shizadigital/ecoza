@@ -137,15 +137,15 @@
                         </div>
                         <a class="dropdown-item" href="<?php echo admin_url('manage_users/edit/'.$CI->session->userdata('adminid') ); ?>">
                             <i class="dropdown-icon fe fe-user"></i>
-                            Akun
+                            <?php echo t('myaccount'); ?>
                         </a>
                         <a class="dropdown-item" href="<?php echo admin_url('atur_web'); ?>">
                             <i class="dropdown-icon fe fe-settings"></i>
-                            Web Setting
+                            <?php echo t('websetting'); ?>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?php echo admin_url('main/logout'); ?>">
-                            <i class="dropdown-icon fe fe-log-out"></i> Sign Out
+                            <i class="dropdown-icon fe fe-log-out"></i> <?php echo t('signout'); ?>
                         </a>
                     </div>
                 </div>

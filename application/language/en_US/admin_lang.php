@@ -23,6 +23,7 @@ $lang['language'] = "Language";
 $lang['myaccount'] = "My Account";
 $lang['viewtheweb'] = "Visit Web";
 $lang['logout'] = "Log Out";
+$lang['signout'] = "Sign Out";
 $lang['from'] = "From";
 $lang['addeddate'] = "Added Date";
 $lang['timeadded'] = "Time Added";
@@ -498,6 +499,10 @@ $lang['november'] = 'November';
 $lang['december'] = 'December';
 
 // lang module
+/**
+ * category General
+ */
+$lang['dashboard'] = "Dashboard";
 
 /**
  * category (General)

@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li class="air__menuLeft__item<?php if ($CI->uri->segment(2)=='dashboard'){ echo "--active"; } ?>">
                     <a href="<?php echo admin_url('dashboard'); ?>" class="air__menuLeft__link air__sidebar__actionToggle">
                         <i class="fe fe-home air__menuLeft__icon"></i>
-                        <span>Dashboard</span>
+                        <span><?php echo t('dashboard'); ?></span>
                     </a>
                 </li>
 
@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li class="air__menuLeft__item">
                     <a href="<?php echo admin_url('main/logout'); ?>" class="air__menuLeft__link air__sidebar__actionToggle">
                     <i class="fe fe-log-out air__menuLeft__icon"></i>
-                    <span>Sign Out</span>
+                    <span><?php echo t('signout'); ?></span>
                     </a>
                 </li>
             

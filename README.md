@@ -28,4 +28,4 @@ Permintaan kontribusi dipersilakan. Untuk perubahan besar, laporkan masalah terl
 Pastikan untuk memperbarui tes yang sesuai.
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+EcoZa adalah framework E-Commerce yang sepenuhnya opensource yang akan selalu gratis di bawah [Lisensi MIT](https://github.com/shizadigital/shiza/blob/master/LICENSE)

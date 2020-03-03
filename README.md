@@ -21,7 +21,7 @@ Source Code (Kode Sumber) EcoZa dapat didownload secara gratis pada [github](htt
 - For MySQL users: 5.7.23 or higher.
 - For MariaDB users: 10.2.7 or Higher.
 - [OpenSSL](https://www.php.net/manual/en/openssl.installation.php)
-- base64_encode(https://www.php.net/manual/en/function.base64-encode.php) and [base64_decode](https://www.php.net/manual/en/function.base64-decode.php)
+- [base64_encode](https://www.php.net/manual/en/function.base64-encode.php) and [base64_decode](https://www.php.net/manual/en/function.base64-decode.php)
 
 ## Contributing
 Permintaan kontribusi dipersilakan. Untuk perubahan besar, laporkan masalah terlebih dahulu untuk membahas apa yang ingin Anda ubah.

@@ -69,7 +69,7 @@ $(document).ready(function () {
 </script>
 </head>
 
-<body>
+<body class="p-5">
 <div class="air__utils__heading">
 	<?php 
 	echo "<h5>";
@@ -80,8 +80,28 @@ $(document).ready(function () {
 	echo "</h5>";
 	?>
 </div>
-
+<script>
+$( document ).ready(function() {
+    $('#pilihanicon').change(function(){
+		var val = $(this).val();
+		window.location.href = "<?php echo admin_url('main/iconscomponent/?theval='); ?>"+val;
+    });
+});	
+</script>
 <div class="card">
+	
+	<div class="card-header">
+		<div class="row">
+            <div class="col-md-6">
+                <select class="custom-select" id="pilihanicon">
+                    <option value="feather">Feather Icons</option>
+                    <option value="font-awesome">Font Awesome</option>
+                    <option value="icomoon">Icomoon Free</option>
+                    <option value="linearicons">Linearicons Free</option>
+                </select>
+            </div>
+        </div>
+	</div>
 	<div class="card-body">
 
 	<?php if($this->input->get('theval')=='feather'){ ?>

@@ -46,6 +46,7 @@ class Migration extends CI_Controller {
         Self::create_shiza_email_queue_table();
         Self::create_shiza_email_template_table();
         Self::create_shiza_gallery_pic_table();
+        Self::create_shiza_manufacturers_table();
         Self::create_shiza_message_table();
         Self::create_shiza_options_table();
         Self::create_shiza_rating_table();
@@ -337,8 +338,7 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('galpicId');
-        $schema->index('contentId');
+        $schema->index('manufactId');
     }
 
     protected function create_shiza_message_table() {
@@ -562,6 +562,7 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('email_queue');
         $this->schema->drop_table('email_template');
         $this->schema->drop_table('gallery_pic');
+        $this->schema->drop_table('manufacturers');
         $this->schema->drop_table('message');
         $this->schema->drop_table('options');
         $this->schema->drop_table('rating');
@@ -648,6 +649,9 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'2', 'dtLang'=>'en_US', 'dtTranslation'=>'Admin Master Menu', 'dtInputType'=>'text', 'dtCreateDate'=>'1583136102', 'dtUpdateDate'=>'1583136102'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'3', 'dtLang'=>'en_US', 'dtTranslation'=>'Admin Privilege Menu', 'dtInputType'=>'text', 'dtCreateDate'=>'1583136126', 'dtUpdateDate'=>'1583136126'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'13', 'dtLang'=>'en_US', 'dtTranslation'=>'Manufacturers', 'dtInputType'=>'text', 'dtCreateDate'=>'1583163513', 'dtUpdateDate'=>'1583163513'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'14', 'dtLang'=>'en_US', 'dtTranslation'=>'Attributes', 'dtInputType'=>'text', 'dtCreateDate'=>'1583253180', 'dtUpdateDate'=>'1583253180'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'15', 'dtLang'=>'en_US', 'dtTranslation'=>'Product', 'dtInputType'=>'text', 'dtCreateDate'=>'1583254882', 'dtUpdateDate'=>'1583254882'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'16', 'dtLang'=>'en_US', 'dtTranslation'=>'Attributes Group', 'dtInputType'=>'text', 'dtCreateDate'=>'1583255842', 'dtUpdateDate'=>'1583255842'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -942,7 +946,63 @@ class Migration extends CI_Controller {
                 'menuName' => 'Kategori Produk', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:18:"product_categories";}',
                 'menuAddedDate' => '1581958817', 
+                'menuSort' => '2',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+            [
+                'menuParentId' => '11',
+                'menuName' => 'Pabrikan', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:13:"manufacturers";}',
+                'menuAddedDate' => '1583163512', 
+                'menuSort' => '5',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+            [
+                'menuParentId' => '11',
+                'menuName' => 'Atribut', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:10:"attributes";}',
+                'menuAddedDate' => '1583253180', 
+                'menuSort' => '3',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+            [
+                'menuParentId' => '11',
+                'menuName' => 'Produk', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:7:"product";}',
+                'menuAddedDate' => '1583254882', 
                 'menuSort' => '1',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+            [
+                'menuParentId' => '11',
+                'menuName' => 'Atribut Grup', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:16:"attributes_group";}',
+                'menuAddedDate' => '1583255841', 
+                'menuSort' => '4',
                 'menuIcon' => '', 
                 'menuAttrClass' => '',
                 'menuActive' => 'y', 
@@ -1077,6 +1137,42 @@ class Migration extends CI_Controller {
                 'lmnId' => '12', 
                 'levelId' => '1',
                 'menuId' => '12', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '13', 
+                'levelId' => '1',
+                'menuId' => '13', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '14', 
+                'levelId' => '1',
+                'menuId' => '14', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '15', 
+                'levelId' => '1',
+                'menuId' => '15', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '16', 
+                'levelId' => '1',
+                'menuId' => '16', 
                 'lmnView' => 'y',
                 'lmnAdd' => 'y', 
                 'lmnEdit' => 'y',

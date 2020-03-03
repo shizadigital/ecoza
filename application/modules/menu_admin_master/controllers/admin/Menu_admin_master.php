@@ -387,6 +387,8 @@ include V_ADMIN_PATH . \"footer.php\";
 
 class {$capitalize_filename} extends CI_Controller{ 
 
+	private \$moduleName = '';
+
 	public function __construct(){
 		parent::__construct();
 		// load helper required
@@ -396,6 +398,9 @@ class {$capitalize_filename} extends CI_Controller{
 		// protect the page
 		\$this->adminauth->auth_login();
 
+		// define module name variable
+		\$this->moduleName = t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=> {$nextId}) );
+
 		// load model
 		\$this->load->model('{$filename}_model');
 	}
@@ -404,9 +409,9 @@ class {$capitalize_filename} extends CI_Controller{
 		if( is_view() ){
 
 			\$data = array( 
-						'title' => t( array('users_menu','menuName', {$nextId}) ) . ' - '.get_option('sitename'),
+						'title' => \$this->moduleName . ' - '.get_option('sitename'),
 						'page_header_on' => true,
-						'title_page' =>  t( array('users_menu','menuName', {$nextId}) ) .,
+						'title_page' =>  \$this->moduleName,
 						'title_page_icon' => '',
 						'title_page_secondary' => '',
 						'breadcrumb' => false,
@@ -427,9 +432,9 @@ class {$capitalize_filename} extends CI_Controller{
 	public function addnew(){
 		if( is_add() ){
 			\$data = array( 
-							'title' => t( array('users_menu','menuName', {$nextId}) ) . ' - '.get_option('sitename'),
+							'title' => \$this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => t( array('users_menu','menuName', {$nextId}) ) . ' - ' t('addnew'),
+							'title_page' => \$this->moduleName . ' - ' . t('addnew'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'breadcrumb' => false,
@@ -449,9 +454,9 @@ class {$capitalize_filename} extends CI_Controller{
 	public function edit(\$id){
 		if( is_edit() ){
 			\$data = array( 
-							'title' => t( array('users_menu','menuName', {$nextId}) ) . ' - '.get_option('sitename'),
+							'title' => \$this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => t( array('users_menu','menuName', {$nextId}) ) . ' - ' . t('edit'),
+							'title_page' => \$this->moduleName . ' - ' . t('edit'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'breadcrumb' => false,

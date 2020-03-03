@@ -14,45 +14,15 @@ $this->assetsloc->reg_admin_style($request_css_files,$request_style);
 		Register Script (JavaScript)
 *******************************************/
 $request_script_files = array(
+    'vendors/select2/dist/js/select2.full.min.js',
     'vendors/parsley/parsley.config.js',
     'vendors/parsley/parsley.min.js',
-    'vendors/select2/dist/js/select2.full.min.js'
 );
 $request_script = "
-function ajaxicon(thevalue){
-    $.ajax({
-        type: 'GET',
-        url: '".admin_url('main/iconscomponent')."',
-        data : { theval: thevalue },
-        beforeSend: function(data){
-            $('#content_icon').show().html('<div class=\"h-100 d-flex justify-content-center\"><i class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i></div>');
-            $(this).attr('disabled','disabled');
-        },
-        success: function(data) {
-            if(data){
-                $('#content_icon').html(data);
-            } else {
-                $('#content_icon').html('<center><h4>".t('datacannotbeloaded')."</h4></center>');
-            }
-            $(this).removeAttr('disabled');
-        }
-    });
-}
-
 $( document ).ready(function() {
     $('#valid').parsley();
 
-    $('.select2').select2({
-        placeholder: \"".t('chooseparent')."...\"
-	});
-	
-	$('#modal_pilihicon').click( function(){
-		ajaxicon('feather');
-	});
-    $('#pilihanicon').change(function(){
-        var val = $(this).val();
-        ajaxicon(val);
-	});
+    $('.myselect2').select2();
 	
 	$('#modularmvc').change(function(){
 		if($( this ).val()=='hmvc'){
@@ -141,7 +111,7 @@ include V_ADMIN_PATH . "topbar.php";
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2" for="module_name"><?php echo t('parent'); ?></label>
 							<div class="col-lg-10">
-								<select class="form-control select2" id="induk" name="induk">
+								<select class="form-control myselect2" id="induk" name="induk">
                         			<option value="0-0"><?php echo t('noparent'); ?></option>
                         			<?php 
 		                            $queryinduk = $data_menu;
@@ -274,41 +244,7 @@ include V_ADMIN_PATH . "topbar.php";
 							<label class="col-form-label col-lg-2" for="iconmenu"><?php echo t('menuicon'); ?></label>
 							<div class="col-lg-10">
 								<input type="text" name="iconmenu" class="form-control" id="iconmenu">
-								<span class="form-text text-muted"><?php echo t('chooseiconhere'); ?> <button data-toggle="modal" data-target="#pilihicon" id="modal_pilihicon" type="button" class="btn btn-xs btn-light" style="padding-top: 2px;padding-bottom: 2px;"><i class="fe fe-gift"></i> <?php echo t('choose'); ?></button></span>
-
-								<!-- Modal Icon -->
-				                <div class="modal fade" id="pilihicon" role="dialog" aria-hidden="true">
-				                    <div class="modal-dialog" style="max-width:90%;">
-				                        <div class="modal-content">
-				                            <div class="modal-header">
-				                                <h5 class="modal-title"><?php echo t('chooseiconhere'); ?></h5>
-				                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo 'tutup'; ?></span></button>
-				                            </div>
-
-				                            <div class="modal-body">
-				                                <div class="row">
-				                                    <div class="col-md-6 mt-2">
-				                                        <select class="custom-select" id="pilihanicon">
-				                                            <option value="feather">Feather Icons</option>
-				                                            <option value="font-awesome">Font Awesome</option>
-				                                            <option value="icomoon">Icomoon Free</option>
-				                                            <option value="linearicons">Linearicons Free</option>
-				                                        </select>
-				                                    </div>
-				                                    <div class="col-md-12 mt-4">
-				                                        <div id="content_icon"></div>
-				                                    </div>
-				                                </div>
-				                            </div>
-				                            <div class="modal-footer">
-				                                <button type="button" class="btn btn-secondary btn-sm btnmodallang_nama_menu" id="btncancel_nama_menu" data-dismiss="modal"><?php echo t('close'); ?></button>
-				                            </div>
-				                        </div><!-- /.modal-content -->
-				                    </div>
-				                    <!-- /.modal-dialog -->
-				                </div>
-				                <!-- End Modal -->
-
+								<span class="form-text text-muted"><?php echo t('chooseiconhere'); ?> <a href="<?php echo admin_url('main/iconscomponent/?theval=feather'); ?>" id="modal_pilihicon" target="_blank" class="btn btn-xs btn-light" style="padding-top: 2px;padding-bottom: 2px;"><i class="fe fe-gift"></i> <?php echo t('choose'); ?></a></span>
 							</div>
 						</div>
 

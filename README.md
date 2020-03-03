@@ -1,5 +1,6 @@
-
 # Selamat Datang di Shiza Ecommerce
+
+<p align="center"><img src="http://shiza.id/images/shiza-logo-web.png" width="275"></p>
 
 Kami berfokus pada berbagai pengembangan aplikasi website dan mobile, termasuk pada pengembangan ecommerce yakni EcoZa (Ecommerce of Shiza). EcoZa merupakan aplikasi opensource yang dibangun dengan sukarela untuk memudahkan pekerjaan developer lain dalam menggembangkan aplikasi ecommerce serta memudahkan pengguna dalam mengoperasikan sebuah sistem ecommerce.
 
@@ -19,8 +20,8 @@ Source Code (Kode Sumber) EcoZa dapat didownload secara gratis pada [github](htt
 - PHP: 7.2 or higher.
 - For MySQL users: 5.7.23 or higher.
 - For MariaDB users: 10.2.7 or Higher.
-- OpenSSL Encription
-- Base64
+- [OpenSSL](https://www.php.net/manual/en/openssl.installation.php)
+- base64_encode(https://www.php.net/manual/en/function.base64-encode.php) and [base64_decode](https://www.php.net/manual/en/function.base64-decode.php)
 
 ## Contributing
 Permintaan kontribusi dipersilakan. Untuk perubahan besar, laporkan masalah terlebih dahulu untuk membahas apa yang ingin Anda ubah.

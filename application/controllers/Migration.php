@@ -182,6 +182,7 @@ class Migration extends CI_Controller {
         // ADD index
         $schema->index('badgeId');
         $schema->index('relatedId');
+        $schema->index('bdgrelType');
 
     }
 
@@ -199,6 +200,7 @@ class Migration extends CI_Controller {
         // ADD index
         $schema->index('catSlug');
         $schema->index('catActive');
+        $schema->index('catType');
     }
 
     protected function create_shiza_category_relationship_table() {
@@ -212,6 +214,7 @@ class Migration extends CI_Controller {
         // ADD index
         $schema->index('catId');
         $schema->index('relatedId');
+        $schema->index('crelRelatedType');
     }
 
     protected function create_shiza_comments_table() {
@@ -371,6 +374,7 @@ class Migration extends CI_Controller {
 
         // ADD index
         $schema->index('manufactSlug');
+        $schema->index('manufactActive');
     }
 
     protected function create_shiza_message_table() {

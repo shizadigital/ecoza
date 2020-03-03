@@ -105,7 +105,7 @@ include V_ADMIN_PATH . "topbar.php";
 	<div class="col-md-12 col-sm-12">
 		<div class="card">
 			<div class="card-header">
-				<h5 class="card-title mb-0"><?php echo t('updatemenuadminmaster'); ?> - <?php echo $data['menuName']; ?></h5>
+				<h5 class="card-title mb-0"><?php echo t('updatemenuadminmaster'); ?> - <?php echo t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$data['menuId']) ); ?></h5>
 			</div>
 
 			<div class="card-body">
@@ -146,7 +146,7 @@ include V_ADMIN_PATH . "topbar.php";
 		                                echo "<option value=\"1-{$pm1['menuId']}\"";
 		                                if($pm1['menuId'] == $data['menuParentId']){ echo ' selected="selected"'; }
 	                            		if($pm1['menuId'] == $data['menuId']){ echo ' disabled="disabled"'; }
-		                                echo ">{$xx1}. ".$pm1['menuName']."</option>";
+		                                echo ">{$xx1}. ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$pm1['menuId']) )."</option>";
 			                            
 
 		                                if(count($pm1['level_2'])>0){
@@ -156,7 +156,7 @@ include V_ADMIN_PATH . "topbar.php";
 		                                        echo "<option value=\"2-{$pm2['menuId']}\"";
 				                                if($pm2['menuId'] == $data['menuParentId']){ echo ' selected="selected"'; }
 	                            				if($pm2['menuId'] == $data['menuId']){ echo ' disabled="disabled"'; }
-				                                echo ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}. ".$pm2['menuName']."</option>";
+				                                echo ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}. ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$pm2['menuId']) )."</option>";
 
 		                                        if(count($pm2['level_3'])>0){
 
@@ -165,7 +165,7 @@ include V_ADMIN_PATH . "topbar.php";
 		                                                echo "<option value=\"3-{$pm3['menuId']}\"";
 						                                if($pm3['menuId'] == $data['menuParentId']){ echo ' selected="selected"'; }
                             							if($pm3['menuId'] == $data['menuId']){ echo ' disabled="disabled"'; }
-						                                echo ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}.{$xx3} ".$pm3['menuName']."</option>";
+						                                echo ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}.{$xx3} ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$pm3['menuId']) )."</option>";
 		                                                
 		                                                if(count($pm3['level_4'])>0){
 
@@ -174,7 +174,7 @@ include V_ADMIN_PATH . "topbar.php";
 		                                                        echo "<option value=\"4-{$pm4['menuId']}\"";
 								                                if($pm4['menuId'] == $data['menuParentId']){ echo ' selected="selected"'; }
                         										if($pm4['menuId'] == $data['menuId']){ echo ' disabled="disabled"'; }
-								                                echo ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}.{$xx3}.{$xx4} ".$pm4['menuName']."</option>";
+								                                echo ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}.{$xx3}.{$xx4} ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$pm4['menuId']) )."</option>";
 
 		                                                        $xx4++;
 		                                                    }
@@ -224,7 +224,7 @@ include V_ADMIN_PATH . "topbar.php";
 				                        <div class="modal-content">
 				                            <div class="modal-header">
 				                                <h5 class="modal-title"><?php echo t('chooseiconhere'); ?></h5>
-				                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo 'tutup'; ?></span></button>
+				                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo t('close'); ?></span></button>
 				                            </div>
 
 				                            <div class="modal-body">

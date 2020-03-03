@@ -560,6 +560,13 @@ $lang['infoattrclass'] = "Class adalah attribut dari tag HTML. Gunakan spasi unt
 $lang['privilegefor'] = "Hak akses untuk %s";
 $lang['menuadminprivilege'] = "Hak Akses Menu Admin";
 
+/**
+ * Manufacturers
+ */
+$lang['manufacturers'] = "Pabrikan";
+$lang['addnewmanufacturer'] = "Tambah Pabrikan";
+$lang['editmanufacturer'] = "Edit Pabrikan";
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

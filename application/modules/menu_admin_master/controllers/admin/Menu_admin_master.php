@@ -404,17 +404,17 @@ class {$capitalize_filename} extends CI_Controller{
 		if( is_view() ){
 
 			\$data = array( 
-						'title' => '{$menu_name} - '.get_option('sitename'),
+						'title' => t( array('users_menu','menuName', {$nextId}) ) . ' - '.get_option('sitename'),
 						'page_header_on' => true,
-						'title_page' => '{$menu_name}',
+						'title_page' =>  t( array('users_menu','menuName', {$nextId}) ) .,
 						'title_page_icon' => '',
 						'title_page_secondary' => '',
 						'breadcrumb' => false,
 						'header_button_action' => array(
 											array(
-												'title' => 'Tambah',
+												'title' => t('addnew'),
 												'icon'	=> 'fe fe-plus',
-												'access' => admin_url('{$filename}/tambah'),
+												'access' => admin_url('{$filename}/addnew'),
 												'permission' => 'add'
 											)
 										),
@@ -424,18 +424,18 @@ class {$capitalize_filename} extends CI_Controller{
 		}
 	}
 
-	public function tambah(){
+	public function addnew(){
 		if( is_add() ){
 			\$data = array( 
-							'title' => '{$menu_name} - '.get_option('sitename'),
+							'title' => t( array('users_menu','menuName', {$nextId}) ) . ' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Tambah {$menu_name}',
+							'title_page' => t( array('users_menu','menuName', {$nextId}) ) . ' - ' t('addnew'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'breadcrumb' => false,
 							'header_button_action' => array(
 												array(
-													'title' => 'Kembali',
+													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('{$filename}')
 												)
@@ -449,21 +449,21 @@ class {$capitalize_filename} extends CI_Controller{
 	public function edit(\$id){
 		if( is_edit() ){
 			\$data = array( 
-							'title' => '{$menu_name} - '.get_option('sitename'),
+							'title' => t( array('users_menu','menuName', {$nextId}) ) . ' - '.get_option('sitename'),
 							'page_header_on' => true,
-							'title_page' => 'Edit {$menu_name}',
+							'title_page' => t( array('users_menu','menuName', {$nextId}) ) . ' - ' . t('edit'),
 							'title_page_icon' => '',
 							'title_page_secondary' => '',
 							'breadcrumb' => false,
 							'header_button_action' => array(
 												array(
-													'title' => 'Tambah',
+													'title' => t('addnew'),
 													'icon'	=> 'fe fe-plus',
-													'access' => admin_url('{$filename}/tambah'),
+													'access' => admin_url('{$filename}/addnew'),
 													'permission' => 'add'
 												),
 												array(
-													'title' => 'Kembali',
+													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
 													'access' => admin_url('{$filename}')
 												)

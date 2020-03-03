@@ -256,7 +256,7 @@ class Migration extends CI_Controller {
     protected function create_shiza_dynamic_translations_table() {
 
         $schema = $this->schema->create_table('dynamic_translations');
-        $schema->increments('dtId', ['length' => '11']);
+        $schema->increments('dtId', ['type' => 'BIGINT', 'length' => '30']);
         $schema->string('dtRelatedTable', ['length' => '20']);
         $schema->string('dtRelatedField', ['length' => '20']);
         $schema->integer('dtRelatedId', ['length' => '11', 'unsigned' => TRUE]);
@@ -269,6 +269,7 @@ class Migration extends CI_Controller {
 
         // ADD index
         $schema->index('dtId');
+        $schema->index('dtRelatedId');
     }
 
     protected function create_shiza_email_queue_table() {
@@ -314,6 +315,25 @@ class Migration extends CI_Controller {
         $schema->text('galpicPicture');
         $schema->string('galpicDir', ['length' => '25']);
         $schema->string('galpicPhotographer', ['length' => '225']);
+        $schema->run();
+
+        // ADD index
+        $schema->index('galpicId');
+        $schema->index('contentId');
+    }
+
+    protected function create_shiza_manufacturers_table() {
+
+        $schema = $this->schema->create_table('manufacturers');
+        $schema->increments('manufactId', ['length' => '11']);
+        $schema->string('manufactName',['length' => '255']);
+        $schema->text('manufactDesc');
+        $schema->string('manufactSlug', ['length' => '255']);
+        $schema->string('manufactDir', ['length' => '45']);
+        $schema->string('manufactImg', ['length' => '255']);
+        $schema->integer('manufactSort', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->enum('manufactActive', ['y','n']);
+        $schema->integer('manufactDeleted', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 
         // ADD index
@@ -569,6 +589,7 @@ class Migration extends CI_Controller {
     // ======= SEED
     protected function seed() {
         Self::seeder_ads_position_table();
+        Self::seeder_dynamic_translations_table();
         Self::seeder_email_template_table();
         Self::seeder_options_table();
         Self::seeder_users_table();
@@ -608,6 +629,38 @@ class Migration extends CI_Controller {
 				'adposH' => $item['h'],
 			];
 			$this->mc->save('shiza_ads_position', $data);
+		}
+    }
+
+    protected function seeder_dynamic_translations_table() {
+
+		$arr = [
+			['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'11', 'dtLang'=>'en_US', 'dtTranslation'=>'Catalog', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135807', 'dtUpdateDate'=>'1583156017'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'12', 'dtLang'=>'en_US', 'dtTranslation'=>'Product Categories', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135835', 'dtUpdateDate'=>'1583135835'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'8', 'dtLang'=>'en_US', 'dtTranslation'=>'Users', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135867', 'dtUpdateDate'=>'1583135867'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'9', 'dtLang'=>'en_US', 'dtTranslation'=>'User Management', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135890', 'dtUpdateDate'=>'1583135890'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'10', 'dtLang'=>'en_US', 'dtTranslation'=>'User Group', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135913', 'dtUpdateDate'=>'1583135913'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'6', 'dtLang'=>'en_US', 'dtTranslation'=>'Settings', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135933', 'dtUpdateDate'=>'1583135933'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'7', 'dtLang'=>'en_US', 'dtTranslation'=>'Website Setting', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135955', 'dtUpdateDate'=>'1583135955'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'4', 'dtLang'=>'en_US', 'dtTranslation'=>'Tools', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135990', 'dtUpdateDate'=>'1583135990'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'5', 'dtLang'=>'en_US', 'dtTranslation'=>'System Info', 'dtInputType'=>'text', 'dtCreateDate'=>'1583136049', 'dtUpdateDate'=>'1583136049'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'1', 'dtLang'=>'en_US', 'dtTranslation'=>'Development', 'dtInputType'=>'text', 'dtCreateDate'=>'1583136078', 'dtUpdateDate'=>'1583136078'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'2', 'dtLang'=>'en_US', 'dtTranslation'=>'Admin Master Menu', 'dtInputType'=>'text', 'dtCreateDate'=>'1583136102', 'dtUpdateDate'=>'1583136102'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'3', 'dtLang'=>'en_US', 'dtTranslation'=>'Admin Privilege Menu', 'dtInputType'=>'text', 'dtCreateDate'=>'1583136126', 'dtUpdateDate'=>'1583136126'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'13', 'dtLang'=>'en_US', 'dtTranslation'=>'Manufacturers', 'dtInputType'=>'text', 'dtCreateDate'=>'1583163513', 'dtUpdateDate'=>'1583163513'],
+		];
+		foreach ( $arr as $item ) {
+			$data = [
+                'dtRelatedTable'=>$item['dtRelatedTable'],
+                'dtRelatedField'=>$item['dtRelatedField'],
+                'dtRelatedId'=>$item['dtRelatedId'],
+                'dtLang'=>$item['dtLang'],
+                'dtTranslation'=>$item['dtTranslation'],
+                'dtInputType'=>$item['dtInputType'],
+                'dtCreateDate'=>$item['dtCreateDate'],
+                'dtUpdateDate'=>$item['dtUpdateDate']
+			];
+			$this->mc->save('shiza_dynamic_translations', $data);
 		}
     }
 

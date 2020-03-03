@@ -2,26 +2,23 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /************************************
-		Register style (CSS)
+Register style (CSS)
 ************************************/
 $request_css_files = array(
-	'vendors/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css'
 );
 $request_style = "";
 $this->assetsloc->reg_admin_style($request_css_files,$request_style);
 
 /*******************************************
-		Register Script (JavaScript)
+Register Script (JavaScript)
 *******************************************/
 $request_script_files = array(
     'vendors/parsley/parsley.config.js',
 	'vendors/parsley/parsley.min.js',
-	'vendors/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js'
 );
 $request_script = "
 $( document ).ready(function() {
 	$('#valid').parsley();
-	$('.thecolorpicker').colorpicker();
 });
 ";
 $this->assetsloc->reg_admin_script($request_script_files,$request_script);
@@ -58,7 +55,7 @@ if( is_edit() ){
 		<div class="card card-statistics">
 			<div class="card-header">
 				<div class="card-heading">
-					<h5 class="card-title mb-0"><?php echo t('edit_category'); ?></h5>
+					<h5 class="card-title mb-0"><?php echo t('editmanufacturer') . ' - ' .$data['manufactName']; ?></h5>
 				</div>
 			</div>
 
@@ -66,10 +63,16 @@ if( is_edit() ){
 			<?php 
 				// make tag form structure
 				$tagForm = array(
-					'action' 		=> admin_url( $this->uri->segment(2) . '/prosesedit'),
+					'action' 		=> admin_url( $this->uri->segment(2) . '/editprocess'),
 					'attributes' 	=> array( 'id'=>'valid' ),
-					'hidden' 		=> array('ID' => $data['catId'])
-				);
+					'hidden' 		=> array('ID' => $data['manufactId'])
+                );
+                
+                // image availability
+                $imgmanufacturer = admin_assets('img/no-image2.png');
+                if(!empty($data['manufactDir']) AND !empty($data['manufactImg'])){
+                    $imgmanufacturer = images_url($data['manufactDir'].'/small_'.$data['manufactImg']);
+                }
 				
 				// make input structure
 				$inputs = array(
@@ -77,22 +80,18 @@ if( is_edit() ){
 					'colsetting' => array('label'=>'col-md-2','input'=>'col-md-9'),
 					'inputs' => array(
 						array(
-							'type' => 'multilanguage_text',
+							'type' => 'text',
 							'label' => t('name'),
 							'name' => 'nama',
 							'required' => true,
-							'value' => array(
-								'table' => 'categories',
-								'field' => 'catName',
-								'id' => $data['catId']
-							)
+							'value' => $data['manufactName']
 						),
 						array(
 							'type' => 'text',
 							'label' => t('slug'),
 							'name' => 'slug',
 							'required' => true,
-							'value' => $data['catSlug'],
+							'value' => $data['manufactSlug'],
 							'help' => t('sluginfo')
 						),
 						array(
@@ -100,26 +99,32 @@ if( is_edit() ){
 							'label' => t('description'),
 							'name' => 'desc',
 							'value' => array(
-								'table' => 'categories',
-								'field' => 'catDesc',
-								'id' => $data['catId']
+								'table' => 'manufacturers',
+								'field' => 'manufactDesc',
+								'id' => $data['manufactId']
 							)
-						),
+                        ),
+                        array(
+                            'type' => 'file-img',
+                            'label' => t('picture'),
+                            'name' => 'picture',
+							'value' => $imgmanufacturer,
+                            'help' => t('infomainimg') . ' *.jpg, *.jpeg, *.png, *.gif'
+                        ),
 						array(
 							'type' => 'text',
-							'label' => t('color'),
-							'name' => 'warna',
-							'value' => $data['catColor'],
-							'class' => 'thecolorpicker',
-							'help' => t('infocategcolor')
+							'label' => t('sorting'),
+							'name' => 'sorting',
+							'value' => $data['manufactSort'],
+							'help' => t('writewithnumbers')
 						),
 						array(
 							'type' => 'checkbox',
 							'label' => t('active'),
 							'name' => 'active',
-							'value' => '1',
+							'value' => 'y',
 							'title' => t('yes'),
-							'checked' => ($data['catActive']==1) ?true:false
+							'checked' => ($data['manufactActive']=='y') ?true:false
 						),
 						array(
 							'type' => 'submit',
@@ -130,7 +135,7 @@ if( is_edit() ){
 								
 				);
 
-				$this->formcontrol->buildForm($tagForm, $inputs);
+				$this->formcontrol->buildForm($tagForm, $inputs, 'multipart');
 				?>
 			</div>
 		</div>

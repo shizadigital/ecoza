@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		Register style (CSS)
 ************************************/
 $request_css_files = array(
+	'vendors/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css'
 );
 $request_style = "";
 $this->assetsloc->reg_admin_style($request_css_files,$request_style);
@@ -14,11 +15,13 @@ $this->assetsloc->reg_admin_style($request_css_files,$request_style);
 *******************************************/
 $request_script_files = array(
     'vendors/parsley/parsley.config.js',
-    'vendors/parsley/parsley.min.js'
+	'vendors/parsley/parsley.min.js',
+	'vendors/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js'
 );
 $request_script = "
 $( document ).ready(function() {
-    $('#valid').parsley();
+	$('#valid').parsley();
+	$('.thecolorpicker').colorpicker();
 });
 ";
 $this->assetsloc->reg_admin_script($request_script_files,$request_script);
@@ -81,6 +84,7 @@ include V_ADMIN_PATH . "topbar.php";
 							'type' => 'text',
 							'label' => t('color'),
 							'name' => 'warna',
+							'class' => 'thecolorpicker',
 							'help' => t('infocategcolor')
 						),
 						array(

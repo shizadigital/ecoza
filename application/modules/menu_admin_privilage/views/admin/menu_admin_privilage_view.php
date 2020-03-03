@@ -154,7 +154,7 @@ if( $this->input->get('act')=='detail_access' ):
 	                                		if($i == $totallevel){ echo ' '; }
 	                                	}
 	                                }
-                                    echo $r['menuName'];
+                                    echo t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$r['menuId']) );
                                     echo "<input name=\"idmenu[]\" type=\"hidden\" value=\"{$r['menuId']}\"/>";
                                 ?>
                                 <script type="text/javascript"> 

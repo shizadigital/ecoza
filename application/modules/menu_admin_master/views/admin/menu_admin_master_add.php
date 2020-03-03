@@ -147,25 +147,25 @@ include V_ADMIN_PATH . "topbar.php";
 		                            $queryinduk = $data_menu;
 		                            $xx1 = 1;
 		                            foreach ($queryinduk as $pm1) {
-		                                echo "<option value=\"1-{$pm1['menuId']}\">{$xx1}. ".$pm1['menuName']."</option>";
+		                                echo "<option value=\"1-{$pm1['menuId']}\">{$xx1}. ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$pm1['menuId']) )."</option>";
 
 		                                if(count($pm1['level_2'])>0){
 
 		                                    $xx2 = 1;
 		                                    foreach ($pm1['level_2'] as $pm2) {
-		                                        echo "<option value=\"2-{$pm2['menuId']}\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}. ".$pm2['menuName']."</option>";
+		                                        echo "<option value=\"2-{$pm2['menuId']}\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}. ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$pm2['menuId']) )."</option>";
 
 		                                        if(count($pm2['level_3'])>0){
 
 		                                            $xx3 = 1;
 		                                            foreach ($pm2['level_3'] as $pm3) {
-		                                                echo "<option value=\"3-{$pm3['menuId']}\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}.{$xx3} ".$pm3['menuName']."</option>";
+		                                                echo "<option value=\"3-{$pm3['menuId']}\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}.{$xx3} ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$pm3['menuId']) )."</option>";
 		                                                
 		                                                if(count($pm3['level_4'])>0){
 
 		                                                    $xx4 = 1;
 		                                                    foreach ($pm3['level_4'] as $pm4) {
-		                                                        echo "<option value=\"4-{$pm4['menuId']}\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}.{$xx3}.{$xx4} ".$pm4['menuName']."</option>";
+		                                                        echo "<option value=\"4-{$pm4['menuId']}\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$xx1}.{$xx2}.{$xx3}.{$xx4} ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$pm4['menuId']) )."</option>";
 
 		                                                        $xx4++;
 		                                                    }

@@ -560,6 +560,13 @@ $lang['infoattrclass'] = "Class is the html attribute. Use spaces for naming cla
 $lang['privilegefor'] = "Privilege for %s";
 $lang['menuadminprivilege'] = "Menu Admin Privilege";
 
+/**
+ * Manufacturers
+ */
+$lang['manufacturers'] = "Manufacturers";
+$lang['addnewmanufacturer'] = "Add New Manufacturer";
+$lang['editmanufacturer'] = "Edit Manufacturer";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///

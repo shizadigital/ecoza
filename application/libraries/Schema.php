@@ -66,6 +66,13 @@ class SchemaDefinition
 		$this->CI->dbforge->add_field($fields);
 	}
 
+	function primary($field_name) 
+	{
+		$prefix = isset($_ENV['DB_PREFIX']) ? $_ENV['DB_PREFIX'] : '';
+		$sql = "ALTER TABLE  ".$prefix.$this->table." ADD PRIMARY KEY (  ".$field_name." )";
+		$this->CI->db->query($sql);
+	}
+
 	function index($field_name) 
 	{
 		$prefix = isset($_ENV['DB_PREFIX']) ? $_ENV['DB_PREFIX'] : '';

@@ -35,6 +35,9 @@ class Migration extends CI_Controller {
         Self::create_shiza_ads_table();
         Self::create_shiza_ads_position_table();
         Self::create_shiza_android_device_table();
+        Self::create_shiza_attribute_table();
+        Self::create_shiza_attribute_group_table();
+        Self::create_shiza_attribute_relationship_table();
         Self::create_shiza_badges_table();
         Self::create_shiza_badge_relationship_table();
         Self::create_shiza_categories_table();
@@ -79,7 +82,6 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('adsId');
         $schema->index('adposId');
     }
 
@@ -112,9 +114,48 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('devId');
         $schema->index('devAndroidId');
         $schema->index('devAccountId');
+    }
+
+    protected function create_shiza_attribute_table(){
+
+        $schema = $this->schema->create_table('attribute');
+        $schema->increments('attrId', ['length' => '11']);
+        $schema->string('attrLabel', ['length' => '100']);
+        $schema->integer('attrSorting', ['length' => '5', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('attrSorting');
+
+    }
+
+    protected function create_shiza_attribute_group_table(){
+
+        $schema = $this->schema->create_table('attribute_group');
+        $schema->increments('attrgroupId', ['length' => '11']);
+        $schema->string('attrgroupLabel', ['length' => '100']);
+        $schema->integer('attrgroupSorting', ['length' => '5', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('attrgroupSorting');
+
+    }
+
+    protected function create_shiza_attribute_relationship_table(){
+
+        $schema = $this->schema->create_table('attribute_relationship');
+        $schema->increments('attrrelId', ['type' => 'BIGINT', 'length' => '25']);
+        $schema->integer('attrId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('attrgroupId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('attrId');
+        $schema->index('attrgroupId');
+
     }
 
     protected function create_shiza_badges_table() {
@@ -128,25 +169,19 @@ class Migration extends CI_Controller {
         $schema->integer('badgeActive', ['length' => '3', 'unsigned' => TRUE]);
         $schema->integer('badgeDeleted', ['length' => '10', 'unsigned' => TRUE]);
         $schema->run();
-
-        // ADD index
-        $schema->index('badgeId');
     }
 
     protected function create_shiza_badge_relationship_table() {
         $schema = $this->schema->create_table('badge_relationship');
-        $schema->increments('badgeId', ['length' => '11']);
-        $schema->string('badgeLabel', ['length' => '60']);
-        $schema->text('badgeDesc');
-        $schema->string('badgeType', ['length' => '60']);
-        $schema->string('badgeDir', ['length' => '25']);
-        $schema->string('badgePic');
-        $schema->integer('badgeActive', ['length' => '3', 'unsigned' => TRUE]);
-        $schema->integer('badgeDeleted', ['length' => '10', 'unsigned' => TRUE]);
+        $schema->increments('bdgrelId', ['length' => '11']);
+        $schema->integer('badgeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('relatedId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('bdgrelType', ['length' => '50']);
         $schema->run();
 
         // ADD index
         $schema->index('badgeId');
+        $schema->index('relatedId');
 
     }
 
@@ -162,8 +197,8 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('catId');
         $schema->index('catSlug');
+        $schema->index('catActive');
     }
 
     protected function create_shiza_category_relationship_table() {
@@ -175,7 +210,6 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('crelId');
         $schema->index('catId');
         $schema->index('relatedId');
     }
@@ -200,7 +234,6 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('commentId');
         $schema->index('relatedId');
         $schema->index('commentParentId');
     }
@@ -236,6 +269,10 @@ class Migration extends CI_Controller {
 
         // ADD index
         $schema->index('contentId');
+        $schema->index('contentTimestamp');
+        $schema->index('contentStatus');
+        $schema->index('contentSlug');
+        $schema->index('contentType');
     }
 
     protected function create_shiza_cron_list_table() {
@@ -249,9 +286,6 @@ class Migration extends CI_Controller {
         $schema->integer('cronLastAct', ['length' => '10', 'unsigned' => TRUE]);
         $schema->string('cronReport');
         $schema->run();
-
-        // ADD index
-        $schema->index('cronId');
     }
 
     protected function create_shiza_dynamic_translations_table() {
@@ -269,7 +303,8 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('dtId');
+        $schema->index('dtRelatedTable');
+        $schema->index('dtRelatedField');
         $schema->index('dtRelatedId');
     }
 
@@ -303,8 +338,6 @@ class Migration extends CI_Controller {
         $schema->text('tEmailbak', ['type' => 'MEDIUMTEXT']);
         $schema->run();
 
-        // ADD index
-        $schema->index('tId');
     }
 
     protected function create_shiza_gallery_pic_table() {
@@ -319,7 +352,6 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('galpicId');
         $schema->index('contentId');
     }
 
@@ -338,7 +370,7 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('manufactId');
+        $schema->index('manufactSlug');
     }
 
     protected function create_shiza_message_table() {
@@ -372,6 +404,7 @@ class Migration extends CI_Controller {
 
         // ADD index
         $schema->index('optionId');
+        $schema->index('optionName');
     }
 
     protected function create_shiza_rating_table() {
@@ -379,7 +412,7 @@ class Migration extends CI_Controller {
         $schema = $this->schema->create_table('rating');
         $schema->integer('ratingId', ['length' => '10', 'unsigned' => TRUE]);
         $schema->integer('mId', ['length' => '10', 'unsigned' => TRUE]);
-        $schema->integer('ratingRelasiId', ['length' => '10', 'unsigned' => TRUE]);
+        $schema->integer('ratingRelatedId', ['length' => '10', 'unsigned' => TRUE]);
         $schema->string('ratingType', ['length' => '20']);
         $schema->integer('ratingDate', ['length' => '11', 'unsigned' => TRUE]);
         $schema->text('ratingDesc');
@@ -387,9 +420,8 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('ratingId');
         $schema->index('mId');
-        $schema->index('ratingRelasiId');
+        $schema->index('ratingRelatedId');
     }
 
     protected function create_shiza_seo_page_table() {
@@ -405,8 +437,8 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('seoId');
         $schema->index('relatiedId');
+        $schema->index('seoTypePage');
     }
 
     protected function create_shiza_slider_table() {
@@ -425,7 +457,7 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('slideId');
+        $schema->index('slideType');
     }
 
     protected function create_shiza_testimonial_table() {
@@ -439,9 +471,6 @@ class Migration extends CI_Controller {
         $schema->string('testiImg');
         $schema->integer('testiStatus', ['type' => 'TINYINT', 'length' => '2', 'unsigned' => TRUE]);
         $schema->run();
-
-        // ADD index
-        $schema->index('testiId');
     }
 
     protected function create_shiza_users_table() {
@@ -468,9 +497,10 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('userId');
         $schema->index('userLogin');
         $schema->index('userEmail');
+        $schema->index('userBlocked');
+        $schema->index('userDelete');
     }
 
     protected function create_shiza_users_level_table() {
@@ -521,7 +551,6 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('lmnId');
         $schema->index('levelId');
         $schema->index('menuId');
     }
@@ -542,7 +571,6 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('menuId');
         $schema->index('menuParentId');
         $schema->index('menuRelationshipId');
     }
@@ -551,6 +579,9 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('ads');
         $this->schema->drop_table('ads_position');
         $this->schema->drop_table('android_device');
+        $this->schema->drop_table('attribute');
+        $this->schema->drop_table('attribute_group');
+        $this->schema->drop_table('attribute_relationship');
         $this->schema->drop_table('badges');
         $this->schema->drop_table('badge_relationship');
         $this->schema->drop_table('categories');

@@ -689,6 +689,7 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'14', 'dtLang'=>'en_US', 'dtTranslation'=>'Attributes', 'dtInputType'=>'text', 'dtCreateDate'=>'1583253180', 'dtUpdateDate'=>'1583253180'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'15', 'dtLang'=>'en_US', 'dtTranslation'=>'Product', 'dtInputType'=>'text', 'dtCreateDate'=>'1583254882', 'dtUpdateDate'=>'1583254882'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'16', 'dtLang'=>'en_US', 'dtTranslation'=>'Attributes Group', 'dtInputType'=>'text', 'dtCreateDate'=>'1583255842', 'dtUpdateDate'=>'1583255842'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'17', 'dtLang'=>'en_US', 'dtTranslation'=>'Product Badges', 'dtInputType'=>'text', 'dtCreateDate'=>'1583350660', 'dtUpdateDate'=>'1583350660'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1048,6 +1049,20 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'y',
             ],
+            [
+                'menuParentId' => '11',
+                'menuName' => 'Lencana Produk', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:14:"product_badges";}',
+                'menuAddedDate' => '1583350660', 
+                'menuSort' => '6',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1210,6 +1225,15 @@ class Migration extends CI_Controller {
                 'lmnId' => '16', 
                 'levelId' => '1',
                 'menuId' => '16', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '17', 
+                'levelId' => '1',
+                'menuId' => '17', 
                 'lmnView' => 'y',
                 'lmnAdd' => 'y', 
                 'lmnEdit' => 'y',

@@ -547,7 +547,7 @@ class Migration extends CI_Controller {
     protected function create_shiza_users_menu_access_table() {
 
         $schema = $this->schema->create_table('users_menu_access');
-        $schema->integer('lmnId', ['length' => '10', 'unsigned' => TRUE]);
+        $schema->increments('lmnId', ['length' => '10']);
         $schema->integer('levelId', ['length' => '10', 'unsigned' => TRUE]);
         $schema->integer('menuId', ['length' => '10', 'unsigned' => TRUE]);
         $schema->enum('lmnView', ['y', 'n']);

@@ -40,6 +40,10 @@ $CI->load->helper('admin_functions');
 <!-- LOAD FLAG -->
 <link rel="stylesheet" type="text/css" href="<?php echo web_assets('vendors/flag-icon-css-master/css/flag-icon.min.css'); ?>">
 
+<?php
+echo $this->assetsloc->get_admin_style('library');
+?>
+
 <!-- AIR UI HTML ADMIN TEMPLATE MODULES-->
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('components/vendors/style.css'); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('components/core/style.css'); ?>">
@@ -54,15 +58,13 @@ $CI->load->helper('admin_functions');
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('components/extra-apps/style.css'); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('components/ecommerce/style.css'); ?>">
 
+<link rel="stylesheet" type="text/css" href="<?php echo admin_assets('custom.css'); ?>">
 <?php 
-// LOAD STYLE
-echo $this->assetsloc->get_admin_style('library');
-
+// LOAD MANUALY STYLE
 echo $this->assetsloc->get_admin_style('manually');
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo admin_assets('custom.css'); ?>">
 
-<!--  -->
+<!-- Default JS Library -->
 <script src="<?php echo admin_assets('vendors/jquery/dist/jquery.min.js'); ?>"></script>
 <script src="<?php echo admin_assets('vendors/popper.js/dist/umd/popper.js'); ?>"></script>
 <script src="<?php echo admin_assets('vendors/bootstrap/dist/js/bootstrap.js'); ?>"></script>

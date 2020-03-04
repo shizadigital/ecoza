@@ -78,6 +78,7 @@ $lang['btnupdate'] = "Update";
 $lang['btnadd'] = "Add";
 $lang['btnapply'] = "Apply";
 $lang['btndelete'] = "Delete";
+$lang['btnedit'] = "Edit";
 $lang['name'] = "Name";
 $lang['color'] = "Color";
 $lang['publish'] = "Publish";
@@ -321,7 +322,7 @@ $lang['priceoverride'] = "Price Override";
 $lang['endnow'] = "End Now";
 $lang['couponname'] = "Coupon Name";
 $lang['commainfo'] = "Type comma (,) for the numbers with commas";
-$lang['multipleselectinfo'] = "Press ctrl button and then click several options in the list";
+$lang['multipleselectinfo'] = "Press CTRL button and then click several options in the list";
 $lang['onlymembers'] = "Only Members";
 $lang['startdate'] = "Start Date";
 $lang['enddate'] = "End Date";
@@ -566,6 +567,20 @@ $lang['menuadminprivilege'] = "Menu Admin Privilege";
 $lang['manufacturers'] = "Manufacturers";
 $lang['addnewmanufacturer'] = "Add New Manufacturer";
 $lang['editmanufacturer'] = "Edit Manufacturer";
+
+/**
+ * Attribute
+ */
+$lang['attributes'] = "Attributes";
+$lang['attribute'] = "Attribute";
+$lang['editattribute'] = "Edit Attribute";
+
+/**
+ * Attributes Group
+ */
+$lang['attributesgroup'] = "Attributes Group";
+$lang['editattributesgroup'] = "Edit Attributes Group";
+$lang['totalattr'] = "Total Attributes";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

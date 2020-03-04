@@ -124,6 +124,7 @@ class Migration extends CI_Controller {
         $schema->increments('attrId', ['length' => '11']);
         $schema->string('attrLabel', ['length' => '100']);
         $schema->integer('attrSorting', ['length' => '5', 'unsigned' => TRUE]);
+        $schema->integer('attrDeleted', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 
         // ADD index
@@ -137,6 +138,7 @@ class Migration extends CI_Controller {
         $schema->increments('attrgroupId', ['length' => '11']);
         $schema->string('attrgroupLabel', ['length' => '100']);
         $schema->integer('attrgroupSorting', ['length' => '5', 'unsigned' => TRUE]);
+        $schema->integer('attrgroupDeleted', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 
         // ADD index

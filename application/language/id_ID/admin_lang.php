@@ -78,6 +78,7 @@ $lang['btnupdate'] = "Perbarui";
 $lang['btnadd'] = "Tambah";
 $lang['btnapply'] = "Terapkan";
 $lang['btndelete'] = "Hapus";
+$lang['btnedit'] = "Edit";
 $lang['name'] = "Nama";
 $lang['color'] = "Warna";
 $lang['publish'] = "Publis";
@@ -321,7 +322,7 @@ $lang['priceoverride'] = "Timpa Harga";
 $lang['endnow'] = "Akhiri Sekarang";
 $lang['couponname'] = "Nama Kupon";
 $lang['commainfo'] = "Ketik koma(,) untuk nilai berkoma";
-$lang['multipleselectinfo'] = "Tekan tombol ctrl lalu klik beberapa pilihan pada list";
+$lang['multipleselectinfo'] = "Tekan tombol CTRL lalu klik beberapa pilihan pada list";
 $lang['onlymembers'] = "Hanya Member";
 $lang['startdate'] = "Tanggal Mulai";
 $lang['enddate'] = "Tanggal Selesai";
@@ -567,6 +568,19 @@ $lang['manufacturers'] = "Pabrikan";
 $lang['addnewmanufacturer'] = "Tambah Pabrikan";
 $lang['editmanufacturer'] = "Edit Pabrikan";
 
+/**
+ * Attribute
+ */
+$lang['attributes'] = "Atribut";
+$lang['attribute'] = "Atribut";
+$lang['editattribute'] = "Edit Atribut";
+
+/**
+ * Attributes Group
+ */
+$lang['attributesgroup'] = "Atribut Group";
+$lang['editattributesgroup'] = "Edit Atribut Group";
+$lang['totalattr'] = "Total Atribut";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

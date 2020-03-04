@@ -21,18 +21,51 @@ class Product_categories extends CI_Controller{
 
 			$datapage = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
+			$table = 'categories';
+			$where = "catType='product'";
+
 			$excClause = '';
 
             if(!empty($this->input->get('kw'))){
-            	$kw = $this->security->xss_clean( $this->input->get('kw') );
-            	$excClause .= " AND ( catName LIKE '%{$kw}%' OR catDesc LIKE '%{$kw}%' )";
+				$kw = $this->security->xss_clean( $this->input->get('kw') );
+
+				$queryserach = "catName LIKE '%{$kw}%' OR catDesc LIKE '%{$kw}%'";
+				$excClause = " AND ( $queryserach )";
+				
+				// check multilanguage
+				$lang = get_cookie('admin_lang');
+				if( $lang != $this->config->item('language') ){
+					// check the keyword here
+					$dataidresult = $this->Env_model->view_where("dtRelatedId","dynamic_translations","dtRelatedTable='{$table}' AND dtLang='{$lang}' AND ( (dtRelatedField='catName' AND dtTranslation LIKE '%{$kw}%') OR (dtRelatedField='catDesc' AND dtTranslation LIKE '%{$kw}%') ) ");
+
+					if( count($dataidresult)>0 ){
+						$resultlangsearch = array();
+						foreach($dataidresult AS $key => $val){
+							$resultlangsearch[] = $val['dtRelatedId'];
+						}
+
+						$standardlangcount = countdata($table, $where . $excClause);
+
+						$querysearchlang = ($standardlangcount > 0) ? '(':'';
+						$querysearchlang .= '( catId=\'' .implode('\' OR catId=\'', $resultlangsearch). '\' )';
+
+						if( $standardlangcount > 0 ){
+							$querysearchlang .= " OR (".$queryserach.")";
+						}
+
+						$querysearchlang .= ($standardlangcount > 0) ? ')':'';
+
+						$excClause = " AND $querysearchlang";
+						
+					} else {
+						$excClause = " AND catName='' AND catDesc=''";
+					}
+				}
             }
 
 			$perPage = 30;
-			
-			$table = 'categories';
 
-			$where = "catType='product'".$excClause;
+			$where = $where.$excClause;
 			$datauser = $this->Env_model->view_where_order_limit('*', $table, $where, 'catId', 'DESC', $perPage, $datapage);
 
 			$rows = countdata($table, $where);

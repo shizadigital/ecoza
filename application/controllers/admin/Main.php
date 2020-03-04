@@ -15,7 +15,7 @@ class Main extends CI_Controller {
 	}
 
 	public function index(){
-		if( empty( $this->session->userdata('namauser') ) AND empty( $this->session->userdata('passuser') ) ){
+		if( empty( $this->session->userdata('username') ) AND empty( $this->session->userdata('passuser') ) ){
 			// LOGIN PAGE
 			$data = array( 
 						'title' => 'Login Administrator - '.get_option('sitename'),
@@ -75,9 +75,8 @@ class Main extends CI_Controller {
 					// make session here
 					$newdata = array(
 					        'adminid' 		=> $logindata->userId,
-					        'namauser' 		=> $logindata->userLogin,
+					        'username' 		=> $logindata->userLogin,
 							'passuser' 		=> $logindata->userPass,
-							'namalengkap' 	=> $logindata->userDisplayName,
 							'leveluser' 	=> $logindata->levelId,
 							'levelstatus' 	=> $logindata->levelActive,
 							'checkpoint' 	=> loginCP()

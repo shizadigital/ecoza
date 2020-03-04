@@ -12,7 +12,7 @@ class AdminAuth {
 		$login = false;
 
 		if(
-			!empty( $this->CI->session->userdata('namauser') ) AND 
+			!empty( $this->CI->session->userdata('username') ) AND 
 			!empty( $this->CI->session->userdata('passuser') ) AND 
 			!empty( $this->CI->session->userdata('checkpoint') ) 
 		){	

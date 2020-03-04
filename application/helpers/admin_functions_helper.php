@@ -219,7 +219,7 @@ function getAdminLocaleCode($short = TRUE){
     
     $locale = $ci->config->item('language');
 
-    if( empty( $ci->session->userdata('namauser') ) AND empty( $ci->session->userdata('passuser') ) ){
+    if( empty( $ci->session->userdata('username') ) AND empty( $ci->session->userdata('passuser') ) ){
         $locale = $locale;
     } else {
         if( !empty( get_cookie('admin_lang') ) ){

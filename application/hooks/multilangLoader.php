@@ -23,7 +23,7 @@ class multilangLoader {
 
             if( $ci->config->item('admin_slug') == $ci->uri->segment(1) ){
                 
-                if( empty( $ci->session->userdata('namauser') ) AND empty( $ci->session->userdata('passuser') ) ){
+                if( empty( $ci->session->userdata('username') ) AND empty( $ci->session->userdata('passuser') ) ){
     
                     if( empty(get_cookie('admin_lang')) ){
                         $ci->lang->load('admin', $default);

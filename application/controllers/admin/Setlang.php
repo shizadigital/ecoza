@@ -27,7 +27,7 @@ class Setlang extends CI_Controller {
 			$this->input->set_cookie($lang_cook);
 
 			// save lang to user
-			if( !empty( $this->session->userdata('namauser') ) AND !empty( $this->session->userdata('passuser') ) ){
+			if( !empty( $this->session->userdata('username') ) AND !empty( $this->session->userdata('passuser') ) ){
 
 				$adminid = $this->session->userdata('adminid');
 

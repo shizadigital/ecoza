@@ -26,5 +26,10 @@ composer.lock
 
 /system/sessions/
 
+files/files/
+!files/files/index.html
+files/images/
+!files/images/index.html
+
 /vendor/
 .env

@@ -582,6 +582,13 @@ $lang['attributesgroup'] = "Atribut Group";
 $lang['editattributesgroup'] = "Edit Atribut Group";
 $lang['totalattr'] = "Total Atribut";
 
+/**
+ * Product Badges
+ */
+$lang['productbadges'] = "Lencana Produk";
+$lang['editproductbadges'] = "Edit Lencana Produk";
+$lang['totalproduct'] = "Total Produk";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///

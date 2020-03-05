@@ -66,6 +66,18 @@ class SchemaDefinition
 		$this->CI->dbforge->add_field($fields);
 	}
 
+	function decimal($field_name, $config = null)
+	{
+		$fields = array(
+				$field_name => array(
+						'type' 				=> (isset($config['type'])) ? $config['type'] : 'DECIMAL',
+						'constraint'		=> (isset($config['length'])) ? $config['length']: '15,8',
+						'unsigned'			=> (isset($config['unsigned'])) ? $config['unsigned'] : '',
+					)
+			);
+		$this->CI->dbforge->add_field($fields);
+	}
+
 	function primary($field_name) 
 	{
 		$prefix = isset($_ENV['DB_PREFIX']) ? $_ENV['DB_PREFIX'] : '';

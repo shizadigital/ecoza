@@ -36,15 +36,15 @@ class Product_categories extends CI_Controller{
 				$lang = get_cookie('admin_lang');
 				if( $lang != $this->config->item('language') ){
 					// check the keyword here
-					$dataidresult = $this->Env_model->view_where("dtRelatedId","dynamic_translations","dtRelatedTable='{$table}' AND dtLang='{$lang}' AND ( (dtRelatedField='catName' AND dtTranslation LIKE '%{$kw}%') OR (dtRelatedField='catDesc' AND dtTranslation LIKE '%{$kw}%') ) ");
+					$dataidresult = $this->Env_model->view_where("dtRelatedId","dynamic_translations","dtRelatedTable='{$table}' AND dtLang='{$lang}' AND ( dtRelatedId IN (SELECT catId FROM ".$this->db->dbprefix($table)." WHERE catId=dtRelatedId AND catType='product') AND (dtRelatedField='catName' AND dtTranslation LIKE '%{$kw}%') OR (dtRelatedField='catDesc' AND dtTranslation LIKE '%{$kw}%') ) ");
+
+					$standardlangcount = countdata($table, $where . $excClause);
 
 					if( count($dataidresult)>0 ){
 						$resultlangsearch = array();
 						foreach($dataidresult AS $key => $val){
 							$resultlangsearch[] = $val['dtRelatedId'];
 						}
-
-						$standardlangcount = countdata($table, $where . $excClause);
 
 						$querysearchlang = ($standardlangcount > 0) ? '(':'';
 						$querysearchlang .= '( catId=\'' .implode('\' OR catId=\'', $resultlangsearch). '\' )';
@@ -58,7 +58,9 @@ class Product_categories extends CI_Controller{
 						$excClause = " AND $querysearchlang";
 						
 					} else {
-						$excClause = " AND catName='' AND catDesc=''";
+						if($standardlangcount < 1){
+							$excClause = " AND catName='' AND catDesc=''";
+						}
 					}
 				}
             }

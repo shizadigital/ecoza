@@ -56,6 +56,8 @@ class Migration extends CI_Controller {
         Self::create_shiza_seo_page_table();
         Self::create_shiza_slider_table();
         Self::create_shiza_testimonial_table();
+        Self::create_shiza_unit_weight_table();
+        Self::create_shiza_unit_length_table();
         Self::create_shiza_users_table();
         Self::create_shiza_users_level_table();
         Self::create_shiza_users_menu_table();
@@ -479,6 +481,28 @@ class Migration extends CI_Controller {
         $schema->run();
     }
 
+    protected function create_shiza_unit_weight_table() {
+
+        $schema = $this->schema->create_table('unit_weight');
+        $schema->increments('weightId', ['length' => '11']);
+        $schema->string('weightTitle', ['length' => '35']);
+        $schema->string('weightUnit', ['length' => '5']);
+        $schema->decimal('weightValue', ['length' => '15,8']);
+        $schema->enum('weightDefault', ['y', 'n']);
+        $schema->run();
+    }
+
+    protected function create_shiza_unit_length_table() {
+
+        $schema = $this->schema->create_table('unit_length');
+        $schema->increments('lengthId', ['length' => '11']);
+        $schema->string('lengthTitle', ['length' => '35']);
+        $schema->string('lengthUnit', ['length' => '5']);
+        $schema->decimal('lengthValue', ['length' => '15,8']);
+        $schema->enum('lengthDefault', ['y', 'n']);
+        $schema->run();
+    }
+
     protected function create_shiza_users_table() {
 
         $schema = $this->schema->create_table('users');
@@ -606,6 +630,8 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('seo_page');
         $this->schema->drop_table('slider');
         $this->schema->drop_table('testimonial');
+        $this->schema->drop_table('unit_weight');
+        $this->schema->drop_table('unit_length');
         $this->schema->drop_table('users');
         $this->schema->drop_table('users_level');
         $this->schema->drop_table('users_menu');
@@ -690,6 +716,9 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'15', 'dtLang'=>'en_US', 'dtTranslation'=>'Product', 'dtInputType'=>'text', 'dtCreateDate'=>'1583254882', 'dtUpdateDate'=>'1583254882'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'16', 'dtLang'=>'en_US', 'dtTranslation'=>'Attributes Group', 'dtInputType'=>'text', 'dtCreateDate'=>'1583255842', 'dtUpdateDate'=>'1583255842'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'17', 'dtLang'=>'en_US', 'dtTranslation'=>'Product Badges', 'dtInputType'=>'text', 'dtCreateDate'=>'1583350660', 'dtUpdateDate'=>'1583350660'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'18', 'dtLang'=>'en_US', 'dtTranslation'=>'Localization', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429030', 'dtUpdateDate'=>'1583429099'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'19', 'dtLang'=>'en_US', 'dtTranslation'=>'Weight Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429622', 'dtUpdateDate'=>'1583429908'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'20', 'dtLang'=>'en_US', 'dtTranslation'=>'Length Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583430361', 'dtUpdateDate'=>'1583430361'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1063,6 +1092,48 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'y',
             ],
+            [
+                'menuParentId' => '0',
+                'menuName' => 'Lokalisasi', 
+                'menuAccess' => '',
+                'menuAddedDate' => '1583429029', 
+                'menuSort' => '3',
+                'menuIcon' => 'fe fe-map-pin', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'n', 
+                'menuEdit' => 'n',
+                'menuDelete' => 'n',
+            ],
+            [
+                'menuParentId' => '18',
+                'menuName' => 'Satuan Bobot', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"weight_unit";}',
+                'menuAddedDate' => '1583429908', 
+                'menuSort' => '1',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
+            [
+                'menuParentId' => '18',
+                'menuName' => 'Satuan Panjang', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"length_unit";}',
+                'menuAddedDate' => '1583430360', 
+                'menuSort' => '2',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1234,6 +1305,33 @@ class Migration extends CI_Controller {
                 'lmnId' => '17', 
                 'levelId' => '1',
                 'menuId' => '17', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '18', 
+                'levelId' => '1',
+                'menuId' => '18', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'n', 
+                'lmnEdit' => 'n',
+                'lmnDelete' => 'n',
+            ],
+			[
+                'lmnId' => '19', 
+                'levelId' => '1',
+                'menuId' => '19', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '20', 
+                'levelId' => '1',
+                'menuId' => '20', 
                 'lmnView' => 'y',
                 'lmnAdd' => 'y', 
                 'lmnEdit' => 'y',

@@ -201,6 +201,7 @@ $lang['none'] = "None";
 $lang['socialmedia'] = " Social Media";
 $lang['link'] = "Link";
 $lang['links'] = "Links";
+$lang['linked'] = "Linked";
 $lang['relattribute'] = "Relationship Attribute";
 $lang['relattributeinfo'] = "Relationship of URL link";
 $lang['relationship'] = "Relationship";
@@ -235,8 +236,6 @@ $lang['provision'] = "Provision";
 $lang['access'] = "Access";
 $lang['defaultlanguage'] = "Default Language";
 $lang['totalaccount'] = "Total Account";
-$lang['product'] = "Product";
-$lang['products'] = "Products";
 $lang['price'] = "Price";
 $lang['prices'] = "Prices";
 $lang['purchased'] = "Purchased";
@@ -246,11 +245,9 @@ $lang['disable'] = "Disable";
 $lang['ajaxprocess'] = "L O A D I N G . . .";
 $lang['infoemptycategories'] = "Categories not available, please add";
 $lang['code'] = "Code";
-$lang['productname'] = "Product Name";
 $lang['youtubevideo'] = "Youtube Video";
 $lang['infoyoutubereq'] = "The video URL allowed is only from youtube";
 $lang['displaystatus'] = "Display Status";
-$lang['displayproduct'] = "Display Product?";
 $lang['displaycomments'] = "Display Comments?";
 $lang['weight'] = "Weight";
 $lang['capitalprice'] = "Capital Price";
@@ -282,14 +279,12 @@ $lang['stocktype'] = "Stock Type";
 $lang['unlimited'] = "Unlimited";
 $lang['limited'] = "Limited";
 $lang['conditioned'] = "Conditioned";
-$lang['totalproduct'] = "Total Products";
 $lang['variation'] = "Variation";
 $lang['choosevariation'] = "Choose Variation";
 $lang['btnset'] = "Set";
 $lang['variationprice'] = "Variation Price";
 $lang['numberofstock'] = "Number of Stock";
 $lang['btnaddvariation'] = "Add New Variation";
-$lang['productimgmanagement'] = "Product Images Management";
 $lang['remove'] = "Remove";
 $lang['deleteimgconfirm'] = "Are you sure want to delete this image?";
 $lang['failedfordelete'] = "Delete Failed";
@@ -337,7 +332,6 @@ $lang['tracking'] = "Tracking";
 $lang['trackingurl'] = "Tracking URL";
 $lang['trackingurlinfo'] = "Tracking URL is site address for courier tracking";
 $lang['freeshipping'] = "Free Shipping";
-$lang['producttype'] = "Product Type";
 $lang['addtype'] = "Add Type";
 $lang['removetype'] = "Remove Type";
 $lang['weightunit'] = "Weight Unit";
@@ -588,6 +582,18 @@ $lang['totalattr'] = "Total Attributes";
 $lang['productbadges'] = "Product Badges";
 $lang['editproductbadges'] = "Edit Product Badges";
 $lang['totalproduct'] = "Total Product";
+
+/**
+ * Products
+ */
+$lang['product'] = "Product";
+$lang['products'] = "Products";
+$lang['productname'] = "Product Name";
+$lang['displayproduct'] = "Display Product?";
+$lang['totalproduct'] = "Total Products";
+$lang['productimgmanagement'] = "Product Images Management";
+$lang['producttype'] = "Product Type";
+$lang['productinfo'] = "Product Info";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

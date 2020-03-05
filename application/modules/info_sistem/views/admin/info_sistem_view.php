@@ -21,6 +21,7 @@ include V_ADMIN_PATH . "header.php";
 include V_ADMIN_PATH . "sidebar.php";
 include V_ADMIN_PATH . "topbar.php";
 
+if(is_view()){
 ?>
 <!-- start-clients contant-->
 <div class="row">
@@ -216,6 +217,6 @@ include V_ADMIN_PATH . "topbar.php";
     </div>
 </div>
 <?php
- 
+}
 include V_ADMIN_PATH . "footer.php";
 ?>

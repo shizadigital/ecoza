@@ -201,6 +201,7 @@ $lang['none'] = "Tidak Ada";
 $lang['socialmedia'] = "Media Sosial";
 $lang['link'] = "Tautan";
 $lang['links'] = "Tautan";
+$lang['linked'] = "Penautan";
 $lang['relattribute'] = "Atribut Relasi";
 $lang['relattributeinfo'] = "Relasi URL tautan";
 $lang['relationship'] = "Relasi";
@@ -235,8 +236,6 @@ $lang['provision'] = "Ketentuan";
 $lang['access'] = "Akses";
 $lang['defaultlanguage'] = "Bahasa Standar";
 $lang['totalaccount'] = "Total Akun";
-$lang['product'] = "Produk";
-$lang['products'] = "Produk";
 $lang['price'] = "Harga";
 $lang['prices'] = "Harga";
 $lang['purchased'] = "Dibeli";
@@ -246,11 +245,9 @@ $lang['disable'] = "Non-aktifkan";
 $lang['ajaxprocess'] = "M E M P R O S E S . . .";
 $lang['infoemptycategories'] = "Kategori produk belum ada, silahkan tambah";
 $lang['code'] = "Kode";
-$lang['productname'] = "Nama Produk";
 $lang['youtubevideo'] = "Video Youtube";
 $lang['infoyoutubereq'] = "URL Video yang diizinkan hanya dari youtube";
 $lang['displaystatus'] = "Status Ditampilkan";
-$lang['displayproduct'] = "Tampilkan Produk?";
 $lang['displaycomments'] = "Tampilkan Komentar?";
 $lang['weight'] = "Berat";
 $lang['capitalprice'] = "Harga Modal";
@@ -282,14 +279,12 @@ $lang['stocktype'] = "Jenis Stok";
 $lang['unlimited'] = "Tak Terbatas";
 $lang['limited'] = "Terbatas";
 $lang['conditioned'] = "Terkondisi";
-$lang['totalproduct'] = "Total Produk";
 $lang['variation'] = "Variasi";
 $lang['choosevariation'] = "Pilih Variasi";
 $lang['btnset'] = "Set";
 $lang['variationprice'] = "Harga Variasi";
 $lang['numberofstock'] = "Jumlah Stok";
 $lang['btnaddvariation'] = "Tambah Variasi";
-$lang['productimgmanagement'] = "Menejemen Gambar Produk";
 $lang['remove'] = "Hapus";
 $lang['deleteimgconfirm'] = "Apakah Anda yakin akan menghapus gambar ini?";
 $lang['failedfordelete'] = "Gagal Dihapus";
@@ -337,7 +332,6 @@ $lang['tracking'] = "Pelacakan";
 $lang['trackingurl'] = "URL Pelacakan";
 $lang['trackingurlinfo'] = "URL Pelacakan adalah alamat situs pelacakan kurir";
 $lang['freeshipping'] = "Gratis Ongkos Kirim";
-$lang['producttype'] = "Tipe Produk";
 $lang['addtype'] = "Tambah Tipe";
 $lang['removetype'] = "Hapus Tipe";
 $lang['weightunit'] = "Satuan Berat";
@@ -588,6 +582,18 @@ $lang['totalattr'] = "Total Atribut";
 $lang['productbadges'] = "Lencana Produk";
 $lang['editproductbadges'] = "Edit Lencana Produk";
 $lang['totalproduct'] = "Total Produk";
+
+/**
+ * Products
+ */
+$lang['product'] = "Produk";
+$lang['products'] = "Produk";
+$lang['productname'] = "Nama Produk";
+$lang['displayproduct'] = "Tampilkan Produk?";
+$lang['totalproduct'] = "Total Produk";
+$lang['productimgmanagement'] = "Menejemen Gambar Produk";
+$lang['producttype'] = "Tipe Produk";
+$lang['productinfo'] = "Info Produk";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

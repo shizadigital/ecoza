@@ -28,9 +28,9 @@ composer.lock
 
 storage/thumbs/
 storage/temp/
-storage/files/
+storage/files/*
 !storage/files/index.html
-storage/images/
+storage/images/*
 !storage/images/index.html
 
 /vendor/

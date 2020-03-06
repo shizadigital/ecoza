@@ -104,13 +104,12 @@ class Translation extends CI_Controller {
 		if( is_multilang() ){
 
 			if( count($this->input->post('val')) > 0 AND $this->input->post('val') ) {
-
+				$show = '';
 				foreach ($this->input->post('val') as $key => $value) {
 					$theflagcode = strtolower( explode("_",  $value)[1] );
 					$country = locales($value);
 	
-	
-					 echo '
+					$show .= '
 						<div id="langelement_'.$this->input->post('fieldname').'_'.$value.'">';
 	
 					if($this->input->post('fieldtype')=='text'){
@@ -119,7 +118,7 @@ class Translation extends CI_Controller {
 							'name' 			=> 'datalang['.$this->input->post('fieldname').']['.$value.'][translation]',
 							'placeholder' 	=> $country
 						);
-						echo '
+						$show .= '
 							<div class="input-group mb-3 mt-15">
 								'. form_input($attrinput) .'
 								<div class="input-group-append">
@@ -130,9 +129,7 @@ class Translation extends CI_Controller {
 							</div>
 							<input type="hidden" name="datalang['.$this->input->post('fieldname').']['.$value.'][InputType]" value="text">
 						';
-					}
-	
-					if($this->input->post('fieldtype')=='textarea'){
+					} elseif($this->input->post('fieldtype')=='textarea'){
 						$attrinput = array(
 							'class' 		=> 'form-control inputlang',
 							'name' 			=> 'datalang['.$this->input->post('fieldname').']['.$value.'][translation]',
@@ -140,7 +137,7 @@ class Translation extends CI_Controller {
 							'rows' 			=> 5,
                 			'cols' 			=> '',
 						);
-						echo '
+						$show .= '
 							<div class="input-group" style="margin-top:15px;">
 								'.form_textarea($attrinput).'
 								<div class="input-group-append align-top">
@@ -151,28 +148,13 @@ class Translation extends CI_Controller {
 							</div>
 							<input type="hidden" name="datalang['.$this->input->post('fieldname').']['.$value.'][InputType]" value="textarea">
 						';
+					} else {
+						echo '503'; exit;
 					}
 	
-					// if($this->input->post('fieldtype')=='texteditor'){
-					// 	$postclass_ = $this->input->post('classeditor') ? ' '.$this->input->post('classeditor'):'';
-					// 	$postclass = $this->input->post('classeditor') ? $this->input->post('classeditor'):'';
-					// 	echo '
-					// 		<script src="'.memo_admin_url().'/assets/vendors/tinymce/tinymce_standard.js"></script>
-	
-					// 		<div class="input-group mb-3 mt-15">
-					// 			<textarea class="form-control inputlang'.$postclass_.'" name="datalang['.$this->input->post('fieldname').']['.$value.'][translation]" placeholder="'.$country.'" id="wysiwg_editor_'.$this->input->post('fieldname').'_'.$value.'"></textarea>
-					// 			<div class="input-group-append align-top bg-light"><span class="input-group-text"><i class="flag-icon flag-icon-'.$theflagcode.'"></i></span></div>
-					// 			<div class="input-group-append align-top">
-					// 				<button class="btn btn-danger" id="rmlang_'.$this->input->post('fieldname').'_'.$value.'" type="button"><i class="fa fa-times"></i></button>
-					// 			</div>
-					// 		</div>
-					// 		<input type="hidden" name="datalang['.$this->input->post('fieldname').']['.$value.'][InputType]" value="texteditor">
-					// 	';
-					// }
-	
-					echo '<script type="text/javascript">
+					$show .= '<script type="text/javascript">
 						jQuery(document).ready(function($){';
-							echo '
+							$show .= '
 								$("#rmlang_'.$this->input->post('fieldname').'_'.$value.'").click(function(){
 									$("#thelang_'.$this->input->post('fieldname').'").removeClass(\''.$value.'\');
 									$("#langelement_'.$this->input->post('fieldname').'_'.$value.'").remove(\'#langelement_'.$this->input->post('fieldname').'_'.$value.'\');
@@ -181,6 +163,8 @@ class Translation extends CI_Controller {
 							</script>
 						</div>';
 				}
+				
+				echo $show;
 	
 			} else{
 				echo '503';

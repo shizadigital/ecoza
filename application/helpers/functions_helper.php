@@ -691,7 +691,7 @@ function makeDir($namadir, $permission = 0755, $recursive = false){
 function makeDirUpload($dir, $dirextra, $type ='images', $error_handling=true){
     $error = false;
 
-    $dirname = DIR_FILE_PATH.$type.DIRECTORY_SEPARATOR.$dir;
+    $dirname = STORAGE_PATH.$type.DIRECTORY_SEPARATOR.$dir;
     $dirupload = $dirname.DIRECTORY_SEPARATOR.$dirextra;
 
     if(is_dir($dirname)==false){ // periksa direktori berdasarkan nama direktori

@@ -128,3 +128,23 @@ ul.parsley-errors-list {
     color: #555;
     outline: transparent;
 }
+
+
+/* 
+*
+* TinyMCE Restyle
+*/
+
+.tinymce-multilang .mce-tinymce .mce-top-part::before,
+.tinymce-multilang .mce-tinymce {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.tinymce-multilang .mce-tinymce {
+    border: 1px solid #dee2e6 !important;
+    border-top: none !important;
+    margin-top: -15px !important;
+    width: auto !important;
+}

@@ -35,8 +35,7 @@ class FormControl {
         $required  = ( isset($inputs['required']) ) ? $inputs['required']:false;
         $inputsType  = ( isset($inputs['type']) ) ? $inputs['type']:false;
         $label  = ( isset($inputs['label']) ) ? $inputs['label']:false;
-
-        $result .= '<div class="input-group mb-3"'.( ($inputsType=='texteditor') ? ' style="display:block;"':'').'>'."\n";
+        $texteditor  = ( isset($inputs['texteditor']) ) ? $inputs['texteditor']:false;
             
         // check if value data is not empty
         if( isset($inputs['value']) ){
@@ -62,16 +61,118 @@ class FormControl {
 	    $sql = "SELECT dtLang,dtTranslation,dtInputType FROM ".$CI->db->dbprefix('dynamic_translations')." WHERE ".$sqlclause;
         
         // unset variable
-        unset($inputs['type'], $inputs['required'], $inputs['label'], $inputs['value']);
-
+        unset($inputs['type'], $inputs['required'], $inputs['label'], $inputs['value'], $inputs['texteditor']);
         
+        if( $inputsType=='texteditor' ){
+            $result .= '
+            <div class="row">';
+                if( is_multilang() ){
+                $result .= '
+                <div class="col-md-12 col-sm-12 mb-2">
+                    <div class="tab">
+                        <ul class="nav nav-tabs justify-content-end" role="tablist">
+                            <li><div class="pt-2 pr-3"><i class="fa fa-language"></i> '.t('translate').':</div> </li>';
+                            foreach (langlist() as $keyl => $valuel) {
+                                $theflagcode = strtolower( explode("_",  $valuel)[1] );
+                                $country = locales($valuel);
+
+                                $result .= '
+                                <li class="nav-item">
+                                <a class="'.( ($valuel == $defaultlang) ?  ' active show':'').' nav-link" id="tablang-'.$theflagcode.'" data-toggle="tab" href="#lang-'.$theflagcode.'" role="tab" aria-controls="lang-'.$theflagcode.'" aria-selected="true"><i class="flag-icon flag-icon-'.$theflagcode.'"></i> ';
+                                    // $result .= ucwords($country);
+                                    $result .= strtoupper($theflagcode);
+
+                                    $result .= '</a>
+                                </li>
+                                ';
+                            }
+                            $result .= '
+                        </ul>
+                    </div>
+                </div>
+                ';
+                }
+                $result .= '
+            </div>
+            ';
+        }
+
+        $result .= '<div class="input-group mb-2"'.( ($inputsType=='texteditor') ? ' style="display:block;"':'').'>'."\n";
+
         /**
          * 
          * Multilanguage for input text editor like tinyMCE
          * 
          */
         if($inputsType == 'texteditor'){
+
+            // inject tinyMCE plugin here
+            $request_script_files = array();
+            $classtexteditor = '';
+            if( $texteditor=='standard' ){
+                $request_script_files = array('vendors/tinymce/tinymce_standard.js');
+                $classtexteditor = ' tinymcestandard';
+            }
+            elseif($texteditor=='simple'){
+                $request_script_files = array('vendors/tinymce/tinymce_simple.js');
+                $classtexteditor = ' tinymcesimple';
+            }
+            elseif($texteditor=='verysimple'){
+                $request_script_files = array('vendors/tinymce/tinymce_verysimple.js');
+                $classtexteditor = ' tinymceverysimple';
+            }
+
+            $reqscriptfiles = array_merge(
+                array(
+                    'vendors/tinymce/tinymce.min.js',
+                ),
+                $request_script_files
+            );
+            $CI->assetsloc->reg_admin_script($reqscriptfiles);
+
+            $result .= '<div class="tab-content">'."\n";
+
+            // define required to attribute
+            $required = ($required) ? array('data-parsley-required'=>'true'): array();
+
+            $attrId = $inputs['name'];
+            $attrClass = '';
+            if( isset($inputs['class']) OR isset($inputs['id']) ){
+                if(!empty($inputs['class'])){
+                    $attrClass = " ".$inputs['class'];
+                }
+                if(!empty($inputs['id'])){
+                    $attrId = $inputs['id'];
+                }        
+            }
+
+            if( is_multilang() ){
+                foreach (langlist() as $keyl2 => $valuel2) {
+                    $theflagcode2 = strtolower( explode("_",  $valuel2)[1] );
+                    $country2 = locales($valuel2);
+                    
+                    if( !empty($dbtable) AND !empty($dbfield) AND  !empty($dbrelid) ){                        
+		            	$langsql = $sql . " AND dtLang='{$valuel2}'";
+			            $querylang = $CI->db->query($langsql);
+			    		$dl = $querylang->result_array($querylang)[0];
+			    	}
+
+                    $result .= '<div class="tab-pane fade pt-2 tinymce-multilang'.( ($valuel2 == $defaultlang)? ' active show':'').'" id="lang-'.$theflagcode2.'" role="tabpanel" aria-labelledby="tablang-'.$theflagcode2.'">'."\n";
+
+                    $result .= '<textarea id="'.$attrId.'-'.$theflagcode2.'" name="datalang['.$inputs['name'].']['.$valuel2.'][translation]" placeholder="'.$country2.'" rows="5" class="form-control'.$classtexteditor.$attrClass.'"'.( ($valuel2 == $defaultlang AND count($required) > 0)? ' data-parsley-required="true"':'').'>';
+
+                    $dtranslation = (!empty($dl['dtTranslation']))? $dl['dtTranslation']:'';
+                    $texteditorval = ($valuel2 == $defaultlang)?$value:$dtranslation;
+
+                    $result .= $texteditorval;
+
+                    $result .= '</textarea>'."\n";
+
+                    $result .= '</div>'."\n";
+                }
+            }
             
+            $result .= '</div>'."\n";
         }
 
         /**
@@ -154,7 +255,7 @@ class FormControl {
         }
 
         // check if this web is multilang
-        if( is_multilang() ){
+        if( is_multilang() AND $inputsType!='texteditor'){
             $result .= '
 	        <div class="input-group-append">
 	            <button data-toggle="modal" data-target="#translate_'.$inputs['name'].'" class="btn btn-light shiza_tooltip" title="'.t('translate').'" id="modal_'.$inputs['name'].'" type="button"><i class="fa fa-language"></i></button>
@@ -168,7 +269,7 @@ class FormControl {
          * ajax and result start here
          * 
          ************************************/
-        if( is_multilang() ){
+        if( is_multilang() AND $inputsType!='texteditor' ){
             $result .= "\n".'<div id="thelang_'.$inputs['name'].'"';
 
             if( !empty($dbtable) AND !empty($dbfield) AND  !empty($dbrelid) ){
@@ -315,12 +416,7 @@ class FormControl {
 
 	    			var jsondata = { 
 			            	fieldtype: "'.$inputsType.'",
-			            	fieldname: "'.$inputs['name'].'",
-			            	';
-			            	// if($inputsType=='texteditor'){
-			            	// 	echo 'classeditor: "'.$fieldclass.'",';
-			            	// }
-                            $result .= '
+			            	fieldname: "'.$inputs['name'].'",			            	
 	                        CP: "'.get_cookie('sz_token').'",
 	                        val: vallang
 	                    };
@@ -385,6 +481,7 @@ class FormControl {
                 
                 $formType = $val['type'];
                 $help = ( isset($val['help']) ) ? $val['help']:'';
+                $info = ( isset($val['info']) ) ? $val['info']:'';
                 
                 echo ($formType !='hidden')?'<div class="form-group'.(($layout == 'horizontal') ? ' row':'').'">'."\n":'';
 
@@ -397,7 +494,7 @@ class FormControl {
                         echo ' class="'.$classval.'"';
                     }
 
-                    echo ' for="'.( ( isset($val['id']) )? $val['id']:$name).'">' . $label . '</label>'."\n";
+                    echo ' for="'.( ( isset($val['id']) )? $val['id']:$name).'">' . $label . ( !empty($info) ? ' <i class="fa fa-question-circle text-blue shiza_tooltip" title="'.$info.'"></i>':'' ) .'</label>'."\n";
                 }
 
                 if( !empty($val['type']) ){
@@ -408,7 +505,7 @@ class FormControl {
                     if($layout == 'horizontal' AND $formType !='hidden'){ echo '<div class="'.$col_element.'">'; }
                     
                     // remove key so as not to insert to attribute
-                    unset( $val['type'], $val['help'], $val['label'], $val['required'], $val['option'], $val['selected'] );
+                    unset( $val['type'], $val['help'], $val['label'], $val['required'], $val['option'], $val['selected'], $val['info'] );
 
                     // define required to attribute
                     $required = ($required) ? array('required'=>'required'): array();
@@ -453,6 +550,23 @@ class FormControl {
                         // make standard attributes
                         $attrStandard = array(
                             'type' => 'textarea',
+                            'label' => $label,
+                            'name' => $name,
+                            'required' => ( count( $required ) > 0 ) ? true:false
+                        );
+                        
+                        $val_ = array_merge($val, $attrStandard);
+
+                        echo self::buildTranslationInputs( $val_ );
+                    }
+
+                    /**
+                     * input texteditor multilanguage
+                     */
+                    elseif( $formType == 'multilanguage_texteditor' ){
+                        // make standard attributes
+                        $attrStandard = array(
+                            'type' => 'texteditor',
                             'label' => $label,
                             'name' => $name,
                             'required' => ( count( $required ) > 0 ) ? true:false

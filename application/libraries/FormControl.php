@@ -998,7 +998,11 @@ class FormControl {
                         echo form_input($val_);
                     }
 
-                    if(!empty($help AND $formType !='hidden')) { echo '<small class="form-text text-muted">'.$help.'</small>'; }
+                    if(!empty($help AND $formType !='hidden')) { 
+                        echo '<small';
+                        if($formType=='multilanguage_textarea' OR $formType == 'multilanguage_text'){ echo ' style="margin-top: -1rem;"'; }
+                        echo ' class="form-text text-muted">'.$help.'</small>';
+                    }
                     
                     if($layout == 'horizontal' AND $formType !='hidden'){ echo '</div>'."\n"; }
 

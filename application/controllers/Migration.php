@@ -706,7 +706,7 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'10', 'dtLang'=>'en_US', 'dtTranslation'=>'User Group', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135913', 'dtUpdateDate'=>'1583135913'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'6', 'dtLang'=>'en_US', 'dtTranslation'=>'Settings', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135933', 'dtUpdateDate'=>'1583135933'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'7', 'dtLang'=>'en_US', 'dtTranslation'=>'Website Setting', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135955', 'dtUpdateDate'=>'1583135955'],
-            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'4', 'dtLang'=>'en_US', 'dtTranslation'=>'Tools', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135990', 'dtUpdateDate'=>'1583135990'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'4', 'dtLang'=>'en_US', 'dtTranslation'=>'System', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135990', 'dtUpdateDate'=>'1583135990'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'5', 'dtLang'=>'en_US', 'dtTranslation'=>'System Info', 'dtInputType'=>'text', 'dtCreateDate'=>'1583136049', 'dtUpdateDate'=>'1583136049'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'1', 'dtLang'=>'en_US', 'dtTranslation'=>'Development', 'dtInputType'=>'text', 'dtCreateDate'=>'1583136078', 'dtUpdateDate'=>'1583136078'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'2', 'dtLang'=>'en_US', 'dtTranslation'=>'Admin Master Menu', 'dtInputType'=>'text', 'dtCreateDate'=>'1583136102', 'dtUpdateDate'=>'1583136102'],
@@ -716,7 +716,7 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'15', 'dtLang'=>'en_US', 'dtTranslation'=>'Product', 'dtInputType'=>'text', 'dtCreateDate'=>'1583254882', 'dtUpdateDate'=>'1583254882'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'16', 'dtLang'=>'en_US', 'dtTranslation'=>'Attributes Group', 'dtInputType'=>'text', 'dtCreateDate'=>'1583255842', 'dtUpdateDate'=>'1583255842'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'17', 'dtLang'=>'en_US', 'dtTranslation'=>'Product Badges', 'dtInputType'=>'text', 'dtCreateDate'=>'1583350660', 'dtUpdateDate'=>'1583350660'],
-            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'18', 'dtLang'=>'en_US', 'dtTranslation'=>'Localization', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429030', 'dtUpdateDate'=>'1583429099'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'18', 'dtLang'=>'en_US', 'dtTranslation'=>'Reports', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429030', 'dtUpdateDate'=>'1583429099'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'19', 'dtLang'=>'en_US', 'dtTranslation'=>'Weight Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429622', 'dtUpdateDate'=>'1583429908'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'20', 'dtLang'=>'en_US', 'dtTranslation'=>'Length Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583430361', 'dtUpdateDate'=>'1583430361'],
 		];
@@ -898,7 +898,7 @@ class Migration extends CI_Controller {
             ],
 			[
                 'menuParentId' => '0',
-                'menuName' => 'Alat', 
+                'menuName' => 'System', 
                 'menuAccess' => '',
                 'menuAddedDate' => '1577728905', 
                 'menuSort' => '4',
@@ -1094,11 +1094,11 @@ class Migration extends CI_Controller {
             ],
             [
                 'menuParentId' => '0',
-                'menuName' => 'Lokalisasi', 
+                'menuName' => 'Laporan', 
                 'menuAccess' => '',
                 'menuAddedDate' => '1583429029', 
                 'menuSort' => '3',
-                'menuIcon' => 'fe fe-map-pin', 
+                'menuIcon' => 'fe fe-clipboard', 
                 'menuAttrClass' => '',
                 'menuActive' => 'y', 
                 'menuView' => 'y',
@@ -1107,7 +1107,7 @@ class Migration extends CI_Controller {
                 'menuDelete' => 'n',
             ],
             [
-                'menuParentId' => '18',
+                'menuParentId' => '6',
                 'menuName' => 'Satuan Bobot', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"weight_unit";}',
                 'menuAddedDate' => '1583429908', 
@@ -1121,7 +1121,7 @@ class Migration extends CI_Controller {
                 'menuDelete' => 'y',
             ],
             [
-                'menuParentId' => '18',
+                'menuParentId' => '6',
                 'menuName' => 'Satuan Panjang', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"length_unit";}',
                 'menuAddedDate' => '1583430360', 

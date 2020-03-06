@@ -500,7 +500,7 @@ function cron_activity_log($cronName,$report) {
 }
 
 /**** set and filter comma in number ***/
-function singleIntComma($value, $sepin= ",", $sepout = "."){
+function singleComma($value, $sepin= ",", $sepout = "."){
     $ex_val = explode($sepin, $value);              
 
     if(count($ex_val) > 1){ $value_ = $ex_val[0].$sepout; }

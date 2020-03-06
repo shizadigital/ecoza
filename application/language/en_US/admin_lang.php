@@ -443,6 +443,7 @@ $lang['removemainimage'] = "Remove main image";
 $lang['fileisnotfoundinfo'] = "No item found";
 $lang['typename'] = "Type Name";
 $lang['typedescription'] = "Type Description";
+$lang['unit'] = "Unit";
 $lang['unitname'] = "Unit Name";
 $lang['unitexplanation'] = "Unit Explanation";
 $lang['order_s'] = "Order(s)";
@@ -594,6 +595,18 @@ $lang['totalproduct'] = "Total Products";
 $lang['productimgmanagement'] = "Product Images Management";
 $lang['producttype'] = "Product Type";
 $lang['productinfo'] = "Product Info";
+
+/**
+ * Weigth Unit
+ */
+$lang['editweight'] = "Edit Weight";
+
+/**
+ * Length Unit
+ */
+$lang['editlength'] = "Edit Length";
+$lang['lengthunit'] = "Length Unit";
+$lang['length'] = "Length";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

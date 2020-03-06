@@ -249,7 +249,7 @@ $lang['youtubevideo'] = "Video Youtube";
 $lang['infoyoutubereq'] = "URL Video yang diizinkan hanya dari youtube";
 $lang['displaystatus'] = "Status Ditampilkan";
 $lang['displaycomments'] = "Tampilkan Komentar?";
-$lang['weight'] = "Berat";
+$lang['weight'] = "Bobot";
 $lang['capitalprice'] = "Harga Modal";
 $lang['specialprice'] = "Harga Spesial";
 $lang['normalprice'] = "Harga Normal";
@@ -316,7 +316,7 @@ $lang['fixedamount'] = "Jumlah Tetap";
 $lang['priceoverride'] = "Timpa Harga";
 $lang['endnow'] = "Akhiri Sekarang";
 $lang['couponname'] = "Nama Kupon";
-$lang['commainfo'] = "Ketik koma(,) untuk nilai berkoma";
+$lang['commainfo'] = "Ketik koma(,) untuk nilai berkoma (Desimal)";
 $lang['multipleselectinfo'] = "Tekan tombol CTRL lalu klik beberapa pilihan pada list";
 $lang['onlymembers'] = "Hanya Member";
 $lang['startdate'] = "Tanggal Mulai";
@@ -334,7 +334,7 @@ $lang['trackingurlinfo'] = "URL Pelacakan adalah alamat situs pelacakan kurir";
 $lang['freeshipping'] = "Gratis Ongkos Kirim";
 $lang['addtype'] = "Tambah Tipe";
 $lang['removetype'] = "Hapus Tipe";
-$lang['weightunit'] = "Satuan Berat";
+$lang['weightunit'] = "Satuan Bobot";
 $lang['addunit'] = "Tambah Satuan";
 $lang['removeunit'] = "Hapus Satuan";
 $lang['updaterate'] = "Perbarui Kurs";
@@ -443,6 +443,7 @@ $lang['removemainimage'] = "Hapus gambar utama";
 $lang['fileisnotfoundinfo'] = "Berkas tidak tersedia";
 $lang['typename'] = "Nama tipe";
 $lang['typedescription'] = "Keterangan tipe";
+$lang['unit'] = "Satuan";
 $lang['unitname'] = "Nama Satuan";
 $lang['unitexplanation'] = "Keterangan Satuan";
 $lang['order_s'] = "Pesanan";
@@ -595,6 +596,18 @@ $lang['productimgmanagement'] = "Menejemen Gambar Produk";
 $lang['producttype'] = "Tipe Produk";
 $lang['productinfo'] = "Info Produk";
 
+/**
+ * Weigth Unit
+ */
+$lang['editweight'] = "Edit Bobot";
+
+/**
+ * Length Unit
+ */
+$lang['editlength'] = "Edit Panjang";
+$lang['lengthunit'] = "Satuan Panjang";
+$lang['length'] = "Panjang";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///
@@ -649,7 +662,7 @@ $lang['couponcodenotavailable'] = "Kode kupon \"%s\" tidak dapat digunakan, dika
 $lang['couponhaveordered'] = "Maaf, kupon belum dapat dihapus, dikarenakan masih memiliki pesanan. Silahkan selesaikan pesanan terlebih dahulu.";
 $lang['datausedanotherdata'] = "Data ini tidak dapat dihapus karena terhubung oleh data lain";
 $lang['producttypeempty'] = "Tipe Produk wajib diisi tidak boleh kosong";
-$lang['weightunitempty'] = "Satuan berat wajib diisi tidak boleh kosong";
+$lang['weightunitempty'] = "Satuan bobot wajib diisi tidak boleh kosong";
 $lang['prefixsuffixempty'] = "Simbol Prefix dan Suffix kosong. Silahkan isi salah satunya";
 $lang['cannotremovedefault'] = "Mata Uang %s tidak bisa dihapus";
 $lang['invoiceformatnumberempty'] = "Tag {NUMBER} tidak boleh kosong";

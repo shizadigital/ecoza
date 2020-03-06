@@ -148,3 +148,9 @@ ul.parsley-errors-list {
     margin-top: -15px !important;
     width: auto !important;
 }
+
+.tinymce-multilang div.mce-fullscreen {
+    z-index: 1100;
+    margin-top: 0px !important;
+    width: 100% !important;
+}

@@ -418,7 +418,7 @@ $lang['coverage'] = "Cakupan";
 $lang['domestic'] = "Lokal";
 $lang['international'] = "Internasional";
 $lang['infoupdatecourier'] = "Untuk proses update memerlukan waktu yang lama. Mohon selama proses tidak menutup halaman ataupun refresh halaman.";
-$lang['featured'] = "Utama";
+$lang['featured'] = "Diutamakan";
 $lang['btnaddproduct'] = "Tambah Produk";
 $lang['change'] = "Ganti";
 $lang['changeaddress'] = "Ganti Alamat";
@@ -472,6 +472,17 @@ $lang['smtp_securetype'] = "Tipe Keamanan SMTP";
 $lang['emailsignature'] = "Tanda Tangan Email";
 $lang['setprivilege'] = 'Atur Perizinan';
 $lang['menu'] = 'Menu';
+$lang['add_to_cart'] = 'Tambah ke Keranjang';
+$lang['add_to_cart_desc'] = 'Produk dapat dipesan oleh pelanggan';
+$lang['contact_to_order'] = 'Hubungi untuk Memesan';
+$lang['contact_to_order_desc'] = 'Pelanggan harus menghubungi Anda untuk memesan produk ini';
+$lang['coming_soon'] = 'Akan Datang';
+$lang['coming_soon_desc'] = 'Produk akan datang, belum dapat dipesan (Preview Only)';
+$lang['sold_out'] = 'Habis Terjual';
+$lang['sold_out_desc'] = 'Produk telah terjual';
+$lang['productrules'] = 'Aturan Produk';
+$lang['productrulesinfo'] = 'Aturan Produk Belum Ada, Silahkan Tambahkan';
+$lang['allowreviews'] = 'Bolehkan Ulasan';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -607,6 +618,11 @@ $lang['editweight'] = "Edit Bobot";
 $lang['editlength'] = "Edit Panjang";
 $lang['lengthunit'] = "Satuan Panjang";
 $lang['length'] = "Panjang";
+
+/**
+ * Product
+ */
+$lang['relatedproducts'] = "Produk terkait";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

@@ -472,6 +472,17 @@ $lang['smtp_securetype'] = " SMTP Secure Type";
 $lang['emailsignature'] = "Email Signature";
 $lang['setprivilege'] = 'Set Privilege';
 $lang['menu'] = 'Menu';
+$lang['add_to_cart'] = 'Add to Cart';
+$lang['add_to_cart_desc'] = 'The product can be ordered by customers';
+$lang['contact_to_order'] = 'Contact to Order';
+$lang['contact_to_order_desc'] = 'Customers have to contact you to order this product';
+$lang['coming_soon'] = 'Coming Soon';
+$lang['coming_soon_desc'] = 'Product is coming soon, can\'t be ordered (Preview Only)';
+$lang['sold_out'] = 'Sold Out';
+$lang['sold_out_desc'] = 'Product is sold out';
+$lang['productrules'] = 'Product Rules';
+$lang['productruleinfo'] = 'There are no product rules, please add';
+$lang['allowreviews'] = 'Allow Reviews';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -607,6 +618,11 @@ $lang['editweight'] = "Edit Weight";
 $lang['editlength'] = "Edit Length";
 $lang['lengthunit'] = "Length Unit";
 $lang['length'] = "Length";
+
+/**
+ * Product
+ */
+$lang['relatedproducts'] = "Related Products";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

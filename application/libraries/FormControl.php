@@ -501,7 +501,7 @@ class FormControl {
                         echo ' class="'.$classval.'"';
                     }
 
-                    echo ' for="'.( ( isset($val['id']) )? $val['id']:$name).'">' . $label . ( !empty($info) ? ' <i class="fa fa-question-circle text-blue shiza_tooltip" title="'.$info.'"></i>':'' ) .'</label>'."\n";
+                    echo ' for="'.( ( isset($val['id']) )? $val['id']:explode("[",$name)[0]).'">' . $label . ( !empty($info) ? ' <i class="fa fa-question-circle text-blue shiza_tooltip" title="'.$info.'"></i>':'' ) .'</label>'."\n";
                 }
 
                 if( !empty($val['type']) ){
@@ -615,7 +615,7 @@ class FormControl {
                         $CI->assetsloc->reg_admin_script($reqscriptfiles);
 
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
                         $attrRows = 5;
 
                         if( isset($val['class']) OR isset($val['id']) OR isset($val['rows']) ){
@@ -641,7 +641,7 @@ class FormControl {
                     elseif( $formType == 'textarea' ){
 
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
                         $attrRows = 5;
 
                         if( isset($val['class']) OR isset($val['id']) OR isset($val['rows']) ){
@@ -750,7 +750,7 @@ class FormControl {
                      */
                     elseif( $formType == 'select' ){
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
 
                         // unset key name in $val
                         unset($val['name']);
@@ -783,7 +783,7 @@ class FormControl {
                      */
                     elseif( $formType == 'multipleselect' ){
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
 
                         // unset key name in $val
                         unset($val['name']);
@@ -817,7 +817,7 @@ class FormControl {
                     elseif( $formType == 'text' ){                        
                         
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
 
                         if( isset($val['class']) OR isset($val['id']) ){
                             if(!empty($val['class'])){
@@ -846,7 +846,7 @@ class FormControl {
                     elseif( $formType == 'email' ){                        
                         
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
 
                         if( isset($val['class']) OR isset($val['id']) ){
                             if(!empty($val['class'])){
@@ -875,7 +875,7 @@ class FormControl {
                      */
                     elseif( $formType == 'file' ){
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
 
                         if( !empty($val['value']) ){ unset($val['value']); }
 
@@ -907,7 +907,7 @@ class FormControl {
                      */
                     elseif( $formType == 'file-img' ){
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
                         $imglocation = "";
 
                         if( !empty($val['value']) ){ 
@@ -974,7 +974,7 @@ class FormControl {
 
                                 echo '<div class="custom-control custom-checkbox pt-2'.(( $layout_box == 'horizontal') ? ' custom-control-inline':'').'">'."\n";
                                 $attrClass = "";
-                                $attrId = $name;
+                                $attrId = explode("[",$name)[0];
 
                                 if( isset($val['class']) OR isset($val['id']) ){
                                     if(!empty($val['class'])){
@@ -1006,7 +1006,7 @@ class FormControl {
 
                             echo '<div class="custom-control custom-checkbox pt-2'.(( $layout_box == 'horizontal')? ' custom-control-inline':'').'">';
                             $attrClass = "";
-                            $attrId = $name;
+                            $attrId = explode("[",$name)[0];
 
                             if( isset($val['class']) OR isset($val['id']) ){
                                 if(!empty($val['class'])){
@@ -1054,7 +1054,7 @@ class FormControl {
 
                                 echo '<div class="custom-control custom-radio pt-2'.(( $layout_box == 'horizontal') ? ' custom-control-inline':'').'">'."\n";
                                 $attrClass = "";
-                                $attrId = $name;
+                                $attrId = explode("[",$name)[0];
 
                                 if( isset($val['class']) OR isset($val['id']) ){
                                     if(!empty($val['class'])){
@@ -1086,7 +1086,7 @@ class FormControl {
 
                             echo '<div class="custom-control custom-radio pt-2'.(( $layout_box == 'horizontal')? ' custom-control-inline':'').'">';
                             $attrClass = "";
-                            $attrId = $name;
+                            $attrId = explode("[",$name)[0];
 
                             if( isset($val['class']) OR isset($val['id']) ){
                                 if(!empty($val['class'])){
@@ -1118,7 +1118,7 @@ class FormControl {
                      */
                     elseif( $formType == 'password' ){
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
 
                         if( isset($val['class']) OR isset($val['id']) ){
                             if(!empty($val['class'])){
@@ -1147,7 +1147,7 @@ class FormControl {
                      */
                     else {
                         $attrClass = "";
-                        $attrId = $name;
+                        $attrId = explode("[",$name)[0];
 
                         if( isset($val['class']) OR isset($val['id']) ){
                             if(!empty($val['class'])){

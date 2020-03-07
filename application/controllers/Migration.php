@@ -52,7 +52,8 @@ class Migration extends CI_Controller {
         Self::create_shiza_manufacturers_table();
         Self::create_shiza_message_table();
         Self::create_shiza_options_table();
-        Self::create_shiza_rating_table();
+        Self::create_shiza_product_table();
+        Self::create_shiza_review_table();
         Self::create_shiza_seo_page_table();
         Self::create_shiza_slider_table();
         Self::create_shiza_testimonial_table();
@@ -415,21 +416,73 @@ class Migration extends CI_Controller {
         $schema->index('optionName');
     }
 
-    protected function create_shiza_rating_table() {
+    protected function create_shiza_product_table(){
+        $schema = $this->schema->create_table('product');
+        $schema->increments('prodId', ['length' => '11']);
+        $schema->string('userLogin', ['length' => '100']);
+        $schema->integer('manufactId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('optionProdRules', ['type'=>'TINYINT', 'length' => '3', 'unsigned' => TRUE]);
+        $schema->string('prodCode', ['length' => '25']);
+        $schema->string('prodSku', ['length' => '65']);
+        $schema->string('prodIsbn', ['length' => '18']);
+        $schema->string('prodMpn', ['length' => '65']);
+        $schema->string('prodName', ['length' => '255']);
+        $schema->string('prodPermalink', ['length' => '255']);
+        $schema->text('prodDesc');
+        $schema->enum('prodFeatured', ['y', 'n']);
+        $schema->decimal('prodBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('prodPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('prodSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('prodFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('prodWeight', ['length' => '15,8']);
+        $schema->string('prodWeightUnit', ['length' => '5']);
+        $schema->decimal('prodLength', ['length' => '15,8']);
+        $schema->decimal('prodWidth', ['length' => '15,8']);
+        $schema->decimal('prodHeight', ['length' => '15,8']);
+        $schema->string('prodLengthUnit', ['length' => '5']);
+        $schema->string('prodOrigin', ['length' => '100']);
+        $schema->integer('prodMinOrder', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('prodMaxOrder', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->char('prodShipping', ['length' => '1']);
+        $schema->string('prodVideo', ['length' => '50']);
+        $schema->text('prodNote');
+        $schema->integer('prodBuyCount', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('prodViewCount', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('prodAdded', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('prodLastUpdate', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->char('prodDisplay', ['length' => '1']);	
+        $schema->string('prodPath', ['length' => '11']);
+        $schema->integer('prodDownloadLimit', ['type'=>'BIGINT', 'length' => '25']);
+        $schema->enum('prodDownloadFrom', ['email', 'server']);
+        $schema->char('prodAllowReview', ['length' => '1']);
+        $schema->integer('prodDeleted', ['length' => '11', 'unsigned' => TRUE]);
 
-        $schema = $this->schema->create_table('rating');
-        $schema->integer('ratingId', ['length' => '10', 'unsigned' => TRUE]);
-        $schema->integer('mId', ['length' => '10', 'unsigned' => TRUE]);
-        $schema->integer('ratingRelatedId', ['length' => '10', 'unsigned' => TRUE]);
-        $schema->string('ratingType', ['length' => '20']);
-        $schema->integer('ratingDate', ['length' => '11', 'unsigned' => TRUE]);
-        $schema->text('ratingDesc');
-        $schema->integer('ratingValue', ['length' => '11', 'unsigned' => TRUE]);
+        // ADD index
+        $schema->index('prodCode');
+        $schema->index('prodPermalink');
+        $schema->index('prodFinalPrice');
+        $schema->index('prodWeight');
+        $schema->index('prodDisplay');
+        $schema->index('prodDeleted');
+    }
+
+    protected function create_shiza_review_table() {
+
+        $schema = $this->schema->create_table('review');
+        $schema->increments('reviewId', ['type' => 'BIGINT', 'length' => '30']);
+        $schema->integer('mId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('reviewRelatedId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('reviewType', ['length' => '20']);
+        $schema->text('reviewDesc');
+        $schema->integer('reviewValue', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->enum('reviewStatus', ['y', 'n']);
+        $schema->integer('reviewAddedDate', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('reviewUpdatedDate', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 
         // ADD index
-        $schema->index('mId');
-        $schema->index('ratingRelatedId');
+        $schema->index('reviewRelatedId');
+        $schema->index('reviewType');
     }
 
     protected function create_shiza_seo_page_table() {
@@ -758,6 +811,7 @@ class Migration extends CI_Controller {
             ['optionName' => 'smtp_password', 'optionValue' => 'TFJlbkV3R1BvOUt4Zlg3eWs1VlpOZz09'],
             ['optionName' => 'smtp_host', 'optionValue' => 'myhostmail.com'],
             ['optionName' => 'smtp_ssltype', 'optionValue' => 'ssl'],
+            ['optionName' => 'productrules', 'optionValue' => 'a:4:{i:1;a:2:{s:4:"type";s:11:"add_to_cart";s:11:"description";s:16:"add_to_cart_desc";}i:2;a:2:{s:4:"type";s:16:"contact_to_order";s:11:"description";s:21:"contact_to_order_desc";}i:3;a:2:{s:4:"type";s:11:"coming_soon";s:11:"description";s:16:"coming_soon_desc";}i:4;a:2:{s:4:"type";s:8:"sold_out";s:11:"description";s:13:"sold_out_desc";}}'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [

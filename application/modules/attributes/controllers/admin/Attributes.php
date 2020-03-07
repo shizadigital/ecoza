@@ -169,7 +169,7 @@ class Attributes extends CI_Controller{
 
 			$datagroup[''] = '-- '.t('choose').' --';
 			foreach( $datagrp as $k => $v ){
-				$datagroup[$v['attrgroupId']] = $v['attrgroupLabel'];
+				$datagroup[$v['attrgroupId']] = t( array('table'=>'attribute_group','field'=>'attrgroupLabel', 'id'=>$v['attrgroupId']) );
 			}
 			
 			// get attr data

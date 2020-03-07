@@ -255,7 +255,7 @@ if( is_view() ){
                                                     "b.attrId='{$r['attrId']}' AND a.attrgroupId=b.attrgroupId"
                                                 );
 
-                                                echo $getgroup['attrgroupLabel'];
+                                                echo t( array('table'=>'attribute_group','field'=>'attrgroupLabel', 'id'=>$getgroup['attrgroupId']) );
                                             } else {
                                                 echo '<i class="fe fe-minus"></i>';
                                             }

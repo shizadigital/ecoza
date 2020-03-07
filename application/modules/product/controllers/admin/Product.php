@@ -47,6 +47,25 @@ class Product extends CI_Controller{
 
 	public function addnew(){
 		if( is_add() ){
+			// get categories
+			$categories = $this->Env_model->view_where_order('*','categories', "catActive='1' AND catType='product'",'catId','DESC');
+			foreach( $categories as $k => $v ){
+				$datacategories[$v['catId']] = $v['catName'];
+			}
+
+			// get categories
+			$manufacturers = $this->Env_model->view_where_order('*','manufacturers', "manufactActive='y' AND manufactDeleted='0'",'manufactName','ASC');
+			$datamanufacturers[''] = '-- '.t('choose').' --';
+			foreach( $manufacturers as $k => $v ){
+				$datamanufacturers[$v['manufactId']] = $v['manufactName'];
+			}
+
+			// get product
+			$product = $this->Env_model->view_where_order('prodId,prodName,','product', "prodDisplay='y' AND prodDeleted='0'",'prodId','DESC');
+			foreach( $product as $k => $v ){
+				$dataproduct[$v['prodId']] = $v['prodName'];
+			}
+
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
@@ -61,6 +80,9 @@ class Product extends CI_Controller{
 													'access' => admin_url('product')
 												)
 											),
+							'categories' => $datacategories,
+							'manufacturers' => $datamanufacturers,
+							'products' => $dataproduct
 						);
 
 			$this->load->view( admin_root('product_add'), $data );

@@ -31,3 +31,26 @@ function digitFormat($angka, $decimal = 2){
 	$return=number_format($angka,$decimal,',','.');
 	return $return;
 }
+
+function productRules($all = TRUE, $idarray = '1'){	    
+    $prodtypeopt = unserialize(get_option('productrules'));
+ 	
+	if( $all ){
+        $optdata = array();
+        foreach($prodtypeopt AS $key =>$val){
+            foreach($val as $k => $data){
+                $optdata[$key][$k] = t($data);
+            }
+        }
+		$result = $optdata;
+	} else {
+		if(count($prodtypeopt) > 0){
+			$result['type'] 		= t($prodtypeopt[$idarray]['type']);
+			$result['description']  = t($prodtypeopt[$idarray]['description']);
+		} else {
+			$result = t('productrulesinfo');
+		}
+	}
+
+	return $result;
+}

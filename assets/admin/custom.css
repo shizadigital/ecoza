@@ -161,8 +161,15 @@ ul.parsley-errors-list {
     width: 100% !important;
 }
 
+.texteditor_controllabel {
+    padding-top: 43px;
+}
+
 @media only screen and (max-width: 767px) {
     .tinymce-multilang .mce-tinymce {
         margin-top: -14px !important;
+    }
+    .texteditor_controllabel {
+        padding-top: 0.6rem !important;
     }
 }

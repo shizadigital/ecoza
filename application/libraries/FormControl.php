@@ -486,19 +486,6 @@ class FormControl {
                 // restyle for texteditor
                 $classtexteditor = '';
                 if($layout == 'horizontal' AND $formType =='multilanguage_texteditor'){
-                    echo '
-                    <style type="text/css">
-                        .texteditor_controllabel {
-                            padding-top: 43px;
-                        }
-                        @media only screen and (max-width: 767px) {
-                            .texteditor_controllabel {
-                                padding-top: 0.6rem !important;
-                            }
-                        }
-                    </style>
-                    ';
-
                     $classtexteditor = ' texteditor_controllabel';
                 }
                 

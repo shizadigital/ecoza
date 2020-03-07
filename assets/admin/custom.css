@@ -141,21 +141,26 @@ ul.parsley-errors-list {
 * TinyMCE Restyle
 */
 
-.tinymce-multilang .mce-tinymce .mce-top-part::before,
-.tinymce-multilang .mce-tinymce {
+.mce-tinymce .mce-top-part::before,
+.mce-tinymce {
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
 }
 
-.tinymce-multilang .mce-tinymce {
+.tinymce-multilang .mce-tinymce,
+.mce-tinymce {
     border: 1px solid #dee2e6 !important;
-    border-top: none !important;
-    margin-top: -15px !important;
     width: auto !important;
 }
 
-.tinymce-multilang div.mce-fullscreen {
+.tinymce-multilang .mce-tinymce {
+    border-top: none !important;
+    margin-top: -15px !important;
+}
+
+.tinymce-multilang div.mce-fullscreen,
+div.mce-fullscreen {
     z-index: 1100;
     margin-top: 0px !important;
     width: 100% !important;

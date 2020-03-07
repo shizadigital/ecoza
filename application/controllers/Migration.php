@@ -417,10 +417,54 @@ class Migration extends CI_Controller {
     }
 
     protected function create_shiza_product_table(){
-
+        
         $schema = $this->schema->create_table('product');
         $schema->increments('prodId', ['length' => '11']);
-        
+        $schema->string('userLogin', ['length' => '100']);
+        $schema->integer('manufactId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('optionProdRules', ['type'=>'TINYINT', 'length' => '3', 'unsigned' => TRUE]);
+        $schema->string('prodCode', ['length' => '25']);
+        $schema->string('prodSku', ['length' => '65']);
+        $schema->string('prodIsbn', ['length' => '18']);
+        $schema->string('prodMpn', ['length' => '65']);
+        $schema->string('prodName', ['length' => '255']);
+        $schema->string('prodPermalink', ['length' => '255']);
+        $schema->text('prodDesc');
+        $schema->enum('prodFeatured', ['y', 'n']);
+        $schema->decimal('prodBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('prodPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('prodSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('prodFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('prodWeight', ['length' => '15,8']);
+        $schema->string('prodWeightUnit', ['length' => '5']);
+        $schema->decimal('prodLength', ['length' => '15,8']);
+        $schema->decimal('prodWidth', ['length' => '15,8']);
+        $schema->decimal('prodHeight', ['length' => '15,8']);
+        $schema->string('prodLengthUnit', ['length' => '5']);
+        $schema->string('prodOrigin', ['length' => '100']);
+        $schema->integer('prodMinOrder', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('prodMaxOrder', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->char('prodShipping', ['length' => '1']);
+        $schema->string('prodVideo', ['length' => '50']);
+        $schema->text('prodNote');
+        $schema->integer('prodBuyCount', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('prodViewCount', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('prodAdded', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('prodLastUpdate', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->char('prodDisplay', ['length' => '1']);	
+        $schema->string('prodPath', ['length' => '11']);
+        $schema->integer('prodDownloadLimit', ['type'=>'BIGINT', 'length' => '25']);
+        $schema->enum('prodDownloadFrom', ['email', 'server']);
+        $schema->char('prodAllowReview', ['length' => '1']);
+        $schema->integer('prodDeleted', ['length' => '11', 'unsigned' => TRUE]);
+
+        // ADD index
+        $schema->index('prodCode');
+        $schema->index('prodPermalink');
+        $schema->index('prodFinalPrice');
+        $schema->index('prodWeight');
+        $schema->index('prodDisplay');
+        $schema->index('prodDeleted');
     }
 
     protected function create_shiza_review_table() {

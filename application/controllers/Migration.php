@@ -457,6 +457,7 @@ class Migration extends CI_Controller {
         $schema->enum('prodDownloadFrom', ['email', 'server']);
         $schema->char('prodAllowReview', ['length' => '1']);
         $schema->integer('prodDeleted', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
 
         // ADD index
         $schema->index('prodCode');

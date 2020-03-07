@@ -482,6 +482,25 @@ class FormControl {
                 $formType = $val['type'];
                 $help = ( isset($val['help']) ) ? $val['help']:'';
                 $info = ( isset($val['info']) ) ? $val['info']:'';
+
+                // restyle for texteditor
+                $classtexteditor = '';
+                if($layout == 'horizontal' AND $formType =='multilanguage_texteditor'){
+                    echo '
+                    <style type="text/css">
+                        .texteditor_controllabel {
+                            padding-top: 43px;
+                        }
+                        @media only screen and (max-width: 767px) {
+                            .texteditor_controllabel {
+                                padding-top: 0.6rem !important;
+                            }
+                        }
+                    </style>
+                    ';
+
+                    $classtexteditor = ' texteditor_controllabel';
+                }
                 
                 echo ($formType !='hidden')?'<div class="form-group'.(($layout == 'horizontal') ? ' row':'').'">'."\n":'';
 
@@ -489,7 +508,7 @@ class FormControl {
                     echo '<label';
 
                     if($required OR $layout == 'horizontal'){
-                        $classval = ( ($layout == 'horizontal') ? $colsetting_label.' col-form-label':'' ).( ($required)?' req':'' );
+                        $classval = ( ($layout == 'horizontal') ? $colsetting_label.' col-form-label'.$classtexteditor:'' ).( ($required)?' req':'' );
                         $classval = trim($classval);
                         echo ' class="'.$classval.'"';
                     }

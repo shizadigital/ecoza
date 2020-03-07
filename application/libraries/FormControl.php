@@ -482,6 +482,7 @@ class FormControl {
                 $formType = $val['type'];
                 $help = ( isset($val['help']) ) ? $val['help']:'';
                 $info = ( isset($val['info']) ) ? $val['info']:'';
+                $texteditortype = ( isset($val['texteditor']) ) ?  $val['texteditor']:'';
 
                 // restyle for texteditor
                 $classtexteditor = '';
@@ -511,7 +512,7 @@ class FormControl {
                     if($layout == 'horizontal' AND $formType !='hidden'){ echo '<div class="'.$col_element.'">'; }
                     
                     // remove key so as not to insert to attribute
-                    unset( $val['type'], $val['help'], $val['label'], $val['required'], $val['option'], $val['selected'], $val['info'] );
+                    unset( $val['type'], $val['help'], $val['label'], $val['required'], $val['option'], $val['selected'], $val['info'],$val['texteditor'] );
 
                     // define required to attribute
                     $required = ($required) ? array('required'=>'required'): array();
@@ -575,12 +576,63 @@ class FormControl {
                             'type' => 'texteditor',
                             'label' => $label,
                             'name' => $name,
-                            'required' => ( count( $required ) > 0 ) ? true:false
+                            'required' => ( count( $required ) > 0 ) ? true:false,
+                            'texteditor' => $texteditortype
                         );
                         
                         $val_ = array_merge($val, $attrStandard);
 
                         echo self::buildTranslationInputs( $val_ );
+                    }
+
+                    /**
+                     * input texteditor
+                     */
+                    elseif( $formType == 'texteditor' ){
+
+                        // inject tinyMCE plugin here
+                        $request_script_files = array();
+                        $classtexteditor = '';
+                        if( $texteditortype=='standard' ){
+                            $request_script_files = array('vendors/tinymce/tinymce_standard.js');
+                            $classtexteditor = ' tinymcestandard';
+                        }
+                        elseif($texteditortype=='simple'){
+                            $request_script_files = array('vendors/tinymce/tinymce_simple.js');
+                            $classtexteditor = ' tinymcesimple';
+                        }
+                        elseif($texteditortype=='verysimple'){
+                            $request_script_files = array('vendors/tinymce/tinymce_verysimple.js');
+                            $classtexteditor = ' tinymceverysimple';
+                        }
+
+                        $reqscriptfiles = array_merge(
+                            array(
+                                'vendors/tinymce/tinymce.min.js',
+                            ),
+                            $request_script_files
+                        );
+                        $CI->assetsloc->reg_admin_script($reqscriptfiles);
+
+                        $attrClass = "";
+                        $attrId = $name;
+                        $attrRows = 5;
+
+                        if( isset($val['class']) OR isset($val['id']) OR isset($val['rows']) ){
+                            if(!empty($val['class'])){
+                                $attrClass = " ".$val['class'];
+                            }
+                            
+                            if(!empty($val['id'])){
+                                $attrId = $val['id'];
+                            }
+                        }
+
+                        echo '<textarea id="'.$attrId.'" name="'.$val['name'].'" rows="5" class="form-control'.$classtexteditor.$attrClass.'"'.( (count($required) > 0)? ' data-parsley-required="true"':'').'>';
+                        
+                        echo (isset($val['value'])) ? $val['value']:'';
+
+                        echo '</textarea>'."\n";
                     }
 
                     /**

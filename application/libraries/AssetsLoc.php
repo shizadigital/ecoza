@@ -35,7 +35,10 @@ class AssetsLoc {
 		$view = '';
 
 		if( $type=='library' AND count($this->css_admin_files) > 0){
-			foreach ($this->css_admin_files as $keyfiles => $valuefiles) {
+			
+			$libdatacss = array_unique($this->css_admin_files);
+
+			foreach (array_filter($libdatacss) as $keyfiles => $valuefiles) {
 				$view .= "<link href=\"".admin_assets()."/".$valuefiles."\" rel=\"stylesheet\" type=\"text/css\">\n";
 			}
 		}
@@ -68,7 +71,10 @@ class AssetsLoc {
 		$view = '';
 
 		if($type == 'library' AND count($this->js_admin_files) > 0){
-			foreach ($this->js_admin_files as $keyfiles => $valuefiles) {
+
+			$libdatajs = array_unique($this->js_admin_files);
+
+			foreach ( array_filter( $libdatajs ) as $keyfiles => $valuefiles) {
 				$view .= "<script src=\"".admin_assets()."/".$valuefiles."\"></script>\n";
 			}
 		}

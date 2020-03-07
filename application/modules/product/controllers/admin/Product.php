@@ -49,6 +49,7 @@ class Product extends CI_Controller{
 		if( is_add() ){
 			// get categories
 			$categories = $this->Env_model->view_where_order('*','categories', "catActive='1' AND catType='product'",'catId','DESC');
+			$datacategories = array();
 			foreach( $categories as $k => $v ){
 				$datacategories[$v['catId']] = $v['catName'];
 			}
@@ -62,6 +63,7 @@ class Product extends CI_Controller{
 
 			// get product
 			$product = $this->Env_model->view_where_order('prodId,prodName,','product', "prodDisplay='y' AND prodDeleted='0'",'prodId','DESC');
+			$dataproduct = array();
 			foreach( $product as $k => $v ){
 				$dataproduct[$v['prodId']] = $v['prodName'];
 			}

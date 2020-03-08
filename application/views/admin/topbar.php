@@ -6,23 +6,11 @@
             
                 <div class="dropdown mr-auto d-none d-md-block">
                     <a href="" class="dropdown-toggle text-nowrap" data-toggle="dropdown" aria-expanded="false" data-offset="0,15" >
-                        <i class="dropdown-toggle-icon fe fe-book-open"></i>
-                        <span class="dropdown-toggle-text">Issues History</span>
+                        <i class="dropdown-toggle-icon fe fe-bookmark"></i>
+                        <span class="dropdown-toggle-text"><?php echo t('quickaccess'); ?></span>
                     </a>
                     <div class="dropdown-menu" role="menu">
-                        <div class="dropdown-header">Active</div>
-                        <a class="dropdown-item" href="javascript:void(0)">Project Management</a>
-                        <a class="dropdown-item" href="javascript:void(0)">User Inetrface Development</a>
-                        <a class="dropdown-item" href="javascript:void(0)">Documentation</a>
-
-                        <div class="dropdown-header">Inactive</div>
-                        <a class="dropdown-item" href="javascript:void(0)">Marketing</a>
-
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javascript:void(0)">
-                            <i class="dropdown-icon fe fe-settings"></i>
-                            Settings
-                        </a>
+                        <a class="dropdown-item" href="<?php echo admin_url('product/addnew'); ?>"><?php echo t('newproduct'); ?></a>
                     </div>
                 </div>
 

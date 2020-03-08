@@ -483,6 +483,7 @@ $lang['sold_out_desc'] = 'Produk telah terjual';
 $lang['productrules'] = 'Aturan Produk';
 $lang['productrulesinfo'] = 'Aturan Produk Belum Ada, Silahkan Tambahkan';
 $lang['allowreviews'] = 'Bolehkan Ulasan';
+$lang['quickaccess'] = 'Akses Cepat';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -598,6 +599,7 @@ $lang['totalproduct'] = "Total Produk";
 /**
  * Products
  */
+$lang['newproduct'] = "Produk Baru";
 $lang['product'] = "Produk";
 $lang['products'] = "Produk";
 $lang['productname'] = "Nama Produk";
@@ -606,6 +608,7 @@ $lang['totalproduct'] = "Total Produk";
 $lang['productimgmanagement'] = "Menejemen Gambar Produk";
 $lang['producttype'] = "Tipe Produk";
 $lang['productinfo'] = "Info Produk";
+$lang['relatedproducts'] = "Produk terkait";
 
 /**
  * Weigth Unit
@@ -618,11 +621,6 @@ $lang['editweight'] = "Edit Bobot";
 $lang['editlength'] = "Edit Panjang";
 $lang['lengthunit'] = "Satuan Panjang";
 $lang['length'] = "Panjang";
-
-/**
- * Product
- */
-$lang['relatedproducts'] = "Produk terkait";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

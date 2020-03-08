@@ -94,10 +94,10 @@ $( document ).ready(function() {
 		<div class="row">
             <div class="col-md-6">
                 <select class="custom-select" id="pilihanicon">
-                    <option value="feather">Feather Icons</option>
-                    <option value="font-awesome">Font Awesome</option>
-                    <option value="icomoon">Icomoon Free</option>
-                    <option value="linearicons">Linearicons Free</option>
+                    <option value="feather"<?php if($this->input->get('theval')=='feather'){ echo ' selected'; } ?>>Feather Icons</option>
+                    <option value="font-awesome"<?php if($this->input->get('theval')=='font-awesome'){ echo ' selected'; } ?>>Font Awesome</option>
+                    <option value="icomoon"<?php if($this->input->get('theval')=='icomoon'){ echo ' selected'; } ?>>Icomoon Free</option>
+                    <option value="linearicons"<?php if($this->input->get('theval')=='linearicons'){ echo ' selected'; } ?>>Linearicons Free</option>
                 </select>
             </div>
         </div>

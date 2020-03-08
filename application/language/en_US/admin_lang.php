@@ -483,6 +483,7 @@ $lang['sold_out_desc'] = 'Product is sold out';
 $lang['productrules'] = 'Product Rules';
 $lang['productruleinfo'] = 'There are no product rules, please add';
 $lang['allowreviews'] = 'Allow Reviews';
+$lang['quickaccess'] = 'Quick Access';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -598,6 +599,7 @@ $lang['totalproduct'] = "Total Product";
 /**
  * Products
  */
+$lang['newproduct'] = "New Product";
 $lang['product'] = "Product";
 $lang['products'] = "Products";
 $lang['productname'] = "Product Name";
@@ -606,6 +608,7 @@ $lang['totalproduct'] = "Total Products";
 $lang['productimgmanagement'] = "Product Images Management";
 $lang['producttype'] = "Product Type";
 $lang['productinfo'] = "Product Info";
+$lang['relatedproducts'] = "Related Products";
 
 /**
  * Weigth Unit
@@ -618,11 +621,6 @@ $lang['editweight'] = "Edit Weight";
 $lang['editlength'] = "Edit Length";
 $lang['lengthunit'] = "Length Unit";
 $lang['length'] = "Length";
-
-/**
- * Product
- */
-$lang['relatedproducts'] = "Related Products";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

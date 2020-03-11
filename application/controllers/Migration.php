@@ -5,11 +5,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * CREATED BY SHIZA
  * 
  * 
- * php index.php migration install
+ * php index.php Migration install
  * 
  * or with seed
  * 
- * php index.php migration install seed
+ * php index.php Migration install seed
  * 
  */
 
@@ -53,6 +53,8 @@ class Migration extends CI_Controller {
         Self::create_shiza_message_table();
         Self::create_shiza_options_table();
         Self::create_shiza_product_table();
+        Self::create_shiza_product_attribute_value_table();
+        Self::create_shiza_product_attribute_table();
         Self::create_shiza_review_table();
         Self::create_shiza_seo_page_table();
         Self::create_shiza_slider_table();
@@ -423,6 +425,7 @@ class Migration extends CI_Controller {
         $schema->string('userLogin', ['length' => '100']);
         $schema->integer('manufactId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('optionProdRules', ['type'=>'TINYINT', 'length' => '3', 'unsigned' => TRUE]);
+        $schema->string('prodType', ['length' => '55']);
         $schema->string('prodCode', ['length' => '25']);
         $schema->string('prodSku', ['length' => '65']);
         $schema->string('prodIsbn', ['length' => '18']);
@@ -431,10 +434,6 @@ class Migration extends CI_Controller {
         $schema->string('prodPermalink', ['length' => '255']);
         $schema->text('prodDesc');
         $schema->enum('prodFeatured', ['y', 'n']);
-        $schema->decimal('prodBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->decimal('prodPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->decimal('prodSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->decimal('prodFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('prodWeight', ['length' => '15,8']);
         $schema->string('prodWeightUnit', ['length' => '5']);
         $schema->decimal('prodLength', ['length' => '15,8']);
@@ -451,10 +450,7 @@ class Migration extends CI_Controller {
         $schema->integer('prodViewCount', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('prodAdded', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('prodLastUpdate', ['length' => '11', 'unsigned' => TRUE]);
-        $schema->char('prodDisplay', ['length' => '1']);	
-        $schema->string('prodPath', ['length' => '11']);
-        $schema->integer('prodDownloadLimit', ['type'=>'BIGINT', 'length' => '25']);
-        $schema->enum('prodDownloadFrom', ['email', 'server']);
+        $schema->char('prodDisplay', ['length' => '1']);
         $schema->char('prodAllowReview', ['length' => '1']);
         $schema->integer('prodDeleted', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
@@ -462,10 +458,59 @@ class Migration extends CI_Controller {
         // ADD index
         $schema->index('prodCode');
         $schema->index('prodPermalink');
-        $schema->index('prodFinalPrice');
         $schema->index('prodWeight');
         $schema->index('prodDisplay');
         $schema->index('prodDeleted');
+    }
+
+    protected function create_shiza_product_attribute_value_table(){
+        $schema = $this->schema->create_table('product_attribute_value');
+        $schema->increments('pattrvalId', ['type' => 'BIGINT', 'length' => '30']);
+        $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('pattrvalType', ['length' => '55']);
+        $schema->decimal('pattrvalBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('pattrvalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('pattrvalSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('pattrvalFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->integer('pattrvalStock', ['type'=> 'SMALLINT', 'length' => '5', 'unsigned' => TRUE]);
+        $schema->enum('pattrvalStockType', ['unlimited', 'limited']);	
+        $schema->string('pattrvalPath', ['length' => '11']);
+        $schema->integer('pattrvalDownloadLimit', ['type'=>'BIGINT', 'length' => '25']);
+        $schema->enum('pattrvalDownloadFrom', ['email', 'server']);
+        $schema->text('pattrvalExternalUrl');
+        $schema->integer('pattrvalAddedDate',['length'=>'11', 'unsigned'=>TRUE]);
+        $schema->integer('pattrvalModifiedDate',['length'=>'11', 'unsigned'=>TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('prodId');
+        $schema->index('pattrvalType');
+        $schema->index('pattrvalFinalPrice');
+    }
+
+    protected function create_shiza_product_attribute_table(){
+        $schema = $this->schema->create_table('product_attribute');
+        $schema->increments('pattrId', ['type' => 'BIGINT', 'length' => '30']);
+        $schema->integer('pattrvalId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('attrId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('attrLabel', ['length' => '100']);
+        $schema->string('pattrText', ['length' => '100']);
+        $schema->run();
+
+        // ADD index
+        $schema->index('pattrvalId');
+        $schema->index('attrId');
+    }
+
+    protected function create_shiza_product_related_table() {
+        $schema = $this->schema->create_table('product_related');
+        $schema->increments('prelId', ['type' => 'BIGINT', 'length' => '30']);
+        $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('relatedId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('prodId');
     }
 
     protected function create_shiza_review_table() {
@@ -682,6 +727,9 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('message');
         $this->schema->drop_table('options');
         $this->schema->drop_table('product');
+        $this->schema->drop_table('product_attribute');
+        $this->schema->drop_table('product_attribute_value');
+        $this->schema->drop_table('product_related');
         $this->schema->drop_table('review');
         $this->schema->drop_table('seo_page');
         $this->schema->drop_table('slider');

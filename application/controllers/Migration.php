@@ -55,6 +55,7 @@ class Migration extends CI_Controller {
         Self::create_shiza_product_table();
         Self::create_shiza_product_attribute_value_table();
         Self::create_shiza_product_attribute_table();
+        Self::create_shiza_product_related_table();
         Self::create_shiza_review_table();
         Self::create_shiza_seo_page_table();
         Self::create_shiza_slider_table();

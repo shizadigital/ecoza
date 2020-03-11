@@ -482,6 +482,7 @@ class FormControl {
                 $formType = $val['type'];
                 $help = ( isset($val['help']) ) ? $val['help']:'';
                 $info = ( isset($val['info']) ) ? $val['info']:'';
+                $extra = ( isset($val['extra']) ) ? $val['extra']:'';
                 $texteditortype = ( isset($val['texteditor']) ) ?  $val['texteditor']:'';
 
                 // restyle for texteditor
@@ -512,7 +513,7 @@ class FormControl {
                     if($layout == 'horizontal' AND $formType !='hidden'){ echo '<div class="'.$col_element.'">'; }
                     
                     // remove key so as not to insert to attribute
-                    unset( $val['type'], $val['help'], $val['label'], $val['required'], $val['option'], $val['selected'], $val['info'],$val['texteditor'] );
+                    unset( $val['type'], $val['help'], $val['label'], $val['required'], $val['option'], $val['selected'], $val['info'],$val['texteditor'],$val['extra'] );
 
                     // define required to attribute
                     $required = ($required) ? array('required'=>'required'): array();
@@ -1170,10 +1171,16 @@ class FormControl {
                         echo form_input($val_);
                     }
 
-                    if(!empty($help AND $formType !='hidden')) { 
+                    if(!empty($help) AND $formType !='hidden') { 
                         echo '<small';
                         if($formType=='multilanguage_textarea' OR $formType == 'multilanguage_text'){ echo ' style="margin-top: -1rem;"'; }
                         echo ' class="form-text text-muted">'.$help.'</small>';
+                    }
+
+                    if(!empty($extra) AND $formType !='hidden') {
+                        echo '<div class="d-block">';
+                        echo $extra;
+                        echo '</div>';
                     }
                     
                     if($layout == 'horizontal' AND $formType !='hidden'){ echo '</div>'."\n"; }

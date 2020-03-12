@@ -1173,7 +1173,7 @@ class FormControl {
 
                     if(!empty($help) AND $formType !='hidden') { 
                         echo '<small';
-                        if($formType=='multilanguage_textarea' OR $formType == 'multilanguage_text'){ echo ' style="margin-top: -1rem;"'; }
+                        if($formType=='multilanguage_textarea' OR $formType == 'multilanguage_text'){ echo ' style="margin-top: -0.3rem;"'; }
                         echo ' class="form-text text-muted">'.$help.'</small>';
                     }
 

@@ -22,6 +22,68 @@ $request_script = "
 $( document ).ready(function() {
     $('#valid').parsley();
     $('.select2').select2();
+
+    // load product
+    $('.select2relatedproduct').select2({
+        minimumInputLength: 2,
+        allowClear: true,
+        tags: false,
+        ajax: {
+            url: '".admin_url($this->uri->segment(2)."/ajax_related_getallproduct/")."',
+            dataType: 'json',
+            type: 'POST',
+            delay: 500,
+            data: function(params) {
+                
+                //get class related
+                var classval = $('#relatedlist').attr('class');
+
+                return {
+                    search: params.term,
+                    CP: '".get_cookie('sz_token')."',
+                    class: classval
+                }
+            },
+            processResults: function (data, page) {
+                return {
+                    results: data
+                };
+            }
+        }
+    });
+
+    $('.select2relatedproduct').change(function() {
+
+        var selectdata = $(this).val();
+        $('.select2relatedproduct').empty();
+
+        $.ajax({
+            type: 'POST',
+            url: '".admin_url($this->uri->segment(2)."/ajax_related_product/")."',
+            data : {
+                val: selectdata,
+                CP: '".get_cookie('sz_token')."'
+            },
+            beforeSend: function(data){
+                $('.chooseinforelated').remove();
+                $('#relatedresult').prepend('<li class=\"loadajaxresult\"><img src=\"".web_assets('img/loader/loading.gif')."\" alt=\"loader\"></li>');
+            },
+            success: function(data) {
+                $('.loadajaxresult').remove();
+                if(data){
+                    if(data == '503'){
+                        $('ul#relatedresult').prepend('Error 503');
+                    } else {
+                        $( '#relatedlist' ).addClass( selectdata );
+                        $( 'ul#relatedresult' ).prepend( data );
+                    }
+                } else {
+                    $('ul#relatedresult').prepend('Data tidak dapat dimuat');
+                }
+            }
+        });
+
+    });
 });
 ";
 $this->assetsloc->reg_admin_script($request_script_files,$request_script);
@@ -92,13 +154,20 @@ if( is_add() ){
                                 $rulesdata[$key]['checked'] = ( $key == '1' ) ? true:false;
                             }
 
-                            $buildform1 = array(
+                            $buildgeneralform = array(
+                                array(
+                                    'type' => 'radio',
+                                    'label'=> t('productrules'),
+                                    'name'=> 'rules',
+                                    'value'=> $rulesdata,
+                                ),
                                 array(
                                     'type' => 'checkbox',
-                                    'label'=> t('featured'),
-                                    'name'=> 'featured',
+                                    'label' => t('published'),
+                                    'name' => 'publis',
                                     'value' => 'y',
-                                    'title'=> t('yes')
+                                    'title' => t('yes'),
+                                    'checked' => true
                                 ),
                                 array(
                                     'type' => 'multilanguage_text',
@@ -115,14 +184,6 @@ if( is_add() ){
                                 ),
                                 array(
                                     'type' => 'checkbox',
-                                    'label' => t('published'),
-                                    'name' => 'publis',
-                                    'value' => 'y',
-                                    'title' => t('yes'),
-                                    'checked' => true
-                                ),
-                                array(
-                                    'type' => 'checkbox',
                                     'label'=> t('allowreviews'),
                                     'name'=> 'allowreviews',
                                     'value' => 'y',
@@ -130,10 +191,11 @@ if( is_add() ){
                                     'checked' => true
                                 ),
                                 array(
-                                    'type' => 'radio',
-                                    'label'=> t('productrules'),
-                                    'name'=> 'rules',
-                                    'value'=> $rulesdata,
+                                    'type' => 'checkbox',
+                                    'label'=> t('featured'),
+                                    'name'=> 'featured',
+                                    'value' => 'y',
+                                    'title'=> t('yes')
                                 ),
                                 array(
                                     'type' => 'text',
@@ -148,7 +210,7 @@ if( is_add() ){
                                     'name' => 'note',
                                 ),
                             );
-                            $this->formcontrol->buildInputs($buildform1, $layout_model, $col_layout);
+                            $this->formcontrol->buildInputs($buildgeneralform, $layout_model, $col_layout);
                             ?>                        
                         </div>
 
@@ -159,7 +221,7 @@ if( is_add() ){
                         -->
                         <div class="tab-pane fade py-4" id="linked" role="tabpanel" aria-labelledby="linked-tab">
                             <?php                            
-                            $buildform2 = array(
+                            $buildlinkedform = array(
                                 array(
                                     'type' => 'multipleselect',
                                     'label'=> t('categories'),
@@ -176,16 +238,24 @@ if( is_add() ){
                                     'option'=> $manufacturers,                           
                                 ),
                                 array(
-                                    'type' => 'multipleselect',
+                                    'type' => 'select',
                                     'label'=> t('relatedproducts'),
-                                    'name'=> 'relatedproduct[]',
-                                    'option'=> $products,
-                                    'help' => t('multipleselectinfo'),
-                                    'size'=>'7',
+                                    'option'=> array(""=>'-- '.t('chooseproduct').' --'),
+                                    'name'=>'relatedproduct',
+                                    'id'=>'relatedproduct',
+                                    'class' => 'select2relatedproduct',
+                                    'extra' => '
+                                    <div class="alert alert-light">
+                                        <div id="relatedlist"></div>
+                                        <ul class="list-unstyled" id="relatedresult" style="height:100px;overflow-y:auto;">
+                                            <li class="chooseinforelated">'.t('chooseproduct').'</li>
+                                        </ul>
+                                    </div>
+                                    '
                                 ),
                             );
-                            $this->formcontrol->buildInputs($buildform2, $layout_model, $col_layout);
-                            ?>  
+                            $this->formcontrol->buildInputs($buildlinkedform, $layout_model, $col_layout);
+                            ?>
                         </div>
                         
                         <!--
@@ -194,7 +264,54 @@ if( is_add() ){
 
                         -->
                         <div class="tab-pane fade py-4" id="image" role="tabpanel" aria-labelledby="image-tab">
-                        image
+                            <p class="text-right mb-10">
+                                <button type="button" onclick="addimg()" class="btn btn-info btn-xs"><i class="fa fa-plus-square"></i> <?php echo t('btnaddfield'); ?></button> 
+                                <button type="button" onclick="removeimg()" class="btn btn-warning btn-xs"><i class="fa fa-minus-square"></i> <?php echo t('btnremovefield'); ?></button>
+                            </p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th><?php echo t('images'); ?></th>
+                                            <th><?php echo t('imgpriority'); ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dynamic-image">
+                                        <tr>
+                                            <td>
+                                                <input type="file" name="imgprod[0]">
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <label><input type="radio" name="primary" value="0" checked>
+                                                    <?php echo t('primaryimg'); ?></label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="help-block"><i class="fa fa-info-circle fa-lg" style="color:#5DBDE0;"></i> <?php echo t('infomainimg'); ?> *.jpg, *.jpeg, *.png, *.gif</p>
+
+                            <script type="text/javascript">
+                                var idrow = 1;
+
+                                function addimg(){
+                                    var x=document.getElementById('dynamic-image').insertRow(idrow);
+                                    var td1=x.insertCell(0);
+                                    var td2=x.insertCell(1);
+                                    td1.innerHTML="<input type=\"file\" name=\"imgprod["+idrow+"]\">";
+                                    td2.innerHTML="<div><label><input type=\"radio\" name=\"primary\" value=\""+idrow+"\"> <?php echo t('primaryimg'); ?></label></div>";
+                                    idrow++;
+                                }
+
+                                function removeimg(){
+                                    if(idrow>1){
+                                        var x=document.getElementById('dynamic-image').deleteRow(idrow-1);
+                                        idrow--;
+                                    }
+                                }
+                            </script>
                         </div>
                         
                         <!--
@@ -203,7 +320,35 @@ if( is_add() ){
 
                         -->
                         <div class="tab-pane fade py-4" id="data" role="tabpanel" aria-labelledby="data-tab">
-                        data
+                        <?php                            
+                            $builddataform = array(
+                                array(
+                                    'type' => 'text',
+                                    'label'=> 'SKU',
+                                    'name'=> 'sku',
+                                    'info' => t('abbr_sku')                        
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label'=> 'UPC',
+                                    'name'=> 'upc',
+                                    'info' => t('abbr_upc')                        
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label'=> 'ISBN',
+                                    'name'=> 'isbn',
+                                    'info' => t('abbr_isbn')                        
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label'=> 'MPN',
+                                    'name'=> 'mpn',
+                                    'info' => t('abbr_mpn')                        
+                                ),
+                            );
+                            $this->formcontrol->buildInputs($builddataform, $layout_model, $col_layout);
+                        ?>
                         </div>
                         
                         <!--

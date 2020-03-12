@@ -609,6 +609,12 @@ $lang['productimgmanagement'] = "Product Images Management";
 $lang['producttype'] = "Product Type";
 $lang['productinfo'] = "Product Info";
 $lang['relatedproducts'] = "Related Products";
+$lang['chooseproduct'] = "Choose Product";
+
+$lang['abbr_sku'] = "Stock Keeping Unit";
+$lang['abbr_isbn'] = "International Standard Book Number";
+$lang['abbr_mpn'] = "Manufacturer Part Number";
+$lang['abbr_upc'] = "Universal Product Code";
 
 /**
  * Weigth Unit

@@ -61,13 +61,6 @@ class Product extends CI_Controller{
 				$datamanufacturers[$v['manufactId']] = $v['manufactName'];
 			}
 
-			// get product
-			$product = $this->Env_model->view_where_order('prodId,prodName,','product', "prodDisplay='y' AND prodDeleted='0'",'prodId','DESC');
-			$dataproduct = array();
-			foreach( $product as $k => $v ){
-				$dataproduct[$v['prodId']] = $v['prodName'];
-			}
-
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
@@ -84,7 +77,6 @@ class Product extends CI_Controller{
 											),
 							'categories' => $datacategories,
 							'manufacturers' => $datamanufacturers,
-							'products' => $dataproduct
 						);
 
 			$this->load->view( admin_root('product_add'), $data );
@@ -122,6 +114,69 @@ class Product extends CI_Controller{
 	public function delete($id){
 		if( is_delete() ){
 
+		}
+	}
+
+	public function ajax_related_getallproduct(){
+		if( is_view() AND $this->input->post('CP') === get_cookie('sz_token') ){
+			$kw = $this->security->xss_clean( $this->input->post('search') );
+			$classlist = ( $this->input->post('class') ) ? $this->security->xss_clean( $this->input->post('class') ):'';
+
+			$exceptID = '';
+			if( !empty( $classlist ) ){
+				$listID = explode(" ", $classlist);
+
+				$exceptID = " AND ( prodId!='" . implode("' AND prodId!='", $listID). "')";
+			}
+
+			$data = $this->Env_model->view_where("prodId,prodName,prodCode","product","(prodDeleted=0 AND prodDisplay='y') AND (prodName LIKE '%{$kw}%')".$exceptID);
+
+			$result = array();
+			foreach($data AS $v){
+				$result[] = [
+					'id'=>$v['prodId'],
+					'text' => $v['prodName'] . ( (!empty($v['prodCode']))? ' ['.$v['prodCode'].']':'')
+				];
+			}
+			header('Content-Type: application/json');
+			echo json_encode($result);
+		} else {
+			exit;
+		}
+	}
+
+	public function ajax_related_product(){
+		if( is_view() AND $this->input->post('CP') === get_cookie('sz_token') ){
+			$id = $this->security->xss_clean( $this->input->post('val') );
+
+			$data = getval("prodId,prodName,prodCode","product","prodDeleted=0 AND prodDisplay='y' AND prodId='{$id}'");
+			
+			$result = '<li id="prodrel-' . $data['prodId'] .'">';
+
+			$result .= '
+			<a title="'.t('remove').'" href="javascript:void(0)" id="rmrelateditem-' . $data['prodId'] .'" class="mr-1 pt-2"><i class="fe fe-x-circle text-danger"></i></a> ' . $data['prodName'] . ( (!empty($data['prodCode'])) ? ' ['.$data['prodCode'].']':'') . '
+			<input type="hidden" value="' . $data['prodId'] .'" name="relatedproduct[]">
+			<script>
+			$( document ).ready(function() {
+				$("#rmrelateditem-' . $data['prodId'] .'").click(function() {
+					// dispose tooltip
+					$(\'#rmrelateditem-' . $data['prodId'] .'\').tooltip(\'dispose\');
+
+					// remove id from class
+					$("#relatedlist").removeClass( "' . $data['prodId'] .'" );
+
+					$("#prodrel-' . $data['prodId'] .'").remove();
+				});
+				$(\'#rmrelateditem-' . $data['prodId'] .'\').tooltip();
+			});
+			</script>
+			';
+
+			$result .= '</li>';
+
+			echo $result;
+		} else {
+			exit;
 		}
 	}
 

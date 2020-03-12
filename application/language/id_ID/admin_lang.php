@@ -609,6 +609,12 @@ $lang['productimgmanagement'] = "Menejemen Gambar Produk";
 $lang['producttype'] = "Tipe Produk";
 $lang['productinfo'] = "Info Produk";
 $lang['relatedproducts'] = "Produk terkait";
+$lang['chooseproduct'] = "Pilih Produk";
+
+$lang['abbr_sku'] = "Stock Keeping Unit";
+$lang['abbr_isbn'] = "International Standard Book Number";
+$lang['abbr_mpn'] = "Manufacturer Part Number";
+$lang['abbr_upc'] = "Universal Product Code";
 
 /**
  * Weigth Unit

@@ -24,7 +24,7 @@ class Migration extends CI_Controller {
 
     }
 
-	public function install($action = null){
+    public function install($action = null){
         Self::drop();
         Self::create();
 
@@ -483,7 +483,7 @@ class Migration extends CI_Controller {
         $schema->decimal('pattrSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('pattrFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->integer('pattrQty', ['type'=> 'SMALLINT', 'length' => '5', 'unsigned' => TRUE]);
-        $schema->enum('pattrQtyType', ['unlimited', 'limited']);	
+        $schema->enum('pattrQtyType', ['unlimited', 'limited']);    
         $schema->string('pattrPath', ['length' => '11']);
         $schema->integer('pattrDownloadLimit', ['type'=>'BIGINT', 'length' => '25']);
         $schema->enum('pattrDownloadFrom', ['email', 'server', 'externaluri']);
@@ -530,6 +530,7 @@ class Migration extends CI_Controller {
         $schema->string('pimgDir', ['length' => '25']);
         $schema->string('pimgImg');
         $schema->enum('pimgPrimary', ['y', 'n']);
+        $schema->integer('pimgPosition', ['type'=> 'SMALLINT','length' => '3', 'unsigned' => TRUE]);
         $schema->run();
 
         // ADD index
@@ -792,42 +793,42 @@ class Migration extends CI_Controller {
 
     protected function seeder_ads_position_table() {
 
-		$arr = [
-			['name' => 'header', 'w' => '650', 'h' => '90'],
-			['name' => 'headline_bottom', 'w' => '1000', 'h' => '90'],
-			['name' => 'left_1', 'w' => '250', 'h' => '250'],
-			['name' => 'left_2', 'w' => '250', 'h' => '250'],
-			['name' => 'left_3', 'w' => '250', 'h' => '250'],
-			['name' => 'left_4', 'w' => '250', 'h' => '250'],
-			['name' => 'left_5', 'w' => '250', 'h' => '250'],
-			['name' => 'left_6', 'w' => '250', 'h' => '250'],
-			['name' => 'center_main_1', 'w' => '630', 'h' => '90'],
-			['name' => 'center_main_2', 'w' => '630', 'h' => '90'],
-			['name' => 'center_main_3', 'w' => '630', 'h' => '90'],
-			['name' => 'center_main_4', 'w' => '630', 'h' => '90'],
-			['name' => 'center_main_5', 'w' => '630', 'h' => '90'],
-			['name' => 'center_main_6', 'w' => '630', 'h' => '90'],
-			['name' => 'right_1', 'w' => '300', 'h' => '250'],
-			['name' => 'right_2', 'w' => '300', 'h' => '250'],
-			['name' => 'right_3', 'w' => '300', 'h' => '250'],
-			['name' => 'right_4', 'w' => '300', 'h' => '250'],
-			['name' => 'right_5', 'w' => '300', 'h' => '250'],
-			['name' => 'right_6', 'w' => '300', 'h' => '250'],
-		];
-		foreach ( $arr as $item ) {
-			$data = [
-				'adposName' => $item['name'],
-				'adposW' => $item['w'],
-				'adposH' => $item['h'],
-			];
-			$this->mc->save('shiza_ads_position', $data);
-		}
+        $arr = [
+            ['name' => 'header', 'w' => '650', 'h' => '90'],
+            ['name' => 'headline_bottom', 'w' => '1000', 'h' => '90'],
+            ['name' => 'left_1', 'w' => '250', 'h' => '250'],
+            ['name' => 'left_2', 'w' => '250', 'h' => '250'],
+            ['name' => 'left_3', 'w' => '250', 'h' => '250'],
+            ['name' => 'left_4', 'w' => '250', 'h' => '250'],
+            ['name' => 'left_5', 'w' => '250', 'h' => '250'],
+            ['name' => 'left_6', 'w' => '250', 'h' => '250'],
+            ['name' => 'center_main_1', 'w' => '630', 'h' => '90'],
+            ['name' => 'center_main_2', 'w' => '630', 'h' => '90'],
+            ['name' => 'center_main_3', 'w' => '630', 'h' => '90'],
+            ['name' => 'center_main_4', 'w' => '630', 'h' => '90'],
+            ['name' => 'center_main_5', 'w' => '630', 'h' => '90'],
+            ['name' => 'center_main_6', 'w' => '630', 'h' => '90'],
+            ['name' => 'right_1', 'w' => '300', 'h' => '250'],
+            ['name' => 'right_2', 'w' => '300', 'h' => '250'],
+            ['name' => 'right_3', 'w' => '300', 'h' => '250'],
+            ['name' => 'right_4', 'w' => '300', 'h' => '250'],
+            ['name' => 'right_5', 'w' => '300', 'h' => '250'],
+            ['name' => 'right_6', 'w' => '300', 'h' => '250'],
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'adposName' => $item['name'],
+                'adposW' => $item['w'],
+                'adposH' => $item['h'],
+            ];
+            $this->mc->save('shiza_ads_position', $data);
+        }
     }
 
     protected function seeder_dynamic_translations_table() {
 
-		$arr = [
-			['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'11', 'dtLang'=>'en_US', 'dtTranslation'=>'Catalog', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135807', 'dtUpdateDate'=>'1583156017'],
+        $arr = [
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'11', 'dtLang'=>'en_US', 'dtTranslation'=>'Catalog', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135807', 'dtUpdateDate'=>'1583156017'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'12', 'dtLang'=>'en_US', 'dtTranslation'=>'Product Categories', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135835', 'dtUpdateDate'=>'1583135835'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'8', 'dtLang'=>'en_US', 'dtTranslation'=>'Users', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135867', 'dtUpdateDate'=>'1583135867'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'9', 'dtLang'=>'en_US', 'dtTranslation'=>'User Management', 'dtInputType'=>'text', 'dtCreateDate'=>'1583135890', 'dtUpdateDate'=>'1583135890'],
@@ -847,9 +848,9 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'18', 'dtLang'=>'en_US', 'dtTranslation'=>'Reports', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429030', 'dtUpdateDate'=>'1583429099'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'19', 'dtLang'=>'en_US', 'dtTranslation'=>'Weight Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429622', 'dtUpdateDate'=>'1583429908'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'20', 'dtLang'=>'en_US', 'dtTranslation'=>'Length Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583430361', 'dtUpdateDate'=>'1583430361'],
-		];
-		foreach ( $arr as $item ) {
-			$data = [
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
                 'dtRelatedTable'=>$item['dtRelatedTable'],
                 'dtRelatedField'=>$item['dtRelatedField'],
                 'dtRelatedId'=>$item['dtRelatedId'],
@@ -858,17 +859,17 @@ class Migration extends CI_Controller {
                 'dtInputType'=>$item['dtInputType'],
                 'dtCreateDate'=>$item['dtCreateDate'],
                 'dtUpdateDate'=>$item['dtUpdateDate']
-			];
-			$this->mc->save('shiza_dynamic_translations', $data);
-		}
+            ];
+            $this->mc->save('shiza_dynamic_translations', $data);
+        }
     }
 
     protected function seeder_options_table() {
-		$arr = [
-			['optionName' => 'sitename', 'optionValue' => 'E-Commerce Shiza'],
-			['optionName' => 'sitekeywords', 'optionValue' => 'framework, ci, codeigniter,shiza,ecommerce,ecoza'],
-			['optionName' => 'sitedescription', 'optionValue' => 'E-Commerce Shiza diciptakan untuk mempermudah pengguna dalam berjual beli online.'],
-			['optionName' => 'template', 'optionValue' => 'themekeren'],
+        $arr = [
+            ['optionName' => 'sitename', 'optionValue' => 'E-Commerce Shiza'],
+            ['optionName' => 'sitekeywords', 'optionValue' => 'framework, ci, codeigniter,shiza,ecommerce,ecoza'],
+            ['optionName' => 'sitedescription', 'optionValue' => 'E-Commerce Shiza diciptakan untuk mempermudah pengguna dalam berjual beli online.'],
+            ['optionName' => 'template', 'optionValue' => 'themekeren'],
             ['optionName' => 'timezone', 'optionValue' => 'Asia/Jakarta'],
             ['optionName' => 'phpminsupport', 'optionValue' => '5.6.x'],
             ['optionName' => 'siteaddress', 'optionValue' => 'Jalan Cumi-cumi II No. 6 Kec. Marphoyan Damai - Pekanbaru'],
@@ -887,103 +888,103 @@ class Migration extends CI_Controller {
             ['optionName' => 'smtp_host', 'optionValue' => 'myhostmail.com'],
             ['optionName' => 'smtp_ssltype', 'optionValue' => 'ssl'],
             ['optionName' => 'productrules', 'optionValue' => 'a:4:{i:1;a:2:{s:4:"type";s:11:"add_to_cart";s:11:"description";s:16:"add_to_cart_desc";}i:2;a:2:{s:4:"type";s:16:"contact_to_order";s:11:"description";s:21:"contact_to_order_desc";}i:3;a:2:{s:4:"type";s:11:"coming_soon";s:11:"description";s:16:"coming_soon_desc";}i:4;a:2:{s:4:"type";s:8:"sold_out";s:11:"description";s:13:"sold_out_desc";}}'],
-		];
-		foreach ( $arr as $item ) {
-			$data = [
-				'optionName' => $item['optionName'],
-				'optionValue' => $item['optionValue'],
-			];
-			$this->mc->save('shiza_options', $data);
-		}
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'optionName' => $item['optionName'],
+                'optionValue' => $item['optionValue'],
+            ];
+            $this->mc->save('shiza_options', $data);
+        }
     }
     
     protected function seeder_users_table() {
         
-		$pass 	= sha1( sha1( encoder( 'password' .'>>>>'. LOGIN_SALT )) . "#" . LOGIN_SALT);
+        $pass   = sha1( sha1( encoder( 'password' .'>>>>'. LOGIN_SALT )) . "#" . LOGIN_SALT);
         $passwordunik = password_hash( $pass, PASSWORD_DEFAULT, ['cost' => 10]); 
-		$arr = [
+        $arr = [
             [
-				'userLogin' => 'superadmin',
-				'userPass' => $passwordunik,
-				'userEmail' => 'shizadigitalsolution@gmail.com',
-				'userTlp' => '081276540054',
-				'userDisplayName' => 'Shiza',
-				'levelId' => '1',
-				'userBlocked' => 'n',
-				'userDelete' => '0',
-				'userLastLogin' => '1582310633',
-				'userActivationKey' => '',
-				'userRegistered' => '1358259589',
-				'userSession' => '1g77ng04l81u5trq7clj7hpfl9m4fg00',
-				'userCheckPoint' => '',
-				'userDir' => '',
-				'userPic' => '',
-				'userOnlineStatus' => 'online',
-				'userLang' => 'id_ID',
+                'userLogin' => 'superadmin',
+                'userPass' => $passwordunik,
+                'userEmail' => 'shizadigitalsolution@gmail.com',
+                'userTlp' => '081276540054',
+                'userDisplayName' => 'Shiza',
+                'levelId' => '1',
+                'userBlocked' => 'n',
+                'userDelete' => '0',
+                'userLastLogin' => '1582310633',
+                'userActivationKey' => '',
+                'userRegistered' => '1358259589',
+                'userSession' => '1g77ng04l81u5trq7clj7hpfl9m4fg00',
+                'userCheckPoint' => '',
+                'userDir' => '',
+                'userPic' => '',
+                'userOnlineStatus' => 'online',
+                'userLang' => 'id_ID',
             ],
             [
-				'userLogin' => 'demo',
-				'userPass' => $passwordunik,
-				'userEmail' => 'demo@demo.com',
-				'userTlp' => '',
-				'userDisplayName' => 'Demo Shiza',
-				'levelId' => '2',
-				'userBlocked' => 'n',
-				'userDelete' => '0',
-				'userLastLogin' => '1565019560',
-				'userActivationKey' => '',
-				'userRegistered' => '1565017383',
-				'userSession' => 'uhugeprv49jpbfkonhp9bc3l52',
-				'userCheckPoint' => '',
-				'userDir' => '',
-				'userPic' => '',
-				'userOnlineStatus' => 'online',
-				'userLang' => 'id_ID',
+                'userLogin' => 'demo',
+                'userPass' => $passwordunik,
+                'userEmail' => 'demo@demo.com',
+                'userTlp' => '',
+                'userDisplayName' => 'Demo Shiza',
+                'levelId' => '2',
+                'userBlocked' => 'n',
+                'userDelete' => '0',
+                'userLastLogin' => '1565019560',
+                'userActivationKey' => '',
+                'userRegistered' => '1565017383',
+                'userSession' => 'uhugeprv49jpbfkonhp9bc3l52',
+                'userCheckPoint' => '',
+                'userDir' => '',
+                'userPic' => '',
+                'userOnlineStatus' => 'online',
+                'userLang' => 'id_ID',
             ],
             
-		];
-		foreach ( $arr as $item ) {
-			$data = [
-				'userLogin' => $item['userLogin'],
-				'userPass' => $item['userPass'],
-				'userEmail' => $item['userEmail'],
-				'userTlp' => $item['userTlp'],
-				'userDisplayName' => $item['userDisplayName'],
-				'levelId' => $item['levelId'],
-				'userBlocked' => $item['userBlocked'],
-				'userDelete' => $item['userDelete'],
-				'userLastLogin' => $item['userLastLogin'],
-				'userActivationKey' => $item['userActivationKey'],
-				'userRegistered' => $item['userRegistered'],
-				'userSession' => $item['userSession'],
-				'userCheckPoint' => $item['userCheckPoint'],
-				'userDir' => $item['userDir'],
-				'userPic' => $item['userPic'],
-				'userOnlineStatus' => $item['userOnlineStatus'],
-				'userLang' => $item['userLang'],
-			];
-			$this->mc->save('shiza_users', $data);
-		}
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'userLogin' => $item['userLogin'],
+                'userPass' => $item['userPass'],
+                'userEmail' => $item['userEmail'],
+                'userTlp' => $item['userTlp'],
+                'userDisplayName' => $item['userDisplayName'],
+                'levelId' => $item['levelId'],
+                'userBlocked' => $item['userBlocked'],
+                'userDelete' => $item['userDelete'],
+                'userLastLogin' => $item['userLastLogin'],
+                'userActivationKey' => $item['userActivationKey'],
+                'userRegistered' => $item['userRegistered'],
+                'userSession' => $item['userSession'],
+                'userCheckPoint' => $item['userCheckPoint'],
+                'userDir' => $item['userDir'],
+                'userPic' => $item['userPic'],
+                'userOnlineStatus' => $item['userOnlineStatus'],
+                'userLang' => $item['userLang'],
+            ];
+            $this->mc->save('shiza_users', $data);
+        }
     }
     
     protected function seeder_users_level_table() {
 
-		$arr = [
-			['levelName' => 'Super Admin', 'levelActive' => 'y'],
-			['levelName' => 'Admin', 'levelActive' => 'y'],
-		];
-		foreach ( $arr as $item ) {
-			$data = [
-				'levelName' => $item['levelName'],
-				'levelActive' => $item['levelActive'],
-			];
-			$this->mc->save('shiza_users_level', $data);
-		}
+        $arr = [
+            ['levelName' => 'Super Admin', 'levelActive' => 'y'],
+            ['levelName' => 'Admin', 'levelActive' => 'y'],
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'levelName' => $item['levelName'],
+                'levelActive' => $item['levelActive'],
+            ];
+            $this->mc->save('shiza_users_level', $data);
+        }
     }
     
     protected function seeder_users_menu_table() {
-		$arr = [
-			[
+        $arr = [
+            [
                 'menuParentId' => '0',
                 'menuName' => 'Developer', 
                 'menuAccess' => '',
@@ -997,7 +998,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'n',
                 'menuDelete' => 'n',
             ],
-			[
+            [
                 'menuParentId' => '1',
                 'menuName' => 'Menu Admin Master ', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:17:"menu_admin_master";}',
@@ -1011,7 +1012,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'y',
             ],
-			[
+            [
                 'menuParentId' => '1',
                 'menuName' => 'Menu Admin Privilage', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:20:"menu_admin_privilage";}',
@@ -1025,7 +1026,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'y',
             ],
-			[
+            [
                 'menuParentId' => '0',
                 'menuName' => 'System', 
                 'menuAccess' => '',
@@ -1039,7 +1040,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'n',
             ],
-			[
+            [
                 'menuParentId' => '4',
                 'menuName' => 'Info Sistem', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"info_sistem";}',
@@ -1053,7 +1054,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'y',
             ],
-			[
+            [
                 'menuParentId' => '0',
                 'menuName' => 'Pengaturan', 
                 'menuAccess' => '',
@@ -1067,7 +1068,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'n',
                 'menuDelete' => 'n',
             ],
-			[
+            [
                 'menuParentId' => '6',
                 'menuName' => 'Atur Web', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:8:"atur_web";}',
@@ -1081,7 +1082,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'n',
             ],
-			[
+            [
                 'menuParentId' => '0',
                 'menuName' => 'Pengguna', 
                 'menuAccess' => '',
@@ -1095,7 +1096,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'n',
                 'menuDelete' => 'n',
             ],
-			[
+            [
                 'menuParentId' => '8',
                 'menuName' => 'Kelola Pengguna', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:12:"manage_users";}',
@@ -1109,7 +1110,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'y',
             ],
-			[
+            [
                 'menuParentId' => '8',
                 'menuName' => 'Grup Pengguna', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"users_group";}',
@@ -1123,7 +1124,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'y',
             ],
-			[
+            [
                 'menuParentId' => '0',
                 'menuName' => 'Katalog', 
                 'menuAccess' => '',
@@ -1137,7 +1138,7 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'n',
                 'menuDelete' => 'n',
             ],
-			[
+            [
                 'menuParentId' => '11',
                 'menuName' => 'Kategori Produk', 
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:18:"product_categories";}',
@@ -1263,30 +1264,30 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'y',
             ],
-		];
-		foreach ( $arr as $item ) {
-			$data = [
-				'menuParentId' => $item['menuParentId'],
-				'menuName' => $item['menuName'],
-				'menuAccess' => $item['menuAccess'],
-				'menuAddedDate' => $item['menuAddedDate'],
-				'menuSort' => $item['menuSort'],
-				'menuIcon' => $item['menuIcon'],
-				'menuAttrClass' => $item['menuAttrClass'],
-				'menuActive' => $item['menuActive'],
-				'menuView' => $item['menuView'],
-				'menuAdd' => $item['menuAdd'],
-				'menuEdit' => $item['menuEdit'],
-				'menuDelete' => $item['menuDelete'],
-			];
-			$this->mc->save('shiza_users_menu', $data);
-		}
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'menuParentId' => $item['menuParentId'],
+                'menuName' => $item['menuName'],
+                'menuAccess' => $item['menuAccess'],
+                'menuAddedDate' => $item['menuAddedDate'],
+                'menuSort' => $item['menuSort'],
+                'menuIcon' => $item['menuIcon'],
+                'menuAttrClass' => $item['menuAttrClass'],
+                'menuActive' => $item['menuActive'],
+                'menuView' => $item['menuView'],
+                'menuAdd' => $item['menuAdd'],
+                'menuEdit' => $item['menuEdit'],
+                'menuDelete' => $item['menuDelete'],
+            ];
+            $this->mc->save('shiza_users_menu', $data);
+        }
     }
 
     protected function seeder_users_menu_access_table() {
         
-		$arr = [
-			[
+        $arr = [
+            [
                 'lmnId' => '1', 
                 'levelId' => '1',
                 'menuId' => '1', 
@@ -1295,7 +1296,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '2', 
                 'levelId' => '1',
                 'menuId' => '2', 
@@ -1304,7 +1305,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '3', 
                 'levelId' => '1',
                 'menuId' => '3', 
@@ -1313,7 +1314,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '4', 
                 'levelId' => '1',
                 'menuId' => '4', 
@@ -1322,7 +1323,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '5', 
                 'levelId' => '1',
                 'menuId' => '5', 
@@ -1331,7 +1332,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '6', 
                 'levelId' => '1',
                 'menuId' => '6', 
@@ -1340,7 +1341,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'n',
                 'lmnDelete' => 'n',
             ],
-			[
+            [
                 'lmnId' => '7', 
                 'levelId' => '1',
                 'menuId' => '7', 
@@ -1349,7 +1350,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'n',
             ],
-			[
+            [
                 'lmnId' => '8', 
                 'levelId' => '1',
                 'menuId' => '8', 
@@ -1358,7 +1359,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'n',
                 'lmnDelete' => 'n',
             ],
-			[
+            [
                 'lmnId' => '9', 
                 'levelId' => '1',
                 'menuId' => '9', 
@@ -1367,7 +1368,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '10', 
                 'levelId' => '1',
                 'menuId' => '10', 
@@ -1376,7 +1377,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '11', 
                 'levelId' => '1',
                 'menuId' => '11', 
@@ -1385,7 +1386,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'n',
                 'lmnDelete' => 'n',
             ],
-			[
+            [
                 'lmnId' => '12', 
                 'levelId' => '1',
                 'menuId' => '12', 
@@ -1394,7 +1395,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '13', 
                 'levelId' => '1',
                 'menuId' => '13', 
@@ -1403,7 +1404,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '14', 
                 'levelId' => '1',
                 'menuId' => '14', 
@@ -1412,7 +1413,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '15', 
                 'levelId' => '1',
                 'menuId' => '15', 
@@ -1421,7 +1422,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '16', 
                 'levelId' => '1',
                 'menuId' => '16', 
@@ -1430,7 +1431,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '17', 
                 'levelId' => '1',
                 'menuId' => '17', 
@@ -1439,7 +1440,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '18', 
                 'levelId' => '1',
                 'menuId' => '18', 
@@ -1448,7 +1449,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'n',
                 'lmnDelete' => 'n',
             ],
-			[
+            [
                 'lmnId' => '19', 
                 'levelId' => '1',
                 'menuId' => '19', 
@@ -1457,7 +1458,7 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-			[
+            [
                 'lmnId' => '20', 
                 'levelId' => '1',
                 'menuId' => '20', 
@@ -1466,217 +1467,217 @@ class Migration extends CI_Controller {
                 'lmnEdit' => 'y',
                 'lmnDelete' => 'y',
             ],
-		];
-		foreach ( $arr as $item ) {
-			$data = [
-				'lmnId' => $item['lmnId'],
-				'levelId' => $item['levelId'],
-				'menuId' => $item['menuId'],
-				'lmnView' => $item['lmnView'],
-				'lmnAdd' => $item['lmnAdd'],
-				'lmnEdit' => $item['lmnEdit'],
-				'lmnDelete' => $item['lmnDelete'],
-			];
-			$this->mc->save('shiza_users_menu_access', $data);
-		}
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'lmnId' => $item['lmnId'],
+                'levelId' => $item['levelId'],
+                'menuId' => $item['menuId'],
+                'lmnView' => $item['lmnView'],
+                'lmnAdd' => $item['lmnAdd'],
+                'lmnEdit' => $item['lmnEdit'],
+                'lmnDelete' => $item['lmnDelete'],
+            ];
+            $this->mc->save('shiza_users_menu_access', $data);
+        }
     }
     
     protected function seeder_email_template_table() {
 
-		$arr = [
-			[
+        $arr = [
+            [
                 'tName' => 'Customer - Informasi Pembayaran', 
                 'tEmail' => '<p>Bapak/Ibu {MEMBERNAME},<br />Dengan Hormat , Kami menerima pesanaan Poin dengan Nomor Invoice {INVOICE}.<br />------------------------------------------------------------<br />Lakukan pembayaran senilai {GRANDTOTAL} ke salah satu rekening:<br /><br />{BANK}<br />------------------------------------------------------------<br />Agar poin anda cepat diproses, konfirmasi pembayaran anda via sms/email.</p><p>Ke:</p><p>{SYSTEMMAIL}</p><p>{SYSTEMPHONE}</p><p><br />Pembayaran harus sesuai dengan yang tertera: {GRANDTOTAL} (Tidak dibulatkan).<br />Jika harus dibulatkan, informasikan ke kami melalui SMS/EMAIL, atau tulis pada kolom keterangan : {INVOICE} saat melakukan konfirmasi.<br /><br />Terima kasih atas kepercayaan anda pada {SYSTEMNAME}<br /><br />{SIGNATURE}<br /><br /><br />DETAIL ORDER:<br /><br />Customer Name : {MEMBERNAME}<br />Email : {MEMBEREMAIL}<br />Mobile Phone : {MEMBERTEL}<br />Order Date : {ORDERDATE}<br /><br />Your order:<br /><br />{ORDERPOINTDETAIL}<br /><br />Detail Pembayaran:<br />Kode Transaksi: {CODEID}<br />Total: {ORDERTOTAL}<br />----------------------------------------<br />Grand Total : {GRANDTOTAL}</p>', 
                 'tEmailbak' => 'Mr/Mrs/Miss {MEMBERNAME}, <br /><span lang="en">Dear Sirs , We have received your order with invoice numbers</span>&nbsp;{INVOICE}. <br />------------------------------------------------------------ <br /><span lang="en">Please make a payment of</span>&nbsp;{GRANDTOTAL} <span lang="en">to one of the accounts</span>:<br />{STORERECNAME} <br /><br />------------------------------------------------------------ <br /><span lang="en">In order to your order can be processed and delivered faster, confirm your payment via SMS/Email</span>. <br />Confirm your order via menu order and click the <strong>order confirmation</strong> button on the order that you have paid.<br /><br /><span lang="en">We hope you make a payment according to the total</span>&nbsp;{GRANDTOTAL} (<span lang="en">unrounded</span>). <br /><span lang="en">If it should be rounded</span>,&nbsp;<span lang="en">please inform us via SMS or email,</span> or write information coloumn at: {INVOICE} <br /><br /><span lang="en">Payments received no later than</span>: {ORDEREXP} <br /><span lang="en">After we receive your payment, your order will be handling and we will send it .</span>&nbsp;<br /><span lang="en">Receipt number will be informed via email after we send the package so that you can tracking.</span>&nbsp;<br /><br /><span lang="en">To cancel this order , click the <strong>Cancel</strong> button in the order you want to cancel. </span><br /><br /><span lang="en">Thank you for shopping at</span>&nbsp;{SITEURL} <br /><br />{SIGNATURE} <br /><br /><br />DETAIL ORDER: <br /><br />Customer Name : {MEMBERNAME} <br />Email : {MEMBEREMAIL} <br />Mobile Phone : {MEMBERTEL} <br />Order Date : {ORDERDATE} <br /><br />Your order: <br /><br />{ORDERDETAIL} <br /><br /><br />Your order will be sent to: <br />{MEMBERRECNAME} <br />{MEMBERADD} <br />{MEMBERTOWN} <br /><br />Shipping Method : {SHIPMETHOD} <br />Special Info : {MEMBERMSG} <br /><br />Detail Cost<br />Subtotal : {SUBTOTAL} <br />Tax({TAX}%) : {TAXAMOUNT} <br />Discount: {DISCOUNT} <br />Transaction Code: {CODEID} <br />Shipping Cost : {SHIPPRICE} <br />Shipping Cost Discount: {DISCOUNTSHIP} <br />---------------------------------------- <br />Grand Total : {GRANDTOTAL}'
             ],
-			[
+            [
                 'tName' => 'Order Reminder', 
                 'tEmail' => 'Mr/Mrs/Miss {MEMBERNAME},<br />Dear Sir,<br /><span lang="en">This email is a reminder of your order with an invoice number</span>&nbsp;{INVOICE}.<br />&nbsp;------------------------------------------------------------ <br /><br />Please make a payment of&nbsp;{GRANDTOTAL},- o one of the accounts: <br /><br />{STORERECNAME} <br /><br />------------------------------------------------------------ <br />Your order details can be seen at the bottom of this email or click here:<br />{VERIFYCODE}<br />In order to your order can be processed and delivered faster, confirm your payment via SMS/Email.<br />Confirm yout order from the following link:<br />{ORDERCONFIRMATION}<br />We hope you make a payment according to the total {GRANDTOTAL} (unrounded).<br />If it should be rounded, please inform us via SMS or email, or write information coloumn at: {INVOICE}<br /><br />Payments received no later than: {ORDEREXP}<br />After we receive your payment, your order will be handling and we will send it . <br />Receipt number will be informed via email after we send the package so that you can tracking. <br /><br /><br />Thank you for shopping at {SITEURL}<br /><br />{SIGNATURE}', 
                 'tEmailbak' => 'Mr/Mrs/Miss {MEMBERNAME},<br />Dear Sir,<br /><span lang="en">This email is a reminder of your order with an invoice number</span>&nbsp;{INVOICE}.<br />&nbsp;------------------------------------------------------------ <br /><br />Please make a payment of&nbsp;{GRANDTOTAL},- o one of the accounts: <br /><br />{STORERECNAME} <br /><br />------------------------------------------------------------ <br />Your order details can be seen at the bottom of this email or click here:<br />{VERIFYCODE}<br />In order to your order can be processed and delivered faster, confirm your payment via SMS/Email.<br />Confirm yout order from the following link:<br />{ORDERCONFIRMATION}<br />We hope you make a payment according to the total {GRANDTOTAL} (unrounded).<br />If it should be rounded, please inform us via SMS or email, or write information coloumn at: {INVOICE}<br /><br />Payments received no later than: {ORDEREXP}<br />After we receive your payment, your order will be handling and we will send it . <br />Receipt number will be informed via email after we send the package so that you can tracking. <br /><br /><br />Thank you for shopping at {SITEURL}<br /><br />{SIGNATURE}'
             ],
-			[
+            [
                 'tName' => 'Payment Received', 
                 'tEmail' => 'Mr/Mrs/Ms {MEMBERNAME}, <br />With respect, <br /><br />We would like to inform you that your payment for the invoice number {INVOICE} has been received <br />on {CHECKRECDATE}. We have checked our account and with this fully ensure that your payment has been received. <br /><br />We are currently preparing the products you ordered and will be sent as soon as possible. <br />If your order has been sent, we will re-send email notifications.<br /><br />Thank you for payments you make and of course on your TRUST in&nbsp;{SITEURL}. <br /><br />{SIGNATURE}', 
                 'tEmailbak' => 'Mr/Mrs/Ms {MEMBERNAME}, <br />With respect, <br /><br />We would like to inform you that your payment for the invoice number {INVOICE} has been received <br />on {CHECKRECDATE}. We have checked our account and with this fully ensure that your payment has been received. <br /><br />We are currently preparing the products you ordered and will be sent as soon as possible. <br />If your order has been sent, we will re-send email notifications.<br /><br />Thank you for payments you make and of course on your TRUST in&nbsp;{SITEURL}. <br /><br />{SIGNATURE}'
             ],
-			[
+            [
                 'tName' => 'Package Delivery Information', 
                 'tEmail' => 'Mr/Mrs/Ms {MEMBERNAME}, <br />With Respect, <br /><br />We would like to inform you that your order in {SITEURL} has been processed. Products that we have sent you a message with the following information: <br />{SENTINFO} <br />{DIGITALPRODUCTLINK} <br /><br />Please inform us as soon as the order is received. Call us back if you have not received your order until the deadline. <br /><br />- <span id="result_box" lang="en"><span class="hps">If</span> <span class="hps">you are satisfied</span> <span class="hps">with</span> <span class="hps">our service and products</span><span>,</span> <span class="hps">please</span> <span class="hps">write</span> <span class="hps">a testimonial</span> <span class="hps">to</span> <span class="hps">reply to</span> <span class="hps">this email</span></span>. <br />- If you are not satisfied, submit your complaint. Your complaint must be delivered within max 1 week from when the order is received. <br /><br />Thanks for the order and the trust to us! <br /><br /><br />{SIGNATURE}', 
                 'tEmailbak' => 'Mr/Mrs/Ms {MEMBERNAME}, <br />With Respect, <br /><br />We would like to inform you that your order in {SITEURL} has been processed. Products that we have sent you a message with the following information: <br />{SENTINFO} <br />{DIGITALPRODUCTLINK} <br /><br />Please inform us as soon as the order is received. Call us back if you have not received your order until the deadline. <br /><br />- <span id="result_box" lang="en"><span class="hps">If</span> <span class="hps">you are satisfied</span> <span class="hps">with</span> <span class="hps">our service and products</span><span>,</span> <span class="hps">please</span> <span class="hps">write</span> <span class="hps">a testimonial</span> <span class="hps">to</span> <span class="hps">reply to</span> <span class="hps">this email</span></span>. <br />- If you are not satisfied, submit your complaint. Your complaint must be delivered within max 1 week from when the order is received. <br /><br />Thanks for the order and the trust to us! <br /><br /><br />{SIGNATURE}'
             ],
-			[
+            [
                 'tName' => 'Order Delete', 
                 'tEmail' => 'Mr/Mrs/Ms {MEMBERNAME}, <br />With Respect, <br /><br />We would like to inform that your order invoice number&nbsp;{INVOICE} has abort. The reason for cancellation due to one of the following reasons:<br />- You do not transfer until the payment due.<br />- Email data or the address you provide is invalid. <br />- You order two times or more.<br />-&nbsp;The other reason. <br /><br />You can order the products you ordered back to visit our website at&nbsp;{SITEURL} . <br />We beg your understanding on this matter and apologize if it has caused inconvenience. <br />Thank you for your attention.<br /><br /><br />{SIGNATURE}', 
-                'tEmailbak' => 'Bapak/Ibu {MEMBERNAME},<br/>Dengan hormat, <br/><br/>Kami ingin menginformasikan bahwa pesanan Anda dengan nomor invoice {INVOICE} telah kami batalkan.<br/> Alasan pembatalan karena salah satu sebab berikut ini:<br/><br/> - Anda tidak melakukan transfer sampai batas waktu pembayaran. <br/> - Data email atau alamat yang Anda berikan tidak valid.<br/> - Anda memesan 2 kali atau lebih.<br/> - Alasan lainnya.<br/><br/>Anda dapat memesan kembali produk yang Anda pesan dengan mengunjungi website kami di {SITEURL}	.<br/>Kami memohon pengertian dari Bapak/Ibu atas hal ini dan memohon maaf jika telah menimbulkan ketidaknyamanan.<br/>Terima kasih atas perhatian Anda!<br/><br/>{SIGNATURE}'
+                'tEmailbak' => 'Bapak/Ibu {MEMBERNAME},<br/>Dengan hormat, <br/><br/>Kami ingin menginformasikan bahwa pesanan Anda dengan nomor invoice {INVOICE} telah kami batalkan.<br/> Alasan pembatalan karena salah satu sebab berikut ini:<br/><br/> - Anda tidak melakukan transfer sampai batas waktu pembayaran. <br/> - Data email atau alamat yang Anda berikan tidak valid.<br/> - Anda memesan 2 kali atau lebih.<br/> - Alasan lainnya.<br/><br/>Anda dapat memesan kembali produk yang Anda pesan dengan mengunjungi website kami di {SITEURL}    .<br/>Kami memohon pengertian dari Bapak/Ibu atas hal ini dan memohon maaf jika telah menimbulkan ketidaknyamanan.<br/>Terima kasih atas perhatian Anda!<br/><br/>{SIGNATURE}'
             ],
-			[
+            [
                 'tName' => 'Payment Confirmation', 
                 'tEmail' => 'The customer informs that a payment the following data have been paid: <br /><br />Number of Invoice : {INVOICE} <br />Nama : {MEMBERNAME} <br />Email : {MEMBEREMAIL} <br />Transfer To : {PAYMENTBANK} <br />Nominal : {TRANSFERAMOUNT} <br />Transfer Date : {TRANSFERDATE} <br /><br />Information: {NOTES} <br /><br /><br />{SIGNATURE}', 
                 'tEmailbak' => 'The customer informs that a payment the following data have been paid: <br /><br />Number of Invoice : {INVOICE} <br />Nama : {MEMBERNAME} <br />Email : {MEMBEREMAIL} <br />Transfer To : {PAYMENTBANK} <br />Nominal : {TRANSFERAMOUNT} <br />Transfer Date : {TRANSFERDATE} <br /><br />Information: {NOTES} <br /><br /><br />{SIGNATURE}'
             ],
-			[
+            [
                 'tName' => 'Customer - Verify Email Change', 
                 'tEmail' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}</td></tr><tr><td><p>Dear Bapak/Ibu {MEMBERNAME},<br /><br />Anda telah melakukan permintaan perubahan alamat email anda di {SYSTEMNAME}.<br />Verify your email by clicking this link :<br /><br />{EMAILCHANGEVERIFYURL}<br /><br />(Copy and paste the link above into your browser if it can not click)<br /><br />Thank You.</p><p><strong>Abaikan email ini jika anda tidak merasa melakukan aktifitas ini</strong>.</p></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td>Dear,<br /><br /><span lang="en">You have changed your email on </span>{SYSTEMNAME}. <br /> <span lang="en">Verify your email by clicking this link :</span><br /><br /> {EMAILCHANGEVERIFYURL} <br /><br />(<span lang="en">Copy and paste the link above into your browser if it can not click</span>) <br /><br /> Thank You.<br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Member - Verifikasi Email (Welcome)', 
                 'tEmail' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}</td></tr><tr><td><p><br />Anda telah bergabung di {SYSTEMNAME}.<br />Silahkan verifikasi akun anda dengan meng-klik link dibawah ini agar anda dapat masuk ke sistem kami:<br /><br /><a href="{VERIFYLINK}">{VERIFYLINK}</a><br /><br />(Copy paste link jika tidak bisa diklik)</p><p>Terima kasih.<br />&nbsp;</p></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}</td></tr><tr><td>With respect,<br /><br />Thanks for joining us on {SYSTEMNAME}.<br />Verify your email by clicking this link :<br /><br /><a href="{VERIFYLINK}">{VERIFYLINK}</a><br /><br />(Copy and paste the link above into your browser if it can not click)<br /><br />This link will expire within 1 hour. You can request verification email on customer area.<br />&nbsp;</td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Customer - Reset Password', 
                 'tEmail' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}</td></tr><tr><td>With respect,<br /><br />Thanks for joining us on {SYSTEMNAME}.<br />Verify your email by clicking this link :<br /><br /><a href="{VERIFYLINK}">{VERIFYLINK}</a><br /><br />(Copy and paste the link above into your browser if it can not click)<br /><br />This link will expire within 1 hour. You can request verification email on customer area.<br />&nbsp;</td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table><table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td>Mr/Mrs/Ms {CUSTOMERNAME}, <br /> With respect, <br /><br /> Your password has been successfully changed. <br /> From now on, you have to log in using your email and your new password. <br /><br /> Thank You. <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td>Mr/Mrs/Ms {CUSTOMERNAME},<br /><span id="result_box" class="short_text" lang="en"><span class="hps">With</span> <span class="hps">respect</span></span>,<br /><br /> <span lang="en">Your password has been successfully changed.</span><br /><span lang="en">From now on, you have to log in using your email and your new password.</span><br /><br /> Thank You. <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Customer - Selamat Datang (Admin)', 
                 'tEmail' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}<br />&nbsp;</td></tr><tr><td>Bapak/Ibu {MEMBERNAME},<br /><br />Terima kasih telah mendaftar di {SYSTEMNAME}.<br />Silahkan set password anda melalui link dibawah ini:<br />{FORGOTPASSWORDLINK}<br /><br />(copy link diatas ke browser jika tidak bisa di klik)<br /><br />&nbsp;</td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>With respect, <br /><br /> Thanks for joining us on {SYSTEMNAME}. <br /> Click the link below to login: <br /><br /> {FORGOTPASSWORDLINK} <br /><br /> (Copy and paste the link above into your browser if it can not click) <br /><br /> You can reset your password via FORGOT PASSWORD features. <br /><br /> Terima kasih. <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Supplier - Welcome', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>With respect, <br /><br /> Thanks for joining us on {SYSTEMNAME}. <br /> Click the link below to login: <br /><br /> {SUPPLIERFORGOTPASSWORDLINK} <br /><br /> (Copy and paste the link above into your browser if it can not click) <br /><br /> You can reset your password via FORGOT PASSWORD features. <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>With respect, <br /><br /> Thanks for joining us on {SYSTEMNAME}. <br /> Click the link below to login: <br /><br /> {SUPPLIERFORGOTPASSWORDLINK} <br /><br /> (Copy and paste the link above into your browser if it can not click) <br /><br /> You can reset your password via FORGOT PASSWORD features. <br /><br /> Terima kasih. <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Customer - Forgot Password', 
                 'tEmail' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}</td></tr><tr><td>Bapak/Ibu {MEMBERNAME},<br />Dengan hormat,<br /><br />Anda atau orang lain telah melakukan permintaan reset password melalui fitur LUPA PASSWORD.<br />Jika anda ingin benar-benar melakukan reset password, klik link dibawah ini:<br /><br />{FORGOTPASSWORDLINK}<br />&nbsp;</td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td>Bapak/Ibu {MEMBERNAME},<br /> Dengan hormat,<br /><br /> Anda atau seseorang telah melakukan request untuk melakukan reset password melalui fasilitas LUPA PASSWORD.<br />Password anda yang lama belum berubah. Jika anda ingin melakukan reset, lakukan langkah berikut: <br /><br /> {FORGOTPASSWORDLINK} <br /><br />Jika link diatas tidak bisa di-klik, silahkan copy dan paste link ke browser anda. <br /><br /> Masa berlaku link ini hanya 60 Menit.<br /> Abaikan email ini jika anda tidak merasa pernah melakukan permohonan reset password.<br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Supplier - Forgot Password', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td>Mr/Mrs/Ms {SUPPLIERNAME}, <br />With respect, <br /><br /> You or someone has done a request to reset the password through PASSWORD FORGOT facilities. <br /> Your old password has not been changed. If you want to do a reset, do the following: <br /><br /> {SUPPLIERFORGOTPASSWORDLINK} <br /><br /> If the link above does not work in clicking, please copy and paste the link into your browser. <br /><br /> This link will expire within 1 hour. Ignore this message if you did not have to do a password reset request. <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td>Mr/Mrs/Ms {SUPPLIERNAME}, <br />With respect, <br /><br /> You or someone has done a request to reset the password through PASSWORD FORGOT facilities. <br /> Your old password has not been changed. If you want to do a reset, do the following: <br /><br /> {SUPPLIERFORGOTPASSWORDLINK} <br /><br /> If the link above does not work in clicking, please copy and paste the link into your browser. <br /><br /> This link will expire within 1 hour. Ignore this message if you did not have to do a password reset request. <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Supplier - Verify Email Change', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td>Dear,<br /><br /><span lang="en">You have changed your email on </span>{SYSTEMNAME}. <br /> <span lang="en">Verify your email by clicking this link :</span><br /><br /> {SUPPLIEREMAILCHANGEVERIFYURL} <br /><br />(<span lang="en">Copy and paste the link above into your browser if it can not click</span>) <br /><br /> Thank You.<br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td>Dear,<br /><br /><span lang="en">You have changed your email on </span>{SYSTEMNAME}. <br /> <span lang="en">Verify your email by clicking this link :</span><br /><br /> {EMAILCHANGEVERIFYURL} <br /><br />(<span lang="en">Copy and paste the link above into your browser if it can not click</span>) <br /><br /> Thank You.<br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Customer - Reset Password Success', 
                 'tEmail' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}</td></tr><tr><td>Bapak/Ibu {MEMBERNAME},<br />Dengan Hormat,<br /><br />Password anda sukses diganti.<br />Sekarang anda dapat login menggunakan password baru anda.<br /><br />Terima kasih.<br />&nbsp;</td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td>Bapak/Ibu {SUPPLIERNAME},<br />Dengan hormat,<br /><br /> Password anda telah berhasil diubah. <br /> Mulai saat ini, anda harus login menggunakan email dan password baru anda. Gunakan kembali fitur FORGOT PASSWORD jika anda kembali lupa password. <br /><br /> Terima kasih. <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Supplier - Verify Email', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td><span id="result_box" class="short_text" lang="en"><span class="hps">With</span> <span class="hps">respect</span></span>,<br /><br /> Thanks for joining us on {SYSTEMNAME}. <br /> Verify your email by clicking this link : <br /><br /> {SUPPLIEREMAILVERIFYURL} <br /><br /> (<span lang="en">Copy and paste the link above into your browser if it can not click</span>) <br /><br /><span lang="en">This link will expire within 1 hour. You can request verification email on customer area.</span><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}</td></tr><tr><td><span id="result_box" class="short_text" lang="en"><span class="hps">With</span> <span class="hps">respect</span></span>,<br /><br /> Thanks for joining us on {SYSTEMNAME}. <br /> Verify your email by clicking this link : <br /><br /> {SUPPLIEREMAILVERIFYURL} <br /><br /> (<span lang="en">Copy and paste the link above into your browser if it can not click</span>) <br /><br /><span lang="en">This link will expire within 1 hour. You can request verification email on customer area.</span><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Purchase Order Information to Supplier', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br /> You have a new purchase order with article number {ARTICLENUMBER}.<br />Please visit your supplier area: <br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br /> You have a new purchase order with article number {ARTICLENUMBER}.<br />Please visit your supplier area: <br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Quotation Information to Owner', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> You have a new quotation with article number {ARTICLENUMBER}.<br />Please visit your admin area: <br /><br /> {ADMINAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> You have a new quotation with article number {ARTICLENUMBER}.<br />Please visit your admin area: <br /><br /> {ADMINAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Customer - Receipt', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="5" align="center"><tbody><tr><td colspan="2" align="center">{HEADER}</td></tr><tr><td colspan="2" align="center"><strong style="font-size: 24px;">RECEIPT</strong><br /><br /></td></tr><tr><td valign="top" width="35%">Number</td><td valign="top">:&nbsp;{KWITANSINUMBER}</td></tr><tr><td valign="top">Received From</td><td valign="top">:&nbsp;{MEMBERNAME}</td></tr><tr><td valign="top">In Payment for</td><td>:&nbsp;</td></tr><tr><td colspan="2">{DETAILKWITANSI}</td></tr><tr><td>Amount</td><td>: {GRANDTOTAL}</td></tr><tr><td colspan="2">&nbsp;<br /><br /><br /></td></tr><tr><td colspan="2" align="left"><hr /><div style="font-size: 10px; color: #999999;">{ADDITIONALINFO}</div></td></tr><tr><td colspan="2" align="left">&nbsp;<br /><br />{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="5" align="center"><tbody><tr><td colspan="2" align="center">{HEADER}</td></tr><tr><td colspan="2" align="center"><strong style="font-size: 24px;">RECEIPT</strong><br /><br /></td></tr><tr><td valign="top" width="35%"><em>Number</em></td><td valign="top">:&nbsp;{KWITANSINUMBER}</td></tr><tr><td valign="top"><em>Received From</em></td><td valign="top">:&nbsp;{MEMBERNAME}</td></tr><tr><td valign="top"><em>The SUM of</em></td><td>:&nbsp;<em>{TERBILANG} Rupiah</em></td></tr><tr><td valign="top"><em>In Payment for</em></td><td>:&nbsp;</td></tr><tr><td colspan="2">{DETAILKWITANSI}</td></tr><tr><td><em>Amount</em></td><td>:&nbsp;Rp {GRANDTOTAL}</td></tr><tr><td colspan="2">&nbsp;<br /><br /><br /></td></tr><tr><td colspan="2" align="left"><hr /><div style="font-size: 10px; color: #999999;">{PAYMENTINFO}</div></td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Re-Order PO Information', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br /> You have re-order PO with article number {ARTICLENUMBER}.<br />Please visit your supplier area:<br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br /> You have re-order PO with article number {ARTICLENUMBER}.<br />Please visit your supplier area:<br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Purchase Order Has Been Revised to Supplier', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br />Purchase order has been revised by Owner with article number {ARTICLENUMBER}.<br />Please visit your supplier area: <br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br />Purchase order has been revised by Owner with article number {ARTICLENUMBER}.<br />Please visit your supplier area: <br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Purchase Order Has Been Revised to Owner', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br />Purchase order has been revised by Owner with article number {ARTICLENUMBER}.<br />Please visit your supplier area: <br /><br /> {ADMINAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br />Purchase order has been revised by Owner with article number {ARTICLENUMBER}.<br />Please visit your supplier area: <br /><br /> {ADMINAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Owner - New Custom Design Information', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> You have a new custom design from customer with design name <strong>{DESIGNNAME}</strong>.<br />Please visit your admin area: <br /><br /> {ADMINAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> You have a new design from customer with design name {DESIGNNAME}.<br />Please visit your admin area: <br /><br /> {ADMINAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Supplier - New Design Information', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {MEMBERNAME}, <br /><br /> You have a new design from {SYSTEMNAME} with design name <strong>{DESIGNNAME}</strong>.<br />Please visit your client area: <br /><br /> {SUPPLIERAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {MEMBERNAME}, <br /><br /> You have a new design from {SYSTEMNAME} with design name {DESIGNNAME}.<br />Please visit your client area: <br /><br /> {SUPPLIERAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Reminder of approval new PO to Supplier', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br />We reminded You that You have a new purchase order with article number {ARTICLENUMBER}.<br />Please visit your supplier area:<br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br />We reminded You that You have a new purchase order with article number {ARTICLENUMBER}.<br />Please visit your supplier area:<br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Reminder of approval new PO to Owner', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br />The system reminded You that You have a new purchase order with article number {ARTICLENUMBER}.<br />Please visit your supplier area:<br /><br /> {ADMINAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br />The system reminded You that You have a new purchase order with article number {ARTICLENUMBER}.<br />Please visit your supplier area:<br /><br /> {ADMINAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Supplier - Approve New Design', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> You have an <strong>approved</strong> new design from {MEMBERNAME} with design name <strong>{DESIGNNAME}</strong>.<br />Please check your admin area: <br /><br /> {ADMINAREALINK} <br /><br />thank you.<br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {MEMBERNAME}, <br /><br /> You have a new design from {SYSTEMNAME} with design name {DESIGNNAME}.<br />Please visit your client area: <br /><br /> {SUPPLIERAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Supplier - Sending New Design', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> Your new design&nbsp;<strong>{DESIGNNAME}</strong> has been sending by {MEMBERNAME}.<strong><br /><br /></strong>Please check your admin area: <br /><br /> {ADMINAREALINK} <br /><br />thank you.<br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {MEMBERNAME}, <br /><br /> You have a new design from {SYSTEMNAME} with design name {DESIGNNAME}.<br />Please visit your client area: <br /><br /> {SUPPLIERAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Owner - Custom Design Deleted By Customer', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> One of a new custom design has been canceled by each customer with design name <strong>{DESIGNNAME}</strong>.<br /><br />Thank You.<br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> You have a new design from customer with design name {DESIGNNAME}.<br />Please visit your admin area: <br /><br /> {ADMINAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Owner - Pembayaran Order Poin Diterima', 
                 'tEmail' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}<br />&nbsp;</td></tr><tr><td><p>Yang Terhormat {MEMBERNAME},<br /><br />Kami telah menerima pembayaran atas pesanan <strong>POIN</strong> anda dengan nomor invoice: #{INVOICE}</p><p>Secara otomaris poin anda telah ditambahkan.<br /><br />Terima kasih.<br /><br />&nbsp;</p></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {MEMBERNAME}, <br /><br /> You have a new design from {SYSTEMNAME} with design name {DESIGNNAME}.<br />Please visit your client area: <br /><br /> {SUPPLIERAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Supplier - Notification for create PO from Quotation', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br />We reminded You, that You have a new purchase order ({ARTICLENUMBER}) from quotation ({ARTICLENUMBER2}).<br /><br />Please visit your supplier area:<br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SUPPLIERNAME}, <br /><br />We reminded You, that You have a new purchase order ({ARTICLENUMBER}) from quotation ({ARTICLENUMBER2}).<br /><br />Please visit your supplier area:<br /><br /> {SUPPLIERAREALINK} <br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Owner - Inactive Customer', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> Customer with customer code {MEMBERCODE} and customer name {MEMBERNAME} is in active. Because he did not shop more than 1 month<br /><br />Please visit your admin area: <br /><br /> {ADMINAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> Customer with customer code {MEMBERCODE} and customer name {MEMBERNAME} is in active. Because he did not shop more than 1 month<br /><br />Please visit your admin area: <br /><br /> {ADMINAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Owner - Customer is not Spending More than 2 Weeks', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> Customer with customer code {MEMBERCODE} and customer name {MEMBERNAME} did not shop more than 2 weeks.<br /><br />Please visit your admin area: <br /><br /> {ADMINAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {SYSTEMNAME}, <br /><br /> Customer with customer code {MEMBERCODE} and customer name {MEMBERNAME} did not shop more than 2 weeks.<br /><br />Please visit your admin area: <br /><br /> {ADMINAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Owner - Quotation request from new design', 
                 'tEmail' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {MEMBERNAME}, <br /><br /> You have an <strong>requested</strong> quotation of new design from {SYSTEMNAME} with design name <strong>{DESIGNNAME}</strong>.<br />Please check your client area: <br /><br /> {SUPPLIERAREALINK} <br /><br />thank you.<br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table style="width: 800px;" border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center">{HEADER}<br /><br /></td></tr><tr><td>Dear {MEMBERNAME}, <br /><br /> You have a new design from {SYSTEMNAME} with design name {DESIGNNAME}.<br />Please visit your client area: <br /><br /> {SUPPLIERAREALINK} <br /><br /><br /></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Coba Email Template', 
                 'tEmail' => '<p>Assalamualaikum Wr Wb Yaa</p>', 
                 'tEmailbak' => '<p>Assalamualaikum Wr Wb</p>'
             ],
-			[
+            [
                 'tName' => 'Email Customer Baru Dari Facebook', 
                 'tEmail' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}<br />&nbsp;</td></tr><tr><td>Bapak/Ibu {MEMBERNAME},<br /><br />Terima kasih telah mendaftar di {SYSTEMNAME}.<br />Kami senang Anda telah bergabung bersama kami. silahkan pilih menu masakan lezat dari kami<br /><br />&nbsp;</td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}<br />&nbsp;</td></tr><tr><td>Bapak/Ibu {MEMBERNAME},<br /><br />Terima kasih telah mendaftar di {SYSTEMNAME}.<br />Kami senang Anda telah bergabung bersama kami. silahkan pilih menu masakan lezat dari kami<br /><br />&nbsp;</td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-			[
+            [
                 'tName' => 'Pemberitahuan Pesan Baru', 
                 'tEmail' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}</td></tr><tr><td><p>Bapak/Ibu {MEMBERNAME},<br />Dengan hormat,<br /><br />Anda menerima pesan baru dari {SENDER}, cek segera siapa tahu ada rezeki dari allah :)<br />&nbsp;</p><p><a href="{INBOXANSWERLINK}"><input name="Balas" type="button" value="Balas" /></a></p></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>', 
                 'tEmailbak' => '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:800px"><tbody><tr><td>{HEADER}</td></tr><tr><td><p>Bapak/Ibu {MEMBERNAME},<br />Dengan hormat,<br /><br />Anda menerima pesan baru dari {SENDER}, cek segera siapa tahu ada rezeki dari allah :)<br />&nbsp;</p><p><input name="Balas" type="button" value="Balas" /></p></td></tr><tr><td>{SIGNATURE}</td></tr></tbody></table>'
             ],
-		];
-		foreach ( $arr as $item ) {
-			$data = [
-				'tName' => $item['tName'],
-				'tEmail' => $item['tEmail'],
-				'tEmailbak' => $item['tEmailbak'],
-			];
-			$this->mc->save('shiza_email_template', $data);
-		}
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'tName' => $item['tName'],
+                'tEmail' => $item['tEmail'],
+                'tEmailbak' => $item['tEmailbak'],
+            ];
+            $this->mc->save('shiza_email_template', $data);
+        }
     }
 }

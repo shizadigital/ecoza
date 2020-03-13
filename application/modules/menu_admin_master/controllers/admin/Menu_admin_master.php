@@ -268,7 +268,7 @@ class Menu_admin_master extends CI_Controller {
 
 							// make view structure 
 							if(!is_dir($viewspath . $sep . 'admin' . $sep . $filename)){
-								$mkdirview = makeDir($viewspath . $sep . 'admin' . $sep . $filename, 0644);
+								$mkdirview = makeDir($viewspath . $sep . 'admin' . $sep . $filename, 0755);
 				    			if(!$mkdirview){
 									show_error(t('errormakemoduledir'),503,t('errormakethedir'));
 									exit;
@@ -295,22 +295,22 @@ class Menu_admin_master extends CI_Controller {
 
 							// make dir module here
 							if(!is_dir($modulespath)){
-								$mkmodules = makeDir($modulespath, 0644);
+								$mkmodules = makeDir($modulespath, 0755);
 
 								if($mkmodules){
 									// make dir for controllers
-									$mkcontrollers = makeDir($controllerspath, 0644);
+									$mkcontrollers = makeDir($controllerspath, 0755);
 									if($mkcontrollers){
-										makeDir($controllerspath.$sep.'admin', 0644);
+										makeDir($controllerspath.$sep.'admin', 0755);
 									}
 
 									// make dir for models
-									makeDir($modelspath, 0644);
+									makeDir($modelspath, 0755);
 
 									// make dir for views
-									$mkviews = makeDir($viewspath, 0644);
+									$mkviews = makeDir($viewspath, 0755);
 									if($mkviews){
-										makeDir($viewspath.$sep.'admin', 0644);
+										makeDir($viewspath.$sep.'admin', 0755);
 									}
 								} else {
 									show_error(t('errormakemoduledir'),503,t('errormakethedir'));

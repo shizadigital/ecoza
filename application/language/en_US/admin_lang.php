@@ -153,7 +153,6 @@ $lang['notpublished'] = "Not Published";
 $lang['expired'] = "Expired";
 $lang['until'] = "Until";
 $lang['choose'] = "Choose";
-$lang['or'] = "or";
 $lang['flash'] = "Flash";
 $lang['summary'] = "Summary";
 $lang['visit'] = "Visit";
@@ -484,6 +483,10 @@ $lang['productrules'] = 'Product Rules';
 $lang['productruleinfo'] = 'There are no product rules, please add';
 $lang['allowreviews'] = 'Allow Reviews';
 $lang['quickaccess'] = 'Quick Access';
+$lang['rate'] = 'Rate';
+$lang['format'] = 'Format';
+$lang['or'] = 'or';
+$lang['and'] = 'and';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -627,6 +630,12 @@ $lang['editweight'] = "Edit Weight";
 $lang['editlength'] = "Edit Length";
 $lang['lengthunit'] = "Length Unit";
 $lang['length'] = "Length";
+
+/**
+ * Tax
+ */
+$lang['taxnameinfo'] = "Tax name to display in carts and on invoices (e.g. \"VAT\"). Invalid characters: <>;=#{}";
+$lang['edittax'] = "Edit Tax";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

@@ -153,7 +153,6 @@ $lang['notpublished'] = "Tidak Diterbitkan";
 $lang['expired'] = "Kadaluarsa";
 $lang['until'] = "Hingga";
 $lang['choose'] = "Pilih";
-$lang['or'] = "Atau";
 $lang['flash'] = "Flash";
 $lang['summary'] = "Ringkasan";
 $lang['visit'] = "Kunjungan";
@@ -484,6 +483,10 @@ $lang['productrules'] = 'Aturan Produk';
 $lang['productrulesinfo'] = 'Aturan Produk Belum Ada, Silahkan Tambahkan';
 $lang['allowreviews'] = 'Bolehkan Ulasan';
 $lang['quickaccess'] = 'Akses Cepat';
+$lang['rate'] = 'Nilai';
+$lang['format'] = 'Format';
+$lang['or'] = 'atau';
+$lang['and'] = 'dan';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -627,6 +630,12 @@ $lang['editweight'] = "Edit Bobot";
 $lang['editlength'] = "Edit Panjang";
 $lang['lengthunit'] = "Satuan Panjang";
 $lang['length'] = "Panjang";
+
+/**
+ * Tax
+ */
+$lang['taxnameinfo'] = "Nama pajak untuk ditampilkan dalam keranjang dan faktur (mis. \"PPN\"). Karakter yang tidak valid: <>; = # {}";
+$lang['edittax'] = "Edit Tax";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

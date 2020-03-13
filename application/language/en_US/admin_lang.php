@@ -518,6 +518,7 @@ $lang['dashboard'] = "Dashboard";
 /**
  * category (General)
  */
+$lang['newproductcategory'] = "New Product Category";
 $lang['categories'] = "Categories";
 $lang['category'] = "Category";
 $lang['edit_category'] = 'Edit Category';

@@ -518,6 +518,7 @@ $lang['dashboard'] = "Dasbor";
 /**
  * category General
  */
+$lang['newproductcategory'] = "Kategori Produk Baru";
 $lang['categories'] = "Kategori";
 $lang['category'] = "Kategori";
 $lang['edit_category'] = 'Edit Kategori';

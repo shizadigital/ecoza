@@ -10,7 +10,8 @@
                         <span class="dropdown-toggle-text"><?php echo t('quickaccess'); ?></span>
                     </a>
                     <div class="dropdown-menu" role="menu">
-                        <a class="dropdown-item" href="<?php echo admin_url('product/addnew'); ?>"><?php echo t('newproduct'); ?></a>
+                        <a class="dropdown-item" href="<?php echo admin_url('product/addnew'); ?>"><i class="fe fe-plus"></i> <?php echo t('newproduct'); ?></a>
+                        <a class="dropdown-item" href="<?php echo admin_url('product_categories'); ?>"><i class="fe fe-plus"></i> <?php echo t('newproductcategory'); ?></a>
                     </div>
                 </div>
 

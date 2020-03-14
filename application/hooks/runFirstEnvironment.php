@@ -7,7 +7,7 @@ class runFirstEnvironment {
 		// load environment of CI
 		if(isNotMigration()) {
 			$ci_env =& get_instance();
-			$segment = $ci_env->uri->segment(1);
+			$segment = trim( strtolower( $ci_env->uri->segment(1) ) );
 			// set time zone
 			date_default_timezone_set(get_option('timezone'));
 	

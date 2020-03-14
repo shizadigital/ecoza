@@ -2,8 +2,8 @@
 /**************** CHECKMIGRATION ********************/
 function isNotMigration() {
     $ci =& get_instance();
-    $segment = $ci->uri->segment(1);
-    if($segment != 'Migration' && $segment != 'migration') return true;
+    $segment = trim( strtolower( $ci->uri->segment(1) ) );
+    if( $segment != 'migration') return true;
     else return false;
 }
 

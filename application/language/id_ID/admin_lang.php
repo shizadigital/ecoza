@@ -240,6 +240,7 @@ $lang['prices'] = "Harga";
 $lang['purchased'] = "Dibeli";
 $lang['added'] = "Ditambahkan";
 $lang['enable'] = "Aktifkan";
+$lang['enabled'] = "Diaktifkan";
 $lang['disable'] = "Non-aktifkan";
 $lang['ajaxprocess'] = "M E M P R O S E S . . .";
 $lang['infoemptycategories'] = "Kategori produk belum ada, silahkan tambah";
@@ -382,8 +383,6 @@ $lang['invoiceformat'] = "Format Faktur";
 $lang['invoiceformatinfo'] = "Tag sisipan otomatis yang tersedia adalah:";
 $lang['invoicestarting'] = "Nomor Mulai Faktur";
 $lang['invoicestartinginfo'] = "Masukkan nomor faktur berikutnya, harus lebih besar dari %s (Kosongkan form jika tidak ada perubahan)";
-$lang['tax'] = "Pajak";
-$lang['taxinfo'] = "Isi pajak dengan Angka";
 $lang['ordersetting'] = "Pengaturan Order";
 $lang['lingshippedstatus'] = "Buat status %s disini";
 $lang['awbnumber'] = "Resi";
@@ -487,6 +486,8 @@ $lang['rate'] = 'Nilai';
 $lang['format'] = 'Format';
 $lang['or'] = 'atau';
 $lang['and'] = 'dan';
+$lang['identity'] = 'Identitas';
+$lang['update'] = 'Update';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -635,8 +636,17 @@ $lang['length'] = "Panjang";
 /**
  * Tax
  */
+$lang['tax'] = "Pajak";
+$lang['notax'] = "Tidak ada pajak";
+$lang['taxinfo'] = "Isi pajak dengan Angka";
 $lang['taxnameinfo'] = "Nama pajak untuk ditampilkan dalam keranjang dan faktur (mis. \"PPN\"). Karakter yang tidak valid: <>; = # {}";
 $lang['edittax'] = "Edit Tax";
+
+/**
+ * Currencies
+ */
+$lang['currencies'] = "Mata Uang";
+$lang['currency'] = "Mata Uang";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

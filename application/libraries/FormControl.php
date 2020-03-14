@@ -64,6 +64,18 @@ class FormControl {
         unset($inputs['type'], $inputs['required'], $inputs['label'], $inputs['value'], $inputs['texteditor']);
         
         if( $inputsType=='texteditor' ){
+            
+            $attrId = $inputs['name'];
+            $attrClass = '';
+            if( isset($inputs['class']) OR isset($inputs['id']) ){
+                if(!empty($inputs['class'])){
+                    $attrClass = " ".$inputs['class'];
+                }
+                if(!empty($inputs['id'])){
+                    $attrId = $inputs['id'];
+                }        
+            }
+
             $result .= '
             <div class="row">';
                 if( is_multilang() ){
@@ -78,7 +90,7 @@ class FormControl {
 
                                 $result .= '
                                 <li class="nav-item">
-                                <a class="'.( ($valuel == $defaultlang) ?  ' active show':'').' nav-link" id="tablang-'.$theflagcode.'" data-toggle="tab" href="#lang-'.$theflagcode.'" role="tab" aria-controls="lang-'.$theflagcode.'" aria-selected="true"><i class="flag-icon flag-icon-'.$theflagcode.'"></i> ';
+                                <a class="'.( ($valuel == $defaultlang) ?  ' active show':'').' nav-link" id="tablang-'.$theflagcode.'-'.$attrId.'" data-toggle="tab" href="#lang-'.$theflagcode.'-'.$attrId.'" role="tab" aria-controls="lang-'.$theflagcode.'-'.$attrId.'" aria-selected="true"><i class="flag-icon flag-icon-'.$theflagcode.'"></i> ';
                                     // $result .= ucwords($country);
                                     $result .= strtoupper($theflagcode);
 
@@ -133,18 +145,7 @@ class FormControl {
             $result .= '<div class="tab-content">'."\n";
 
             // define required to attribute
-            $required = ($required) ? array('data-parsley-required'=>'true'): array();
-
-            $attrId = $inputs['name'];
-            $attrClass = '';
-            if( isset($inputs['class']) OR isset($inputs['id']) ){
-                if(!empty($inputs['class'])){
-                    $attrClass = " ".$inputs['class'];
-                }
-                if(!empty($inputs['id'])){
-                    $attrId = $inputs['id'];
-                }        
-            }
+            $required = ($required) ? array('data-parsley-required'=>'true'): array();            
 
             if( is_multilang() ){
                 foreach (langlist() as $keyl2 => $valuel2) {
@@ -157,7 +158,7 @@ class FormControl {
 			    		$dl = $querylang->result_array($querylang)[0];
 			    	}
 
-                    $result .= '<div class="tab-pane fade pt-2 tinymce-multilang'.( ($valuel2 == $defaultlang)? ' active show':'').'" id="lang-'.$theflagcode2.'" role="tabpanel" aria-labelledby="tablang-'.$theflagcode2.'">'."\n";
+                    $result .= '<div class="tab-pane fade pt-2 tinymce-multilang'.( ($valuel2 == $defaultlang)? ' active show':'').'" id="lang-'.$theflagcode2.'-'.$attrId.'" role="tabpanel" aria-labelledby="tablang-'.$theflagcode2.'-'.$attrId.'">'."\n";
 
                     $result .= '<textarea id="'.$attrId.'-'.$theflagcode2.'" name="datalang['.$inputs['name'].']['.$valuel2.'][translation]" placeholder="'.$country2.'" rows="5" class="form-control'.$classtexteditor.$attrClass.'"'.( ($valuel2 == $defaultlang AND count($required) > 0)? ' data-parsley-required="true"':'').'>';
 
@@ -363,7 +364,7 @@ class FormControl {
                 <div class="modal-dialog" style="max-width:380px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">'.t('translate').' - '.$label.'</h5>
+                            <h5 class="modal-title">'.t('translate').' - '.filter_clean($label).'</h5>
                             <button type="button" class="close btncancel_'.$inputs['name'].'" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.t('close').'</span></button>
                         </div>
 
@@ -483,6 +484,7 @@ class FormControl {
                 $help = ( isset($val['help']) ) ? $val['help']:'';
                 $info = ( isset($val['info']) ) ? $val['info']:'';
                 $extra = ( isset($val['extra']) ) ? $val['extra']:'';
+                $inputgroup = ( isset($val['input-group']) ) ? $val['input-group']:array();
                 $texteditortype = ( isset($val['texteditor']) ) ?  $val['texteditor']:'';
 
                 // restyle for texteditor
@@ -496,10 +498,12 @@ class FormControl {
                 if( $formType !=  'button' AND $formType !=  'submit' AND $formType !='hidden'){
                     echo '<label';
 
-                    if($required OR $layout == 'horizontal'){
+                    if($layout == 'horizontal'){
                         $classval = ( ($layout == 'horizontal') ? $colsetting_label.' col-form-label'.$classtexteditor:'' ).( ($required)?' req':'' );
                         $classval = trim($classval);
                         echo ' class="'.$classval.'"';
+                    } else {
+                        echo ' class="d-block'.(($required)?' req':'' ).'"';
                     }
 
                     echo ' for="'.( ( isset($val['id']) )? $val['id']:explode("[",$name)[0]).'">' . $label . ( !empty($info) ? ' <i class="fa fa-question-circle text-blue shiza_tooltip" title="'.$info.'"></i>':'' ) .'</label>'."\n";
@@ -513,7 +517,7 @@ class FormControl {
                     if($layout == 'horizontal' AND $formType !='hidden'){ echo '<div class="'.$col_element.'">'; }
                     
                     // remove key so as not to insert to attribute
-                    unset( $val['type'], $val['help'], $val['label'], $val['required'], $val['option'], $val['selected'], $val['info'],$val['texteditor'],$val['extra'] );
+                    unset( $val['type'], $val['help'], $val['label'], $val['required'], $val['option'], $val['selected'], $val['info'],$val['texteditor'],$val['extra'],$val['input-group'] );
 
                     // define required to attribute
                     $required = ($required) ? array('required'=>'required'): array();
@@ -669,7 +673,35 @@ class FormControl {
 
                         $val_ = array_merge($val, $attrStandard, $required);
 
+                        if( count($inputgroup) > 0 ){
+                            echo '<div class="input-group">';
+                            if( !empty($inputgroup['prepend']) ){
+
+                                echo '<div class="input-group-prepend">';
+                                if( $inputgroup['prepend'] != filter_clean($inputgroup['prepend']) ){
+                                    echo $inputgroup['prepend'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['prepend'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                        }
+
                         echo form_textarea($val_);  
+
+                        if( count($inputgroup) > 0 ){
+                            if( !empty($inputgroup['append']) ){
+                                
+                                echo '<div class="input-group-append">';
+                                if( $inputgroup['append'] != filter_clean($inputgroup['append']) ){
+                                    echo $inputgroup['append'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['append'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
                     } 
 
                     /**
@@ -776,7 +808,35 @@ class FormControl {
 
                         $val_ = array_merge($val, $attrStandard, $selectrequired);
 
+                        if( count($inputgroup) > 0 ){
+                            echo '<div class="input-group">';
+                            if( !empty($inputgroup['prepend']) ){
+
+                                echo '<div class="input-group-prepend">';
+                                if( $inputgroup['prepend'] != filter_clean($inputgroup['prepend']) ){
+                                    echo $inputgroup['prepend'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['prepend'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                        }
+
                         echo form_dropdown($name, $selectoption, $selectedoption, $val_);
+
+                        if( count($inputgroup) > 0 ){
+                            if( !empty($inputgroup['append']) ){
+                                
+                                echo '<div class="input-group-append">';
+                                if( $inputgroup['append'] != filter_clean($inputgroup['append']) ){
+                                    echo $inputgroup['append'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['append'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
                     }
 
                     /**
@@ -809,7 +869,35 @@ class FormControl {
 
                         $val_ = array_merge($val, $attrStandard, $selectrequired);
 
+                        if( count($inputgroup) > 0 ){
+                            echo '<div class="input-group">';
+                            if( !empty($inputgroup['prepend']) ){
+
+                                echo '<div class="input-group-prepend">';
+                                if( $inputgroup['prepend'] != filter_clean($inputgroup['prepend']) ){
+                                    echo $inputgroup['prepend'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['prepend'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                        }
+
                         echo form_multiselect($name, $selectoption, $selectedoption, $val_);
+
+                        if( count($inputgroup) > 0 ){
+                            if( !empty($inputgroup['append']) ){
+                                
+                                echo '<div class="input-group-append">';
+                                if( $inputgroup['append'] != filter_clean($inputgroup['append']) ){
+                                    echo $inputgroup['append'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['append'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
                     }
 
                     /**
@@ -838,7 +926,35 @@ class FormControl {
 
                         $val_ = array_merge($val, $attrStandard, $required);
 
+                        if( count($inputgroup) > 0 ){
+                            echo '<div class="input-group">';
+                            if( !empty($inputgroup['prepend']) ){
+
+                                echo '<div class="input-group-prepend">';
+                                if( $inputgroup['prepend'] != filter_clean($inputgroup['prepend']) ){
+                                    echo $inputgroup['prepend'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['prepend'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                        }
+
                         echo form_input($val_);
+
+                        if( count($inputgroup) > 0 ){
+                            if( !empty($inputgroup['append']) ){
+                                
+                                echo '<div class="input-group-append">';
+                                if( $inputgroup['append'] != filter_clean($inputgroup['append']) ){
+                                    echo $inputgroup['append'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['append'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
                     }
 
                     /**
@@ -868,7 +984,35 @@ class FormControl {
 
                         $val_ = array_merge($val, $attrStandard, $required);
 
+                        if( count($inputgroup) > 0 ){
+                            echo '<div class="input-group">';
+                            if( !empty($inputgroup['prepend']) ){
+
+                                echo '<div class="input-group-prepend">';
+                                if( $inputgroup['prepend'] != filter_clean($inputgroup['prepend']) ){
+                                    echo $inputgroup['prepend'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['prepend'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                        }
+
                         echo form_input($val_);
+
+                        if( count($inputgroup) > 0 ){
+                            if( !empty($inputgroup['append']) ){
+                                
+                                echo '<div class="input-group-append">';
+                                if( $inputgroup['append'] != filter_clean($inputgroup['append']) ){
+                                    echo $inputgroup['append'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['append'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
                     }
 
                     /**
@@ -900,7 +1044,35 @@ class FormControl {
 
                         $val_ = array_merge($val, $attrStandard, $filerequired);
 
+                        if( count($inputgroup) > 0 ){
+                            echo '<div class="input-group">';
+                            if( !empty($inputgroup['prepend']) ){
+
+                                echo '<div class="input-group-prepend">';
+                                if( $inputgroup['prepend'] != filter_clean($inputgroup['prepend']) ){
+                                    echo $inputgroup['prepend'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['prepend'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                        }
+
                         echo form_upload($val_);
+
+                        if( count($inputgroup) > 0 ){
+                            if( !empty($inputgroup['append']) ){
+                                
+                                echo '<div class="input-group-append">';
+                                if( $inputgroup['append'] != filter_clean($inputgroup['append']) ){
+                                    echo $inputgroup['append'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['append'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
                     }
 
                     /**
@@ -944,7 +1116,35 @@ class FormControl {
                             ';
                         }
 
+                        if( count($inputgroup) > 0 ){
+                            echo '<div class="input-group">';
+                            if( !empty($inputgroup['prepend']) ){
+
+                                echo '<div class="input-group-prepend">';
+                                if( $inputgroup['prepend'] != filter_clean($inputgroup['prepend']) ){
+                                    echo $inputgroup['prepend'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['prepend'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                        }
+
                         echo form_upload($val_);
+
+                        if( count($inputgroup) > 0 ){
+                            if( !empty($inputgroup['append']) ){
+                                
+                                echo '<div class="input-group-append">';
+                                if( $inputgroup['append'] != filter_clean($inputgroup['append']) ){
+                                    echo $inputgroup['append'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['append'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
                     }                    
 
                     /**
@@ -1140,7 +1340,35 @@ class FormControl {
 
                         $val_ = array_merge($val, $attrStandard, $required);
 
+                        if( count($inputgroup) > 0 ){
+                            echo '<div class="input-group">';
+                            if( !empty($inputgroup['prepend']) ){
+
+                                echo '<div class="input-group-prepend">';
+                                if( $inputgroup['prepend'] != filter_clean($inputgroup['prepend']) ){
+                                    echo $inputgroup['prepend'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['prepend'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                        }
+
                         echo form_input($val_);
+
+                        if( count($inputgroup) > 0 ){
+                            if( !empty($inputgroup['append']) ){
+                                
+                                echo '<div class="input-group-append">';
+                                if( $inputgroup['append'] != filter_clean($inputgroup['append']) ){
+                                    echo $inputgroup['append'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['append'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
                     }
 
                     /**
@@ -1168,7 +1396,35 @@ class FormControl {
 
                         $val_ = array_merge($val, $attrStandard, $required);
 
+                        if( count($inputgroup) > 0 ){
+                            echo '<div class="input-group">';
+                            if( !empty($inputgroup['prepend']) ){
+
+                                echo '<div class="input-group-prepend">';
+                                if( $inputgroup['prepend'] != filter_clean($inputgroup['prepend']) ){
+                                    echo $inputgroup['prepend'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['prepend'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                        }
+
                         echo form_input($val_);
+
+                        if( count($inputgroup) > 0 ){
+                            if( !empty($inputgroup['append']) ){
+                                
+                                echo '<div class="input-group-append">';
+                                if( $inputgroup['append'] != filter_clean($inputgroup['append']) ){
+                                    echo $inputgroup['append'];
+                                } else {
+                                    echo '<span class="input-group-text">'.$inputgroup['append'].'</span>';
+                                }
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
                     }
 
                     if(!empty($help) AND $formType !='hidden') { 

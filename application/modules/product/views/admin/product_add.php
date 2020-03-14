@@ -145,73 +145,191 @@ if( is_add() ){
 
                         -->
                         <div class="tab-pane fade py-4 active show" id="general" role="tabpanel" aria-labelledby="general-tab">
-                            <?php
-                            // get rules data for checkbox
-                            $rulesdata = array();
-                            foreach(productRules(TRUE) AS $key => $val){
-                                $rulesdata[$key]['title'] = '<strong>'.$val['type'] . '</strong> - '.$val['description'];
-                                $rulesdata[$key]['value'] = $key;
-                                $rulesdata[$key]['checked'] = ( $key == '1' ) ? true:false;
-                            }
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <?php
+                                    // get rules data for checkbox
+                                    $rulesdata = array();
+                                    foreach(productRules(TRUE) AS $key => $val){
+                                        $rulesdata[$key]['title'] = '<strong>'.$val['type'] . '</strong> - '.$val['description'];
+                                        $rulesdata[$key]['value'] = $key;
+                                        $rulesdata[$key]['checked'] = ( $key == '1' ) ? true:false;
+                                    }
 
-                            $buildgeneralform = array(
-                                array(
-                                    'type' => 'radio',
-                                    'label'=> t('productrules'),
-                                    'name'=> 'rules',
-                                    'value'=> $rulesdata,
-                                ),
-                                array(
-                                    'type' => 'checkbox',
-                                    'label' => t('published'),
-                                    'name' => 'publis',
-                                    'value' => 'y',
-                                    'title' => t('yes'),
-                                    'checked' => true
-                                ),
-                                array(
-                                    'type' => 'multilanguage_text',
-                                    'label' => t('productname'),
-                                    'name' => 'productname',
-                                    'required' => true,
-                                ),
-                                array(
-                                    'type' => 'multilanguage_texteditor',
-                                    'texteditor' => 'standard',
-                                    'label' => t('description'),
-                                    'name' => 'desc',
-                                    'required' => true,
-                                ),
-                                array(
-                                    'type' => 'checkbox',
-                                    'label'=> t('allowreviews'),
-                                    'name'=> 'allowreviews',
-                                    'value' => 'y',
-                                    'title'=> t('yes'),
-                                    'checked' => true
-                                ),
-                                array(
-                                    'type' => 'checkbox',
-                                    'label'=> t('featured'),
-                                    'name'=> 'featured',
-                                    'value' => 'y',
-                                    'title'=> t('yes')
-                                ),
-                                array(
-                                    'type' => 'text',
-                                    'label'=> t('youtubevideo'),
-                                    'name'=> 'urlyoutube',
-                                    'help' => t('infoyoutubereq')
-                                ),
-                                array(
-                                    'type' => 'multilanguage_texteditor',
-                                    'texteditor' => 'verysimple',
-                                    'label' => t('note'),
-                                    'name' => 'note',
-                                ),
-                            );
-                            $this->formcontrol->buildInputs($buildgeneralform, $layout_model, $col_layout);
-                            ?>                        
+                                    $buildgeneralform1 = array(
+                                        array(
+                                            'type' => 'radio',
+                                            'label'=> '<h4 class="d-inline-block">'.t('productrules').'</h4>',
+                                            'name'=> 'rules',
+                                            'value'=> $rulesdata,
+                                        ),
+                                        array(
+                                            'type' => 'multilanguage_text',
+                                            'label' => '<h4 class="d-inline-block">'.t('productname').'</h4>',
+                                            'name' => 'productname',
+                                            'required' => true,
+                                        ),
+                                        array(
+                                            'type' => 'multilanguage_texteditor',
+                                            'texteditor' => 'standard',
+                                            'label' => '<h4 class="d-inline-block">'.t('description').'</h4>',
+                                            'name' => 'desc',
+                                            'required' => true,
+                                        ),
+                                        array(
+                                            'type' => 'text',
+                                            'label'=> '<h4 class="d-inline-block">'.t('youtubevideo').'</h4>',
+                                            'name'=> 'urlyoutube',
+                                            'help' => t('infoyoutubereq')
+                                        ),
+                                        array(
+                                            'type' => 'multilanguage_texteditor',
+                                            'texteditor' => 'verysimple',
+                                            'label' => '<h4 class="d-inline-block">'.t('note').'</h4>',
+                                            'name' => 'note',
+                                        ),
+                                    );
+                                    $this->formcontrol->buildInputs($buildgeneralform1);
+                                    ?>
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card"><div class="card-body">
+                                            <h4 class="mb-4"><?php echo t('setting'); ?></h4>
+                                            <?php
+                                            $buildgeneralform2 = array(
+                                                array(
+                                                    'type' => 'checkbox',
+                                                    'name' => 'publis',
+                                                    'value' => 'y',
+                                                    'title' => t('published'),
+                                                    'checked' => true
+                                                ),
+                                                array(
+                                                    'type' => 'checkbox',
+                                                    'name'=> 'allowreviews',
+                                                    'value' => 'y',
+                                                    'title'=> t('allowreviews'),
+                                                    'checked' => true
+                                                ),
+                                                array(
+                                                    'type' => 'checkbox',
+                                                    'name'=> 'featured',
+                                                    'value' => 'y',
+                                                    'title'=> t('featured')
+                                                ),
+                                            );
+
+                                            $this->formcontrol->buildInputs($buildgeneralform2);
+                                            ?>
+                                            </div></div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="card"><div class="card-body">
+                                                <h4 class="mb-4"><?php echo t('price'); ?></h4>
+                                                <?php                            
+                                                $builddataform2 = array(
+                                                    array(
+                                                        'type'=>'text',
+                                                        'label'=> t('capitalprice'),
+                                                        'name'=> 'capitalprice',
+                                                        'id' => 'bprice',
+                                                        'class' => 'input_price_field',
+                                                        'onkeypress'=>'return isNumberComma(event)',
+                                                        'required' => true,
+                                                        'input-group' => array(
+                                                            'prepend'=>'Rp',
+                                                        )
+                                                    ),
+                                                    array(
+                                                        'type'=>'text',
+                                                        'label'=> t('normalprice'),
+                                                        'name'=> 'normalprice',
+                                                        'id' => 'nprice',
+                                                        'class' => 'input_price_field',
+                                                        'onkeypress'=>'return isNumberComma(event)',
+                                                        'required' => true,
+                                                        'input-group' => array(
+                                                            'prepend'=>'Rp',
+                                                        ),
+                                                        'extra' => '
+                                                        <small class="form-text text-muted" id="hasil_selisih">
+                                                        '.t('differencefromcapitalprice').': 0%
+                                                        </small>
+                                                        '
+                                                    ),
+                                                    array(
+                                                        'type'=>'text',
+                                                        'label'=> t('specialprice'),
+                                                        'name'=> 'specialprice',
+                                                        'onkeypress'=>'return isNumberComma(event)',
+                                                        'input-group' => array(
+                                                            'prepend'=>'Rp',
+                                                        )
+                                                    ),
+                                                );
+                                                $this->formcontrol->buildInputs($builddataform2);
+                                                ?>
+                                                <script>
+                                                    function total_harga_spesial(harga1,harga2,printke,ket1,ket_salah){
+                                                        $(function (){
+                                                            var harga_1 = harga1;
+                                                            var harga_2 = harga2;
+
+                                                            // hitung harga
+                                                            var persen = (harga_2 / harga_1) * 100;
+
+                                                            if(persen > 100){
+                                                                var cetak = '<span class="text-danger">'+ket_salah+'</span>';
+                                                            } else {
+                                                                if(persen){
+                                                                    var selisih = 100 - persen;
+                                                                    var cetak = selisih + '%';
+                                                                } else {
+                                                                    var cetak = '0%';
+                                                                }
+                                                            }
+
+                                                            $(printke).html( ket1 + cetak);
+                                                        });
+                                                    }
+
+                                                    $(function () {
+                                                        $(".input_price_field").keyup(function() {
+                                                            var harga_normal = $("#nprice").val().replace(',', '.');
+                                                            var harga_modal = $("#bprice").val().replace(',', '.');
+                                                            total_harga_spesial(harga_normal, harga_modal, "#hasil_selisih", '<?php echo t('differencefromcapitalprice'); ?>: ', "<?php echo t('capitalpricemorebigger'); ?>");
+                                                        });
+                                                    });
+                                                </script>
+                                            </div></div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="card"><div class="card-body">
+                                                <h4 class="mb-4"><?php echo t('tax'); ?></h4>
+                                                <?php                            
+                                                $builddataform3 = array(
+                                                    array(
+                                                        'type' => 'select',
+                                                        'name'=> 'tax',
+                                                        'option' => $taxes
+                                                    ),
+                                                );
+                                                $this->formcontrol->buildInputs($builddataform3);
+                                                ?>
+                                            </div></div>
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
 
                         <!--
@@ -228,14 +346,14 @@ if( is_add() ){
                                     'name'=> 'categories[]',
                                     'class' => 'select2',
                                     'option'=> $categories,
-                                    'required' => true,                                    
+                                    'required' => true,
                                 ),
                                 array(
                                     'type' => 'select',
                                     'label'=> t('manufacturers'),
                                     'name'=> 'manufacturers',
                                     'class' => 'select2',
-                                    'option'=> $manufacturers,                           
+                                    'option'=> $manufacturers,
                                 ),
                                 array(
                                     'type' => 'select',
@@ -320,35 +438,55 @@ if( is_add() ){
 
                         -->
                         <div class="tab-pane fade py-4" id="data" role="tabpanel" aria-labelledby="data-tab">
-                        <?php                            
-                            $builddataform = array(
+                        
+                            <?php                            
+                            $builddataform1 = array(
                                 array(
                                     'type' => 'text',
                                     'label'=> 'SKU',
                                     'name'=> 'sku',
-                                    'info' => t('abbr_sku')                        
+                                    'info' => t('abbr_sku')
                                 ),
                                 array(
                                     'type' => 'text',
                                     'label'=> 'UPC',
                                     'name'=> 'upc',
-                                    'info' => t('abbr_upc')                        
+                                    'info' => t('abbr_upc')
                                 ),
                                 array(
                                     'type' => 'text',
                                     'label'=> 'ISBN',
                                     'name'=> 'isbn',
-                                    'info' => t('abbr_isbn')                        
+                                    'info' => t('abbr_isbn')
                                 ),
                                 array(
                                     'type' => 'text',
                                     'label'=> 'MPN',
                                     'name'=> 'mpn',
-                                    'info' => t('abbr_mpn')                        
+                                    'info' => t('abbr_mpn')
+                                ),
+                                array(
+                                    'type' => 'radio',
+                                    'label'=> t('shipping'),
+                                    'name'=> 'shipping',
+                                    'value' => array(
+                                        array(
+                                            'value'=>'y',
+                                            'title' => t('yes'),
+                                            'checked' => true   
+                                        ),
+                                        array(
+                                            'value'=>'n',
+                                            'title' => t('no'),
+                                            'checked' => false   
+                                        ),
+                                    ),
+                                    'layout' => 'horizontal'
                                 ),
                             );
-                            $this->formcontrol->buildInputs($builddataform, $layout_model, $col_layout);
-                        ?>
+                            $this->formcontrol->buildInputs($builddataform1, $layout_model, $col_layout);
+                            ?>
+
                         </div>
                         
                         <!--

@@ -42,6 +42,7 @@ class Migration extends CI_Controller {
         Self::create_shiza_badge_relationship_table();
         Self::create_shiza_categories_table();
         Self::create_shiza_category_relationship_table();
+        Self::create_shiza_currency_table();
         Self::create_shiza_comments_table();
         Self::create_shiza_contents_table();
         Self::create_shiza_cron_list_table();
@@ -226,6 +227,27 @@ class Migration extends CI_Controller {
         $schema->index('catId');
         $schema->index('relatedId');
         $schema->index('crelRelatedType');
+    }
+
+    protected function create_shiza_currency_table(){
+        $schema = $this->schema->create_table('currency');
+        $schema->increments('curId', ['length' => '11']);
+        $schema->string('curTitle', ['length' => '30']);
+        $schema->string('curCode', ['length' => '5']);
+        $schema->string('curPrefixSymbol', ['length' => '12']);
+        $schema->string('curSuffixSymbol', ['length' => '12']);
+        $schema->decimal('curRate', ['length' => '14,8', 'unsigned'=>TRUE]);
+        $schema->decimal('curForeignCurrencyToDefault', ['length' => '14,8', 'unsigned'=>TRUE]);
+        $schema->char('curDecimalPlace', ['length' => '1']);
+        $schema->integer('curModifiedDate', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->enum('curUpdateMethod', ['automatic', 'manual']);
+        $schema->integer('curStatus', ['int' => '1', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('curCode');
+        $schema->index('curStatus');
+
     }
 
     protected function create_shiza_comments_table() {
@@ -772,6 +794,7 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('badge_relationship');
         $this->schema->drop_table('categories');
         $this->schema->drop_table('category_relationship');
+        $this->schema->drop_table('currency');
         $this->schema->drop_table('comments');
         $this->schema->drop_table('contents');
         $this->schema->drop_table('cron_list');
@@ -816,6 +839,7 @@ class Migration extends CI_Controller {
     // ======= SEED
     protected function seed() {
         Self::seeder_ads_position_table();
+        Self::seeder_currency_table();
         Self::seeder_dynamic_translations_table();
         Self::seeder_email_template_table();
         Self::seeder_options_table();
@@ -859,6 +883,112 @@ class Migration extends CI_Controller {
 		}
     }
 
+    protected function seeder_currency_table() {
+
+        $arr = [
+            [
+                'curTitle' => 'Rupiah',
+				'curCode' => 'IDR',
+				'curPrefixSymbol' => 'Rp',
+				'curSuffixSymbol' => '',
+				'curRate' => 1.00000000,
+				'curForeignCurrencyToDefault' => 1.00000000,
+				'curDecimalPlace' => '2',
+				'curModifiedDate' => 1563796386,
+				'curUpdateMethod' => 'automatic',
+				'curStatus' => 1,
+            ],
+            [
+                'curTitle' => 'Dollar Amerika',
+				'curCode' => 'USD',
+				'curPrefixSymbol' => '$',
+				'curSuffixSymbol' => '',
+				'curRate' => 0.00007173,
+				'curForeignCurrencyToDefault' => 13940.50000000,
+				'curDecimalPlace' => '2',
+				'curModifiedDate' => 1563796386,
+				'curUpdateMethod' => 'automatic',
+				'curStatus' => 1,
+            ],
+            [
+                'curTitle' => 'Ringgit Malaysia',
+				'curCode' => 'MYR',
+				'curPrefixSymbol' => 'RM',
+				'curSuffixSymbol' => '',
+				'curRate' => 0.00029496,
+				'curForeignCurrencyToDefault' => 3390.26409300,
+				'curDecimalPlace' => '2',
+				'curModifiedDate' => 1563796386,
+				'curUpdateMethod' => 'automatic',
+				'curStatus' => 1,
+            ],
+            [
+                'curTitle' => 'Dollar Singapura',
+				'curCode' => 'SGD',
+				'curPrefixSymbol' => '$',
+				'curSuffixSymbol' => '',
+				'curRate' => 0.00009759,
+				'curForeignCurrencyToDefault' => 10246.61901100,
+				'curDecimalPlace' => '2',
+				'curModifiedDate' => 1563796386,
+				'curUpdateMethod' => 'automatic',
+				'curStatus' => 1,
+            ],
+            [
+                'curTitle' => 'Euro',
+				'curCode' => 'EUR',
+				'curPrefixSymbol' => '',
+				'curSuffixSymbol' => '€',
+				'curRate' => 0.00006390,
+				'curForeignCurrencyToDefault' => 15650.27737800,
+				'curDecimalPlace' => '2',
+				'curModifiedDate' => 1563796386,
+				'curUpdateMethod' => 'automatic',
+				'curStatus' => 1,
+            ],
+            [
+                'curTitle' => 'Pound Sterling',
+				'curCode' => 'GBP',
+				'curPrefixSymbol' => '£',
+				'curSuffixSymbol' => '',
+				'curRate' => 0.00005758,
+				'curForeignCurrencyToDefault' => 17366.98878200,
+				'curDecimalPlace' => '2',
+				'curModifiedDate' => 1563796386,
+				'curUpdateMethod' => 'automatic',
+				'curStatus' => 1,
+            ],
+            [
+                'curTitle' => 'Baht',
+				'curCode' => 'THB',
+				'curPrefixSymbol' => '฿',
+				'curSuffixSymbol' => '',
+				'curRate' => 0.00221236,
+				'curForeignCurrencyToDefault' => 452.00649000,
+				'curDecimalPlace' => '2',
+				'curModifiedDate' => 1563796386,
+				'curUpdateMethod' => 'automatic',
+				'curStatus' => 1,
+            ],
+        ];
+        
+		foreach ( $arr as $item ) {
+			$data = [
+				'curTitle' => $item['curTitle'],
+				'curCode' => $item['curCode'],
+				'curPrefixSymbol' => $item['curPrefixSymbol'],
+				'curSuffixSymbol' => $item['curSuffixSymbol'],
+				'curRate' => $item['curRate'],
+				'curForeignCurrencyToDefault' => $item['curForeignCurrencyToDefault'],
+				'curDecimalPlace' => $item['curDecimalPlace'],
+				'curModifiedDate' => $item['curModifiedDate'],
+				'curUpdateMethod' => $item['curUpdateMethod'],
+				'curStatus' => $item['curStatus'],
+			];
+			$this->mc->save('shiza_currency', $data);
+		}
+    }
+
     protected function seeder_dynamic_translations_table() {
 
 		$arr = [
@@ -881,7 +1011,7 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'17', 'dtLang'=>'en_US', 'dtTranslation'=>'Product Badges', 'dtInputType'=>'text', 'dtCreateDate'=>'1583350660', 'dtUpdateDate'=>'1583350660'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'18', 'dtLang'=>'en_US', 'dtTranslation'=>'Reports', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429030', 'dtUpdateDate'=>'1583429099'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'19', 'dtLang'=>'en_US', 'dtTranslation'=>'Weight Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429622', 'dtUpdateDate'=>'1583429908'],
-            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'20', 'dtLang'=>'en_US', 'dtTranslation'=>'Length Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583430361', 'dtUpdateDate'=>'1583430361'],['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'21', 'dtLang'=>'en_US', 'dtTranslation'=>'Tax', 'dtInputType'=>'text', 'dtCreateDate'=>'1584089953', 'dtUpdateDate'=>'1584089953'],['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'22', 'dtLang'=>'en_US', 'dtTranslation'=>'Tax Rule', 'dtInputType'=>'text', 'dtCreateDate'=>'1584090162', 'dtUpdateDate'=>'1584090162'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'20', 'dtLang'=>'en_US', 'dtTranslation'=>'Length Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583430361', 'dtUpdateDate'=>'1583430361'],['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'21', 'dtLang'=>'en_US', 'dtTranslation'=>'Tax', 'dtInputType'=>'text', 'dtCreateDate'=>'1584089953', 'dtUpdateDate'=>'1584089953'],['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'22', 'dtLang'=>'en_US', 'dtTranslation'=>'Tax Rule', 'dtInputType'=>'text', 'dtCreateDate'=>'1584090162', 'dtUpdateDate'=>'1584090162'],['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'23', 'dtLang'=>'en_US', 'dtTranslation'=>'Currencies', 'dtInputType'=>'text', 'dtCreateDate'=>'1584090568', 'dtUpdateDate'=>'1584090568'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -921,7 +1051,9 @@ class Migration extends CI_Controller {
             ['optionName' => 'smtp_password', 'optionValue' => 'TFJlbkV3R1BvOUt4Zlg3eWs1VlpOZz09'],
             ['optionName' => 'smtp_host', 'optionValue' => 'myhostmail.com'],
             ['optionName' => 'smtp_ssltype', 'optionValue' => 'ssl'],
+            ['optionName' => 'smtp_port', 'optionValue' => '465'],
             ['optionName' => 'productrules', 'optionValue' => 'a:4:{i:1;a:2:{s:4:"type";s:11:"add_to_cart";s:11:"description";s:16:"add_to_cart_desc";}i:2;a:2:{s:4:"type";s:16:"contact_to_order";s:11:"description";s:21:"contact_to_order_desc";}i:3;a:2:{s:4:"type";s:11:"coming_soon";s:11:"description";s:16:"coming_soon_desc";}i:4;a:2:{s:4:"type";s:8:"sold_out";s:11:"description";s:13:"sold_out_desc";}}'],
+            ['optionName' => 'defaultcurrency', 'optionValue' => 'IDR'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1326,6 +1458,20 @@ class Migration extends CI_Controller {
                 'menuEdit' => 'y',
                 'menuDelete' => 'y',
             ],
+            [
+                'menuParentId' => '6',
+                'menuName' => 'Mata Uang', 
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:10:"currencies";}',
+                'menuAddedDate' => '1584090345', 
+                'menuSort' => '5',
+                'menuIcon' => '', 
+                'menuAttrClass' => '',
+                'menuActive' => 'y', 
+                'menuView' => 'y',
+                'menuAdd' => 'y', 
+                'menuEdit' => 'y',
+                'menuDelete' => 'y',
+            ],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1542,6 +1688,15 @@ class Migration extends CI_Controller {
                 'lmnId' => '22', 
                 'levelId' => '1',
                 'menuId' => '22', 
+                'lmnView' => 'y',
+                'lmnAdd' => 'y', 
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y',
+            ],
+			[
+                'lmnId' => '23', 
+                'levelId' => '1',
+                'menuId' => '23', 
                 'lmnView' => 'y',
                 'lmnAdd' => 'y', 
                 'lmnEdit' => 'y',

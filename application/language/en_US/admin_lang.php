@@ -240,6 +240,7 @@ $lang['prices'] = "Prices";
 $lang['purchased'] = "Purchased";
 $lang['added'] = "Added";
 $lang['enable'] = "Enable";
+$lang['enabled'] = "Enabled";
 $lang['disable'] = "Disable";
 $lang['ajaxprocess'] = "L O A D I N G . . .";
 $lang['infoemptycategories'] = "Categories not available, please add";
@@ -382,8 +383,6 @@ $lang['invoiceformat'] = "Invoice Format";
 $lang['invoiceformatinfo'] = "Available auto-insert tags are:";
 $lang['invoicestarting'] = "Invoice Starting";
 $lang['invoicestartinginfo'] = "Enter to set the next invoice number, must be greater than last %s (Blank for no change)";
-$lang['tax'] = "Tax";
-$lang['taxinfo'] = "Insert the tax field with numeric";
 $lang['ordersetting'] = "Order Setting";
 $lang['lingshippedstatus'] = "Make status to %s here";
 $lang['awbnumber'] = "AWB/Receipt";
@@ -487,6 +486,9 @@ $lang['rate'] = 'Rate';
 $lang['format'] = 'Format';
 $lang['or'] = 'or';
 $lang['and'] = 'and';
+$lang['identity'] = 'Identity';
+$lang['update'] = 'Update';
+$lang['update'] = 'Update';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -635,8 +637,17 @@ $lang['length'] = "Length";
 /**
  * Tax
  */
+$lang['tax'] = "Tax";
+$lang['notax'] = "No tax";
+$lang['taxinfo'] = "Insert the tax field with numeric";
 $lang['taxnameinfo'] = "Tax name to display in carts and on invoices (e.g. \"VAT\"). Invalid characters: <>;=#{}";
 $lang['edittax'] = "Edit Tax";
+
+/**
+ * Currencies
+ */
+$lang['currencies'] = "Currencies";
+$lang['currency'] = "Currency";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

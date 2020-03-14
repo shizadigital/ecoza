@@ -61,6 +61,13 @@ class Product extends CI_Controller{
 				$datamanufacturers[$v['manufactId']] = $v['manufactName'];
 			}
 
+			// get tax
+			$tax = $this->Env_model->view_where_order('taxId, taxName, taxRate, taxType','tax', "taxDeleted='0' AND taxActive='y'",'taxId','ASC');
+			$taxes[''] = t('notax');
+			foreach( $tax as $k => $v ){
+				$taxes[$v['taxId']] = $v['taxName'] . ( ($v['taxType']=='percentage') ? ' (%)':'');
+			}
+
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
@@ -77,6 +84,7 @@ class Product extends CI_Controller{
 											),
 							'categories' => $datacategories,
 							'manufacturers' => $datamanufacturers,
+							'taxes' => $taxes
 						);
 
 			$this->load->view( admin_root('product_add'), $data );

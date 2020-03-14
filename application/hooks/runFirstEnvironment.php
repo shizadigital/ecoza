@@ -14,6 +14,18 @@ class runFirstEnvironment {
 			if($segment != 'migration') {
 				// set token with cookie
 				$ci_env->load->helper('cookie');
+				// set default currency
+				if( empty( get_cookie('currency') ) ){
+					$cook_currency = array(
+						'name'   => 'currency',
+						'value'  => get_option('defaultcurrency'),
+						'expire' => '0',
+						'path ' => '/'
+						);
+					$ci_env->input->set_cookie($cook_currency);
+				}
+
+				// set shiza token
 				if( empty( get_cookie('sz_token') ) ){
 					$createcode = generate_code(6);
 					$createcookiecode = encoder($createcode ."##".base_url() );

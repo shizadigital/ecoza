@@ -165,28 +165,11 @@ if( is_view() ):
                                             if(is_delete()) { ?>
                                             <a data-toggle="modal" href="#myModal<?php echo $r['userId']; ?>" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i> <?php echo t('delete'); ?></a>
                                             <?php
-                                            echo '
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="myModal'.$r['userId'].'" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog" style="width:400px;">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">'.t('delete').'</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.t('close').'</span></button>
-                                                        </div>
-                                                        <div class="modal-body text-center">
-                                                            <p>'.t('deleteconfirm').'</p>
-                                                            <strong>'.$r['userDisplayName'].' ('.$r['userLogin'].')</strong>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">'.t('cancel').'</button>
-                                                            <a class="btn btn-danger btn-sm" href="'.admin_url( $this->uri->segment(2).'/delete/'.$r['userId']).'"><i class="icon_trash_alt"></i> '.t('delete').'</a>
-                                                        </div>
-                                                    </div><!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                            <!-- End Modal -->';
+                                            modalDelete(
+                                                $r['userId'],
+                                                '<strong>'.$r['userDisplayName'].' ('.$r['userLogin'].')</strong>',
+                                                admin_url( $this->uri->segment(2).'/delete/'.$r['userId'])
+                                            );
                                             ?>
                                             <?php } 
                                             } ?>

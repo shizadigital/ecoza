@@ -94,9 +94,9 @@ if( is_view() ):
                                             <div class="btn-group btn-group-xs">
                                                 <?php
                                                 if($r['curStatus'] == 1){
-                                                    echo "<a href=\"".admin_url($this->uri->segment(2).'/editstatus/'.$r['curId'].'/?s=0')."\" class=\"btn btn-xs btn-secondary\"><i class=\"fa fa-eye-slash\"></i> ".t('disable')."</a>";
+                                                    echo "<a href=\"".admin_url($this->uri->segment(2).'/editstatus/'.$r['curId'].'/?s=0')."\" class=\"btn btn-sm btn-secondary\"><i class=\"fa fa-eye-slash\"></i> ".t('disable')."</a>";
                                                 } else {
-                                                    echo "<a href=\"".admin_url($this->uri->segment(2).'/editstatus/'.$r['curId'].'/?s=1')."\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-eye\"></i> ".t('enable')."</a>";
+                                                    echo "<a href=\"".admin_url($this->uri->segment(2).'/editstatus/'.$r['curId'].'/?s=1')."\" class=\"btn btn-sm btn-success\"><i class=\"fa fa-eye\"></i> ".t('enable')."</a>";
                                                 }
                                                 ?>
                                                 <?php if( is_edit() ){ ?>
@@ -105,27 +105,13 @@ if( is_view() ):
                                                 <?php if( $r['curCode']!=get_option('defaultcurrency')){ ?>
                                                 <?php if( is_delete() ){ ?>
                                                     <a data-toggle="modal" href="#myModal<?php echo $r['curId']; ?>" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i> <?php echo t('delete'); ?></a>
-
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="myModal<?php echo $r['curId']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                                                    <div class="modal-dialog" style="width:400px;">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title"><?php echo t('delete'); ?></h5>
-                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo t('close'); ?></span></button>
-                                                            </div>
-                                                            <div class="modal-body text-center">
-                                                                <p><?php echo t('confirmdelete'); ?></p>
-                                                                <strong><?php echo $r['curTitle']; ?></strong>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><?php echo t('batal'); ?></button>
-                                                                <a class="btn btn-danger btn-sm" href="<?php echo admin_url($this->uri->segment(2).'/delete/'.$r['curId']); ?>"><i class="icon_trash_alt"></i> <?php echo t('delete'); ?></a>                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>
-                                                <!-- End Modal -->
+                                                    <?php
+                                                    modalDelete(
+                                                        $r['curId'],
+                                                        '<strong>'.$r['curTitle'].'</strong>',
+                                                        admin_url($this->uri->segment(2).'/delete/'.$r['curId'])
+                                                    );
+                                                    ?>                                                
                                                 <?php } ?>
                                                 <?php } ?>
                                             </div>

@@ -229,30 +229,15 @@ if( !empty( $this->session->has_userdata('failed') ) ){
                                             <?php } 
                                             if(is_delete()){ ?>
                                             <a data-toggle="modal" href="#myModal<?php echo $r['manufactId']; ?>" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i> <?php echo t('delete'); ?></a>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="myModal<?php echo $r['manufactId']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog" style="width:400px;">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title"><?php echo t('delete'); ?></h5>
-                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo t('close'); ?></span></button>
-                                                        </div>
-                                                        <div class="modal-body text-center">
-                                                            <p><?php echo t('deleteconfirm'); ?></p>
-                                                            <?php 
-                                                            echo "<img style=\"width:250px; border:1px solid #ddd; max-height:250px; margin:6px 10px 0 0;\" src=\"".$imgmanufacturer."\" alt=\"Brand ".$r['manufactName']."\" /><br/>";
-                                                            ?>
-                                                            <strong><?php echo $r['manufactName']; ?></strong>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><?php echo t('cancel'); ?></button>
-                                                            <a class="btn btn-danger btn-sm" href="<?php echo admin_url($this->uri->segment(2).'/delete/'.$r['manufactId']); ?>"><i class="icon_trash_alt"></i> <?php echo t('delete'); ?></a>
-                                                        </div>
-                                                    </div><!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                            <!-- End Modal -->
+                                            <?php
+                                            $img = "<img style=\"width:250px; border:1px solid #ddd; max-height:250px; margin:6px 10px 0 0;\" src=\"".$imgmanufacturer."\" alt=\"Brand ".$r['manufactName']."\" /><br/>";
+
+                                            modalDelete(
+                                                $r['manufactId'],
+                                                $img . '<strong>'.$r['manufactName'].'</strong>',
+                                                admin_url($this->uri->segment(2).'/delete/'.$r['manufactId'])
+                                            );
+                                            ?>
                                             <?php } ?>
                                         </div>
                                     </td>

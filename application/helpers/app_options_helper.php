@@ -385,3 +385,38 @@ function logo_url($_size=NULL){
 
     return $url;
 }
+
+function modalDelete($id = null, $content ='', $urldestination = ''){
+    $ci =& get_instance();
+    $ci->load->library('assetsloc');
+
+    if( !empty($id) AND !empty($content) AND !empty($urldestination) ){
+        
+        $data = '<!-- Modal -->
+        <div class="modal fade" id="myModal'.$id.'" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="width:400px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">'.t('delete').'</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">'.t('close').'</span></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>'. t('deleteconfirm').'</p>
+                        '.$content.'
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">'.t('cancel').'</button>
+                        <a class="btn btn-danger btn-sm" href="'.$urldestination.'"><i class="icon_trash_alt"></i> '.t('delete').'</a>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- End Modal -->';
+
+        $ci->assetsloc->place_element_to_footer($data);
+
+    } else {
+        return false;
+    }
+}

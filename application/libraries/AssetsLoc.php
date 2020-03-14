@@ -92,7 +92,11 @@ class AssetsLoc {
 	* place element to footer
 	*/
 	public function place_element_to_footer( $script='' ){
-		$this->footer_element = $script;
+		if( is_array($this->footer_element) ){
+			$this->footer_element = $script;
+		} else {
+			$this->footer_element .= $script;
+		}
 	}
 
 	public function get_footer_element(){
@@ -102,7 +106,7 @@ class AssetsLoc {
 				$result .= $value;
 			}
 		} else {
-			$result = $this->footer_element;
+			$result .= $this->footer_element;
 		}
 		return $result;
 	}

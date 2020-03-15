@@ -26,3 +26,27 @@ function isNumberKey(evt) {
 
     return true;
 }
+
+// for counting discount in field
+function countingDiffPrice(harga1,harga2,printke,ket1,ket_salah){
+    $(function (){
+        var harga_1 = harga1;
+        var harga_2 = harga2;
+
+        // hitung harga
+        var persen = (harga_2 / harga_1) * 100;
+
+        if(persen > 100){
+            var cetak = '<span class="text-danger">'+ket_salah+'</span>';
+        } else {
+            if(persen){
+                var selisih = 100 - persen;
+                var cetak = selisih + '%';
+            } else {
+                var cetak = '0%';
+            }
+        }
+
+        $(printke).html( ket1 + cetak);
+    });
+}

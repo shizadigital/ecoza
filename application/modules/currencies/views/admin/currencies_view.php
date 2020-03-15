@@ -30,6 +30,24 @@ if( is_view() ):
 ?>
 <div class="row">
     <div class="col-md-12">
+    <?php 
+    if( !empty( $this->session->has_userdata('succeed') ) ){
+        echo '
+        <div class="alert alert-icon alert-success alert-dismissible fade show" role="alert">
+            <i class="fa fa-check"></i> ' . $this->session->flashdata('succeed') . '
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
+        </div>
+        ';
+    }
+    if( !empty( $this->session->has_userdata('failed') ) ){
+        echo '
+        <div class="alert alert-icon alert-danger alert-dismissible fade show" role="alert">
+            <i class="fa fa-times"></i> ' . $this->session->flashdata('failed') . '
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="fe fe-x"></i></button>
+        </div>
+        ';
+    }
+    ?>
 
         <div class="card">
 
@@ -144,11 +162,11 @@ if( is_view() ):
                                                         // disable all select
                                                         $('.select_method_cur').attr('disabled','disabled');
 
-                                                        $.post("<?php echo admin_url(); ?>/ajax_currency.php", {action:'method_update', method:value },
+                                                        $.post("<?php echo admin_url($this->uri->segment(2).'/ajax_changemethodeupdate/'); ?>", {action:'method_update', method:value, CP:'<?php echo get_cookie('sz_token'); ?>' },
                                                         function(data){
                                                             if(data){
-                                                                //$('#method_loader<?php echo $r['curId']; ?>').show().html(data);
-                                                                window.location.href = "<?php echo admin_url()."/?module="; ?>";
+                                                                $('.air__initialLoading').show().delay(1000);
+                                                                window.location.href = "<?php echo admin_url($this->uri->segment(2)); ?>";
                                                             } else {
                                                                 $('#method_loader<?php echo $r['curId']; ?>').show().html('<center><i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i><br/><h4><?php echo t('ajaxprocess'); ?><h4/></center>');
                                                             }

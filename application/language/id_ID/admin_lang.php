@@ -488,6 +488,11 @@ $lang['or'] = 'atau';
 $lang['and'] = 'dan';
 $lang['identity'] = 'Identitas';
 $lang['update'] = 'Update';
+$lang['updated'] = 'Diperbarui';
+$lang['simpleproduct'] = 'Produk sederhana';
+$lang['configurableproduct'] = 'Produk yang dikonfigurasi';
+$lang['downloadableproduct'] = 'Produk yang diunduh';
+$lang['servicesproduct'] = 'Produk layanan/jasa';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

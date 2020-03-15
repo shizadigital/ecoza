@@ -219,7 +219,7 @@ class AdminEnv {
             </ul>
             <div class="air__subbar__divider mr-4 d-none d-xl-block"></div>
             <?php if(!empty($title_page_secondary)) : ?>
-            <p class="color-gray-4 text-uppercase font-size-18 mb-0 mr-4 d-none d-xl-block"><?php echo $title_page_secondary; ?></p>
+            <div class="color-gray-4 font-size-18 mb-0 mr-4 d-none d-xl-block"><?php echo $title_page_secondary; ?></div>
             <?php endif; ?>            
 
             <?php

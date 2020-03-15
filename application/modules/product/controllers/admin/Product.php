@@ -54,11 +54,18 @@ class Product extends CI_Controller{
 				$datacategories[$v['catId']] = $v['catName'];
 			}
 
-			// get categories
+			// get manufacturers
 			$manufacturers = $this->Env_model->view_where_order('*','manufacturers', "manufactActive='y' AND manufactDeleted='0'",'manufactName','ASC');
 			$datamanufacturers[''] = '-- '.t('choose').' --';
 			foreach( $manufacturers as $k => $v ){
 				$datamanufacturers[$v['manufactId']] = $v['manufactName'];
+			}
+
+			// get badges
+			$badges = $this->Env_model->view_where_order('*','badges', "badgeDeleted='0' AND badgeType='product' AND badgeActive='1'",'badgeLabel','ASC');
+			$databadges[''] = '-- '.t('choose').' --';
+			foreach( $badges as $k => $v ){
+				$databadges[$v['badgeId']] = $v['badgeLabel'];
 			}
 
 			// get tax
@@ -68,12 +75,27 @@ class Product extends CI_Controller{
 				$taxes[$v['taxId']] = $v['taxName'] . ( ($v['taxType']=='percentage') ? ' (%)':'');
 			}
 
+
+
+			$selectingprodtype='
+			<div class="form-inline">	
+				<div class="form-group mb-0">
+					<label for="producttype" class="mr-3">'.t('producttype').': </label>
+					<select name="producttype" class="custom-select form-control selectpicker" id="producttype"  >
+						<option value="simpleproduct">'.t('simpleproduct').'</option>
+						<option value="configurableproduct">'.t('configurableproduct').'</option>
+						<option value="downloadableproduct">'.t('downloadableproduct').'</option>
+						<option value="servicesproduct">'.t('servicesproduct').'</option>
+					</select>
+				</div>
+			</div>	
+			';
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
 							'title_page' => $this->moduleName . ' - ' . t('addnew'),
 							'title_page_icon' => '',
-							'title_page_secondary' => '',
+							'title_page_secondary' => $selectingprodtype,
 							'breadcrumb' => false,
 							'header_button_action' => array(
 												array(
@@ -84,6 +106,7 @@ class Product extends CI_Controller{
 											),
 							'categories' => $datacategories,
 							'manufacturers' => $datamanufacturers,
+							'badges' => $databadges,
 							'taxes' => $taxes
 						);
 

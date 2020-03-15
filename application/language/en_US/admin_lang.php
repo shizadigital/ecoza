@@ -488,7 +488,11 @@ $lang['or'] = 'or';
 $lang['and'] = 'and';
 $lang['identity'] = 'Identity';
 $lang['update'] = 'Update';
-$lang['update'] = 'Update';
+$lang['updated'] = 'Update';
+$lang['simpleproduct'] = 'Simple product';
+$lang['configurableproduct'] = 'Configurable product';
+$lang['downloadableproduct'] = 'Donwloadable product';
+$lang['servicesproduct'] = 'Services product';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

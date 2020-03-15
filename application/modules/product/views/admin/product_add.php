@@ -6,6 +6,7 @@ Register style (CSS)
 ************************************/
 $request_css_files = array(
     'vendors/select2/dist/css/select2.min.css',
+    'vendors/bootstrap-select/dist/css/bootstrap-select.min.css',
 );
 $request_style = "";
 $this->assetsloc->reg_admin_style($request_css_files,$request_style);
@@ -16,12 +17,15 @@ Register Script (JavaScript)
 $request_script_files = array(
     'vendors/parsley/parsley.config.js',
     'vendors/parsley/parsley.min.js',
-    'vendors/select2/dist/js/select2.full.min.js'
+    'vendors/select2/dist/js/select2.full.min.js',
+    'vendors/bootstrap-select/dist/js/bootstrap-select.min.js'
 );
 $request_script = "
 $( document ).ready(function() {
     $('#valid').parsley();
     $('.select2').select2();
+
+    $('.selectpicker').selectpicker()
 
     // load product
     $('.select2relatedproduct').select2({
@@ -90,10 +94,12 @@ $this->assetsloc->reg_admin_script($request_script_files,$request_script);
 
 include V_ADMIN_PATH . "header.php";
 include V_ADMIN_PATH . "sidebar.php";
-include V_ADMIN_PATH . "topbar.php";
+
 if( is_add() ){
 
-    echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'), array( 'id'=> 'valid' ) );
+echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'), array( 'id'=> 'valid' ) );
+
+include V_ADMIN_PATH . "topbar.php";
 ?>
 <div class="row">
 
@@ -110,13 +116,13 @@ if( is_add() ){
                             <a class="nav-link active show" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true"><?php echo t('general'); ?></a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="false"><?php echo t('data'); ?></a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="linked-tab" data-toggle="tab" href="#linked" role="tab" aria-controls="linked" aria-selected="false"><?php echo t('linked'); ?></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false"><?php echo t('image'); ?></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="false"><?php echo t('data'); ?></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="attribute-tab" data-toggle="tab" href="#attribute" role="tab" aria-controls="attribute" aria-selected="false"><?php echo t('attribute'); ?></a>
@@ -159,33 +165,33 @@ if( is_add() ){
                                     $buildgeneralform1 = array(
                                         array(
                                             'type' => 'radio',
-                                            'label'=> '<h4 class="d-inline-block">'.t('productrules').'</h4>',
+                                            'label'=> '<h4 class="d-inline-block">'.t('productrules').':</h4>',
                                             'name'=> 'rules',
                                             'value'=> $rulesdata,
                                         ),
                                         array(
                                             'type' => 'multilanguage_text',
-                                            'label' => '<h4 class="d-inline-block">'.t('productname').'</h4>',
+                                            'label' => '<h4 class="d-inline-block">'.t('productname').':</h4>',
                                             'name' => 'productname',
                                             'required' => true,
                                         ),
                                         array(
                                             'type' => 'multilanguage_texteditor',
                                             'texteditor' => 'standard',
-                                            'label' => '<h4 class="d-inline-block">'.t('description').'</h4>',
+                                            'label' => '<h4 class="d-inline-block">'.t('description').':</h4>',
                                             'name' => 'desc',
                                             'required' => true,
                                         ),
                                         array(
                                             'type' => 'text',
-                                            'label'=> '<h4 class="d-inline-block">'.t('youtubevideo').'</h4>',
+                                            'label'=> '<h4 class="d-inline-block">'.t('youtubevideo').':</h4>',
                                             'name'=> 'urlyoutube',
                                             'help' => t('infoyoutubereq')
                                         ),
                                         array(
                                             'type' => 'multilanguage_texteditor',
                                             'texteditor' => 'verysimple',
-                                            'label' => '<h4 class="d-inline-block">'.t('note').'</h4>',
+                                            'label' => '<h4 class="d-inline-block">'.t('note').':</h4>',
                                             'name' => 'note',
                                         ),
                                     );
@@ -243,7 +249,7 @@ if( is_add() ){
                                                         'onkeypress'=>'return isNumberComma(event)',
                                                         'required' => true,
                                                         'input-group' => array(
-                                                            'prepend'=>'Rp',
+                                                            'prepend'=> getCurrencySymbol(),
                                                         )
                                                     ),
                                                     array(
@@ -251,11 +257,11 @@ if( is_add() ){
                                                         'label'=> t('normalprice'),
                                                         'name'=> 'normalprice',
                                                         'id' => 'nprice',
-                                                        'class' => 'input_price_field',
+                                                        'class' => 'input_price_field input_special_price',
                                                         'onkeypress'=>'return isNumberComma(event)',
                                                         'required' => true,
                                                         'input-group' => array(
-                                                            'prepend'=>'Rp',
+                                                            'prepend'=> getCurrencySymbol(),
                                                         ),
                                                         'extra' => '
                                                         <small class="form-text text-muted" id="hasil_selisih">
@@ -268,42 +274,32 @@ if( is_add() ){
                                                         'label'=> t('specialprice'),
                                                         'name'=> 'specialprice',
                                                         'onkeypress'=>'return isNumberComma(event)',
+                                                        'id' => 'sprice',
+                                                        'class' => 'input_special_price',
                                                         'input-group' => array(
-                                                            'prepend'=>'Rp',
-                                                        )
+                                                            'prepend'=> getCurrencySymbol(),
+                                                        ),
+                                                        'extra' => '
+                                                        <small class="form-text text-muted" id="hasil_potongan">
+                                                        '.t('discount').': 0%
+                                                        </small>
+                                                        '
                                                     ),
                                                 );
                                                 $this->formcontrol->buildInputs($builddataform2);
                                                 ?>
                                                 <script>
-                                                    function total_harga_spesial(harga1,harga2,printke,ket1,ket_salah){
-                                                        $(function (){
-                                                            var harga_1 = harga1;
-                                                            var harga_2 = harga2;
-
-                                                            // hitung harga
-                                                            var persen = (harga_2 / harga_1) * 100;
-
-                                                            if(persen > 100){
-                                                                var cetak = '<span class="text-danger">'+ket_salah+'</span>';
-                                                            } else {
-                                                                if(persen){
-                                                                    var selisih = 100 - persen;
-                                                                    var cetak = selisih + '%';
-                                                                } else {
-                                                                    var cetak = '0%';
-                                                                }
-                                                            }
-
-                                                            $(printke).html( ket1 + cetak);
-                                                        });
-                                                    }
-
                                                     $(function () {
+                                                        $(".input_special_price").keyup(function() {
+                                                            var harga_normal = $("#nprice").val().replace(',', '.');
+                                                            var harga_spesial = $("#sprice").val().replace(',', '.');
+                                                            countingDiffPrice(harga_normal, harga_spesial, "#hasil_potongan", '<?php echo t('discount'); ?>: ', "<?php echo t('specialpricemorebigger'); ?>");
+                                                        });
+
                                                         $(".input_price_field").keyup(function() {
                                                             var harga_normal = $("#nprice").val().replace(',', '.');
                                                             var harga_modal = $("#bprice").val().replace(',', '.');
-                                                            total_harga_spesial(harga_normal, harga_modal, "#hasil_selisih", '<?php echo t('differencefromcapitalprice'); ?>: ', "<?php echo t('capitalpricemorebigger'); ?>");
+                                                            countingDiffPrice(harga_normal, harga_modal, "#hasil_selisih", '<?php echo t('differencefromcapitalprice'); ?>: ', "<?php echo t('capitalpricemorebigger'); ?>");
                                                         });
                                                     });
                                                 </script>
@@ -334,6 +330,80 @@ if( is_add() ){
 
                         <!--
 
+                        Data Input Start Here
+
+                        -->
+                        <div class="tab-pane fade py-4" id="data" role="tabpanel" aria-labelledby="data-tab">
+                        
+                            <?php                            
+                            $builddataform1 = array(
+                                array(
+                                    'type' => 'text',
+                                    'label'=> 'SKU',
+                                    'name'=> 'sku',
+                                    'info' => t('abbr_sku')
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label'=> 'UPC',
+                                    'name'=> 'upc',
+                                    'info' => t('abbr_upc')
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label'=> 'ISBN',
+                                    'name'=> 'isbn',
+                                    'info' => t('abbr_isbn')
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label'=> 'MPN',
+                                    'name'=> 'mpn',
+                                    'info' => t('abbr_mpn')
+                                ),
+                                array(
+                                    'type' => 'radio',
+                                    'label'=> t('shipping'),
+                                    'name'=> 'shipping',
+                                    'value' => array(
+                                        array(
+                                            'value'=>'y',
+                                            'title' => t('yes'),
+                                            'checked' => true   
+                                        ),
+                                        array(
+                                            'value'=>'n',
+                                            'title' => t('no'),
+                                            'checked' => false   
+                                        ),
+                                    ),
+                                    'layout' => 'horizontal'
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label'=> t('maximumorder'),
+                                    'name'=> 'maxorder',
+                                    'placeholder'=> 'Max',
+                                    'onkeypress'=> 'return isNumberKey(event)',
+                                    'info' => t('infomaximumorderfiled')
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label'=> t('minimumorder'),
+                                    'name'=> 'minorder',
+                                    'placeholder'=> 'Min',
+                                    'onkeypress'=> 'return isNumberKey(event)',
+                                    'value' => '1'
+                                ),
+
+                            );
+                            $this->formcontrol->buildInputs($builddataform1, $layout_model, $col_layout);
+                            ?>
+
+                        </div>
+
+                        <!--
+
                         Linked Input Start Here
 
                         -->
@@ -354,6 +424,13 @@ if( is_add() ){
                                     'name'=> 'manufacturers',
                                     'class' => 'select2',
                                     'option'=> $manufacturers,
+                                ),
+                                array(
+                                    'type' => 'select',
+                                    'label'=> t('badges'),
+                                    'name'=> 'badges',
+                                    'class' => 'select2',
+                                    'option'=> $badges,
                                 ),
                                 array(
                                     'type' => 'select',
@@ -430,64 +507,7 @@ if( is_add() ){
                                     }
                                 }
                             </script>
-                        </div>
-                        
-                        <!--
-
-                        Data Input Start Here
-
-                        -->
-                        <div class="tab-pane fade py-4" id="data" role="tabpanel" aria-labelledby="data-tab">
-                        
-                            <?php                            
-                            $builddataform1 = array(
-                                array(
-                                    'type' => 'text',
-                                    'label'=> 'SKU',
-                                    'name'=> 'sku',
-                                    'info' => t('abbr_sku')
-                                ),
-                                array(
-                                    'type' => 'text',
-                                    'label'=> 'UPC',
-                                    'name'=> 'upc',
-                                    'info' => t('abbr_upc')
-                                ),
-                                array(
-                                    'type' => 'text',
-                                    'label'=> 'ISBN',
-                                    'name'=> 'isbn',
-                                    'info' => t('abbr_isbn')
-                                ),
-                                array(
-                                    'type' => 'text',
-                                    'label'=> 'MPN',
-                                    'name'=> 'mpn',
-                                    'info' => t('abbr_mpn')
-                                ),
-                                array(
-                                    'type' => 'radio',
-                                    'label'=> t('shipping'),
-                                    'name'=> 'shipping',
-                                    'value' => array(
-                                        array(
-                                            'value'=>'y',
-                                            'title' => t('yes'),
-                                            'checked' => true   
-                                        ),
-                                        array(
-                                            'value'=>'n',
-                                            'title' => t('no'),
-                                            'checked' => false   
-                                        ),
-                                    ),
-                                    'layout' => 'horizontal'
-                                ),
-                            );
-                            $this->formcontrol->buildInputs($builddataform1, $layout_model, $col_layout);
-                            ?>
-
-                        </div>
+                        </div>                        
                         
                         <!--
 

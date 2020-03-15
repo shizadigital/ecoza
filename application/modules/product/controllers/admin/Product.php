@@ -80,7 +80,7 @@ class Product extends CI_Controller{
 			<div class="form-inline">	
 				<div class="form-group mb-0">
 					<label for="producttype" class="mr-3">'.t('producttype').': </label>
-					<select class="custom-select form-control selectpicker" id="producttype">
+					<select class="selectpicker producttype">
 						<option value="simpleproduct" selected="selected">'.t('simpleproduct').'</option>
 						<option value="configurableproduct">'.t('configurableproduct').'</option>
 						<option value="downloadableproduct">'.t('downloadableproduct').'</option>

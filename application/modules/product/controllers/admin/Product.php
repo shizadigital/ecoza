@@ -75,14 +75,13 @@ class Product extends CI_Controller{
 				$taxes[$v['taxId']] = $v['taxName'] . ( ($v['taxType']=='percentage') ? ' (%)':'');
 			}
 
-
-
+			// select product type variable
 			$selectingprodtype='
 			<div class="form-inline">	
 				<div class="form-group mb-0">
 					<label for="producttype" class="mr-3">'.t('producttype').': </label>
-					<select name="producttype" class="custom-select form-control selectpicker" id="producttype"  >
-						<option value="simpleproduct">'.t('simpleproduct').'</option>
+					<select class="custom-select form-control selectpicker" id="producttype">
+						<option value="simpleproduct" selected="selected">'.t('simpleproduct').'</option>
 						<option value="configurableproduct">'.t('configurableproduct').'</option>
 						<option value="downloadableproduct">'.t('downloadableproduct').'</option>
 						<option value="servicesproduct">'.t('servicesproduct').'</option>

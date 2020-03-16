@@ -38,6 +38,7 @@ class Migration extends CI_Controller {
         Self::create_shiza_attribute_table();
         Self::create_shiza_attribute_group_table();
         Self::create_shiza_attribute_relationship_table();
+        Self::create_shiza_attribute_value_table();
         Self::create_shiza_badges_table();
         Self::create_shiza_badge_relationship_table();
         Self::create_shiza_categories_table();
@@ -167,6 +168,20 @@ class Migration extends CI_Controller {
         // ADD index
         $schema->index('attrId');
         $schema->index('attrgroupId');
+
+    }
+
+    protected function create_shiza_attribute_value_table(){
+
+        $schema = $this->schema->create_table('attribute_value');
+        $schema->increments('attrvalId', ['type' => 'BIGINT', 'length' => '25']);
+        $schema->integer('attrId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->enum('attrvalVisual', ['color', 'text', 'image']);
+        $schema->string('attrvalValue', ['length' => '255']);
+        $schema->run();
+
+        // ADD index
+        $schema->index('attrId');
 
     }
 
@@ -790,6 +805,7 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('attribute');
         $this->schema->drop_table('attribute_group');
         $this->schema->drop_table('attribute_relationship');
+        $this->schema->drop_table('attribute_value');
         $this->schema->drop_table('badges');
         $this->schema->drop_table('badge_relationship');
         $this->schema->drop_table('categories');

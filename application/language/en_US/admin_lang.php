@@ -3,6 +3,10 @@
 $lang['locale'] = "en_US";
 
 // general
+$lang['administrator'] = "Administrator";
+$lang['storemanagement'] = "Store Management";
+$lang['logintoadministrator'] = "Login to the Administrator";
+$lang['forgotpassword'] = "Forgot password?";
 $lang['sitename'] = "Site Name";
 $lang['webdescription'] = "Web Description";
 $lang['cannotprocessdata'] = "Data cannot be processed";
@@ -459,7 +463,9 @@ $lang['periodreport'] = "Period";
 $lang['startperiod'] = "Start Periode";
 $lang['endperiod'] = "End Periode";
 $lang['year_s'] = "Year(s)";
-$lang['quantity'] = "Qty";
+$lang['qty'] = "Qty";
+$lang['quantity'] = "Quantity";
+$lang['quantities'] = "Quantities";
 $lang['totalcontent'] = "Total Content";
 $lang['color'] = "Color";
 $lang['smtp_useremail'] = "SMTP Username/Email";
@@ -488,11 +494,15 @@ $lang['or'] = 'or';
 $lang['and'] = 'and';
 $lang['identity'] = 'Identity';
 $lang['update'] = 'Update';
-$lang['updated'] = 'Update';
+$lang['updated'] = 'Updated';
 $lang['simpleproduct'] = 'Simple product';
 $lang['configurableproduct'] = 'Configurable product';
 $lang['downloadableproduct'] = 'Donwloadable product';
 $lang['servicesproduct'] = 'Services product';
+$lang['downloadableinfo'] = 'Donwloadable Info';
+$lang['configuration'] = 'Configuration';
+$lang['configurations'] = 'Configurations';
+$lang['configattrinfo'] = 'Configurable products allow customers to choose options (Ex: shirt color). You need to create a simple product for each configuration (Ex: a product for each color).';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -591,6 +601,8 @@ $lang['editmanufacturer'] = "Edit Manufacturer";
 $lang['attributes'] = "Attributes";
 $lang['attribute'] = "Attribute";
 $lang['editattribute'] = "Edit Attribute";
+$lang['addattribute'] = 'Add Attribute';
+$lang['attributesetting'] = 'Attribute Setting';
 
 /**
  * Attributes Group

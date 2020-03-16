@@ -75,26 +75,12 @@ class Product extends CI_Controller{
 				$taxes[$v['taxId']] = $v['taxName'] . ( ($v['taxType']=='percentage') ? ' (%)':'');
 			}
 
-			// select product type variable
-			$selectingprodtype='
-			<div class="form-inline">	
-				<div class="form-group mb-0">
-					<label for="producttype" class="mr-3">'.t('producttype').': </label>
-					<select class="selectpicker producttype">
-						<option value="simpleproduct" selected="selected">'.t('simpleproduct').'</option>
-						<option value="configurableproduct">'.t('configurableproduct').'</option>
-						<option value="downloadableproduct">'.t('downloadableproduct').'</option>
-						<option value="servicesproduct">'.t('servicesproduct').'</option>
-					</select>
-				</div>
-			</div>	
-			';
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
 							'title_page' => $this->moduleName . ' - ' . t('addnew'),
 							'title_page_icon' => '',
-							'title_page_secondary' => $selectingprodtype,
+							'title_page_secondary' => '',
 							'breadcrumb' => false,
 							'header_button_action' => array(
 												array(

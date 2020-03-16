@@ -3,6 +3,10 @@
 $lang['locale'] = "id_ID";
 
 // general
+$lang['administrator'] = "Administrator";
+$lang['storemanagement'] = "Manajemen Toko";
+$lang['logintoadministrator'] = "Login ke Administrator";
+$lang['forgotpassword'] = "Lupa password?";
 $lang['sitename'] = "Nama Situs";
 $lang['webdescription'] = "Deskripsi Website";
 $lang['cannotprocessdata'] = "Data tidak dapat diproses";
@@ -459,7 +463,9 @@ $lang['periodreport'] = "Laporan Periode";
 $lang['startperiod'] = "Periode Mulai";
 $lang['endperiod'] = "Periode Selesai";
 $lang['year_s'] = "Tahun";
+$lang['qty'] = "Qty";
 $lang['quantity'] = "Kuantitas";
+$lang['quantities'] = "Kuantitas";
 $lang['totalcontent'] = "Total Konten";
 $lang['color'] = "Warna";
 $lang['smtp_useremail'] = "Nama User/Email SMTP";
@@ -493,6 +499,11 @@ $lang['simpleproduct'] = 'Produk sederhana';
 $lang['configurableproduct'] = 'Produk yang dikonfigurasi';
 $lang['downloadableproduct'] = 'Produk yang diunduh';
 $lang['servicesproduct'] = 'Produk layanan/jasa';
+$lang['downloadableinfo'] = 'Info produk yang diunduh';
+$lang['configuration'] = 'Konfigurasi';
+$lang['configurations'] = 'Konfigurasi';
+$lang['configattrinfo'] = 'Produk yang dikonfigurasi memungkinkan pelanggan untuk memilih opsi/variasi (Contoh: warna baju, ukuran baju). Anda dapat membuat produk secara sederhana untuk setiap konfigurasi (Mis: produk untuk setiap warna).';
+$lang['addattribute'] = 'Tambah Atribut';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -591,6 +602,8 @@ $lang['editmanufacturer'] = "Edit Pabrikan";
 $lang['attributes'] = "Atribut";
 $lang['attribute'] = "Atribut";
 $lang['editattribute'] = "Edit Atribut";
+$lang['addattribute'] = 'Tambah Atribut';
+$lang['attributesetting'] = 'Setting Atribut';
 
 /**
  * Attributes Group

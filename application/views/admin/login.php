@@ -74,15 +74,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="pt-5 pb-5 d-flex align-items-end mt-auto">
 			<img src="<?php echo admin_assets('components/core/img/shiza-logo.png'); ?>" alt="Shiza.id" />
 			<div class="air__utils__logo__text">
-				<div class="air__utils__logo__name text-uppercase text-dark font-size-21">Administrator</div>
+				<div class="air__utils__logo__name text-uppercase text-dark font-size-21"><?php echo t('administrator'); ?></div>
 				<div class="air__utils__logo__descr text-uppercase font-size-12 text-gray-6">
-				Kelola Situs
+				<?php echo t('storemanagement'); ?>
 				</div>
 			</div>
 		</div>
 		
 		<div class="air__auth__container pl-5 pr-5 pt-5 pb-5 bg-white text-center">
-			<div class="text-dark font-size-30 mb-4">Login ke Administrator</div>			
+			<div class="text-dark font-size-30 mb-4"><?php echo web_info(); ?></div>			
 			<?php 
 			if( !empty( $this->session->has_userdata('errormsg') ) ){
 				echo '
@@ -105,21 +105,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php echo form_open( admin_url('main/authlogin'), array( 'class'=> 'mb-4' ) ); ?>
 				<input type="hidden" value="<?php echo $CP; ?>" name="CP">				
 				<div class="form-group mb-4">
-					<input type="text"<?php if( !empty( $this->session->has_userdata('username') ) ){ echo ' value="'.$this->session->flashdata('username').'"'; } ?> name="user" class="form-control" placeholder="Username">
+					<input type="text"<?php if( !empty( $this->session->has_userdata('username') ) ){ echo ' value="'.$this->session->flashdata('username').'"'; } ?> name="user" class="form-control" placeholder="<?php echo t('username'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-user text-muted"></i>
 					</div>
 				</div>
 				<div class="form-group mb-4">
-					<input type="password"<?php if( !empty( $this->session->has_userdata('password') ) ){ echo ' value="'.$this->session->flashdata('password').'"'; } ?> name="pass" class="form-control" placeholder="Password">
+					<input type="password"<?php if( !empty( $this->session->has_userdata('password') ) ){ echo ' value="'.$this->session->flashdata('password').'"'; } ?> name="pass" class="form-control" placeholder="<?php echo t('password'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-lock2 text-muted"></i>
 					</div>
 				</div>
-				<button class="text-center btn btn-success w-100 font-weight-bold font-size-18">Login ke Administrator</button>
+				<button class="text-center btn btn-success w-100 font-weight-bold font-size-18"><?php echo t('logintoadministrator'); ?></button>
 			<?php echo form_close();?>
 			
-			<a href="#" class="text-blue font-weight-bold font-size-18">Forgot password?</a>
+			<a href="#" class="text-blue font-weight-bold font-size-18"><?php echo t('forgotpassword'); ?></a>
 		</div>
 
 		<div class="mt-auto pb-5 pt-5">
@@ -128,7 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<a href="#">Terms of Use</a>
 				</li>
 				<li>
-					<a href="#">Compliance</a>
+					<a href="https://github.com/shizadigital/shiza" target="_blank">Github</a>
 				</li>
 				<li>
 					<a href="#">Support</a>

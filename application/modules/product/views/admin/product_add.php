@@ -96,11 +96,106 @@ include V_ADMIN_PATH . "header.php";
 include V_ADMIN_PATH . "sidebar.php";
 include V_ADMIN_PATH . "topbar.php";
 if( is_add() ){
-
     echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'), array( 'id'=> 'valid' ) );
-    echo '<input type="hidden" name="producttype" value="simpleproduct">';
 ?>
+<!-- Attribute setting start here -->
+<div class="air__sidebar">
+    <a href="javascript: void(0);" class="air__sidebar__close air__sidebar__actionToggle fe fe-x-circle"></a>
+    <h5><strong><?php echo t('attributesetting'); ?></strong></h5>
+
+    <div class="air__utils__line mb-4" style="margin-top: 19px;"></div>
+        <div class="air__sidebar__scroll">
+        <p class="text-muted">
+            This component gives possibility to construct custom blocks with any widgets, components and
+            elements inside, like this theme settings
+        </p>
+        <div class="air__sidebar__type">
+            <div class="air__sidebar__type__title">
+            <span>Menu Type</span>
+            </div>
+            <div class="air__sidebar__type__items">
+            <div class="row">
+                <div class="col-6">
+                <label class="air__utils__control air__utils__control__radio">
+                    <input type="radio" name="menuType" checked to="body" setting="" />
+                    <span class="air__utils__control__indicator"></span>
+                    Default
+                </label>
+                <label class="air__utils__control air__utils__control__radio hideIfMenuTop">
+                    <input type="radio" name="menuType" to="body" setting="air__menu--flyout" />
+                    <span class="air__utils__control__indicator"></span>
+                    Flyout
+                </label>
+                </div>
+                <div class="col-6">
+                <label class="air__utils__control air__utils__control__radio hideIfMenuTop">
+                    <input type="radio" name="menuType" to="body" setting="air__menu--compact" />
+                    <span class="air__utils__control__indicator"></span>
+                    Compact
+                </label>
+                <label class="air__utils__control air__utils__control__radio">
+                    <input type="radio" name="menuType" to="body" setting="air__menu--nomenu" />
+                    <span class=" air__utils__control__indicator"></span>
+                    No Menu
+                </label>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="air__sidebar__item hideIfMenuTop">
+            <div class="air__sidebar__label">
+            Toggled left menu
+            </div>
+            <div class="air__sidebar__container">
+            <label class="air__sidebar__switch">
+                <input type="checkbox" to="body" setting="air__menu--toggled" />
+                <span class="air__sidebar__switch__slider"></span>
+            </label>
+            </div>
+        </div>
+        <div class="air__sidebar__item hideIfMenuTop">
+            <div class="air__sidebar__label">
+            Unfixed left menu
+            </div>
+            <div class="air__sidebar__container">
+            <label class="air__sidebar__switch">
+                <input type="checkbox" to="body" setting="air__menu--unfixed" />
+                <span class="air__sidebar__switch__slider"></span>
+            </label>
+            </div>
+        </div>
+        <div class="air__sidebar__item">
+            <div class="air__sidebar__label">
+            Fixed topbar
+            </div>
+            <div class="air__sidebar__container">
+            <label class="air__sidebar__switch">
+                <input type="checkbox" to="body" setting="air__layout--fixedHeader" />
+                <span class="air__sidebar__switch__slider"></span>
+            </label>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<!-- Attribute setting end here -->
+
 <div class="row">
+    <div class="col-12 mb-4">
+            
+        <div class="form-inline float-right">	
+            <div class="form-group mb-0">
+                <label for="producttype" class="mr-3"><?php echo t('producttype'); ?>: </label>
+                <select name="producttype" class="selectpicker producttype" data-style="btn-light">
+                    <option value="simpleproduct" selected="selected"><?php echo t('simpleproduct'); ?></option>
+                    <option value="configurableproduct"><?php echo t('configurableproduct'); ?></option>
+                    <option value="downloadableproduct"><?php echo t('downloadableproduct'); ?></option>
+                    <option value="servicesproduct"><?php echo t('servicesproduct'); ?></option>
+                </select>
+            </div>
+        </div>
+
+    </div>
 
     <div class="col-12">
 
@@ -128,6 +223,9 @@ if( is_add() ){
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false"><?php echo t('shipping'); ?></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="downloadable-tab" data-toggle="tab" href="#downloadable" role="tab" aria-controls="downloadable" aria-selected="false"><?php echo t('downloadableinfo'); ?></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="seo" aria-selected="false">SEO</a>
@@ -185,7 +283,10 @@ if( is_add() ){
                                             'type' => 'text',
                                             'label'=> '<h4 class="d-inline-block">'.t('youtubevideo').':</h4>',
                                             'name'=> 'urlyoutube',
-                                            'help' => t('infoyoutubereq')
+                                            'help' => t('infoyoutubereq'),
+                                            'input-group' => array(
+                                                'prepend'=> '<span class="input-group-text"><i class="fa fa-youtube-play mr-1"></i> YouTube</span>',
+                                            )
                                         ),
                                         array(
                                             'type' => 'multilanguage_texteditor',
@@ -231,6 +332,21 @@ if( is_add() ){
 
                                             $this->formcontrol->buildInputs($buildgeneralform2);
                                             ?>
+                                            </div></div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="card"><div class="card-body">
+                                                <h4 class="mb-4"><?php echo t('quantity'); ?></h4>
+                                                <?php                            
+                                                $builddataform4 = array(
+                                                    array(
+                                                        'type' => 'text',
+                                                        'name'=> 'qty',
+                                                    ),
+                                                );
+                                                $this->formcontrol->buildInputs($builddataform4);
+                                                ?>
                                             </div></div>
                                         </div>
 
@@ -514,7 +630,20 @@ if( is_add() ){
 
                         -->
                         <div class="tab-pane fade py-4" id="attribute" role="tabpanel" aria-labelledby="attribute-tab">
-                        attribute
+                            
+                            <h4 class="mb-4 mt-0"><?php echo t('configurations'); ?></h4>
+
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <?php echo t('configattrinfo'); ?>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="float-right">
+                                        <button type="button" class="air__sidebar__actionToggle btn btn-warning"><?php echo t('addattribute'); ?></button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         
                         <!--
@@ -524,6 +653,15 @@ if( is_add() ){
                         -->
                         <div class="tab-pane fade py-4" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
                         shipping
+                        </div>
+                        
+                        <!--
+
+                       Downloadable Product Start Here
+
+                        -->
+                        <div class="tab-pane fade py-4" id="downloadable" role="tabpanel" aria-labelledby="downloadable-tab">
+                        Downloadable Product
                         </div>
                         
                         <!--

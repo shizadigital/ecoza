@@ -24,9 +24,9 @@ Source Code (Kode Sumber) EcoZa dapat didownload secara gratis pada [github](htt
 - [base64_encode](https://www.php.net/manual/en/function.base64-encode.php) and [base64_decode](https://www.php.net/manual/en/function.base64-decode.php)
 
 ## Contributing
-Permintaan kontribusi dipersilakan. Untuk perubahan besar, laporkan masalah terlebih dahulu untuk membahas apa yang ingin Anda ubah.
+Permintaan untuk berkontribusi dipersilakan. Silahkan baca file [CONTRIBUTING](https://github.com/itsjavi/bootstrap-colorpicker/blob/master/.github/CONTRIBUTING.md) sebelum mengirim permintaan pull ataupun permasalahan.
 
-Pastikan untuk memperbarui tes yang sesuai.
+Terima kasih telah bersedia untuk berkontribusi untuk ecommerce kami. Dan kami berharap untuk dimasa yang akan datang akan menjadi yang terbaik untuk Anda.
 
 ## License
 EcoZa adalah framework E-Commerce yang sepenuhnya opensource yang akan selalu gratis di bawah [Lisensi MIT](https://github.com/shizadigital/shiza/blob/master/LICENSE)

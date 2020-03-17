@@ -177,7 +177,8 @@ class Migration extends CI_Controller {
         $schema->increments('attrvalId', ['type' => 'BIGINT', 'length' => '25']);
         $schema->integer('attrId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->enum('attrvalVisual', ['color', 'text', 'image']);
-        $schema->string('attrvalValue', ['length' => '255']);
+        $schema->text('attrvalValue');
+        $schema->string('attrvalLabel', ['length' => '255']);
         $schema->run();
 
         // ADD index

@@ -534,6 +534,22 @@ function theSize($size){
 }
 
 /**
+* check array unique
+*
+* @param  array $array
+*
+* @return boolean
+*/
+function is_array_unique($array){
+    $result = false;
+    if( array_unique($array) == $array AND is_array( $array ) ){
+        $result = true;
+    }
+
+    return $result;
+}
+
+/**
 *
 * Data Transaction
 *

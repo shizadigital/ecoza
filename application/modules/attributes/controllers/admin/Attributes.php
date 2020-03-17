@@ -177,6 +177,9 @@ class Attributes extends CI_Controller{
 
 			$getdata = $this->Env_model->getval("*","attribute", "attrId='{$id}'");
 
+			// get attr val
+			$attrval = $this->Env_model->view_where_order('*','attribute_value', "attrId='{$id}'",'attrvalId','ASC');
+
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
@@ -193,6 +196,7 @@ class Attributes extends CI_Controller{
 											),
 							'datagroup' => $datagroup,		
 							'data' => $getdata,
+							'attrval' => $attrval
 						);
 
 			$this->load->view( admin_root('attributes_edit'), $data );
@@ -237,7 +241,39 @@ class Attributes extends CI_Controller{
 						$this->Env_model->insert('attribute_relationship', $attrgroup);
 					}
 
-					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
+					// insert attribute value 
+					if( count( $this->input->post('valueattrval') ) > 0 AND count( $this->input->post('labelattrval') ) > 0 ){
+
+						if( is_array_unique( array_filter($this->input->post('valueattrval')) ) AND  is_array_unique( array_filter($this->input->post('labelattrval')) )){
+							
+							foreach( $this->input->post('valueattrval') AS $key => $val ){
+								if( empty($this->input->post('labelattrval')[$key]) OR empty($this->input->post('valueattrval')[$key]) ){
+									continue;
+								}
+								$dataattr = array(
+									'attrId' => $id,
+									'attrvalVisual' => $this->input->post('visualtype')[$key],
+									'attrvalLabel' => esc_sql(filter_txt( $this->input->post('labelattrval')[$key] )),
+									'attrvalValue' => esc_sql(filter_txt( $this->input->post('valueattrval')[$key] )),
+								);
+
+								if( empty($this->input->post('idattrval')[$key]) ){
+									$getnextid = getNextId('attrvalId', 'attribute_value');
+									$mergedata = array_merge( array('attrvalId'=> $getnextid ), $dataattr);
+									$this->Env_model->insert('attribute_value', $mergedata);
+								} else {
+									$idattrval = filter_int( $this->input->post('idattrval')[$key] );
+									$this->Env_model->update('attribute_value', $dataattr, array('attrvalId'=>$idattrval) );
+								}
+							}
+						} else {
+							$error = "<strong>".t('warning')."!!</strong> " . t('attrvaluearrayerror');
+						}
+					}
+
+					if(!$error){
+						$this->session->set_flashdata( 'succeed', t('successfullyadd'));
+					}
 			    } else {
 			    	$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
 				}
@@ -326,6 +362,105 @@ class Attributes extends CI_Controller{
 		if($error){
 			show_error($error, 503,t('actionfailed'));
 			exit;
+		}
+	}
+
+	public function ajax_addfieldattrval(){
+		if( is_edit() AND $this->input->post('CP') === get_cookie('sz_token') ){
+			$idrow = generate_code(8);
+
+			echo '
+			<tr id="rowval-'.$idrow.'">
+				<td class="align-center">
+					'.form_hidden('idattrval[]', '');
+					$selectval = array(
+						'text' => t('text'),
+						'color' => t('color'),
+						//'image' => t('image')
+					);
+					$extraselectval = array(
+						'class' => 'select2',
+						'id'=>'visualtype-'.$idrow,
+					);
+					echo form_dropdown('visualtype[]', $selectval, 'text', $extraselectval);
+				echo '
+					<script type="text/javascript">
+					$( document ).ready(function() {
+						$(\'.select2\').select2();
+
+						$("#nocolor-'.$idrow.'").show();
+						$("#displaycolor-'.$idrow.'").hide();
+
+						$("#visualtype-'.$idrow.'").change(function () {
+							if( $(this).val() == \'text\' ){
+								$("#nocolor-'.$idrow.'").show();
+								$("#displaycolor-'.$idrow.'").hide();
+								$("#attrval-'.$idrow.'").val(\'\');
+								if( $("#attrval-'.$idrow.'.thecolorpicker").length ){
+									$("#attrval-'.$idrow.'").colorpicker(\'colorpicker\').destroy();
+									$("#attrval-'.$idrow.'").removeClass(\'thecolorpicker\');
+								}
+							}
+							else if( $(this).val() == \'color\' ){
+								$("#displaycolor-'.$idrow.'").show();
+								$("#nocolor-'.$idrow.'").hide();
+								$("#attrval-'.$idrow.'").val(\'\');
+								$("#attrval-'.$idrow.'").addClass(\'thecolorpicker\');
+								$(\'#attrval-'.$idrow.'\').colorpicker()
+								.on(\'colorpickerChange colorpickerCreate\', function (e) {
+									$("#displaycolor-'.$idrow.'").css(\'background-color\', e.value);
+								});
+							}
+						});
+					});
+					</script>
+				</td>
+				<td class="text-center color-'.$idrow.'">
+					<div id="displaycolor-'.$idrow.'" class="mt-2" style="width:23px; height:23px; background-color:#000000; display: inline-flex;"></div>
+					<i class="fe fe-minus" id="nocolor-'.$idrow.'"></i>
+				</td>
+				<td class="text-center">';
+					$inputsvalue = array(
+						'name' => 'valueattrval[]',
+						'class' => 'form-control',
+						'id' => 'attrval-'.$idrow,
+					);
+					echo form_input($inputsvalue);
+				echo '
+				</td>
+				<td class="text-center">';
+					$inputstext = array(
+						'name' => 'labelattrval[]',
+						'class' => 'form-control'
+					);
+					echo form_input($inputstext);
+				echo '
+				</td>
+				<td class="text-center">
+					<button type="button" class="btn btn-danger" id="deleteattrval-'.$idrow.'"><i class="fe fe-trash-2"></i></button>
+					<script type="text/javascript">
+					$( document ).ready(function() {
+						$(\'#deleteattrval-'.$idrow.'\').click(function() {
+							$( "#rowval-'.$idrow.'" ).remove();
+						});
+					});
+					</script>
+				</td>
+			</tr>
+			';
+		}
+	}
+
+	public function ajax_removedataattrval(){
+		if( is_delete() AND $this->input->post('CP') === get_cookie('sz_token') ){
+			
+			$id = filter_int( $this->input->post('attrval') );
+			$query = $this->Env_model->delete('attribute_value', array('attrvalId'=>$id));
+
+			if($query){
+				echo 200;
+			}
+
 		}
 	}
 

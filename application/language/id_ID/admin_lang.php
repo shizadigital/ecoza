@@ -443,6 +443,7 @@ $lang['uploadfile'] = "Unggah Berkas";
 $lang['archives'] = "Arsip";
 $lang['removemainimage'] = "Hapus gambar utama";
 $lang['fileisnotfoundinfo'] = "Berkas tidak tersedia";
+$lang['nodatafound'] = 'Tidak ada data ditemukan';
 $lang['typename'] = "Nama tipe";
 $lang['typedescription'] = "Keterangan tipe";
 $lang['unit'] = "Satuan";
@@ -503,7 +504,8 @@ $lang['downloadableinfo'] = 'Info produk yang diunduh';
 $lang['configuration'] = 'Konfigurasi';
 $lang['configurations'] = 'Konfigurasi';
 $lang['configattrinfo'] = 'Produk yang dikonfigurasi memungkinkan pelanggan untuk memilih opsi/variasi (Contoh: warna baju, ukuran baju). Anda dapat membuat produk secara sederhana untuk setiap konfigurasi (Mis: produk untuk setiap warna).';
-$lang['addattribute'] = 'Tambah Atribut';
+$lang['addvalue'] = 'Tambah Nilai';
+$lang['visual'] = 'Visual';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -604,6 +606,9 @@ $lang['attribute'] = "Atribut";
 $lang['editattribute'] = "Edit Atribut";
 $lang['addattribute'] = 'Tambah Atribut';
 $lang['attributesetting'] = 'Setting Atribut';
+$lang['attributevalue'] = 'Nilai Atribut';
+$lang['attrvalueinputinfo'] = 'Masukkan bidang '.$lang['value'].' dan '.$lang['label'].' untuk data nilai atribut';
+$lang['attrvaluearrayerror'] = 'Masukkan bidang '.$lang['value'].' and '.$lang['label'].' data yang berbeda';
 
 /**
  * Attributes Group
@@ -680,6 +685,7 @@ $lang['datacannotbeloaded'] = "Data tidak dapat dimuat";
 $lang['emptyfield'] = "Bidang Kosong";
 $lang['systemerror'] = 'System Error';
 $lang['error'] = 'Error';
+$lang['warning'] = 'Peringatan';
 $lang['serverbusy'] = 'Server sedang sibuk. Data tidak dapat diproses';
 $lang['functionerror'] = 'Function Error';
 $lang['emptyrequiredfield'] = 'Bidang yang wajib diisi tidak boleh kosong';

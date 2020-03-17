@@ -443,6 +443,7 @@ $lang['uploadfile'] = "Upload File";
 $lang['archives'] = "Archives";
 $lang['removemainimage'] = "Remove main image";
 $lang['fileisnotfoundinfo'] = "No item found";
+$lang['nodatafound'] = 'No Data Found';
 $lang['typename'] = "Type Name";
 $lang['typedescription'] = "Type Description";
 $lang['unit'] = "Unit";
@@ -503,6 +504,8 @@ $lang['downloadableinfo'] = 'Donwloadable Info';
 $lang['configuration'] = 'Configuration';
 $lang['configurations'] = 'Configurations';
 $lang['configattrinfo'] = 'Configurable products allow customers to choose options (Ex: shirt color). You need to create a simple product for each configuration (Ex: a product for each color).';
+$lang['addvalue'] = 'Add Value';
+$lang['visual'] = 'Visual';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -603,6 +606,9 @@ $lang['attribute'] = "Attribute";
 $lang['editattribute'] = "Edit Attribute";
 $lang['addattribute'] = 'Add Attribute';
 $lang['attributesetting'] = 'Attribute Setting';
+$lang['attributevalue'] = 'Attribute Value';
+$lang['attrvalueinputinfo'] = 'Insert '.$lang['value'].' and '.$lang['label'].' field for attribute value data';
+$lang['attrvaluearrayerror'] = 'Insert '.$lang['value'].' and '.$lang['label'].' field with different data';
 
 /**
  * Attributes Group
@@ -679,6 +685,7 @@ $lang['datacannotbeloaded'] = "Data cannot be loaded";
 $lang['emptyfield'] = "Empty Field";
 $lang['systemerror'] = 'System Error';
 $lang['error'] = 'Error';
+$lang['warning'] = 'Warning';
 $lang['serverbusy'] = 'Server is busy. The data cannot be processed';
 $lang['functionerror'] = 'Function Error';
 $lang['emptyrequiredfield'] = 'Required fields cannot be empty';

@@ -96,7 +96,6 @@ include V_ADMIN_PATH . "header.php";
 include V_ADMIN_PATH . "sidebar.php";
 include V_ADMIN_PATH . "topbar.php";
 if( is_add() ){
-    echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'), array( 'id'=> 'valid' ) );
 ?>
 <!-- Attribute setting start here -->
 <div class="air__sidebar">
@@ -180,6 +179,9 @@ if( is_add() ){
 </div>
 <!-- Attribute setting end here -->
 
+<?php
+echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'), array( 'id'=> 'valid' ) );
+?>
 <div class="row">
     <div class="col-12 mb-4">
             

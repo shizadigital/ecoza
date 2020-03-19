@@ -178,3 +178,24 @@ div.mce-fullscreen {
         padding-top: 0.6rem !important;
     }
 }
+
+/* 
+*
+* Select2 input-group
+*/
+.input-group .select2.select2-container {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+.input-group .select2-container .select2-selection--multiple:first-child,
+.input-group .select2-container .select2-selection--single:first-child {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.input-group .select2-container .select2-selection--multiple:last-child,
+.input-group .select2-container .select2-selection--single:last-child {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}

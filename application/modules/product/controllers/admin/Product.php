@@ -75,6 +75,22 @@ class Product extends CI_Controller{
 				$taxes[$v['taxId']] = $v['taxName'] . ( ($v['taxType']=='percentage') ? ' (%)':'');
 			}
 
+			// get attributes
+			$attributes = $this->Env_model->view_where("attrId,attrLabel,attrSorting", "attribute", "attrDeleted=0 ");
+			foreach( $attributes as $k => $val ){
+				
+				$dataattrval = $this->Env_model->view_where("attrvalId,attrvalVisual,attrvalValue,attrvalLabel", "attribute_value", "attrId='{$val['attrId']}'");
+				
+				$attributes[$k]['attrvalues'] = $dataattrval;
+			}
+
+			// get all attribute groups
+			$attributegrp = $this->Env_model->view_where("attrgroupId,attrgroupLabel", "attribute_group", "attrgroupDeleted=0 ");
+			$attributegrpsopt[''] = t('nogroup');
+			foreach( $attributegrp as $k => $v ){
+				$attributegrpsopt[$v['attrgroupId']] = $v['attrgroupLabel'];
+			}
+
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
@@ -92,7 +108,9 @@ class Product extends CI_Controller{
 							'categories' => $datacategories,
 							'manufacturers' => $datamanufacturers,
 							'badges' => $databadges,
-							'taxes' => $taxes
+							'taxes' => $taxes,
+							'attrval' => $attributes,
+							'attrgroupopt' => $attributegrpsopt
 						);
 
 			$this->load->view( admin_root('product_add'), $data );
@@ -195,5 +213,144 @@ class Product extends CI_Controller{
 			exit;
 		}
 	}
+	
+	public function ajax_generate_attrvalue(){
+		if( is_view() AND $this->input->post('CP') === get_cookie('sz_token') ){
+			$valattr = $this->security->xss_clean( $this->input->post('val') );
+			$groupattr = $this->security->xss_clean( $this->input->post('group') );
+			$attravailable = $this->security->xss_clean( $this->input->post('attravailable') );
+			$attravailable = empty($attravailable) ? array():$attravailable;
 
+			$dataattrval = array();
+
+			if( empty( $groupattr ) ){
+
+				foreach($valattr as $sval){
+
+					// split data
+					$expattrval = explode("-",$sval);
+
+					$dataattrval[$expattrval[0]][] = $expattrval[0].'-'.$expattrval[1];
+				}
+			
+			} else {
+				$groupattr = filter_int( $groupattr );
+
+				// get the attribute relationship first
+				$tableattr = array('attribute_relationship a','attribute b');
+				$attrrel = $this->Env_model->view_where_order("a.attrId",$tableattr,"a.attrgroupId='{$groupattr}' AND a.attrId=b.attrId AND b.attrDeleted=0",'a.attrId', 'ASC');
+
+				foreach($attrrel as $val){
+
+					// get attrval 
+					$attrvaldata = $this->Env_model->view_where("attrvalId","attribute_value","attrId='{$val['attrId']}'");
+					foreach( $attrvaldata as $aval ){
+						$dataattrval[$val['attrId']][] = $val['attrId'].'-'.$aval['attrvalId'];
+					}
+
+				}
+			}
+			
+			// combination array
+			$arrayCombination = getCombination($dataattrval);
+
+			foreach($arrayCombination as $key => $val){
+				// generate unique code for identity
+				$codeid = generate_code(8);
+				
+				$nx = 1;
+				$countattr = count($val);
+				$words = '';
+				$attridspattern = '';
+				foreach( $val as $attrdata ){
+					// split data 
+					$exp_attrval = explode("-",$attrdata);
+					$attr = $exp_attrval[0];
+					$attrval = $exp_attrval[1];
+					
+					// get attribute
+					$attr_data = getval("attrId,attrLabel","attribute","attrId='{$attr}'");
+
+					// get attribute value
+					$attrval_data = getval("attrvalId,attrvalVisual,attrvalValue,attrvalLabel","attribute_value","attrvalId='{$attrval}'");
+
+					$words .= $attr_data['attrLabel'] . ': ' . $attrval_data['attrvalLabel'] . (($countattr != $nx)? ', ':'');
+					$attridspattern .= $attr_data['attrId'].':'.$attrval_data['attrvalId'] . (($countattr != $nx)? '-':'');
+
+					$nx++;
+				}
+
+				if( count($attravailable) > 0 ){
+					if( in_array($attridspattern, $attravailable) ){
+						continue;
+					}
+				}
+
+				echo '<tr id="row-'.$key.'-'.$codeid.'">';
+
+				echo '<td>';
+					echo $words;
+					echo '<input type="hidden" class="attrvaluedata" name="attributevalue[]" value="'.$attridspattern.'" />';
+				echo '</td>';
+
+				echo '
+				<td>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">'.getCurrencySymbol().'</span>
+						</div>';
+					$attrprice = array('class'=>'form-control', 'onkeypress'=>'return isNumberComma(event)');
+					echo form_input('priceattr['.$key.']', '', $attrprice);
+					
+				echo '
+					</div>
+				</td>';
+				
+				echo '
+				<td>';
+					$attrqty = array('class'=>'form-control', 'onkeypress'=>'return isNumberKey(event)');
+					echo form_input('qtyattr['.$key.']', '', $attrqty);
+				echo '
+				</td>';
+
+				echo '
+				<td>';
+					$optqtytype = array('limited'=>t('limited'),'unlimited'=>t('unlimited'));
+					echo form_dropdown('qtytype', $optqtytype, 'limited', array( 'class'=>'custom-select' ));
+				echo '
+				</td>';
+
+				echo '
+				<td>
+					<div class="input-group">';
+					$attrweight = array('class'=>'form-control', 'onkeypress'=>'return isNumberComma(event)');
+					echo form_input('weightattr['.$key.']', '', $attrweight);
+				echo '
+						<div class="input-group-append">
+							<span class="input-group-text">'.getWeightUnitDefault().'</span>
+						</div>
+					</div>
+				</td>';
+
+				echo '
+				<td>
+				<button class="btn btn-link" id="removeattr-'.$key.'-'.$codeid.'" title="'.t('remove').': '.$words.'"><i class="fe fe-trash-2 text-red"></i></button>
+				<script type="text/javascript">
+				$( document ).ready(function() {
+					$("#removeattr-'.$key.'-'.$codeid.'").tooltip();
+					$("#removeattr-'.$key.'-'.$codeid.'").click(function() {
+						if( confirm("'.t('deleteconfirm').' ('.$words.')") ){
+							$(this).tooltip(\'dispose\');
+							$("#row-'.$key.'-'.$codeid.'").remove();
+						}
+					});
+				});
+				</script>
+				</td>';
+
+				echo '</tr>';
+
+			}
+		}
+	}
 }

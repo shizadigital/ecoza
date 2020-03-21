@@ -81,7 +81,7 @@ class FormControl {
                 if( is_multilang() ){
                 $result .= '
                 <div class="col-md-12 col-sm-12 mb-2">
-                    <div class="tab">
+                    <div class="tab langtab-'.$attrId.'">
                         <ul class="nav nav-tabs justify-content-end" role="tablist">
                             <li><div class="pt-2 pr-3"><i class="fa fa-language"></i> '.t('translate').':</div> </li>';
                             foreach (langlist() as $keyl => $valuel) {

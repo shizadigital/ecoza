@@ -280,6 +280,7 @@ $lang['primaryimg'] = "Gambar Utama";
 $lang['withoutvariation'] = "Tanpa Variasi";
 $lang['withvariation'] = "Dengan Variasi";
 $lang['stocktype'] = "Jenis Stok";
+$lang['qtytype'] = "Jenis Qty";
 $lang['unlimited'] = "Tak Terbatas";
 $lang['limited'] = "Terbatas";
 $lang['conditioned'] = "Terkondisi";
@@ -506,6 +507,15 @@ $lang['configurations'] = 'Konfigurasi';
 $lang['configattrinfo'] = 'Produk yang dikonfigurasi memungkinkan pelanggan untuk memilih opsi/variasi (Contoh: warna baju, ukuran baju). Anda dapat membuat produk secara sederhana untuk setiap konfigurasi (Mis: produk untuk setiap warna).';
 $lang['addvalue'] = 'Tambah Nilai';
 $lang['visual'] = 'Visual';
+$lang['readmore'] = 'Baca Lebih Banyak';
+$lang['readless'] = 'Read Sedikit';
+$lang['set'] = 'Set';
+$lang['generate'] = 'Hasilkan';
+$lang['combinations'] = 'Kombinasi';
+$lang['nogroup'] = 'Tidak ada group';
+$lang['nogroups'] = 'Tidak ada group';
+$lang['selectgroup'] = 'Pilih group';
+$lang['selectgroups'] = 'Pilih group';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -609,6 +619,9 @@ $lang['attributesetting'] = 'Setting Atribut';
 $lang['attributevalue'] = 'Nilai Atribut';
 $lang['attrvalueinputinfo'] = 'Masukkan bidang '.$lang['value'].' dan '.$lang['label'].' untuk data nilai atribut';
 $lang['attrvaluearrayerror'] = 'Masukkan bidang '.$lang['value'].' and '.$lang['label'].' data yang berbeda';
+$lang['selectattributes'] = 'Pilih Atribut';
+$lang['typeattribute'] = 'Ketik atribut';
+$lang['warninginserttheattribute'] = 'Silahkan isi nilai atribute terlebih dahulu';
 
 /**
  * Attributes Group
@@ -643,6 +656,8 @@ $lang['abbr_sku'] = "Stock Keeping Unit";
 $lang['abbr_isbn'] = "International Standard Book Number";
 $lang['abbr_mpn'] = "Manufacturer Part Number";
 $lang['abbr_upc'] = "Universal Product Code";
+
+$lang['addattributetoproductinfo'] = "Untuk menambahkan atribut, Anda harus terlebih dahulu membuat atribut beserta nilai atribut pada menu Katalog -> Atribut.<br/>Setelah selesai, Anda dapat memasukkan atribut yang diinginkan (seperti \"ukuran\" atau \"warna\") dan nilainya masing-masing (\"XS\", \"merah\", \"semua\", dll.) pada bidang di bawah ini.";
 
 /**
  * Weigth Unit
@@ -747,8 +762,8 @@ $lang['basicpriceempty'] = "Harga modal tidak boleh kosong";
 $lang['specialpricemorebigthancapitalandnormal'] = "Harga Spesial tidak boleh lebih kecil dari Harga Modal dan harus lebih kecil dari Harga Normal. Silahkan periksa kembali.";
 $lang['capitalmorebignormal'] = "Harga Modal tidak boleh lebih besar dari Harga Normal. Silahkan periksa kembali.";
 $lang['onlyyoutube'] = "Video yang diizinkan adalah video youtube";
-$lang['stocktypeerro1'] = "Maaf, jumlah produk %s dengan %s %s dan %s %s tidak boleh lebih kecil dari pesanan saat ini.<br /> Jumlah pesanan saat ini adalah %s. Silahkan tambah jumlah stok fisik.";
-$lang['stocktypeerro2'] = "Maaf, jumlah produk %s dengan %s %s tidak boleh lebih kecil dari pesanan saat ini.<br /> Jumlah pesanan saat ini adalah %s. Silahkan tambah jumlah stok fisik.";
+$lang['qtytypeerro1'] = "Maaf, jumlah produk %s dengan %s %s dan %s %s tidak boleh lebih kecil dari pesanan saat ini.<br /> Jumlah pesanan saat ini adalah %s. Silahkan tambah jumlah stok fisik.";
+$lang['qtytypeerro2'] = "Maaf, jumlah produk %s dengan %s %s tidak boleh lebih kecil dari pesanan saat ini.<br /> Jumlah pesanan saat ini adalah %s. Silahkan tambah jumlah stok fisik.";
 $lang['novariation'] = "Maaf, jumlah produk %s tidak boleh lebih kecil dari pesanan saat ini.<br /> Jumlah pesanan saat ini adalah %s. Silahkan tambah jumlah stok fisik.";
 $lang['optionnameerror'] = "Maaf, tidak boleh ada nama opsi yang sama. Silahkan periksa kembali.";
 $lang['cannotdeleteproductstillorder'] = "Maaf, produk belum dapat dihapus, dikarenakan masih memiliki pesanan. Silahkan selesaikan pesanan terlebih dahulu.";

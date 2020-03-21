@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+$attrval_colpan_table = 6;
+
 /************************************
 Register style (CSS)
 ************************************/
@@ -18,14 +20,15 @@ $request_script_files = array(
     'vendors/parsley/parsley.config.js',
     'vendors/parsley/parsley.min.js',
     'vendors/select2/dist/js/select2.full.min.js',
-    'vendors/bootstrap-select/dist/js/bootstrap-select.min.js'
+    'vendors/bootstrap-select/dist/js/bootstrap-select.min.js',
+    'vendors/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js',
 );
 $request_script = "
 $( document ).ready(function() {
     $('#valid').parsley();
     $('.select2').select2();
 
-    $('.selectpicker').selectpicker()
+    $('.selectpicker').selectpicker();
 
     // load product
     $('.select2relatedproduct').select2({
@@ -82,13 +85,120 @@ $( document ).ready(function() {
                         $( 'ul#relatedresult' ).prepend( data );
                     }
                 } else {
-                    $('ul#relatedresult').prepend('Data tidak dapat dimuat');
+                    $('ul#relatedresult').prepend('".t('datacannotbeloaded')."');
                 }
             }
         });
 
     });
+
+    $('#generateattrval-btn').click(function() {
+        var selectdata = [];
+        $('.attrval-generator-input:checked').each(function() {
+            selectdata.push($(this).val());
+        });
+
+        var groupattr = $('#groupattr').val();
+
+        $(this).attr('disabled','disabled');
+        $(this).addClass('btn-disabled');
+
+        var attrval = [];
+        $('.attrvaluedata').each(function() {
+            attrval.push($(this).val());
+        });
+
+        if( selectdata.length > 0 || groupattr.length > 0){
+
+            $.ajax({
+                type: 'POST',
+                url: '".admin_url($this->uri->segment(2)."/ajax_generate_attrvalue/")."',
+                data : {
+                    val: selectdata,
+                    group: groupattr,
+                    CP: '".get_cookie('sz_token')."',
+                    attravailable: attrval,
+                },
+                beforeSend: function(data){
+                    if( $('#noitemattrinfo').length > 0 ){
+                        $('#noitemattrinfo').remove();
+                    }
+
+                    $('.attributevalue tbody').append('<tr class=\"loaderresult\"><td colspan=\"{$attrval_colpan_table}\" class=\"text-center\"><div class=\"py-2\"><img src=\"".web_assets('img/loader/loading.gif')."\" alt=\"loader\"></div></td></tr>');
+                },
+                success: function(data) {
+                    $('.loaderresult').remove();
+                    $('#generateattrval-btn').removeAttr('disabled');
+                    $('#generateattrval-btn').removeClass('btn-disabled');
+                    if(data){
+
+                        if('.loaderattrerror'.length > 0){
+                            $('.loaderattrerror').remove();
+                        }
+                        
+                        if(data == '503'){
+                            $('.attributevalue tbody').append('<tr class=\"loaderattrerror\"><td colspan=\"{$attrval_colpan_table}\" class=\"text-center\">Error 503</td></tr>');
+                        } else {
+                            $('body').removeClass('air__sidebar--toggled');
+                            $( '.attributevalue tbody' ).append( data );
+                            $('.attrval-generator-input').prop('checked', false);
+
+                            moving_tab_to('#attribute');
+                        }
+                    } else {
+                        $('.attributevalue tbody').append('<tr class=\"loaderattrerror\"><td colspan=\"{$attrval_colpan_table}\" class=\"text-center\">".t('datacannotbeloaded')."</td></tr>');
+                    }
+                }
+            });
+        } else {
+            $('#generateattrval-btn').removeAttr('disabled');
+            $('#generateattrval-btn').removeClass('btn-disabled');
+
+            $.notify(
+                {
+                    title: '<strong>".t('warning')."!</strong>',
+                    message: '".t('warninginserttheattribute').".',
+                },
+                {
+                    type: 'danger',
+                },
+            )
+        }
+    });
+
+    $('#groupattr').change(function() {
+        var vattrgrp = $(this).val().length;
+
+        if( vattrgrp != 0){
+            $('#attrelement').fadeOut();
+        } else {
+            $('#attrelement').fadeIn();
+        }
+    });
 });
+
+// make moving to another tap
+function moving_tab_to(objct) {
+    $(document).ready(function($){
+
+        $('div.producttab > .card-header > ul.nav-tabs li a').each(function () {
+            if ($(this).hasClass('active')) { $(this).removeClass('active'); }
+            if ($(this).hasClass('show')) { $(this).removeClass('show'); }
+        });
+
+        $('div.producttab > .card-body > .tab-content.paneltab-product > .tab-pane').each(function () {
+            if ($(this).hasClass('active')) { $(this).removeClass('active'); }
+            if ($(this).hasClass('show')) { $(this).removeClass('show'); }
+        });
+        
+        var objtab = objct.replace('#', '');
+        $('#tab-' + objtab).addClass('active');
+
+        var objcttab = objct.replace('#tab-', '#');
+
+        $(objcttab).addClass('active show');
+    });
+}
 ";
 $this->assetsloc->reg_admin_script($request_script_files,$request_script);
 
@@ -104,75 +214,102 @@ if( is_add() ){
 
     <div class="air__utils__line mb-4" style="margin-top: 19px;"></div>
         <div class="air__sidebar__scroll">
-        <p class="text-muted">
-            This component gives possibility to construct custom blocks with any widgets, components and
-            elements inside, like this theme settings
+        <p class="text-muted descrriptiontext-attr">
+            <span class="textshort-attr"></span>
+            <span class="textfull-attr">
+                <?php echo t('addattributetoproductinfo'); ?>
+            </span>
+            <button type="button" class="btn btn-light btn-sm read-more-text-attr"><?php echo t('readmore'); ?></button>
         </p>
-        <div class="air__sidebar__type">
-            <div class="air__sidebar__type__title">
-            <span>Menu Type</span>
-            </div>
-            <div class="air__sidebar__type__items">
-            <div class="row">
-                <div class="col-6">
-                <label class="air__utils__control air__utils__control__radio">
-                    <input type="radio" name="menuType" checked to="body" setting="" />
-                    <span class="air__utils__control__indicator"></span>
-                    Default
-                </label>
-                <label class="air__utils__control air__utils__control__radio hideIfMenuTop">
-                    <input type="radio" name="menuType" to="body" setting="air__menu--flyout" />
-                    <span class="air__utils__control__indicator"></span>
-                    Flyout
-                </label>
+        <script type="text/javascript">
+            $(document).ready(function(){    
+                var maxChars = 124;
+                var ellipsis = "...";
+                $(".descrriptiontext-attr").each(function() {
+                    var text = $(this).find(".textfull-attr").text();
+                    var html = $(this).find(".textfull-attr").html();        
+                    if(text.length > maxChars){            
+                        var shortHtml = html.substring(0, maxChars - 3) + "<span class='ellipsis'>" + ellipsis + "</span>";
+                        $(this).find(".textshort-attr").html(shortHtml);            
+                    }
+                    $(this).find(".textfull-attr").hide();
+                });
+                $(".read-more-text-attr").click(function(){        
+                    var readMoreText = "<?php echo t('readmore'); ?>";
+                    var readLessText = "<?php echo t('readless'); ?>";        
+                    var $shortElem = $(this).parent().find(".textshort-attr");
+                    var $fullElem = $(this).parent().find(".textfull-attr");        
+                    
+                    if($shortElem.is(":visible")){           
+                        $shortElem.hide();
+                        $fullElem.show();
+                        $(this).text(readLessText);
+                    }
+                    else{
+                        $shortElem.show();
+                        $fullElem.hide();
+                        $(this).text(readMoreText);
+                    }       
+                });
+            });
+        </script>
+
+        <div class="row">
+
+            <div class="col-md-12 mb-5">
+
+                <h5 class="mb2"><?php echo t('selectgroup'); ?></h5>
+
+                <div class="mb-4">
+                    <div class="form-group">
+                        <?php
+                        $extraopt = array(
+                            'class' => 'custom-select',
+                            'id'=> 'groupattr'
+                        );
+                        echo form_dropdown('groupattr', $attrgroupopt, '', $extraopt);
+                        ?>
+                    </div>
                 </div>
-                <div class="col-6">
-                <label class="air__utils__control air__utils__control__radio hideIfMenuTop">
-                    <input type="radio" name="menuType" to="body" setting="air__menu--compact" />
-                    <span class="air__utils__control__indicator"></span>
-                    Compact
-                </label>
-                <label class="air__utils__control air__utils__control__radio">
-                    <input type="radio" name="menuType" to="body" setting="air__menu--nomenu" />
-                    <span class=" air__utils__control__indicator"></span>
-                    No Menu
-                </label>
+                
+                <div id="attrelement">
+
+                    <p class="text-center"><?php echo ucwords( t('or') ); ?></p>
+
+
+                    <h5 class="mb2"><?php echo t('selectattributes'); ?></h5>
+                    
+                <?php 
+                foreach($attrval as $kattr => $vattr){
+                    // check if attribute value is not empty
+                    if(count($vattr['attrvalues']) > 0){
+                        echo '<div class="card"><div class="card-body">';
+                        echo '<h5 class="mb-3">'.$vattr['attrLabel'].'</h5>';
+                        foreach($vattr['attrvalues'] as $kval => $vav){
+                            echo '
+                            <div class="form-group mb-1">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="attrvalcheck[]" value="'.$vattr['attrId'].'-'.$vav['attrvalId'].'" class="custom-control-input attrval-generator-input" id="attrvalcheck-'.$vav['attrvalId'].'"  />
+                                    <label class="custom-control-label" for="attrvalcheck-'.$vav['attrvalId'].'">
+                                    ';
+                                    if( $vav['attrvalVisual']== 'color' ){
+                                        echo '<div style="height:12px;width:12px; display:inline-block; margin-right:4px;background-color:'.$vav['attrvalValue'].';"></div>';
+                                    }
+                                    echo $vav['attrvalLabel'].'
+                                    </label>
+                                </div>
+                            </div>
+                            ';
+                        }
+                        echo '</div></div>';
+                    }
+                }
+                ?>
                 </div>
+
+                <button type="button" id="generateattrval-btn" class="btn btn-block btn-primary"><i class="fe fe-zap"></i> <?php echo t('generate'); ?></button>
             </div>
-            </div>
-        </div>
-        <div class="air__sidebar__item hideIfMenuTop">
-            <div class="air__sidebar__label">
-            Toggled left menu
-            </div>
-            <div class="air__sidebar__container">
-            <label class="air__sidebar__switch">
-                <input type="checkbox" to="body" setting="air__menu--toggled" />
-                <span class="air__sidebar__switch__slider"></span>
-            </label>
-            </div>
-        </div>
-        <div class="air__sidebar__item hideIfMenuTop">
-            <div class="air__sidebar__label">
-            Unfixed left menu
-            </div>
-            <div class="air__sidebar__container">
-            <label class="air__sidebar__switch">
-                <input type="checkbox" to="body" setting="air__menu--unfixed" />
-                <span class="air__sidebar__switch__slider"></span>
-            </label>
-            </div>
-        </div>
-        <div class="air__sidebar__item">
-            <div class="air__sidebar__label">
-            Fixed topbar
-            </div>
-            <div class="air__sidebar__container">
-            <label class="air__sidebar__switch">
-                <input type="checkbox" to="body" setting="air__layout--fixedHeader" />
-                <span class="air__sidebar__switch__slider"></span>
-            </label>
-            </div>
+
         </div>
         
     </div>
@@ -203,34 +340,34 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
 
         <div class="card">
 
-            <div class="tab nav-border-bottom">
+            <div class="tab nav-border-bottom producttab">
 
                 <div class="card-header card-header-flex">
 
                     <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-bold nav-tabs-noborder nav-tabs-stretched">
                         <li class="nav-item">
-                            <a class="nav-link active show" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true"><?php echo t('general'); ?></a>
+                            <a class="nav-link active show" id="tab-general" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true"><?php echo t('general'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="false"><?php echo t('data'); ?></a>
+                            <a class="nav-link" id="tab-data" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="false"><?php echo t('data'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="linked-tab" data-toggle="tab" href="#linked" role="tab" aria-controls="linked" aria-selected="false"><?php echo t('linked'); ?></a>
+                            <a class="nav-link" id="tab-linked" data-toggle="tab" href="#linked" role="tab" aria-controls="linked" aria-selected="false"><?php echo t('linked'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false"><?php echo t('image'); ?></a>
+                            <a class="nav-link" id="tab-image" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false"><?php echo t('image'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="attribute-tab" data-toggle="tab" href="#attribute" role="tab" aria-controls="attribute" aria-selected="false"><?php echo t('attribute'); ?></a>
+                            <a class="nav-link" id="tab-attribute" data-toggle="tab" href="#attribute" role="tab" aria-controls="attribute" aria-selected="false"><?php echo t('attribute'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false"><?php echo t('shipping'); ?></a>
+                            <a class="nav-link" id="tab-shipping" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false"><?php echo t('shipping'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="downloadable-tab" data-toggle="tab" href="#downloadable" role="tab" aria-controls="downloadable" aria-selected="false"><?php echo t('downloadableinfo'); ?></a>
+                            <a class="nav-link" id="tab-downloadable" data-toggle="tab" href="#downloadable" role="tab" aria-controls="downloadable" aria-selected="false"><?php echo t('downloadableinfo'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="seo" aria-selected="false">SEO</a>
+                            <a class="nav-link" id="tab-seo" data-toggle="tab" href="#seo" role="tab" aria-controls="seo" aria-selected="false">SEO</a>
                         </li>
                     </ul>
 
@@ -238,7 +375,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                 
                 <div class="card-body">
                 
-                    <div class="tab-content">
+                    <div class="tab-content paneltab-product">
                         <?php 
                         // setting layout
                         $col_layout = array('label'=>'col-md-2', 'input'=>'col-md-10');
@@ -249,7 +386,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         General Input Start Here
 
                         -->
-                        <div class="tab-pane fade py-4 active show" id="general" role="tabpanel" aria-labelledby="general-tab">
+                        <div class="tab-pane fade py-4 active show" id="general" role="tabpanel" aria-labelledby="tab-general">
                             <div class="row">
                                 <div class="col-md-9">
                                     <?php
@@ -345,7 +482,17 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                                     array(
                                                         'type' => 'text',
                                                         'name'=> 'qty',
+                                                        'label'=> t('quantity'),
                                                     ),
+                                                    array(
+                                                        'type' => 'select',
+                                                        'label'=> t('qtytype'),
+                                                        'name'=> 'qty',
+                                                        'onkeypress'=>'return isNumberKey(event)',
+                                                        'class' => 'select2',
+                                                        'option'=> array('limited'=>t('limited'),'unlimited'=>t('unlimited')),
+                                                    ),
+                                                    
                                                 );
                                                 $this->formcontrol->buildInputs($builddataform4);
                                                 ?>
@@ -450,7 +597,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         Data Input Start Here
 
                         -->
-                        <div class="tab-pane fade py-4" id="data" role="tabpanel" aria-labelledby="data-tab">
+                        <div class="tab-pane fade py-4" id="data" role="tabpanel" aria-labelledby="tab-data">
                         
                             <?php                            
                             $builddataform1 = array(
@@ -524,7 +671,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         Linked Input Start Here
 
                         -->
-                        <div class="tab-pane fade py-4" id="linked" role="tabpanel" aria-labelledby="linked-tab">
+                        <div class="tab-pane fade py-4" id="linked" role="tabpanel" aria-labelledby="tab-linked">
                             <?php                            
                             $buildlinkedform = array(
                                 array(
@@ -575,7 +722,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         Images Input Start Here
 
                         -->
-                        <div class="tab-pane fade py-4" id="image" role="tabpanel" aria-labelledby="image-tab">
+                        <div class="tab-pane fade py-4" id="image" role="tabpanel" aria-labelledby="tab-image">
                             <p class="text-right mb-10">
                                 <button type="button" onclick="addimg()" class="btn btn-info btn-xs"><i class="fa fa-plus-square"></i> <?php echo t('btnaddfield'); ?></button> 
                                 <button type="button" onclick="removeimg()" class="btn btn-warning btn-xs"><i class="fa fa-minus-square"></i> <?php echo t('btnremovefield'); ?></button>
@@ -631,18 +778,42 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         Attributes Input Start Here
 
                         -->
-                        <div class="tab-pane fade py-4" id="attribute" role="tabpanel" aria-labelledby="attribute-tab">
+                        <div class="tab-pane fade py-4" id="attribute" role="tabpanel" aria-labelledby="tab-attribute">
                             
                             <h4 class="mb-4 mt-0"><?php echo t('configurations'); ?></h4>
 
                             <div class="row">
-                                <div class="col-md-7">
+                                <div class="col-md-9">
                                     <?php echo t('configattrinfo'); ?>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     <div class="float-right">
-                                        <button type="button" class="air__sidebar__actionToggle btn btn-warning"><?php echo t('addattribute'); ?></button>
+                                        <button type="button" class="air__sidebar__actionToggle btn btn-light btn-rounded"><i class="fe fe-menu"></i> </i><?php echo t('addattribute'); ?></button>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 mt-4">
+
+                                    <div class="table-responsive-md">
+                                        <table class="table table-hover table-striped attributevalue">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center"><?php echo t('combinations'); ?></th>
+                                                    <th style="width:240px;" class="text-center"><?php echo t('price'); ?></th>
+                                                    <th style="width:140px;" class="text-center"><?php echo t('quantity'); ?></th>
+                                                    <th style="width:140px;" class="text-center"><?php echo t('qtytype'); ?></th>
+                                                    <th style="width:140px;" class="text-center"><?php echo t('weight'); ?></th>
+                                                    <th style="width:30px;" class="text-center"><i class="fe fe-settings"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id="noitemattrinfo"><td colspan="<?php echo $attrval_colpan_table; ?>" class="text-center"><?php echo t('nodatafound');?></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -653,7 +824,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         Shipping Input Start Here
 
                         -->
-                        <div class="tab-pane fade py-4" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                        <div class="tab-pane fade py-4" id="shipping" role="tabpanel" aria-labelledby="tab-shipping">
                         shipping
                         </div>
                         
@@ -662,7 +833,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                        Downloadable Product Start Here
 
                         -->
-                        <div class="tab-pane fade py-4" id="downloadable" role="tabpanel" aria-labelledby="downloadable-tab">
+                        <div class="tab-pane fade py-4" id="downloadable" role="tabpanel" aria-labelledby="tab-downloadable">
                         Downloadable Product
                         </div>
                         
@@ -671,7 +842,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         SEO Input Start Here
 
                         -->
-                        <div class="tab-pane fade py-4" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+                        <div class="tab-pane fade py-4" id="seo" role="tabpanel" aria-labelledby="tab-seo">
                         seo
                         </div>
 

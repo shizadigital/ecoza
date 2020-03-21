@@ -280,6 +280,7 @@ $lang['primaryimg'] = "Primary Image";
 $lang['withoutvariation'] = "Without Variation";
 $lang['withvariation'] = "With Variation";
 $lang['stocktype'] = "Stock Type";
+$lang['qtytype'] = "Qty Type";
 $lang['unlimited'] = "Unlimited";
 $lang['limited'] = "Limited";
 $lang['conditioned'] = "Conditioned";
@@ -506,6 +507,15 @@ $lang['configurations'] = 'Configurations';
 $lang['configattrinfo'] = 'Configurable products allow customers to choose options (Ex: shirt color). You need to create a simple product for each configuration (Ex: a product for each color).';
 $lang['addvalue'] = 'Add Value';
 $lang['visual'] = 'Visual';
+$lang['readmore'] = 'Read more';
+$lang['readless'] = 'Read less';
+$lang['set'] = 'Set';
+$lang['generate'] = 'Generate';
+$lang['combinations'] = 'Combinations';
+$lang['nogroup'] = 'No group';
+$lang['nogroups'] = 'No groups';
+$lang['selectgroup'] = 'Select group';
+$lang['selectgroups'] = 'Select groups';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -609,6 +619,10 @@ $lang['attributesetting'] = 'Attribute Setting';
 $lang['attributevalue'] = 'Attribute Value';
 $lang['attrvalueinputinfo'] = 'Insert '.$lang['value'].' and '.$lang['label'].' field for attribute value data';
 $lang['attrvaluearrayerror'] = 'Insert '.$lang['value'].' and '.$lang['label'].' field with different data';
+$lang['selectattributes'] = 'Select Attributes';
+$lang['typeattribute'] = 'Type Attribute';
+$lang['warninginserttheattribute'] = 'Please insert the attribute value first';
+
 
 /**
  * Attributes Group
@@ -643,6 +657,8 @@ $lang['abbr_sku'] = "Stock Keeping Unit";
 $lang['abbr_isbn'] = "International Standard Book Number";
 $lang['abbr_mpn'] = "Manufacturer Part Number";
 $lang['abbr_upc'] = "Universal Product Code";
+
+$lang['addattributetoproductinfo'] = "To add the attributes, you first need to create proper attributes and values in Catalog -> Attributes.<br/>When done, you may enter the wanted attributes (like \"size\" or \"color\") and their respective values (\"XS\", \"red\", \"all\", etc.) in the field below";
 
 /**
  * Weigth Unit
@@ -747,8 +763,8 @@ $lang['basicpriceempty'] = "Basic/Capital price cannot be empty";
 $lang['specialpricemorebigthancapitalandnormal'] = "Special price must not be smaller than the Capital Price and must be less than the Normal Price. Please check again.";
 $lang['capitalmorebignormal'] = "Capital price must not be greater than the Normal Price. Please check again.";
 $lang['onlyyoutube'] = "Video that are allowed are youtube video";
-$lang['stocktypeerro1'] = "Sorry, the number of %s with %s %s and %s %s must not be smaller than the current order.<br /> The current total order is %s. Please increase the total order of physical stock";
-$lang['stocktypeerro2'] = "Sorry, the number of %s with %s %s must not be smaller than the current order.<br /> The current total order is %s. Please increase the total order of physical stock.";
+$lang['qtytypeerro1'] = "Sorry, the number of %s with %s %s and %s %s must not be smaller than the current order.<br /> The current total order is %s. Please increase the total order of physical stock";
+$lang['qtytypeerro2'] = "Sorry, the number of %s with %s %s must not be smaller than the current order.<br /> The current total order is %s. Please increase the total order of physical stock.";
 $lang['novariation'] = "Sorry, the number of %s must not be smaller than the current order.<br /> The current total ordered is %s. Please increase the total order of physical stock.";
 $lang['optionnameerror'] = "Sorry, option name cannot be same. Please check again.";
 $lang['cannotdeleteproductstillorder'] = "Sorry, product cannot be deleted, because they still have order. Please complete the order first.";

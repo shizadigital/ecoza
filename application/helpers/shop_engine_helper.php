@@ -178,3 +178,37 @@ function priceConvertCurrency($price = '0.00', $convertTo = ''){
 
 	return $the_pricing;
 }
+
+/**
+ * Get weight unit default symbol
+ * 
+ * @param string $display
+ * 
+ * @return string
+ */
+function getWeightUnitDefault($display = 'unit'){
+	$unit = 'Kg';
+	$title = 'Kilogram';
+	$value = 1.00000000;
+
+	if( countdata( 'unit_weight', array('weightDefault'=>'y') ) > 0 ){
+		// get rate data currency
+		$getval = getval("weightTitle,weightUnit,weightValue","unit_weight","weightDefault='y'");
+
+		$unit = $getval['weightUnit'];
+		$title = $getval['weightUnit'];
+		$value = $getval['weightValue'];
+	}
+
+	if($display == 'unit'){
+		$result = $unit;
+	} 
+	elseif($display == 'title'){
+		$result = $title;
+	}
+	elseif($display == 'value'){
+		$result = $value;
+	}
+
+	return $result;
+}

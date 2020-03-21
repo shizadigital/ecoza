@@ -207,6 +207,11 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/editprocess'), a
 														?>
 														$('#visualtype-<?php echo $val['attrvalId'] ?>').change(function () {
 															if( $(this).val() == 'text' ){
+																$(".attrvaltd-<?php echo $val['attrvalId']; ?> .textlabel").empty();
+																$(".attrvaltd-<?php echo $val['attrvalId']; ?> .textlabel").show();
+																$(".attrvaltd-<?php echo $val['attrvalId']; ?> .fieldlabel").hide();
+																$(".attrvaltd-<?php echo $val['attrvalId']; ?> .fieldlabel input").val('');
+
 																$("#nocolor-<?php echo $val['attrvalId']; ?>").show();
 																$("#displaycolor-<?php echo $val['attrvalId']; ?>").hide();
 																$("#attrval-<?php echo $val['attrvalId']; ?>").val('');
@@ -216,6 +221,11 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/editprocess'), a
 																}
 															}
 															else if( $(this).val() == 'color' ){
+																$(".attrvaltd-<?php echo $val['attrvalId']; ?> .textlabel").empty();
+																$(".attrvaltd-<?php echo $val['attrvalId']; ?> .textlabel").hide();
+																$(".attrvaltd-<?php echo $val['attrvalId']; ?> .fieldlabel").show();
+																$(".attrvaltd-<?php echo $val['attrvalId']; ?> .fieldlabel input").val('');
+
 																$("#displaycolor-<?php echo $val['attrvalId']; ?>").show();
 																$("#nocolor-<?php echo $val['attrvalId']; ?>").hide();
 																$("#attrval-<?php echo $val['attrvalId']; ?>").val('');
@@ -225,6 +235,12 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/editprocess'), a
 																	$("#displaycolor-<?php echo $val['attrvalId']; ?>").css('background-color', e.value);
 																});
 															}
+														});
+
+														$("#attrval-<?php echo $val['attrvalId']; ?>").keyup(function() {
+															var datavalattr = $(this).val();
+															$(".attrvaltd-<?php echo $val['attrvalId']; ?> .textlabel").text(datavalattr);
+															$(".attrvaltd-<?php echo $val['attrvalId']; ?> .fieldlabel input").val(datavalattr);
 														});
 													});
 													</script>
@@ -244,15 +260,18 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/editprocess'), a
  													echo form_input($inputsvalue);
 													?>
 												</td>
-												<td class="text-center">
+												<td class="text-center attrvaltd-<?php echo $val['attrvalId']; ?>">
+													<div class="fieldlabel"<?php if($val['attrvalVisual'] == 'text'){ echo ' style="display:none;"'; } ?>>
 													<?php 
 													$inputstext = array(
 														'name' => 'labelattrval[]',
 														'class' => 'form-control',
-														'value' => $val['attrvalLabel']
+														'value' => ($val['attrvalVisual'] == 'color') ? $val['attrvalLabel']:'',
 													);
  													echo form_input($inputstext);
 													?>
+													</div>
+													<div class="textlabel"<?php if($val['attrvalVisual'] != 'text'){ echo ' style="display:none;"'; } ?>><?php echo $val['attrvalLabel']; ?></div>
 												</td>
 												<td class="text-center">
 													<?php if( is_delete() ){ ?>

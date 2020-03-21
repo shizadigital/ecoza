@@ -244,16 +244,22 @@ class Attributes extends CI_Controller{
 					// insert attribute value 
 					if( count( $this->input->post('valueattrval') ) > 0 AND count( $this->input->post('labelattrval') ) > 0 ){
 
-						if( is_array_unique( array_filter($this->input->post('valueattrval')) ) AND  is_array_unique( array_filter($this->input->post('labelattrval')) )){
+						if( is_array_unique( array_filter($this->input->post('valueattrval')) ) AND is_array_unique( array_filter($this->input->post('labelattrval')) )){
 							
 							foreach( $this->input->post('valueattrval') AS $key => $val ){
 								if( empty($this->input->post('labelattrval')[$key]) OR empty($this->input->post('valueattrval')[$key]) ){
 									continue;
 								}
+
+								$labelvalueattr = esc_sql(filter_txt( $this->input->post('labelattrval')[$key] ));
+								if( $this->input->post('visualtype')[$key] == 'text'){
+									$labelvalueattr = esc_sql(filter_txt( $this->input->post('valueattrval')[$key] ));
+								}
+
 								$dataattr = array(
 									'attrId' => $id,
 									'attrvalVisual' => $this->input->post('visualtype')[$key],
-									'attrvalLabel' => esc_sql(filter_txt( $this->input->post('labelattrval')[$key] )),
+									'attrvalLabel' => $labelvalueattr,
 									'attrvalValue' => esc_sql(filter_txt( $this->input->post('valueattrval')[$key] )),
 								);
 
@@ -393,6 +399,11 @@ class Attributes extends CI_Controller{
 
 						$("#visualtype-'.$idrow.'").change(function () {
 							if( $(this).val() == \'text\' ){
+								$(".attrvaltd-'.$idrow.' .textlabel").empty();
+								$(".attrvaltd-'.$idrow.' .textlabel").show();
+								$(".attrvaltd-'.$idrow.' .fieldlabel").hide();
+								$(".attrvaltd-'.$idrow.' .fieldlabel input").val(\'\');
+
 								$("#nocolor-'.$idrow.'").show();
 								$("#displaycolor-'.$idrow.'").hide();
 								$("#attrval-'.$idrow.'").val(\'\');
@@ -402,6 +413,11 @@ class Attributes extends CI_Controller{
 								}
 							}
 							else if( $(this).val() == \'color\' ){
+								$(".attrvaltd-'.$idrow.' .textlabel").empty();
+								$(".attrvaltd-'.$idrow.' .textlabel").hide();
+								$(".attrvaltd-'.$idrow.' .fieldlabel").show();
+								$(".attrvaltd-'.$idrow.' .fieldlabel input").val(\'\');
+								
 								$("#displaycolor-'.$idrow.'").show();
 								$("#nocolor-'.$idrow.'").hide();
 								$("#attrval-'.$idrow.'").val(\'\');
@@ -411,6 +427,12 @@ class Attributes extends CI_Controller{
 									$("#displaycolor-'.$idrow.'").css(\'background-color\', e.value);
 								});
 							}
+						});
+
+						$("#attrval-'.$idrow.'").keyup(function() {
+							var datavalattr = $(this).val();
+							$(".attrvaltd-'.$idrow.' .textlabel").text(datavalattr);
+							$(".attrvaltd-'.$idrow.' .fieldlabel input").val(datavalattr);
 						});
 					});
 					</script>
@@ -428,13 +450,16 @@ class Attributes extends CI_Controller{
 					echo form_input($inputsvalue);
 				echo '
 				</td>
-				<td class="text-center">';
+				<td class="text-center attrvaltd-'.$idrow.'">
+					<div class="fieldlabel" style="display:none;">';
 					$inputstext = array(
 						'name' => 'labelattrval[]',
-						'class' => 'form-control'
+						'class' => 'form-control',
 					);
 					echo form_input($inputstext);
 				echo '
+					</div>
+					<div class="textlabel"></div>
 				</td>
 				<td class="text-center">
 					<button type="button" class="btn btn-danger" id="deleteattrval-'.$idrow.'"><i class="fe fe-trash-2"></i></button>

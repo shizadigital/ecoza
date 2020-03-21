@@ -16,10 +16,17 @@ Register Script (JavaScript)
 $request_script_files = array(
     'vendors/parsley/parsley.config.js',
     'vendors/parsley/parsley.min.js',
+    'vendors/select2/dist/js/select2.full.min.js',
 );
 $request_script = "
 $( document ).ready(function() {
     $('#valid').parsley();
+    $('.select2multiattr').select2({
+		placeholder: '".t('typeattribute')."',
+        tokenSeparators: [','],
+        allowClear: true,
+        tags: false,
+	});
 });
 ";
 $this->assetsloc->reg_admin_script($request_script_files,$request_script);
@@ -91,6 +98,14 @@ if( is_edit() ){
                             'name' => 'sorting',
                             'help' => t('writewithnumbers'),
                             'value' => $data['attrgroupSorting']
+						),
+						array(
+							'type' => 'multipleselect',
+							'label' => t('selectattributes'),
+                            'name' => 'attrval[]',
+							'class' => "select2multiattr",
+							'option' => $attrs,
+							'selected' => $attrselected,
 						),
 						array(
 							'type' => 'submit',

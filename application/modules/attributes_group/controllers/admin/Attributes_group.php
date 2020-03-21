@@ -151,6 +151,21 @@ class Attributes_group extends CI_Controller{
 
 			$getdata = $this->Env_model->getval("*","attribute_group", "attrgroupId='{$id}'");
 
+			// get all attributes
+			$attr = $this->Env_model->view_where_order('attrId, attrLabel','attribute', "attrDeleted='0'",'attrId','ASC');
+			$attrs = array();
+			foreach( $attr as $k => $v ){
+				$attrs[$v['attrId']] = $v['attrLabel'];
+			}
+
+			// get selected attributes
+			$attrselected = $this->Env_model->view_where("attrrelId,attrId,attrgroupId","attribute_relationship","attrgroupId='{$id}'");
+			$attrsdata = array();
+			foreach($attrselected as $k => $v){
+				$attrsdata[] = $v['attrId'];
+			}
+
+
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
@@ -166,6 +181,8 @@ class Attributes_group extends CI_Controller{
 												)
 											),	
 							'data' => $getdata,
+							'attrs' => $attrs,
+							'attrselected' => $attrsdata
 						);
 
 			$this->load->view( admin_root('attributes_group_edit'), $data );
@@ -196,6 +213,24 @@ class Attributes_group extends CI_Controller{
 			    if($query){
 					// insert or update data translation
 					translate_pushdata('label', 'attribute_group', 'attrgroupLabel', $id );
+
+					// insert attr rel
+					if( count( $this->input->post( 'attrval' ) ) > 0 ){
+						// remove old attr relationship first
+						$this->Env_model->delete('attribute_relationship', array('attrgroupId'=>$id) );
+
+						// insert new attr relationship
+						foreach( array_filter($this->input->post( 'attrval' )) as $attr ){
+							$nextId = getNextId('attrrelId', 'attribute_relationship');
+							$attrrel = array(
+								'attrrelId' => $nextId,
+								'attrId' => $attr,
+								'attrgroupId' => $id,
+							);
+
+							$this->Env_model->insert('attribute_relationship',$attrrel);
+						}
+					}
 
 					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
 			    } else {

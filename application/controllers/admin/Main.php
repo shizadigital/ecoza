@@ -67,8 +67,9 @@ class Main extends CI_Controller {
 			} else {
 
 				$authlogin = $this->adminauth_model->login_auth($username);
+				$userPass = isset( $authlogin->userPass )? $authlogin->userPass:'';
 
-				if ( password_verify($passwordunik, $authlogin->userPass) ){
+				if ( password_verify($passwordunik, $userPass) ){
 
 					$logindata = $this->adminauth_model->get_auth_data($username, $authlogin->userPass);
 
@@ -115,8 +116,8 @@ class Main extends CI_Controller {
 		} 
 
 		if($error){
-			$this->session->set_flashdata( 'username', $this->input->post('user') );
-			$this->session->set_flashdata( 'password', $this->input->post('pass') );
+			$this->session->set_flashdata( 'user_input', $this->input->post('user') );
+			$this->session->set_flashdata( 'pass_input', $this->input->post('pass') );
 			$this->session->set_flashdata( 'errormsg', $msg );
 			redirect( admin_url() );
 		}

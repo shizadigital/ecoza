@@ -105,13 +105,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php echo form_open( admin_url('main/authlogin'), array( 'class'=> 'mb-4' ) ); ?>
 				<input type="hidden" value="<?php echo $CP; ?>" name="CP">				
 				<div class="form-group mb-4">
-					<input type="text"<?php if( !empty( $this->session->has_userdata('username') ) ){ echo ' value="'.$this->session->flashdata('username').'"'; } ?> name="user" class="form-control" placeholder="<?php echo t('username'); ?>">
+					<input type="text"<?php if( !empty( $this->session->has_userdata('user_input') ) ){ echo ' value="'.$this->session->flashdata('user_input').'"'; } ?> name="user" class="form-control" placeholder="<?php echo t('username'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-user text-muted"></i>
 					</div>
 				</div>
 				<div class="form-group mb-4">
-					<input type="password"<?php if( !empty( $this->session->has_userdata('password') ) ){ echo ' value="'.$this->session->flashdata('password').'"'; } ?> name="pass" class="form-control" placeholder="<?php echo t('password'); ?>">
+					<input type="password"<?php if( !empty( $this->session->has_userdata('pass_input') ) ){ echo ' value="'.$this->session->flashdata('pass_input').'"'; } ?> name="pass" class="form-control" placeholder="<?php echo t('password'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-lock2 text-muted"></i>
 					</div>

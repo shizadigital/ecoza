@@ -8,7 +8,6 @@ Register style (CSS)
 ************************************/
 $request_css_files = array(
     'vendors/select2/dist/css/select2.min.css',
-    'vendors/bootstrap-select/dist/css/bootstrap-select.min.css',
 );
 $request_style = "";
 $this->assetsloc->reg_admin_style($request_css_files,$request_style);
@@ -20,15 +19,12 @@ $request_script_files = array(
     'vendors/parsley/parsley.config.js',
     'vendors/parsley/parsley.min.js',
     'vendors/select2/dist/js/select2.full.min.js',
-    'vendors/bootstrap-select/dist/js/bootstrap-select.min.js',
     'vendors/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js',
 );
 $request_script = "
 $( document ).ready(function() {
     $('#valid').parsley();
     $('.select2').select2();
-
-    $('.selectpicker').selectpicker();
 
     // load product
     $('.select2relatedproduct').select2({
@@ -144,6 +140,15 @@ $( document ).ready(function() {
                             $('.attrval-generator-input').prop('checked', false);
 
                             moving_tab_to('#attribute');
+                            
+                            // hide normal price, qty and qty type field in general tab
+                            $(\"#general-qty\").attr('disabled', true);
+                            $(\"#general-qty\").val('');
+                            $(\"#general-qtytype\").attr('disabled', true);
+                            $(\"#general-qtytype\").attr('disabled', true);
+                            $(\"#nprice\").attr('disabled', true);
+                            $(\"#nprice\").removeAttr('required');
+                            $(\"#nprice\").val('');
                         }
                     } else {
                         $('.attributevalue tbody').append('<tr class=\"loaderattrerror\"><td colspan=\"{$attrval_colpan_table}\" class=\"text-center\">".t('datacannotbeloaded')."</td></tr>');
@@ -321,18 +326,91 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
 ?>
 <div class="row">
     <div class="col-12 mb-4">
-            
-        <div class="form-inline float-right">	
-            <div class="form-group mb-0">
-                <label for="producttype" class="mr-3"><?php echo t('producttype'); ?>: </label>
-                <select name="producttype" class="selectpicker producttype" data-style="btn-light">
-                    <option value="simpleproduct" selected="selected"><?php echo t('simpleproduct'); ?></option>
-                    <option value="configurableproduct"><?php echo t('configurableproduct'); ?></option>
-                    <option value="downloadableproduct"><?php echo t('downloadableproduct'); ?></option>
-                    <option value="servicesproduct"><?php echo t('servicesproduct'); ?></option>
-                </select>
+        <div class="row"><div class="col-md-5 ml-auto ml-2">
+            <div class="form-group row mb-0">
+                <label class="col-md-4 col-form-label" for="producttype"><?php echo t('producttype'); ?>: </label>
+                <div class="col-md-8">
+                    <select name="producttype" id="producttypechoice" class="select2 producttype">
+                        <option value="simpleproduct" selected="selected"><?php echo t('simpleproduct'); ?></option>
+                        <option value="configurableproduct"><?php echo t('configurableproduct'); ?></option>
+                        <option value="downloadableproduct"><?php echo t('downloadableproduct'); ?></option>
+                        <option value="servicesproduct"><?php echo t('servicesproduct'); ?></option>
+                    </select>
+                </div>
             </div>
-        </div>
+        </div></div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#producttypechoice').change(function(e) {
+                    var value = $(this).val();
+                    
+                    if( $('.attrtrdata').length > 0 && (value != 'configurableproduct' && value != 'downloadableproduct')){
+                        if( confirm("<?php echo t('warningattravailablevalue'); ?>") ){
+                            moving_tab_to('#general');
+                            $('.attrtrdata').remove();                            
+                            $('.attributevalue tbody').html('<tr id="noitemattrinfo"><td colspan="<?php echo $attrval_colpan_table; ?>" class="text-center"><?php echo t('nodatafound');?></td></tr>');
+                        } else {
+                            $(this).val($.data(this, 'current'));
+                            return false;
+                        }
+                    }
+                    
+                    $.data(this, 'current', $(this).val());
+
+                    moving_tab_to('#general');
+
+                    if(value == 'simpleproduct'){
+                        // hide attribute
+                        $("#listtab-attribute").hide();
+
+                        // hide downloadable
+                        $("#listtab-downloadable").hide();
+
+                        // show shipping
+                        $("#listtab-shipping").show();
+
+                        // enable field in general tab
+                        $("#general-qty").removeAttr('disabled');
+                        $("#general-qtytype").removeAttr('disabled');
+                        $("#general-qtytype").removeAttr('disabled');
+                        $("#nprice").removeAttr('disabled');
+                        $("#nprice").attr('required', 'required');                        
+                    }
+                    else if(value == 'configurableproduct'){
+                        // show attribute
+                        $("#listtab-attribute").show();
+
+                        // hide downloadable
+                        $("#listtab-downloadable").hide();
+
+                        // show shipping
+                        $("#listtab-shipping").show();
+
+                    }
+                    else if(value == 'downloadableproduct'){
+                        // show attribute
+                        $("#listtab-attribute").show();
+
+                        // show downloadable
+                        $("#listtab-downloadable").show();
+
+                        // hide shipping
+                        $("#listtab-shipping").hide();
+                    }
+                    else if(value == 'servicesproduct'){
+                        // hide shipping
+                        $("#listtab-shipping").hide();
+
+                        // hide downloadable
+                        $("#listtab-downloadable").hide();
+                        
+                        // hide downloadable
+                        $("#listtab-downloadable").hide();
+
+                    }
+                });
+            });
+        </script>
 
     </div>
 
@@ -345,28 +423,28 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                 <div class="card-header card-header-flex">
 
                     <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-bold nav-tabs-noborder nav-tabs-stretched">
-                        <li class="nav-item">
+                        <li class="nav-item" id="listtab-general">
                             <a class="nav-link active show" id="tab-general" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true"><?php echo t('general'); ?></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="listtab-data">
                             <a class="nav-link" id="tab-data" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="false"><?php echo t('data'); ?></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="listtab-linked">
                             <a class="nav-link" id="tab-linked" data-toggle="tab" href="#linked" role="tab" aria-controls="linked" aria-selected="false"><?php echo t('linked'); ?></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="listtab-image">
                             <a class="nav-link" id="tab-image" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false"><?php echo t('image'); ?></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="listtab-attribute" style="display:none;">
                             <a class="nav-link" id="tab-attribute" data-toggle="tab" href="#attribute" role="tab" aria-controls="attribute" aria-selected="false"><?php echo t('attribute'); ?></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="listtab-shipping">
                             <a class="nav-link" id="tab-shipping" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false"><?php echo t('shipping'); ?></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="listtab-downloadable" style="display:none;">
                             <a class="nav-link" id="tab-downloadable" data-toggle="tab" href="#downloadable" role="tab" aria-controls="downloadable" aria-selected="false"><?php echo t('downloadableinfo'); ?></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="listtab-seo">
                             <a class="nav-link" id="tab-seo" data-toggle="tab" href="#seo" role="tab" aria-controls="seo" aria-selected="false">SEO</a>
                         </li>
                     </ul>
@@ -482,12 +560,14 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                                     array(
                                                         'type' => 'text',
                                                         'name'=> 'qty',
+                                                        'id' => 'general-qty',
                                                         'label'=> t('quantity'),
                                                     ),
                                                     array(
                                                         'type' => 'select',
                                                         'label'=> t('qtytype'),
-                                                        'name'=> 'qty',
+                                                        'name'=> 'qty-type',
+                                                        'id' => 'general-qtytype',
                                                         'onkeypress'=>'return isNumberKey(event)',
                                                         'class' => 'select2',
                                                         'option'=> array('limited'=>t('limited'),'unlimited'=>t('unlimited')),
@@ -825,7 +905,9 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
 
                         -->
                         <div class="tab-pane fade py-4" id="shipping" role="tabpanel" aria-labelledby="tab-shipping">
-                        shipping
+                        
+                            
+                            
                         </div>
                         
                         <!--

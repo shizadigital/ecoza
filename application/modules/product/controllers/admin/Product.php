@@ -286,7 +286,7 @@ class Product extends CI_Controller{
 					}
 				}
 
-				echo '<tr id="row-'.$key.'-'.$codeid.'">';
+				echo '<tr id="row-'.$key.'-'.$codeid.'" class="attrtrdata">';
 
 				echo '<td>';
 					echo $words;
@@ -340,6 +340,16 @@ class Product extends CI_Controller{
 					$("#removeattr-'.$key.'-'.$codeid.'").tooltip();
 					$("#removeattr-'.$key.'-'.$codeid.'").click(function() {
 						if( confirm("'.t('deleteconfirm').' ('.$words.')") ){
+
+							if( $(\'.attrtrdata\').length < 2 ){
+								// enable field in general tab
+								$("#general-qty").removeAttr(\'disabled\');
+								$("#general-qtytype").removeAttr(\'disabled\');
+								$("#general-qtytype").removeAttr(\'disabled\');
+								$("#nprice").removeAttr(\'disabled\');
+								$("#nprice").attr(\'required\', \'required\');
+							}
+
 							$(this).tooltip(\'dispose\');
 							$("#row-'.$key.'-'.$codeid.'").remove();
 						}

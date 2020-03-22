@@ -622,6 +622,7 @@ $lang['attrvaluearrayerror'] = 'Masukkan bidang '.$lang['value'].' and '.$lang['
 $lang['selectattributes'] = 'Pilih Atribut';
 $lang['typeattribute'] = 'Ketik atribut';
 $lang['warninginserttheattribute'] = 'Silahkan isi nilai atribute terlebih dahulu';
+$lang['warningattravailablevalue'] = 'Produk yang dikonfigurasi berisi data atribut dan akan dihapus. apakah Anda yakin mengganti jenis produk?';
 
 /**
  * Attributes Group

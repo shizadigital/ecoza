@@ -622,6 +622,7 @@ $lang['attrvaluearrayerror'] = 'Insert '.$lang['value'].' and '.$lang['label'].'
 $lang['selectattributes'] = 'Select Attributes';
 $lang['typeattribute'] = 'Type Attribute';
 $lang['warninginserttheattribute'] = 'Please insert the attribute value first';
+$lang['warningattravailablevalue'] = 'Configurable Product contains attribute data and will be remove. are you sure to change product type?';
 
 
 /**

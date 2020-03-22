@@ -405,7 +405,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         $("#listtab-downloadable").hide();
                         
                         // hide downloadable
-                        $("#listtab-downloadable").hide();
+                        $("#listtab-attribute").hide();
 
                     }
                 });

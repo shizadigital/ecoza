@@ -516,6 +516,7 @@ $lang['nogroup'] = 'Tidak ada group';
 $lang['nogroups'] = 'Tidak ada group';
 $lang['selectgroup'] = 'Pilih group';
 $lang['selectgroups'] = 'Pilih group';
+$lang['infoemptysku'] = 'Kosongkan untuk menghasilkan SKU otomatis';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -696,6 +697,7 @@ $lang['currency'] = "Mata Uang";
 // general
 $lang['faviconuploadfailed'] = "Ekstensi favicon yang diizinkan adalah ";
 $lang['logoextentionfailed'] = "Ekstensi logo tidak diizinkan";
+$lang['wrongextentionimage'] = 'Ekstensi gambar tidak diizinkan, Silahkan ulangi kembali';
 $lang['uploadfailed'] = "Upload Gagal";
 $lang['datacannotbeloaded'] = "Data tidak dapat dimuat";
 $lang['emptyfield'] = "Bidang Kosong";

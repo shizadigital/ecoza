@@ -93,5 +93,9 @@ $(document).ready(function () {
 
 <body class="air__menu--white air__menu--shadow">
 <div class="air__initialLoading"></div>
+<div id="result_ajax" class="bg-danger"></div>
+<div id="loading_ajax">
+    <div class="loaderpageajax"><img src="<?php echo web_assets('img/loader/loading.gif'); ?>" alt="loader"><br/><h4><?php echo t('ajaxprocess'); ?></h4></div>
+</div>
     <div class="air__layout air__layout--hasSider">
         

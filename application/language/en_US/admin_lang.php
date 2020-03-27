@@ -516,6 +516,7 @@ $lang['nogroup'] = 'No group';
 $lang['nogroups'] = 'No groups';
 $lang['selectgroup'] = 'Select group';
 $lang['selectgroups'] = 'Select groups';
+$lang['infoemptysku'] = 'Empty this field for auto generate SKU';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -624,7 +625,6 @@ $lang['typeattribute'] = 'Type Attribute';
 $lang['warninginserttheattribute'] = 'Please insert the attribute value first';
 $lang['warningattravailablevalue'] = 'Configurable Product contains attribute data and will be remove. are you sure to change product type?';
 
-
 /**
  * Attributes Group
  */
@@ -697,6 +697,7 @@ $lang['currency'] = "Currency";
 // general
 $lang['faviconuploadfailed'] = "Allowed favicon extensions are ";
 $lang['logoextentionfailed'] = "Logo extension not allowed";
+$lang['wrongextentionimage'] = 'Image extensions are not permitted, please try again';
 $lang['uploadfailed'] = "Upload failed";
 $lang['datacannotbeloaded'] = "Data cannot be loaded";
 $lang['emptyfield'] = "Empty Field";

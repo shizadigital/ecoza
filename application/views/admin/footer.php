@@ -42,6 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- custom app -->    
 <script src="<?php echo admin_assets('vendors/jquery-mousewheel/jquery.mousewheel.min.js'); ?>"></script>
 <script src="<?php echo admin_assets('vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js'); ?>"></script>
+<script src="<?php echo admin_assets('vendors/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js'); ?>"></script>
 
 <?php 
 // LOAD JAVASCRIPT LIB

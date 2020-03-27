@@ -309,7 +309,7 @@ function translate_pushdata($inputname, $db_table, $db_field, $relid ){
     $result = '';
     $datapostlang = $ci->input->post('datalang');
 
-	if($datapostlang[$inputname] AND count($datapostlang[$inputname]) > 0):
+	if(isset($datapostlang[$inputname]) AND count($datapostlang[$inputname]) > 0):
 
 		foreach ($datapostlang[$inputname] as $key => $value) {
 

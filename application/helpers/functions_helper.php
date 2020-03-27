@@ -820,21 +820,23 @@ function uploadFile($filekeyarray, $dir=null, $ext_allowed = array(), $specialna
             $extension_allowed = implode("|", $ext_allowed);
 
             if( $filecount > 0 ){
+                $files = $_FILES;
 
-                foreach (array_filter($_FILES[$filekeyarray]['name']) as $key => $value) {
+                foreach (array_filter($files[$filekeyarray]['name']) as $key => $value) {
 
                     // reverse data
-                    $_FILES[$filekeyarray]['name']     = $_FILES[$filekeyarray]['name'][$key];
-                    $_FILES[$filekeyarray]['type']     = $_FILES[$filekeyarray]['type'][$key];
-                    $_FILES[$filekeyarray]['tmp_name'] = $_FILES[$filekeyarray]['tmp_name'][$key];
-                    $_FILES[$filekeyarray]['error']    = $_FILES[$filekeyarray]['error'][$key];
-                    $_FILES[$filekeyarray]['size']     = $_FILES[$filekeyarray]['size'][$key];
+                    $_FILES[$filekeyarray]['name']     = $files[$filekeyarray]['name'][$key];
+                    $_FILES[$filekeyarray]['type']     = $files[$filekeyarray]['type'][$key];
+                    $_FILES[$filekeyarray]['tmp_name'] = $files[$filekeyarray]['tmp_name'][$key];
+                    $_FILES[$filekeyarray]['error']    = $files[$filekeyarray]['error'][$key];
+                    $_FILES[$filekeyarray]['size']     = $files[$filekeyarray]['size'][$key];
 
                     // buat nama file baru
                     $name           = pathinfo($_FILES[$filekeyarray]['name'], PATHINFO_FILENAME);
+                    $extfile        = pathinfo($_FILES[$filekeyarray]['name'], PATHINFO_EXTENSION);
                     $nameconv       = str_replace(' ','_',strtolower(trim(preg_replace("/[^a-zA-Z0-9 _]/", '', $specialname)))) .'_'. sha1( $name );
                     $codeacak       = substr(md5(uniqid('')),-6,6);
-                    $filenamebaru   = $codeacak.$dirextra."_".$nameconv.".".$extfilename;
+                    $filenamebaru   = $codeacak.$dirextra."_".$nameconv.".".$extfile;
                     $file_upload    = $diruploadimg . $filenamebaru;
 
                     $config['upload_path']      = $diruploadimg;
@@ -843,7 +845,8 @@ function uploadFile($filekeyarray, $dir=null, $ext_allowed = array(), $specialna
                     $config['overwrite']        = true;
                     $config['max_size']         = $size_allowed;
 
-                    $ci->load->library('upload', $config);
+                    $ci->load->library('upload');
+                    $ci->upload->initialize($config);
                     if( $ci->upload->do_upload($filekeyarray) ) {
 
                         // get data after upload
@@ -852,7 +855,7 @@ function uploadFile($filekeyarray, $dir=null, $ext_allowed = array(), $specialna
                         $newdir = $dir.'/'.$dirextra;
 
                         if($filecount > 1){
-                            $arrayarg[] = array(
+                            $arrayarg[$key] = array(
                                 'filename'      => $filenamebaru,
                                 'directory'     => $newdir
                             );
@@ -975,21 +978,23 @@ function uploadImage($filekeyarray, $dir=null, $sizeofimage = array(), $ext_allo
             $extension_allowed = implode("|", $ext_allowed);
 
             if( $imgcount > 0 ){
+                $files = $_FILES;
 
-                foreach (array_filter($_FILES[$filekeyarray]['name']) as $key => $value) {
+                foreach (array_filter($files[$filekeyarray]['name']) as $key => $value) {
 
                     // reverse data
-                    $_FILES[$filekeyarray]['name']     = $_FILES[$filekeyarray]['name'][$key];
-                    $_FILES[$filekeyarray]['type']     = $_FILES[$filekeyarray]['type'][$key];
-                    $_FILES[$filekeyarray]['tmp_name'] = $_FILES[$filekeyarray]['tmp_name'][$key];
-                    $_FILES[$filekeyarray]['error']    = $_FILES[$filekeyarray]['error'][$key];
-                    $_FILES[$filekeyarray]['size']     = $_FILES[$filekeyarray]['size'][$key];
+                    $_FILES[$filekeyarray]['name']     = $files[$filekeyarray]['name'][$key];
+                    $_FILES[$filekeyarray]['type']     = $files[$filekeyarray]['type'][$key];
+                    $_FILES[$filekeyarray]['tmp_name'] = $files[$filekeyarray]['tmp_name'][$key];
+                    $_FILES[$filekeyarray]['error']    = $files[$filekeyarray]['error'][$key];
+                    $_FILES[$filekeyarray]['size']     = $files[$filekeyarray]['size'][$key];
 
                     // buat nama file baru
                     $name           = pathinfo($_FILES[$filekeyarray]['name'], PATHINFO_FILENAME);
+                    $extfile        = pathinfo($_FILES[$filekeyarray]['name'], PATHINFO_EXTENSION);
                     $nameconv       = str_replace(' ','_',strtolower(trim(preg_replace("/[^a-zA-Z0-9 _]/", '', $specialname)))) .'_'. sha1( $name );
                     $codeacak       = substr(md5(uniqid('')),-6,6);
-                    $filenamebaru   = $codeacak.$dirextra."_".$nameconv.".".$extfilename;
+                    $filenamebaru   = $codeacak.$dirextra."_".$nameconv.".".$extfile;
                     $file_upload    = $diruploadimg . $filenamebaru;
 
                     //Simpan gambar dalam ukuran sebenarnya
@@ -999,7 +1004,8 @@ function uploadImage($filekeyarray, $dir=null, $sizeofimage = array(), $ext_allo
                     $config['overwrite']        = true;
                     $config['max_size']         = $size_allowed;
 
-                    $ci->load->library('upload', $config);
+                    $ci->load->library('upload');
+                    $ci->upload->initialize($config);
                     if( $ci->upload->do_upload($filekeyarray) ) {
 
                         // get data after upload
@@ -1007,7 +1013,7 @@ function uploadImage($filekeyarray, $dir=null, $sizeofimage = array(), $ext_allo
                     
                         // kompres gambar
                         if( count($sizeofimage)>0 ){
-                            $imgsz = getimagesize($file_upload);
+                            $imgsz = getimagesize($files[$filekeyarray]['tmp_name'][$key]);
                             $src_width = $imgsz[0];
                             $src_height = $imgsz[1];
 
@@ -1035,7 +1041,7 @@ function uploadImage($filekeyarray, $dir=null, $sizeofimage = array(), $ext_allo
                         $newdir = $dir.'/'.$dirextra;
 
                         if($imgcount > 1){
-                            $arrayarg[] = array(
+                            $arrayarg[$key] = array(
                                 'filename'      => $filenamebaru,
                                 'directory'     => $newdir
                             );

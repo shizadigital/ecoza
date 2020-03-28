@@ -100,7 +100,6 @@ if( is_edit() ){
                             'type' => 'file-img',
                             'label' => t('image'),
                             'name' => 'picture',
-							'required' => true,
 							'value' => $imgbadge,
                             'help' => t('infomainimg') . ' *.jpg, *.jpeg, *.png, *.gif'
                         ),

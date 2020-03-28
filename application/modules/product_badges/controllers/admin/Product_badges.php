@@ -111,8 +111,6 @@ class Product_badges extends CI_Controller{
 					}
 				}
 
-				//`badgeId`, `badgeLabel`, `badgeDesc`, `badgeType`, `badgeDir`, `badgePic`, `badgeActive`, `badgeDeleted`
-
 				$datacat = array(
 					'badgeId' => $nextId,
 					'badgeLabel' => $label,
@@ -170,6 +168,92 @@ class Product_badges extends CI_Controller{
 						);
 
 			$this->load->view( admin_root('product_badges_edit'), $data );
+		}
+	}
+
+	public function editprocess(){
+		if( is_edit() ){
+			$error = false;
+
+			if( empty( $this->input->post('label') ) ){
+				$error = "<strong>".t('error')."!!</strong> ".t('emptyrequiredfield');
+			}
+
+			// file extention allowed
+			$extensi_allowed = array('jpg','jpeg','png','gif');
+
+			// check image upload
+			if(!empty($_FILES['picture']['tmp_name'])){
+				$ext_file = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
+
+				if(!in_array($ext_file,$extensi_allowed)) {
+					$error = "<strong>".t('error')."!!</strong> " . t('wrongextentionfile');
+				}
+			}
+
+			if(!$error){
+				$label 		= esc_sql( filter_txt( $this->input->post('label') ) );
+				$deskripsi 	= esc_sql( filter_txt( $this->input->post('desc') ) );
+				$ID 		= esc_sql( filter_int( $this->input->post('ID') ) );
+				$active 	= ($this->input->post('active')=='y')? 1:0;
+
+				// upload image proccess
+				$datapic = array();
+				if(!empty($_FILES['picture']['tmp_name'])){
+					$ext_file = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
+
+					if(in_array($ext_file,$extensi_allowed)) {
+
+						$sizeimg = array(
+							'xsmall' 	=>'90',
+							'small' 	=>'120',
+							'medium' 	=>'360',
+							'large' 	=>'680'
+						);
+
+						// remove old image first
+						$getoldimg = getval("badgeDir,badgePic", "badges", array('badgeId'=> $ID));
+						if( !empty($getoldimg['badgeDir']) AND !empty($getoldimg['badgePic']) ){
+							foreach($sizeimg AS $kimg => $vimg ){
+								@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$kimg.'_'.$getoldimg['badgeDir'].DIRECTORY_SEPARATOR.$getoldimg['badgePic']);
+							}
+						}
+
+						$img = uploadImage('picture', 'badges', $sizeimg, $extensi_allowed);
+
+						$datapic = array(
+							'badgeDir' => $img['directory'],
+							'badgePic' => $img['filename'],
+						);
+					}
+				}
+
+				$databdg = array(
+					'badgeLabel' => $label,
+					'badgeDesc'=> (string) $deskripsi,
+					'badgeActive' => $active,
+				);
+
+				$databdg = array_merge($databdg, $datapic);
+				
+				// insert data
+				$query = $this->Env_model->update('badges', $databdg, array('badgeId'=> $ID) );
+				
+			    if($query){
+					// insert and update multilanguage
+					translate_pushdata('desc', 'badges', 'badgeDesc', $ID );
+
+					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
+			    } else {
+			    	$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
+				}
+			}
+
+			if($error){
+				$this->session->set_flashdata( 'failed', $error );
+			}
+
+			redirect( admin_url('product_badges/edit/'.$ID) );
 		}
 	}
 

@@ -468,13 +468,12 @@ class Migration extends CI_Controller {
         $schema->integer('manufactId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('optionProdRules', ['type'=>'TINYINT', 'length' => '3', 'unsigned' => TRUE]);
         $schema->string('prodType', ['length' => '25']);
-        $schema->string('prodCode', ['length' => '25']);
         $schema->string('prodSku', ['length' => '65']);
         $schema->string('prodUpc', ['length' => '15']);
         $schema->string('prodIsbn', ['length' => '18']);
         $schema->string('prodMpn', ['length' => '65']);
         $schema->string('prodName', ['length' => '255']);
-        $schema->string('prodPermalink', ['length' => '255']);
+        $schema->string('prodSlug', ['length' => '255']);
         $schema->text('prodDesc');
         $schema->enum('prodFeatured', ['y', 'n']);
         $schema->decimal('prodBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
@@ -482,6 +481,8 @@ class Migration extends CI_Controller {
         $schema->decimal('prodSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('prodFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->string('prodQtyUnit', ['length' => '5']);
+        $schema->integer('prodQty', ['length' => '11', 'unsigned'=>TRUE]);
+        $schema->enum('prodQtyType', ['unlimited', 'limited']);
         $schema->decimal('prodWeight', ['length' => '15,8']);
         $schema->string('prodWeightUnit', ['length' => '5']);
         $schema->decimal('prodLength', ['length' => '15,8']);
@@ -504,7 +505,6 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
-        $schema->index('prodCode');
         $schema->index('prodType');
         $schema->index('prodPermalink');
         $schema->index('prodFinalPrice');
@@ -518,12 +518,13 @@ class Migration extends CI_Controller {
         $schema->increments('pattrId', ['type' => 'BIGINT', 'length' => '30']);
         $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('pimgId', ['length' => '11', 'unsigned' => TRUE]);
-        $schema->decimal('pattrBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('pattrPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('pattrSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('pattrFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->integer('pattrQty', ['type'=> 'SMALLINT', 'length' => '5', 'unsigned' => TRUE]);
-        $schema->enum('pattrQtyType', ['unlimited', 'limited']);	
+        $schema->enum('pattrQtyType', ['unlimited', 'limited']);        
+        $schema->decimal('pattrWeight', ['length' => '15,8']);
+        $schema->string('pattrWeightUnit', ['length' => '5']);
         $schema->string('pattrPath', ['length' => '11']);
         $schema->integer('pattrDownloadLimit', ['type'=>'BIGINT', 'length' => '25']);
         $schema->enum('pattrDownloadFrom', ['email', 'server', 'externaluri']);
@@ -541,14 +542,14 @@ class Migration extends CI_Controller {
     protected function create_shiza_product_attribute_combination_table(){
         $schema = $this->schema->create_table('product_attribute_combination');
         $schema->increments('pattrcombId', ['type' => 'BIGINT', 'length' => '30']);
-        $schema->integer('pattrvalId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('pattrId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('attrId', ['length' => '11', 'unsigned' => TRUE]);
-        $schema->string('attrLabel', ['length' => '100']);
-        $schema->string('pattrcombText', ['length' => '100']);
+        $schema->integer('attrvalId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 
         // ADD index
-        $schema->index('pattrvalId');
+        $schema->index('pattrId');
+        $schema->index('attrvalId');
         $schema->index('attrId');
     }
 

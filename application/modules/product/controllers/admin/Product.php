@@ -290,7 +290,7 @@ class Product extends CI_Controller{
 
 				echo '<td>';
 					echo $words;
-					echo '<input type="hidden" class="attrvaluedata" name="attributevalue[]" value="'.$attridspattern.'" />';
+					echo '<input type="hidden" class="attrvaluedata" name="attributevalue['.$key.']" value="'.$attridspattern.'" />';
 				echo '</td>';
 
 				echo '
@@ -308,7 +308,7 @@ class Product extends CI_Controller{
 				
 				echo '
 				<td>';
-					$attrqty = array('class'=>'form-control', 'onkeypress'=>'return isNumberKey(event)');
+					$attrqty = array('class'=>'form-control', 'onkeypress'=>'return isNumberKey(event)', 'id'=>'qtyinputset-'.$key.'-'.$codeid);
 					echo form_input('qtyattr['.$key.']', '', $attrqty);
 				echo '
 				</td>';
@@ -316,7 +316,7 @@ class Product extends CI_Controller{
 				echo '
 				<td>';
 					$optqtytype = array('limited'=>t('limited'),'unlimited'=>t('unlimited'));
-					echo form_dropdown('qtytype', $optqtytype, 'limited', array( 'class'=>'custom-select' ));
+					echo form_dropdown('qtytypeattr['.$key.']', $optqtytype, 'limited', array( 'class'=>'custom-select', 'id'=>'qtytypeset-'.$key.'-'.$codeid  ));
 				echo '
 				</td>';
 
@@ -347,12 +347,15 @@ class Product extends CI_Controller{
 								$("#general-qtytype").removeAttr(\'disabled\');
 								$("#general-qtytype").removeAttr(\'disabled\');
 								$("#nprice").removeAttr(\'disabled\');
-								$("#nprice").attr(\'required\', \'required\');
 							}
 
 							$(this).tooltip(\'dispose\');
 							$("#row-'.$key.'-'.$codeid.'").remove();
 						}
+					});
+
+					$(\'#qtytypeset-'.$key.'-'.$codeid.'\').on(\'change\', function(){
+						qtySet($(this),\'#qtyinputset-'.$key.'-'.$codeid.'\');
 					});
 				});
 				</script>

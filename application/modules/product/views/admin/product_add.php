@@ -16,15 +16,17 @@ $this->assetsloc->reg_admin_style($request_css_files,$request_style);
 Register Script (JavaScript)
 *******************************************/
 $request_script_files = array(
-    'vendors/parsley/parsley.config.js',
-    'vendors/parsley/parsley.min.js',
+    // 'vendors/parsley/parsley.config.js',
+    // 'vendors/parsley/parsley.min.js',
     'vendors/select2/dist/js/select2.full.min.js',
-    'vendors/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js',
 );
 $request_script = "
 $( document ).ready(function() {
-    $('#valid').parsley();
+    // $('#valid').parsley();
     $('.select2').select2();
+
+    // submit with ajax
+    ajaxSubmit('#valid');
 
     // load product
     $('.select2relatedproduct').select2({
@@ -147,7 +149,6 @@ $( document ).ready(function() {
                             $(\"#general-qtytype\").attr('disabled', true);
                             $(\"#general-qtytype\").attr('disabled', true);
                             $(\"#nprice\").attr('disabled', true);
-                            $(\"#nprice\").removeAttr('required');
                             $(\"#nprice\").val('');
                         }
                     } else {
@@ -181,6 +182,24 @@ $( document ).ready(function() {
         }
     });
 });
+
+function qtySet(qtyset,stockdestination){
+    $(document).ready(function($) {
+        var sto = $(stockdestination);
+        if($(qtyset).val() == 'unlimited'){
+            sto.attr('readonly','readonly');
+            sto.attr('disabled','disabled');
+        }
+        else{
+            sto.removeAttr('readonly');
+            sto.removeAttr('disabled');
+            if(sto.val() == ''){
+                sto.val('0');
+            }
+            sto.parent().find('input[type=text]').focus();
+        }
+    });
+}
 
 // make moving to another tap
 function moving_tab_to(objct) {
@@ -354,10 +373,13 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                             return false;
                         }
                     }
-                    
-                    $.data(this, 'current', $(this).val());
 
-                    moving_tab_to('#general');
+                    if( 
+                        ($.data(this, 'current') == 'configurableproduct' && $("#tab-attribute").hasClass('active')) || 
+                        ($.data(this, 'current') == 'downloadableproduct' && ($("#tab-downloadable").hasClass('active') || $("#tab-attribute").hasClass('active'))) 
+                    ){
+                        moving_tab_to('#general');
+                    }
 
                     if(value == 'simpleproduct'){
                         // hide attribute
@@ -373,8 +395,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         $("#general-qty").removeAttr('disabled');
                         $("#general-qtytype").removeAttr('disabled');
                         $("#general-qtytype").removeAttr('disabled');
-                        $("#nprice").removeAttr('disabled');
-                        $("#nprice").attr('required', 'required');                        
+                        $("#nprice").removeAttr('disabled');                    
                     }
                     else if(value == 'configurableproduct'){
                         // show attribute
@@ -388,6 +409,11 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
 
                     }
                     else if(value == 'downloadableproduct'){
+                        // moving tab
+                        if($("#tab-shipping").hasClass('active')){
+                            moving_tab_to('#general');
+                        }
+
                         // show attribute
                         $("#listtab-attribute").show();
 
@@ -398,6 +424,11 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         $("#listtab-shipping").hide();
                     }
                     else if(value == 'servicesproduct'){
+                        // moving tab
+                        if($("#tab-shipping").hasClass('active')){
+                            moving_tab_to('#general');
+                        }
+                        
                         // hide shipping
                         $("#listtab-shipping").hide();
 
@@ -408,6 +439,8 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         $("#listtab-attribute").hide();
 
                     }
+                    
+                    $.data(this, 'current', $(this).val());
                 });
             });
         </script>
@@ -485,16 +518,14 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                         ),
                                         array(
                                             'type' => 'multilanguage_text',
-                                            'label' => '<h4 class="d-inline-block">'.t('productname').':</h4>',
+                                            'label' => '<h4 class="d-inline-block">'.t('productname').': <span class="text-danger">*</span></h4>',
                                             'name' => 'productname',
-                                            'required' => true,
                                         ),
                                         array(
                                             'type' => 'multilanguage_texteditor',
                                             'texteditor' => 'standard',
-                                            'label' => '<h4 class="d-inline-block">'.t('description').':</h4>',
+                                            'label' => '<h4 class="d-inline-block">'.t('description').': <span class="text-danger">*</span></h4>',
                                             'name' => 'desc',
-                                            'required' => true,
                                         ),
                                         array(
                                             'type' => 'text',
@@ -576,6 +607,13 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                                 );
                                                 $this->formcontrol->buildInputs($builddataform4);
                                                 ?>
+                                                <script type="text/javascript">
+                                                    $(document).ready(function($) {
+                                                        $('#general-qtytype').on('change', function(){
+                                                            qtySet($(this),'#general-qty');
+                                                        }); 
+                                                    });
+                                                </script>
                                             </div></div>
                                         </div>
 
@@ -586,24 +624,22 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                                 $builddataform2 = array(
                                                     array(
                                                         'type'=>'text',
-                                                        'label'=> t('capitalprice'),
+                                                        'label'=> t('capitalprice').' <span class="text-danger">*</span>',
                                                         'name'=> 'capitalprice',
                                                         'id' => 'bprice',
                                                         'class' => 'input_price_field',
                                                         'onkeypress'=>'return isNumberComma(event)',
-                                                        'required' => true,
                                                         'input-group' => array(
                                                             'prepend'=> getCurrencySymbol(),
                                                         )
                                                     ),
                                                     array(
                                                         'type'=>'text',
-                                                        'label'=> t('normalprice'),
+                                                        'label'=> t('normalprice').' <span class="text-danger">*</span>',
                                                         'name'=> 'normalprice',
                                                         'id' => 'nprice',
                                                         'class' => 'input_price_field input_special_price',
                                                         'onkeypress'=>'return isNumberComma(event)',
-                                                        'required' => true,
                                                         'input-group' => array(
                                                             'prepend'=> getCurrencySymbol(),
                                                         ),

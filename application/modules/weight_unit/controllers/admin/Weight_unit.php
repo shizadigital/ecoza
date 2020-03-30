@@ -116,14 +116,16 @@ class Weight_unit extends CI_Controller{
 				$unitexplanation = esc_sql( filter_txt( $this->input->post('unitexplanation') ) );
 				$value 	= esc_sql( filter_txt( $this->input->post('value') ) );
 				
-				$default = 'n';
-				
 				$nextId = getNextId('weightId', 'unit_weight');
 
 				// if default this data, set old default data to n
-				if( $this->input->post('default') == 'y' ){
-					$this->Env_model->update('unit_weight', array('weightDefault'=>'n'), array('weightDefault'=>'y') );
-
+				$default = 'n';
+				if( countdata('unit_weight') > 0 ){
+					if( $this->input->post('default') == 'y' ){
+						$this->Env_model->update('unit_weight', array('weightDefault'=>'n'), array('weightDefault'=>'y') );
+						$default = 'y';
+					}
+				} else {
 					$default = 'y';
 				}
 
@@ -188,24 +190,31 @@ class Weight_unit extends CI_Controller{
 	public function editprocess(){
 		if(is_edit()){
 			$error = false;
+			$ID = esc_sql( filter_int( $this->input->post('ID') ) );
 
 			if( empty( $this->input->post('unitname') ) OR empty( $this->input->post('unitexplanation') ) OR empty( $this->input->post('value') ) ){
 				$error = "<strong>".t('error')."!!</strong> ".t('emptyrequiredfield');
 			}
 
+			// check if old data default not choose
+			if(countdata('unit_weight',"weightDefault='y' AND weightId='{$ID}'") > 0 AND $this->input->post('default') != 'y'){
+				$error = "<strong>".t('error')."!!</strong> ".t('defaultnotselected');
+			}
+
 			if(!$error){
-				$ID = esc_sql( filter_int( $this->input->post('ID') ) );
 
 				$unitname = esc_sql( filter_txt( $this->input->post('unitname') ) );
 				$unitexplanation = esc_sql( filter_txt( $this->input->post('unitexplanation') ) );
 				$value 	= esc_sql( filter_txt( $this->input->post('value') ) );
-				
-				$default = 'n';
 
 				// if default this data, set old default data to n
-				if( $this->input->post('default') == 'y' ){
-					$this->Env_model->update('unit_weight', array('weightDefault'=>'n'), array('weightDefault'=>'y') );
-
+				$default = 'n';
+				if( countdata('unit_weight') > 0 ){
+					if( $this->input->post('default') == 'y' ){
+						$this->Env_model->update('unit_weight', array('weightDefault'=>'n'), array('weightDefault'=>'y') );
+						$default = 'y';
+					}
+				} else {
 					$default = 'y';
 				}
 

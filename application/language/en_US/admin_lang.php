@@ -807,3 +807,5 @@ $lang['checkdirectory'] = "Please check the following directory ";
 $lang['inputtypetranslationerror'] = "Input type is not valid for multi language input type, please use text, textarea and texteditor for input type";
 
 $lang['errormultilangvalue'] = "Value for multilanguage is incorrect.";
+$lang['imagepriorityempty'] = "Please choose image priority";
+$lang['defaultnotselected'] = "Default is not selected";

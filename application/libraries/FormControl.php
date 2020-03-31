@@ -152,10 +152,13 @@ class FormControl {
                     $theflagcode2 = strtolower( explode("_",  $valuel2)[1] );
                     $country2 = locales($valuel2);
                     
-                    if( !empty($dbtable) AND !empty($dbfield) AND  !empty($dbrelid) ){                        
-		            	$langsql = $sql . " AND dtLang='{$valuel2}'";
-			            $querylang = $CI->db->query($langsql);
-			    		$dl = $querylang->result_array($querylang)[0];
+                    $dl = array();
+                    if( !empty($dbtable) AND !empty($dbfield) AND  !empty($dbrelid) ){
+                        if( countdata('dynamic_translations', $sqlclause." AND dtLang='{$valuel2}'") > 0 ){
+                            $langsql = $sql . " AND dtLang='{$valuel2}'";
+                            $querylang = $CI->db->query($langsql);
+                            $dl = $querylang->result_array($querylang)[0];
+                        }
 			    	}
 
                     $result .= '<div class="tab-pane fade pt-2 tinymce-multilang'.( ($valuel2 == $defaultlang)? ' active show':'').'" id="lang-'.$theflagcode2.'-'.$attrId.'" role="tabpanel" aria-labelledby="tablang-'.$theflagcode2.'-'.$attrId.'">'."\n";

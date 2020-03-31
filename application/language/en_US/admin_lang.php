@@ -517,6 +517,8 @@ $lang['nogroups'] = 'No groups';
 $lang['selectgroup'] = 'Select group';
 $lang['selectgroups'] = 'Select groups';
 $lang['infoemptysku'] = 'Empty this field for auto generate SKU';
+$lang['smallestsellingunit'] = 'Smallest selling unit';
+$lang['succeed'] = 'Succeed';
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -732,7 +734,8 @@ $lang['directoryformaterror'] = 'Please make the module directory according to t
 $lang['cannotmakemodule'] = "Dirctory of \"<code>%s</code>\" is failed to process, please check the \"directory permission\"";
 $lang['cannotdeletemodule'] = "Module cannot be deleted";
 $lang['emptycategories'] = "Categories field cannot be empty";
-$lang['dynamicimgisempty'] = "Images is required, please insert the images of at least 1 image";
+$lang['primaryimgisempty'] = "Images is required, please insert the images of at least 1 image";
+$lang['primaryimgcannotberemoved'] = "Primary image cannot be removed";
 $lang['wrongurlvideo'] = "Please insert the Video URL correctly";
 $lang['mainimgerror'] = "Please select the primary image";
 $lang['errorprocess'] = "Failed, please refresh the page and try again";
@@ -770,6 +773,7 @@ $lang['qtytypeerro2'] = "Sorry, the number of %s with %s %s must not be smaller 
 $lang['novariation'] = "Sorry, the number of %s must not be smaller than the current order.<br /> The current total ordered is %s. Please increase the total order of physical stock.";
 $lang['optionnameerror'] = "Sorry, option name cannot be same. Please check again.";
 $lang['cannotdeleteproductstillorder'] = "Sorry, product cannot be deleted, because they still have order. Please complete the order first.";
+$lang['smallestsellingunitempty'] = 'Smallest selling unit cannot be empty';
 
 // Function Error
 $lang['getsomeerror'] = 'There are some errors, please check';

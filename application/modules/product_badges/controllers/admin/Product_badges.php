@@ -215,7 +215,7 @@ class Product_badges extends CI_Controller{
 						$getoldimg = getval("badgeDir,badgePic", "badges", array('badgeId'=> $ID));
 						if( !empty($getoldimg['badgeDir']) AND !empty($getoldimg['badgePic']) ){
 							foreach($sizeimg AS $kimg => $vimg ){
-								@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$kimg.'_'.$getoldimg['badgeDir'].DIRECTORY_SEPARATOR.$getoldimg['badgePic']);
+								@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$getoldimg['badgeDir'].DIRECTORY_SEPARATOR.$kimg.'_'.$getoldimg['badgePic']);
 							}
 						}
 

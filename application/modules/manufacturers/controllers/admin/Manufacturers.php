@@ -212,6 +212,16 @@ class Manufacturers extends CI_Controller{
 							'medium' 	=>'530',
 							'large' 	=>'1920'
 						);
+
+						$dataimg = geval("*", 'manufacturers', "manufactId='{$ID}'" );
+						if(!empty($dataimg['manufactDir']) AND !empty($dataimg['manufactImg'])){
+							
+							//delete old file
+							foreach($sizeimg AS $imgkey => $valimg){
+								@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$dataimg['manufactDir'].DIRECTORY_SEPARATOR.$imgkey.'_'.$dataimg['manufactImg']);
+							}
+						}
+
 						$img = uploadImage('picture', 'manufacturers', $sizeimg, $extensi_allowed);
 						$file_img = $img['filename'];
 						$file_dir = $img['directory'];

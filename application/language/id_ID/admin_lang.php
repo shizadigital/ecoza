@@ -517,6 +517,8 @@ $lang['nogroups'] = 'Tidak ada group';
 $lang['selectgroup'] = 'Pilih group';
 $lang['selectgroups'] = 'Pilih group';
 $lang['infoemptysku'] = 'Kosongkan untuk menghasilkan SKU otomatis';
+$lang['smallestsellingunit'] = 'Satuan jual terkecil';
+$lang['succeed'] = 'Berhasil';
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -732,7 +734,8 @@ $lang['directoryformaterror'] = 'Harap membuat direktori modul sesuai format pad
 $lang['cannotmakemodule'] = "direktori \"<code>%s</code>\" gagal diproses, silahkan periksa \"permisi folder\"";
 $lang['cannotdeletemodule'] = "Modul tidak bisa dihapus";
 $lang['emptycategories'] = "bidang kategori tidak boleh kosong";
-$lang['dynamicimgisempty'] = "Gambar diwajibkan, silahkan masukkan gambar minimal 1 gambar";
+$lang['primaryimgisempty'] = "Gambar diwajibkan, silahkan masukkan gambar minimal 1 gambar";
+$lang['primaryimgcannotberemoved'] = "Gambar utama tidak dapat dihapus";
 $lang['wrongurlvideo'] = "Silahkan masukkan URL Video dengan benar";
 $lang['mainimgerror'] = "Silahkan pilih gambar primary";
 $lang['errorprocess'] = "Gagal, silahkan refresh halaman dan ulangi kembali";
@@ -770,6 +773,7 @@ $lang['qtytypeerro2'] = "Maaf, jumlah produk %s dengan %s %s tidak boleh lebih k
 $lang['novariation'] = "Maaf, jumlah produk %s tidak boleh lebih kecil dari pesanan saat ini.<br /> Jumlah pesanan saat ini adalah %s. Silahkan tambah jumlah stok fisik.";
 $lang['optionnameerror'] = "Maaf, tidak boleh ada nama opsi yang sama. Silahkan periksa kembali.";
 $lang['cannotdeleteproductstillorder'] = "Maaf, produk belum dapat dihapus, dikarenakan masih memiliki pesanan. Silahkan selesaikan pesanan terlebih dahulu.";
+$lang['smallestsellingunitempty'] = 'Bidang satuan jual terkecil tidak boleh kosong';
 
 // Function Error
 $lang['getsomeerror'] = 'Terdapat beberapa kesalahan, silahkan periksa';

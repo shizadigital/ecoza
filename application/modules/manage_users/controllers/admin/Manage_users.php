@@ -319,18 +319,21 @@ class Manage_users extends CI_Controller{
 					$extensi_allowed = array('jpg','jpeg','png');
 
 					if(in_array($ext_file,$extensi_allowed)) {
-						//delete favicon old file
-						@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .'xsmall_'.$array_logo['directory'].DIRECTORY_SEPARATOR.$array_logo['filename']);
-						@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .'small_'.$array_logo['directory'].DIRECTORY_SEPARATOR.$array_logo['filename']);
-						@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .'medium_'.$array_logo['directory'].DIRECTORY_SEPARATOR.$array_logo['filename']);
-						@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .'large_'.$array_logo['directory'].DIRECTORY_SEPARATOR.$array_logo['filename']);
-
 						$sizeimg = array(
 							'xsmall' 	=>'90',
 							'small' 	=>'210',
 							'medium' 	=>'530',
 							'large' 	=>'1920'
 						);
+
+						$dataimg = geval("*", 'users', "userId='{$id}'" );
+						if(!empty($dataimg['userDir']) AND !empty($dataimg['userPic'])){							
+							//delete old file
+							foreach($sizeimg AS $imgkey => $valimg){
+								@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$dataimg['userDir'].DIRECTORY_SEPARATOR.$imgkey.'_'.$dataimg['userPic']);
+							}
+						}
+
 						$img = uploadImage('fupload', 'users', $sizeimg, $extensi_allowed);
 						$arrayfile_img = array('userDir'=> $img['filename'], 'userPic' => $img['directory']);
 					}
@@ -367,6 +370,17 @@ class Manage_users extends CI_Controller{
 	public function delete($id){
 		if( is_delete() ){
 			$id = filter_int($id);
+
+			$data = geval("*", 'users', "userId='{$id}'" );
+			if(!empty($data['userDir']) AND !empty($data['userPic'])){
+				// remove img first
+				$sizeimg = array('xsmall','small','medium','large');
+				
+				//delete old file
+				foreach($sizeimg AS $valimg){
+					@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$data['userDir'].DIRECTORY_SEPARATOR.$valimg.'_'.$data['userPic']);
+				}
+			}
 
 			// update to delete
 			$deleted = time2timestamp();

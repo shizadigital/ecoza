@@ -196,7 +196,7 @@ function getWeightUnitDefault($display = 'unit'){
 		$getval = getval("weightTitle,weightUnit,weightValue","unit_weight","weightDefault='y'");
 
 		$unit = $getval['weightUnit'];
-		$title = $getval['weightUnit'];
+		$title = $getval['weightTitle'];
 		$value = $getval['weightValue'];
 	}
 

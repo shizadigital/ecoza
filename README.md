@@ -20,13 +20,14 @@ Source Code (Kode Sumber) EcoZa dapat didownload secara gratis pada [github](htt
 - PHP: 7.2 or higher.
 - For MySQL users: 5.7.23 or higher.
 - For MariaDB users: 10.2.7 or Higher.
+- php mbstring.
 - [OpenSSL](https://www.php.net/manual/en/openssl.installation.php)
 - [base64_encode](https://www.php.net/manual/en/function.base64-encode.php) and [base64_decode](https://www.php.net/manual/en/function.base64-decode.php)
 
 ## Contributing
-Permintaan untuk berkontribusi dipersilakan. Silahkan baca file [CONTRIBUTING](https://github.com/shizadigital/shiza/blob/master/CONTRIBUTING.md) sebelum mengirim permintaan pull ataupun permasalahan.
+Permintaan kontribusi dipersilakan. Untuk perubahan besar, laporkan masalah terlebih dahulu untuk membahas apa yang ingin Anda ubah.
 
-Terima kasih telah bersedia untuk berkontribusi untuk ecommerce kami. Dan kami berharap untuk dimasa yang akan datang akan menjadi yang terbaik untuk Anda.
+Pastikan untuk memperbarui tes yang sesuai.
 
 ## License
 EcoZa adalah framework E-Commerce yang sepenuhnya opensource yang akan selalu gratis di bawah [Lisensi MIT](https://github.com/shizadigital/shiza/blob/master/LICENSE)

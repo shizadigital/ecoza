@@ -163,6 +163,19 @@ class Info_sistem extends CI_Controller{
 				);
 			}
 
+			$k = 'mbstring';
+			$arr[$k]['name'] = 'mbstring';
+			if( extension_loaded('mbstring') ){
+				$arr[$k]['result'] = array(
+					'type' => 'ok'
+				);
+			} else {
+				$arr[$k]['result'] = array(
+					'type' => 'error',
+					'desc' => 'missing mbstring.'
+				);
+			}
+
 			$data = array( 
 						'title' => 'Info Sistem - '.get_option('sitename'),
 						'page_header_on' => true,

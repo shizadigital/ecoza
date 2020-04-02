@@ -125,12 +125,41 @@ if(is_view()){
 										?>
 										<?php echo form_open( admin_url( $this->uri->segment(2) . '/'), array( 'method'=>'GET' ) ); ?>
 											<div class="input-group">
-												<input type="text" class="form-control form-control-sm" name="classexists" placeholder="Type the function"<?php echo !empty($this->input->get('classexists'))? " value='{$this->input->get('classexists')}'":""; ?>>
+												<input type="text" class="form-control form-control-sm" name="classexists" placeholder="Type the class name"<?php echo !empty($this->input->get('classexists'))? " value='{$this->input->get('classexists')}'":""; ?>>
 												<div class="input-group-append">
 													<button class="btn btn-light btn-sm" type="submit"><i class="fa fa-search"></i></button>
 												</div>
 											</div>
 											<small class="form-text text-muted">Example 'DateTime' for class DateTime</small>
+										<?php echo form_close(); ?>
+									</div>
+									<h4>Extention Check</h4>
+									<div class="mb-4">
+										<?php if(!empty($this->input->get('extension_loaded'))):
+
+										if (extension_loaded($this->input->get('extension_loaded'))){
+										?>
+											<div class="alert alert-icon alert-success fade show" role="alert">
+												<i class="fa fa-check"></i> <code style="text-transform: unset;" class="badge badge-light"><?php echo $this->input->get('extension_loaded'); ?>()</code> is AVAILABLE
+											</div>
+										<?php
+										} else {
+										?>
+											<div class="alert alert-icon alert-danger fade show" role="alert">
+												<i class="fa fa-times"></i> <code style="text-transform: unset;" class="badge badge-light"><?php echo $this->input->get('extension_loaded'); ?>()</code> is NOT AVAILABLE
+											</div>
+										<?php 		
+										}
+										endif;
+										?>
+										<?php echo form_open( admin_url( $this->uri->segment(2) . '/'), array( 'method'=>'GET' ) ); ?>
+											<div class="input-group">
+												<input type="text" class="form-control form-control-sm" name="extension_loaded" placeholder="Type the extension"<?php echo !empty($this->input->get('extension_loaded'))? " value='{$this->input->get('extension_loaded')}'":""; ?>>
+												<div class="input-group-append">
+													<button class="btn btn-light btn-sm" type="submit"><i class="fa fa-search"></i></button>
+												</div>
+											</div>
+											<small class="form-text text-muted">Example 'mbstring' for mbstring extension</small>
 										<?php echo form_close(); ?>
 									</div>
 									<hr/>

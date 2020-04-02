@@ -480,7 +480,6 @@ class Migration extends CI_Controller {
         $schema->decimal('prodPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('prodSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('prodFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->string('prodQtyUnit', ['length' => '5']);
         $schema->integer('prodQty', ['length' => '11', 'unsigned'=>TRUE]);
         $schema->enum('prodQtyType', ['unlimited', 'limited']);
         $schema->decimal('prodWeight', ['length' => '15,8']);

@@ -22,8 +22,6 @@ class Env_model extends CI_model{
     // view data with "where" syntax
     public function view_where($fieldToDisplay='*', $table, $fieldReference){
 
-        if($fieldToDisplay!='*'){ $fieldToDisplay = preg_replace('/\s*/m', "", $fieldToDisplay); }
-
         if( is_array($table) ){
             $dttable = array();
             foreach ($table as $key => $value) {
@@ -41,8 +39,6 @@ class Env_model extends CI_model{
 
     // view data with "where and limit" syntax
     public function view_where_limit($fieldToDisplay='*', $table, $fieldReference, $limit, $offset=null){
-
-        if($fieldToDisplay!='*'){ $fieldToDisplay = preg_replace('/\s*/m', "", $fieldToDisplay); }
 
         $this->db->select( $fieldToDisplay );
         $this->db->where($fieldReference);
@@ -68,8 +64,6 @@ class Env_model extends CI_model{
     // view data with "order and limit" syntax
     public function view_order_limit($fieldToDisplay='*', $table, $order, $ordering, $limit, $offset=null){
 
-        if($fieldToDisplay!='*'){ $fieldToDisplay = preg_replace('/\s*/m', "", $fieldToDisplay); }
-
         $this->db->select( $fieldToDisplay );
         $this->db->order_by($order,$ordering);
 
@@ -94,8 +88,6 @@ class Env_model extends CI_model{
 
     // view data with "where, order and limit" syntax
     public function view_where_order_limit($fieldToDisplay='*', $table, $fieldReference, $order, $ordering, $limit, $offset=null){
-
-        if($fieldToDisplay!='*'){ $fieldToDisplay = preg_replace('/\s*/m', "", $fieldToDisplay); }
 
         $this->db->select( $fieldToDisplay );
         $this->db->where($fieldReference);
@@ -123,8 +115,6 @@ class Env_model extends CI_model{
     // view data with "order" syntax
     public function view_order($fieldToDisplay='*', $table, $order, $ordering){
 
-        if($fieldToDisplay!='*'){ $fieldToDisplay = preg_replace('/\s*/m', "", $fieldToDisplay); }
-
         if( is_array($table) ){
             $dttable = array();
             foreach ($table as $key => $value) {
@@ -143,8 +133,6 @@ class Env_model extends CI_model{
 
     // view data with "where and order" syntax
     public function view_where_order($fieldToDisplay='*', $table, $fieldReference, $order, $ordering){
-
-        if($fieldToDisplay!='*'){ $fieldToDisplay = preg_replace('/\s*/m', "", $fieldToDisplay); }
 
         if( is_array($table) ){
             $dttable = array();
@@ -232,8 +220,6 @@ class Env_model extends CI_model{
         $result_ = '';
         if( Self::countdata($table, $fieldReference) > 0 ){
 
-            if($fieldToDisplay!='*'){ $fieldToDisplay = preg_replace('/\s*/m', "", $fieldToDisplay); }
-
             if( is_array($table) ){
                 $dttable = array();
                 foreach ($table as $key => $val) {
@@ -269,24 +255,14 @@ class Env_model extends CI_model{
             $data = $query->result_array()[0];
 
             $result = array();
-            if($fieldToDisplay!='*'){
-                $fields=explode(',',$fieldToDisplay);
-
-                if(count($fields)!=1){
-                    foreach($fields as $key){
-                        if(strpos($key, ".")){
-                            $key = explode(".",$key)[1];
-                        }
-                        
-                        $result[$key] = $data[$key];
-                    }
-                }
-                else{
-                    $result = $data[$fieldToDisplay];
-                }
-            } else {
+            $countdata = count($data);
+            if($countdata > 0){
                 foreach($data as $key => $value){
-                    $result[$key] = $value;
+                    if($countdata > 1){
+                        $result[$key] = $value;
+                    } else {
+                        $result = $value; break;
+                    }
                 }
             }
 

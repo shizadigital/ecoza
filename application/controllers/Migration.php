@@ -528,6 +528,7 @@ class Migration extends CI_Controller {
         $schema->integer('pattrDownloadLimit', ['type'=>'BIGINT', 'length' => '25']);
         $schema->enum('pattrDownloadFrom', ['email', 'server', 'externaluri']);
         $schema->text('pattrExternalUrl');
+        $schema->enum('pattrDefault', ['y', 'n']);
         $schema->integer('pattrAddedDate',['length'=>'11', 'unsigned'=>TRUE]);
         $schema->integer('pattrModifiedDate',['length'=>'11', 'unsigned'=>TRUE]);
         $schema->run();

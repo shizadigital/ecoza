@@ -758,6 +758,7 @@ $lang['taxmax100'] = "Pajak tidak boleh lebih dari 100%";
 $lang['stocknotenough'] = "Maaf, stok untuk produk %s tidak cukup. Hanya tersedia %s, silahkan tambah stok terdahulu melalui menu PRODUCT STOCK.";
 $lang['phonenumbererror'] = "Silahkan masukkan nomor telp/handphone yang valid";
 $lang['addresspriorityerror'] = "Prioritas alamat ini tidak bisa diganti dikarenakan alamat ini adalah alamat utama.";
+$lang['defaultattrisempty'] = "Please choose the default attribute";
 
 // Product Error
 $lang['variationsamewithorigin'] = "Tidak boleh ada variasi produk yang sama untuk gudang yang sama";

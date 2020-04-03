@@ -758,6 +758,7 @@ $lang['taxmax100'] = "Tax value must not be greater than 100%";
 $lang['stocknotenough'] = "Sorry, the stock of produk \"%s\" not enough. Available stock is only %s, please add the stock first through the PRODUCT STOCK menu.";
 $lang['phonenumbererror'] = "Please insert valid phone number";
 $lang['addresspriorityerror'] = "Priority of address cannot be change. because this address is priority";
+$lang['defaultattrisempty'] = "Please choose the default attribute";
 
 // Product Error
 $lang['variationsamewithorigin'] = "There should be no option of the same product for the same origin";

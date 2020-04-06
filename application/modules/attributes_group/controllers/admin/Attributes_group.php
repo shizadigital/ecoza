@@ -246,9 +246,8 @@ class Attributes_group extends CI_Controller{
 		}
 	}
 
-	public function delete($id){
+	protected function deleteAction($id){
 		if( is_delete() ){
-			// get attr data
 			$id = esc_sql( filter_int($id) );
 
 			// update to delete with timestamp
@@ -256,9 +255,19 @@ class Attributes_group extends CI_Controller{
 			$update = $this->Env_model->update( 'attribute_group', $data_, array('attrgroupId'=> $id) );
 
 			if( $update ){
-
 				// remove attribute relationship
 				$this->Env_model->delete('attribute_relationship', array('attrgroupId'=> $id));
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+	public function delete($id){
+		if( is_delete() ){
+			$update = Self::deleteAction($id);
+
+			if( $update ){
 
 				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
 
@@ -288,20 +297,12 @@ class Attributes_group extends CI_Controller{
 						if($value == 'y'){
 							$id = filter_int($this->input->post('item_val')[$key]);
 
-							// update to delete with timestamp
-							$data_ = array( 'attrgroupDeleted' => time2timestamp() );
-							$update = $this->Env_model->update( 'attribute_group', $data_, array('attrgroupId'=> $id) );
+							$update = Self::deleteAction($id);
 
 							if($update){
-
-								// remove attribute relationship
-								$this->Env_model->delete('attribute_relationship', array('attrgroupId'=> $id));
 								$stat_hapus = TRUE;
-
 							} else {
-
 								$stat_hapus = FALSE; break;
-
 							}
 						}
 					}

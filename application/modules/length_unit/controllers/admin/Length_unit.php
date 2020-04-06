@@ -246,12 +246,25 @@ class Length_unit extends CI_Controller{
 		}
 	}
 
-	public function delete($id){
+	protected function deleteAction($id){
 		if( is_delete() ){
 			$id = esc_sql( filter_int( $id ) );
 
 			$where = array('lengthId' => $id);
 			$query = $this->Env_model->delete('unit_length', $where);
+			if($query){
+				// remove translate
+				translate_removedata('unit_length', $id );
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+	public function delete($id){
+		if( is_delete() ){
+			
+			$query = Self::deleteAction($id);
 
 			if($query){
 
@@ -284,8 +297,7 @@ class Length_unit extends CI_Controller{
 						if($value == 'y'){
 							$id = filter_int($this->input->post('item_val')[$key]);
 
-							$where = array('lengthId' => $id);
-							$query = $this->Env_model->delete('unit_length', $where);
+							$query = Self::deleteAction($id);
 
 							if($query){
 

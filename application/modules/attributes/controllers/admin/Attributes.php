@@ -293,23 +293,31 @@ class Attributes extends CI_Controller{
 		}
 	}
 
-	public function delete($id){
+	protected function deleteAction($id){
 		if( is_delete() ){
 			// get attr data
 			$id = esc_sql( filter_int($id) );
 
 			// update to delete with timestamp
 			$data_ = array( 'attrDeleted' => time2timestamp() );
-			$update = $this->Env_model->update( 'attribute', $data_, array('attrId'=> $id) );
+			$act = $this->Env_model->update( 'attribute', $data_, array('attrId'=> $id) );
 
-			if( $update ){
-
-				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
-
+			if($act){
+				// remove translate
+				translate_removedata('attribute', $id );
+				return true;
 			} else {
-
+				return false;
+			}
+		}
+	}
+	public function delete($id){
+		if( is_delete() ){
+			$update = Self::deleteAction($id);
+			if( $update ){
+				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
+			} else {
 				$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
-
 			}
 			redirect( admin_url('attributes') );
 		}
@@ -333,8 +341,7 @@ class Attributes extends CI_Controller{
 							$id = filter_int($this->input->post('item_val')[$key]);
 
 							// update to delete with timestamp
-							$data_ = array( 'attrDeleted' => time2timestamp() );
-							$update = $this->Env_model->update( 'attribute', $data_, array('attrId'=> $id) );
+							$update = Self::deleteAction($id);
 
 							if($update){
 

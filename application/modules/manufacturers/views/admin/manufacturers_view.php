@@ -207,8 +207,8 @@ if( !empty( $this->session->has_userdata('failed') ) ){
                                 <tr>
                                     <td class="text-center">
                                         <div class="form-group">
-                                            <input type="checkbox" class="check_item" name="item[]" value="y" />
-                                            <input type="hidden" name="item_val[]" value="<?php echo $r['manufactId']; ?>" />
+                                            <input type="checkbox" class="check_item" name="item[<?php echo $no; ?>]" value="y" />
+                                            <input type="hidden" name="item_val[<?php echo $no; ?>]" value="<?php echo $r['manufactId']; ?>" />
                                         </div>
                                     </td>
                                     <td class="text-center"><?php echo $no; ?></td>
@@ -233,7 +233,7 @@ if( !empty( $this->session->has_userdata('failed') ) ){
                                             $img = "<img style=\"width:250px; border:1px solid #ddd; max-height:250px; margin:6px 10px 0 0;\" src=\"".$imgmanufacturer."\" alt=\"Brand ".$r['manufactName']."\" /><br/>";
 
                                             modalDelete(
-                                                $r['manufactId'],
+                                                'myModal'.$r['manufactId'],
                                                 $img . '<strong>'.$r['manufactName'].'</strong>',
                                                 admin_url($this->uri->segment(2).'/delete/'.$r['manufactId'])
                                             );

@@ -125,7 +125,7 @@ if( is_view() ):
                                                     <a data-toggle="modal" href="#myModal<?php echo $r['curId']; ?>" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i> <?php echo t('delete'); ?></a>
                                                     <?php
                                                     modalDelete(
-                                                        $r['curId'],
+                                                        'myModal'.$r['curId'],
                                                         '<strong>'.$r['curTitle'].'</strong>',
                                                         admin_url($this->uri->segment(2).'/delete/'.$r['curId'])
                                                     );

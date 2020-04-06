@@ -264,13 +264,30 @@ class Manufacturers extends CI_Controller{
 		}
 	}
 
-	public function delete($id){
+	protected function deleteAction($id){
 		if( is_delete() ){
 			$id = esc_sql( filter_int($id) );
 
+			// remove image file first
+			$dataimg = geval("*", 'manufacturers', "manufactId='{$id}'" );
+			if(!empty($dataimg['manufactDir']) AND !empty($dataimg['manufactImg'])){
+				$sizeimg = array( 'xsmall', 'small', 'medium', 'large' );
+
+				//delete old file
+				foreach($sizeimg AS $valimg){
+					@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$dataimg['manufactDir'].DIRECTORY_SEPARATOR.$valimg.'_'.$dataimg['manufactImg']);
+				}
+			}
+
 			// update to delete with timestamp
 			$data_ = array( 'manufactDeleted' => time2timestamp() );
-			$update = $this->Env_model->update( 'manufacturers', $data_, array('manufactId'=> $id) );
+			return $this->Env_model->update( 'manufacturers', $data_, array('manufactId'=> $id) );
+		}
+	}
+	public function delete($id){
+		if( is_delete() ){
+			
+			$update = Self::deleteAction($id);
 
 			if( $update ){
 
@@ -302,9 +319,7 @@ class Manufacturers extends CI_Controller{
 						if($value == 'y'){
 							$id = filter_int($this->input->post('item_val')[$key]);
 
-							// update to delete with timestamp
-							$data_ = array( 'manufactDeleted' => time2timestamp() );
-							$update = $this->Env_model->update( 'manufacturers', $data_, array('manufactId'=> $id) );
+							$update = Self::deleteAction($id);
 
 							if($update){
 

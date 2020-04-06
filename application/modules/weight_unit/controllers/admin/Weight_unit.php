@@ -247,13 +247,25 @@ class Weight_unit extends CI_Controller{
 		}
 	}
 
-	public function delete($id){
+
+	protected function deleteAction($id){
 		if( is_delete() ){
 			$id = esc_sql( filter_int( $id ) );
 
 			$where = array('weightId' => $id);
 			$query = $this->Env_model->delete('unit_weight', $where);
-
+			if($query){
+				// remove translate
+				translate_removedata('unit_weight', $id );
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+	public function delete($id){
+		if( is_delete() ){
+			$query = Self::deleteAction($id);
 			if($query){
 
 				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
@@ -285,8 +297,7 @@ class Weight_unit extends CI_Controller{
 						if($value == 'y'){
 							$id = filter_int($this->input->post('item_val')[$key]);
 
-							$where = array('weightId' => $id);
-							$query = $this->Env_model->delete('unit_weight', $where);
+							$query = Self::deleteAction($id);
 
 							if($query){
 

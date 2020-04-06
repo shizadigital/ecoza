@@ -203,8 +203,8 @@ include V_ADMIN_PATH . "topbar.php";
 									<tr>
 										<td class="text-center">
 											<div class="form-group">
-												<input type="checkbox" class="check_item" name="item[]" value="y" />
-												<input type="hidden" name="item_val[]" value="<?php echo $r['catId']; ?>" />
+												<input type="checkbox" class="check_item" name="item[<?php echo $no; ?>]" value="y" />
+												<input type="hidden" name="item_val[<?php echo $no; ?>]" value="<?php echo $r['catId']; ?>" />
 											</div>
 										</td>
 										<td class="text-center"><?php echo $no; ?></td>
@@ -231,9 +231,8 @@ include V_ADMIN_PATH . "topbar.php";
 												}else{
 													$color_ = $r['catColor'];
 												}
-
 												modalDelete(
-													$r['catId'],
+													'myModal'.$r['catId'],
 													'<strong><span style="color:'.$color_.';">'.$r['catName'].'</span></strong>',
 													admin_url($this->uri->segment(2).'/delete/'.$r['catId'])
 												);

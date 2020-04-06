@@ -257,13 +257,36 @@ class Product_badges extends CI_Controller{
 		}
 	}
 
-	public function delete($id){
+	protected function deleteAction($id){
 		if( is_delete() ){
 			$id = esc_sql( filter_int($id) );
 
+			// remove old image first
+			$getoldimg = getval("badgeDir,badgePic", "badges", array('badgeId'=> $id));
+			if( !empty($getoldimg['badgeDir']) AND !empty($getoldimg['badgePic']) ){
+
+				$sizeimg = array( 'xsmall', 'small', 'medium', 'large' );
+
+				foreach($sizeimg AS $vimg ){
+					@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$getoldimg['badgeDir'].DIRECTORY_SEPARATOR.$vimg.'_'.$getoldimg['badgePic']);
+				}
+			}
+
 			// update to delete with timestamp
 			$data_ = array( 'badgeDeleted' => time2timestamp() );
-			$update = $this->Env_model->update( 'badges', $data_, array('badgeId'=> $id) );
+			$query = $this->Env_model->update( 'badges', $data_, array('badgeId'=> $id) );
+			if($query){
+				// remove translate
+				translate_removedata('badges', $id );
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+	public function delete($id){
+		if( is_delete() ){
+			$update = Self::deleteAction($id);
 
 			if( $update ){
 
@@ -295,9 +318,7 @@ class Product_badges extends CI_Controller{
 						if($value == 'y'){
 							$id = filter_int($this->input->post('item_val')[$key]);
 
-							// update to delete with timestamp
-							$data_ = array( 'badgeDeleted' => time2timestamp() );
-							$update = $this->Env_model->update( 'badges', $data_, array('badgeId'=> $id) );
+							$update = Self::deleteAction($id);
 
 							if($update){
 

@@ -213,8 +213,8 @@ include V_ADMIN_PATH . "topbar.php";
 									<tr>
 										<td class="text-center">
 											<div class="form-group">
-												<input type="checkbox" class="check_item" name="item[]" value="y" />
-												<input type="hidden" name="item_val[]" value="<?php echo $r['lengthId']; ?>" />
+												<input type="checkbox" class="check_item" name="item[<?php echo $no ?>]" value="y" />
+												<input type="hidden" name="item_val[<?php echo $no ?>]" value="<?php echo $r['lengthId']; ?>" />
 											</div>
 										</td>
 										<td class="text-center"><?php echo $no; ?></td>
@@ -228,7 +228,7 @@ include V_ADMIN_PATH . "topbar.php";
 												<a data-toggle="modal" href="#myModal<?php echo $r['lengthId']; ?>" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i> <?php echo t('delete'); ?></a>
 												<?php
 												modalDelete(
-													$r['lengthId'],
+													'myModal'.$r['lengthId'],
 													'<strong>'.$unitname.' ('.$unitexplanation.')'.'</strong>',
 													admin_url($this->uri->segment(2).'/delete/'.$r['lengthId'])
 												);

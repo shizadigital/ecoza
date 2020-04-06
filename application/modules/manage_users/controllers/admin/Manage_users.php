@@ -367,7 +367,7 @@ class Manage_users extends CI_Controller{
 		}
 	}
 
-	public function delete($id){
+	protected function deleteAction($id){
 		if( is_delete() ){
 			$id = filter_int($id);
 
@@ -386,7 +386,13 @@ class Manage_users extends CI_Controller{
 			$deleted = time2timestamp();
 			$data = array('userDelete'=>$deleted, 'userBlocked'=>'y');
 
-			$queryact = $this->Env_model->update('users', $data, "userId='{$id}'");
+			return $this->Env_model->update('users', $data, "userId='{$id}'");
+		}
+	}
+	public function delete($id){
+		if( is_delete() ){
+			$queryact = Self::deleteAction($id);
+			
 			if($queryact){
 				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
 			} else {
@@ -413,10 +419,7 @@ class Manage_users extends CI_Controller{
 						if($value == 'y'){
 							$id = filter_int($this->input->post('item_val')[$key]);
 
-							$deleted = time2timestamp();
-
-						    $data = array('userDelete'=>$deleted, 'userBlocked'=>'y');
-							$queryact = $this->Env_model->update('users', $data, "userId='{$id}'");
+							$queryact = Self::deleteAction($id);
 							
 							if($queryact){ $stat_hapus = TRUE; } else { $stat_hapus = FALSE; break; }
 						}

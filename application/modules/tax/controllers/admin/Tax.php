@@ -219,13 +219,18 @@ class Tax extends CI_Controller{
 		}
 	}
 
-	public function delete($id){
+
+	protected function deleteAction($id){
 		if( is_delete() ){
 			$id = esc_sql( filter_int( $id ) );
 
 			$where = array('taxId' => $id);
-			$query = $this->Env_model->update('tax', array('taxDeleted'=>time2timestamp()), $where);
-
+			return $this->Env_model->update('tax', array('taxDeleted'=>time2timestamp()), $where);
+		}
+	}
+	public function delete($id){
+		if( is_delete() ){
+			$query = Self::deleteAction($id);
 			if($query){
 
 				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
@@ -257,8 +262,7 @@ class Tax extends CI_Controller{
 						if($value == 'y'){
 							$id = filter_int($this->input->post('item_val')[$key]);
 
-							$where = array('taxId' => $id);
-							$query = $this->Env_model->update('tax', array('taxDeleted'=>time2timestamp()), $where);
+							$query = Self::deleteAction($id);
 
 							if($query){
 

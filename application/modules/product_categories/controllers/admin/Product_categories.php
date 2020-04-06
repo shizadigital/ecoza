@@ -217,17 +217,29 @@ class Product_categories extends CI_Controller{
 		}
 	}
 
-	public function delete($id){
+	protected function deleteAction($id){
 		if( is_delete() ){
 			$id = esc_sql( filter_int( $id ) );
 
 			$where = array('catId' => $id, 'catType' => 'product');
 			$query = $this->Env_model->delete('categories', $where);
-
 			if($query){
+				// remove translate
+				translate_removedata('categories', $id );
+
 				// remove relationship too
 				$where = array('catId' => $id, 'crelRelatedType' => 'product');
 				$this->Env_model->delete('category_relationship', $where);
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+	public function delete($id){
+		if( is_delete() ){
+			$query = Self::deleteAction($id);
+			if($query){
 
 				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
 
@@ -258,13 +270,9 @@ class Product_categories extends CI_Controller{
 						if($value == 'y'){
 							$id = filter_int($this->input->post('item_val')[$key]);
 
-							$where = array('catId' => $id, 'catType' => 'product');
-							$queryact = $this->Env_model->delete('categories', $where);
+							$queryact = Self::deleteAction($id);
 
 							if($queryact){
-								// remove relationship too
-								$where = array('catId' => $id, 'crelRelatedType' => 'product');
-								$this->Env_model->delete('category_relationship', $where);
 
 								$stat_hapus = TRUE;
 

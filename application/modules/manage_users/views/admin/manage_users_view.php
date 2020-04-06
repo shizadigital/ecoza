@@ -138,8 +138,8 @@ if( is_view() ):
                                     <td class="text-center">
                                         <?php if($r['userId']!='1'){ ?>
                                         <div class="form-group">
-                                            <input type="checkbox" class="check_item" name="item[]" value="y" />
-                                            <input type="hidden" name="item_val[]" value="<?php echo $r['userId']; ?>" />
+                                            <input type="checkbox" class="check_item" name="item[<?php echo $no; ?>]" value="y" />
+                                            <input type="hidden" name="item_val[<?php echo $no; ?>]" value="<?php echo $r['userId']; ?>" />
                                         </div>
                                         <?php } ?>
                                     </td>
@@ -166,7 +166,7 @@ if( is_view() ):
                                             <a data-toggle="modal" href="#myModal<?php echo $r['userId']; ?>" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i> <?php echo t('delete'); ?></a>
                                             <?php
                                             modalDelete(
-                                                $r['userId'],
+                                                'myModal'.$r['userId'],
                                                 '<strong>'.$r['userDisplayName'].' ('.$r['userLogin'].')</strong>',
                                                 admin_url( $this->uri->segment(2).'/delete/'.$r['userId'])
                                             );

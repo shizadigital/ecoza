@@ -662,6 +662,7 @@ $lang['abbr_mpn'] = "Manufacturer Part Number";
 $lang['abbr_upc'] = "Universal Product Code";
 
 $lang['addattributetoproductinfo'] = "To add the attributes, you first need to create proper attributes and values in Catalog -> Attributes.<br/>When done, you may enter the wanted attributes (like \"size\" or \"color\") and their respective values (\"XS\", \"red\", \"all\", etc.) in the field below";
+$lang['limitedattrinfo'] = "This product has unlimited quantity";
 
 /**
  * Weigth Unit

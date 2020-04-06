@@ -386,14 +386,14 @@ function logo_url($_size=NULL){
     return $url;
 }
 
-function modalDelete($id = null, $content ='', $urldestination = ''){
+function modalDelete($idModal = null, $content ='', $urldestination = ''){
     $ci =& get_instance();
     $ci->load->library('assetsloc');
 
-    if( !empty($id) AND !empty($content) AND !empty($urldestination) ){
+    if( !empty($idModal) AND !empty($content) AND !empty($urldestination) ){
         
         $data = '<!-- Modal -->
-        <div class="modal fade" id="myModal'.$id.'" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="'.$idModal.'" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" style="width:400px;">
                 <div class="modal-content">
                     <div class="modal-header">

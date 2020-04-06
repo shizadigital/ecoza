@@ -662,6 +662,7 @@ $lang['abbr_mpn'] = "Manufacturer Part Number";
 $lang['abbr_upc'] = "Universal Product Code";
 
 $lang['addattributetoproductinfo'] = "Untuk menambahkan atribut, Anda harus terlebih dahulu membuat atribut beserta nilai atribut pada menu Katalog -> Atribut.<br/>Setelah selesai, Anda dapat memasukkan atribut yang diinginkan (seperti \"ukuran\" atau \"warna\") dan nilainya masing-masing (\"XS\", \"merah\", \"semua\", dll.) pada bidang di bawah ini.";
+$lang['limitedattrinfo'] = "Produk ini memiliki qty tak terbatas";
 
 /**
  * Weigth Unit

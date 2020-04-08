@@ -115,8 +115,8 @@ class Atur_web extends CI_Controller{
 						$sizeimg = array(
 							'xsmall' 	=>'40',
 							'small' 	=>'100',
-							'medium' 	=>'220',
-							'large' 	=>'350'
+							'medium' 	=>'270',
+							'large' 	=>'550'
 						);
 						$upload = uploadImage('logo', 'weblogo', $sizeimg, $extensi_allowed);
 						$logoserialize = serialize($upload);

@@ -371,7 +371,7 @@ class Manage_users extends CI_Controller{
 		if( is_delete() ){
 			$id = filter_int($id);
 
-			$data = geval("*", 'users', "userId='{$id}'" );
+			$data = getval("*", 'users', "userId='{$id}'" );
 			if(!empty($data['userDir']) AND !empty($data['userPic'])){
 				// remove img first
 				$sizeimg = array('xsmall','small','medium','large');

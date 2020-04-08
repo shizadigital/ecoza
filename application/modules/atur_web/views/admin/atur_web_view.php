@@ -155,7 +155,7 @@ include V_ADMIN_PATH . "topbar.php";
                                     'type' => 'file-img',
                                     'label' => t('logo'),
                                     'name' => 'logo',
-                                    'value' => logo_url('small'),
+                                    'value' => logo_url('large'),
                                     'help' => t('infofile') . " *.jpg, *.jpeg, *.png"
                                 ),
                                 array(

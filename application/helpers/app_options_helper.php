@@ -162,11 +162,16 @@ function decoder($str){
 function get_option($optname){
     $ci =& get_instance();
     if(isNotMigration()) {
-        $ci->db->select('optionValue');
-        $ci->db->from( $ci->db->dbprefix('options') );
-        $ci->db->where('optionName', $optname);
-        $query = $ci->db->get();
-        return $query->row()->optionValue;
+
+        if( check_option($optname) > 0){
+            $ci->db->select('optionValue');
+            $ci->db->from( $ci->db->dbprefix('options') );
+            $ci->db->where('optionName', $optname);
+            $query = $ci->db->get();
+            return $query->row()->optionValue;
+        } else {
+            return null;
+        }
     }
 }
 
@@ -232,6 +237,12 @@ function web_assets($rootassets = null){
     $assets = base_url('assets');
     if(!empty($rootassets)){ $assets = $assets.'/'.$rootassets; }
     return $assets;
+}
+
+function web_path( $themeroot = null ){
+    $mainroot = V_BASE_PATH . DIRECTORY_SEPARATOR . get_option('template');
+    if(!empty($themeroot)){ $mainroot = $mainroot.'/'.$themeroot; }
+    return $mainroot;
 }
 
 function admin_root($themeroot = null){

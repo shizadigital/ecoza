@@ -391,7 +391,7 @@ function logo_url($_size=NULL){
             $image = $_size."_".$array_logo['filename'];
         }
 
-        $url = images_url()."/".$array_logo['directory']."/".$image;
+        $url = images_url($array_logo['directory']."/".$image);
     }
 
     return $url;

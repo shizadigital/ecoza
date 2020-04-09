@@ -52,7 +52,7 @@ function _filter( $tag, $value, $html=true ){
 	break;
 	case'post':
 	if( !empty( $value ) ){
-		return htmlspecialchars(get_magic_quotes_gpc() ? $_POST[$value] : addslashes($_POST[$value]));
+		return htmlspecialchars(get_magic_quotes_gpc() ? $value : addslashes($value));
 	}
 	break;
 	case'clear':

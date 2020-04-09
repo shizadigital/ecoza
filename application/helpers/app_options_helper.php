@@ -229,7 +229,7 @@ function get_social_url($social=''){
 /**************** Templating location ********************/
 function template_root($themeroot = null){
     $mainroot = get_option('template').'/main';
-    if(!empty($themeroot)){ $mainroot = $mainroot.'/'.$themeroot; }
+    if(!empty($themeroot)){ $mainroot = get_option('template').'/'.$themeroot; }
     return $mainroot;
 }
 

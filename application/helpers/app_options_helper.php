@@ -431,3 +431,12 @@ function modalDelete($idModal = null, $content ='', $urldestination = ''){
         return false;
     }
 }
+
+function is_csrf(){
+    $ci =& get_instance();
+    $result = false;
+    if($ci->config->item('csrf_protection')){
+        $result = true;
+    } 
+    return $result;
+}

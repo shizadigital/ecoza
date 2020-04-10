@@ -1129,3 +1129,142 @@ function getCombination( $arrays ){
 	}
 	return $result;
 }
+
+
+/**
+*
+* Send mail
+*
+* @param array $emailto
+* @param array $emailsubject
+* @param array $emailmsg
+* @param array $emailtype
+* @param array $emailhead
+* @param array $emailattach
+*
+* @return bool
+*/
+function sendMail($emailto, $emailsubject, $emailmsg='', $emailtype = 'html', $emailhead='', $emailattach=''){
+	//This function will queuing email before send it.
+	//Will not re-queue data to table if the email and content is exist
+	//You can count the successful query by the return value;
+	$now = time2timestamp();
+	$nowdir = '';
+	$targetFile = '';
+	$ext = '';
+
+	//Checking whether same data exist in mail_queue and email_blacklist
+	$isemailexist = countdata("email_queue","emailMsg='$emailmsg' AND emailTo='$emailto'");
+	$blackemail   = countdata("email_blacklist","blackEmail='$emailto'");
+
+	if($isemailexist<1 and $blackemail<1){
+		#upload file
+		if (!empty ($emailattach)){
+			$nowdir = date('dmY');
+			
+			$targetFile = end(explode('/', $emailattach));
+			$targetDir = realpath(dirname(__file__).'/..').'/assets/emailqueue/'.$nowdir;
+			@mkdir($targetDir);
+			
+			#make it unique
+			if(file_exists($targetDir.'/'.$targetFile)){
+				list($origName, $origExt) = explode('.', $targetFile);
+				$ext = strtolower(end(explode('.', $targetFile)));
+				
+				$targetFile = $origName.'_'.strtolower(kodeacak(4)).'.'.$ext;
+			}
+			
+			@copy($emailattach, $targetDir.'/'.$targetFile);
+		}
+		$nextid = getNextId('emailId',$table_prefix.'email_queue');
+		$sql = "INSERT INTO {$table_prefix}email_queue VALUES ('$nextid','$emailto','$emailsubject','$emailmsg','$emailtype','$emailhead','$now','0','n','$nowdir','$targetFile', '$ext')";
+		$query = $MEMO_DB->query($sql);
+	}
+
+	if($query){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+/**
+*
+* Send mail with php mailer
+*
+* @param array $options
+*
+* @return bool
+*/
+function sendMailPHPMailer($options){
+    // Unclude the file
+    $ci =& get_instance();
+    $ci->load->library('phpmailer');
+	$mail = $ci->phpmailer->load();
+    
+	$filename = '';
+	foreach($options as $key=>$value){
+		$$key = $value;
+	}
+	
+	if(empty($mailopt)){
+		$mailopt = EMAIL_OPTION;
+	} else {
+		$mailopt = $mailopt;
+	}
+	
+	if ($mailopt == "standard"){
+		
+		$mail->setFrom($from, $fromname);
+		$mail->addAddress($to, $toname);
+		$mail->addReplyTo($replyto, "Reply");
+		$mail->addCC($cc);
+		$mail->addBCC($bcc);
+		if($messagetype=='html'){
+			$mail->isHTML(true); 
+		}else{
+			$mail->isHTML(false); 
+		}
+		$mail->CharSet="UTF-8";
+		$mail->Subject = $subject;
+		$mail->Body    = $message;
+
+		// Attachments
+		if(!empty($filename)){
+		    // $mail->addAttachment('files/proposal_web_berita_murah.pdf', 'proposal.pdf');     // Proposal
+		    // $mail->addAttachment('images/business-flyer-Memo-small.png', 'brochure.jpg');    // flyer brochure
+		}
+		
+		//set email SMTP
+		$mail->WordWrap = 50;
+		$mail->IsSMTP();
+		$mail->Host = memo_get_option('smtp_host');
+		$mail->Port = memo_get_option('smtp_port');
+		$mail->SMTPAuth = true;
+		$mail->Username = memo_get_option('smtp_username');
+		$mail->Password = decoder(memo_get_option('smtp_password'));
+    	$mail->SMTPSecure = memo_get_option('smtp_ssltype');
+		if(!$mail->send()) {
+			$result = FALSE;
+		} else {
+			$result = TRUE;
+		}
+		
+		//print "standar";
+	}else if($mailopt == "queue"){
+		#header
+		$header = $fromname."#".$from;
+		if ($replyto) $header .= "#".$replyto;
+		if ($cc) $header .= "#".$cc;
+		if ($bcc) $header .= "#".$bcc;
+		
+		$result = sendmail($to, $subject, $message, $messagetype, $header, $filename);
+	}
+	$mail->ClearAddresses();
+	
+	if($result == FALSE and $mailopt != 'queue'){
+		$result = sendmail($to, $subject, $message, $messagetype, $header, $filename);
+    }
+    
+    return $result;
+}

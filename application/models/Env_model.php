@@ -274,4 +274,60 @@ class Env_model extends CI_model{
         }
         return $result_;
     }
+
+    public function getLatest($table, $field, $where = null, $fieldview = null){
+        if(!empty($fieldview)){
+            $this->db->select_max($field, $fieldview);
+            $fieldview = $fieldview;
+        } else {
+            $this->db->select_max($field);
+            $fieldview = $field;
+        }
+
+        if(!empty($where)){
+            $this->db->where($where);
+        }
+
+        if( is_array($table) ){
+            $dttable = array();
+            foreach ($table as $key => $value) {
+                $dttable[] = $this->db->dbprefix( $value );
+            }
+            $theTable = implode(',', $dttable);
+        } else {
+            $theTable = $this->db->dbprefix($table);
+        }
+        
+        $latest = $this->db->get( $theTable )->row_array()[$fieldview];
+        return $latest;
+    }
+
+
+
+    public function getNewest($table, $field, $where = null, $fieldview = null){
+        if(!empty($fieldview)){
+            $this->db->select_min($field, $fieldview);
+            $fieldview = $fieldview;
+        } else {
+            $this->db->select_min($field);
+            $fieldview = $field;
+        }
+
+        if(!empty($where)){
+            $this->db->where($where);
+        }
+
+        if( is_array($table) ){
+            $dttable = array();
+            foreach ($table as $key => $value) {
+                $dttable[] = $this->db->dbprefix( $value );
+            }
+            $theTable = implode(',', $dttable);
+        } else {
+            $theTable = $this->db->dbprefix($table);
+        }
+        
+        $latest = $this->db->get( $theTable )->row_array()[$fieldview];
+        return $latest;
+    }
 }

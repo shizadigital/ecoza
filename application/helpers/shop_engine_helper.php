@@ -212,3 +212,25 @@ function getWeightUnitDefault($display = 'unit'){
 
 	return $result;
 }
+
+function orderInvoice(){
+	// get invoice format
+	$invformat = get_option('invoiceformat');
+	$invstartnumber = get_option('invoicenumberstart');
+
+	$DAY = date("d");
+	$MONTH = date("m");
+	$YEAR = date("Y");
+
+	$NUMBER = 1;
+	if(!empty($invstartnumber)){
+		$NUMBER = $invstartnumber+1;
+	}
+
+	$invoice = str_ireplace("{DAY}", $DAY, $invformat);
+	$invoice = str_ireplace("{MONTH}", $MONTH, $invoice);
+	$invoice = str_ireplace("{YEAR}", $YEAR, $invoice);
+	$invoice = str_ireplace("{NUMBER}", $NUMBER, $invoice);
+
+	return $invoice;
+}

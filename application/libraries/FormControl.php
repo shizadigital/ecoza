@@ -397,7 +397,8 @@ class FormControl {
 			            data : { 
 	                        fieldname: "'.$inputs['name'].'",
 	                        availabellang: langs,
-	                        CP: "'.get_cookie('sz_token').'"
+                            CP: "'.get_cookie('sz_token').'"
+                            '.( is_csrf() ? ','.$CI->security->get_csrf_token_name().':"'.$CI->security->get_csrf_hash():'').'"
 	                    },
 			            beforeSend: function(data){
 			                $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
@@ -422,7 +423,8 @@ class FormControl {
 			            	fieldtype: "'.$inputsType.'",
 			            	fieldname: "'.$inputs['name'].'",			            	
 	                        CP: "'.get_cookie('sz_token').'",
-	                        val: vallang
+                            val: vallang
+                            '.( is_csrf() ? ','.$CI->security->get_csrf_token_name().': "'.$CI->security->get_csrf_hash():'').'"
 	                    };
 
 	    			$.ajax({
@@ -498,7 +500,7 @@ class FormControl {
                 
                 echo ($formType !='hidden')?'<div class="form-group'.(($layout == 'horizontal') ? ' row':'').'">'."\n":'';
 
-                if( $formType !=  'button' AND $formType !=  'submit' AND $formType !='hidden'){
+                if( $formType !=  'button' AND $formType !=  'submit' AND $formType !='hidden' AND !empty($label) ){
                     echo '<label';
 
                     if($layout == 'horizontal'){

@@ -330,4 +330,13 @@ class Env_model extends CI_model{
         $latest = $this->db->get( $theTable )->row_array()[$fieldview];
         return $latest;
     }
+
+    // truncate
+    public function truncate($tablename = null){
+
+        if( !empty($tablename) ){
+            $this->db->truncate($this->db->dbprefix($tablename));
+        }
+
+    }
 }

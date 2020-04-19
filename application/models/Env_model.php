@@ -275,7 +275,7 @@ class Env_model extends CI_model{
         return $result_;
     }
 
-    public function getLatest($table, $field, $where = null, $fieldview = null){
+    public function getMax($field, $table, $where = null, $fieldview = null){
         if(!empty($fieldview)){
             $this->db->select_max($field, $fieldview);
             $fieldview = $fieldview;
@@ -304,7 +304,7 @@ class Env_model extends CI_model{
 
 
 
-    public function getNewest($table, $field, $where = null, $fieldview = null){
+    public function getMin($field, $table, $where = null, $fieldview = null){
         if(!empty($fieldview)){
             $this->db->select_min($field, $fieldview);
             $fieldview = $fieldview;

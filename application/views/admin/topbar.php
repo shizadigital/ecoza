@@ -28,7 +28,7 @@
                     Status <?php echo get_adm_ol_status(); ?> 
                 </p>
                 
-                <?php if(count(langlist())>0): ?>
+                <?php if(count(langlist())>1): ?>
                 <div class="dropdown mr-4 d-none d-sm-block">
                     <a href="" class="dropdown-toggle text-nowrap" data-toggle="dropdown" data-offset="5,15">
                         <span class="dropdown-toggle-text"><?php echo strtoupper(getAdminLocaleCode(false)); ?></span>

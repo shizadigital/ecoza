@@ -519,6 +519,10 @@ $lang['selectgroups'] = 'Select groups';
 $lang['infoemptysku'] = 'Empty this field for auto generate SKU';
 $lang['smallestsellingunit'] = 'Smallest selling unit';
 $lang['succeed'] = 'Succeed';
+$lang['information'] = 'Information';
+$lang['chooseunit'] = 'Choose Unit';
+$lang['totalprice'] = "Total Harga";
+$lang['looktheicon'] = "Look the Icon";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -663,6 +667,16 @@ $lang['abbr_upc'] = "Universal Product Code";
 
 $lang['addattributetoproductinfo'] = "To add the attributes, you first need to create proper attributes and values in Catalog -> Attributes.<br/>When done, you may enter the wanted attributes (like \"size\" or \"color\") and their respective values (\"XS\", \"red\", \"all\", etc.) in the field below";
 $lang['limitedattrinfo'] = "This product has unlimited quantity";
+$lang['managesallingpricesintunit'] = "Manage Selling Prices in units";
+$lang['addsallingprices'] = "Add selling prices";
+$lang['editsallingprices'] = "Edit selling prices";
+$lang['smallestsellingunit'] = "Smallest selling unit";
+$lang['editthisproduct'] = "Edit this product";
+$lang['producthadvariations'] = "Product had variations";
+$lang['smallestunit'] = "Smallest unit";
+$lang['sellingpriceslist'] = "List of selling prices";
+$lang['smallestunitamount'] = "The amount in the smallest unit";
+$lang['totalbaseprice'] = "Total Base Price";
 
 /**
  * Weigth Unit

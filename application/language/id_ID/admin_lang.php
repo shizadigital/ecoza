@@ -519,6 +519,10 @@ $lang['selectgroups'] = 'Pilih group';
 $lang['infoemptysku'] = 'Kosongkan untuk menghasilkan SKU otomatis';
 $lang['smallestsellingunit'] = 'Satuan jual terkecil';
 $lang['succeed'] = 'Berhasil';
+$lang['information'] = 'Informasi';
+$lang['chooseunit'] = 'Pilih Satuan';
+$lang['totalprice'] = "Total Harga";
+$lang['looktheicon'] = "Lihat Icon";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -663,6 +667,16 @@ $lang['abbr_upc'] = "Universal Product Code";
 
 $lang['addattributetoproductinfo'] = "Untuk menambahkan atribut, Anda harus terlebih dahulu membuat atribut beserta nilai atribut pada menu Katalog -> Atribut.<br/>Setelah selesai, Anda dapat memasukkan atribut yang diinginkan (seperti \"ukuran\" atau \"warna\") dan nilainya masing-masing (\"XS\", \"merah\", \"semua\", dll.) pada bidang di bawah ini.";
 $lang['limitedattrinfo'] = "Produk ini memiliki qty tak terbatas";
+$lang['managesallingpricesintunit'] = "Kelola Harga Jual Dalam Satuan";
+$lang['addsallingprices'] = "Tambah Harga Jual";
+$lang['editsallingprices'] = "Perbarui Harga Jual";
+$lang['smallestsellingunit'] = "Satuan penjualan terkecil";
+$lang['editthisproduct'] = "Perbarui produk ini";
+$lang['producthadvariations'] = "Produk memiliki variasi";
+$lang['smallestunit'] = "Satuan terkecil";
+$lang['sellingpriceslist'] = "Daftar Harga Jual";
+$lang['smallestunitamount'] = "Jumlah dalam satuan terkecil";
+$lang['totalbaseprice'] = "Total Harga Modal";
 
 /**
  * Weigth Unit

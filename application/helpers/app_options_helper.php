@@ -52,7 +52,8 @@ function langlist(){
 
                 // check lang array availability here
                 if( !array_key_exists( $filename, $ci->config->load('locales') ) ){
-                    show_error('Terdapat nama direktori bahasa yang tidak valid', 503, 'Bahasa tidak valid'); exit;
+                    continue;
+                    //show_error('Terdapat nama direktori bahasa yang tidak valid', 503, 'Bahasa tidak valid'); exit;
                 }
 
                 $result[]  = $filename;

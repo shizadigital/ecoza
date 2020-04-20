@@ -12,6 +12,15 @@
                     <div class="dropdown-menu" role="menu">
                         <a class="dropdown-item" href="<?php echo admin_url('product/addnew'); ?>"><i class="fe fe-plus"></i> <?php echo t('newproduct'); ?></a>
                         <a class="dropdown-item" href="<?php echo admin_url('product_categories'); ?>"><i class="fe fe-plus"></i> <?php echo t('newproductcategory'); ?></a>
+                        <?php
+                        if( $this->session->userdata('leveluser') =='1' ){
+                            echo '
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-header">Super Admin Mode</div>
+                            <a class="dropdown-item" href="'.admin_url('product_categories').'"><i class="fe fe-plus"></i> '.t('addnewmenuadminmaster').'</a>
+                            <a class="dropdown-item" href="'.admin_url('main/iconscomponent/?theval=feather').'" target="_blank"><i class="fe fe-grid"></i> '.t('looktheicon').'</a>';
+                        }
+                        ?>
                     </div>
                 </div>
 
@@ -19,6 +28,7 @@
                     Status <?php echo get_adm_ol_status(); ?> 
                 </p>
                 
+                <?php if(count(langlist())>0): ?>
                 <div class="dropdown mr-4 d-none d-sm-block">
                     <a href="" class="dropdown-toggle text-nowrap" data-toggle="dropdown" data-offset="5,15">
                         <span class="dropdown-toggle-text"><?php echo strtoupper(getAdminLocaleCode(false)); ?></span>
@@ -52,6 +62,8 @@
                         ?>
                     </div>
                 </div>
+                <?php endif; ?>
+                
                 <div class="air__topbar__actionsDropdown dropdown mr-4 d-none d-sm-block">
                     <?php
                     $totalcomments = countdata("comments","commentApproved='0'");

@@ -86,7 +86,8 @@ class Manage_users extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('manage_users')
+													'access' => admin_url('manage_users'),
+													'permission' => 'view'
 												)
 											),
 							'datalevel' => $datalevel
@@ -240,7 +241,8 @@ class Manage_users extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('manage_users')
+													'access' => admin_url('manage_users'),
+													'permission' => 'view'
 												)
 											),
 							'data' => $getdata,
@@ -253,6 +255,7 @@ class Manage_users extends CI_Controller{
 	}
 	public function prosesedit(){
 		if( is_edit() ){
+			$error = false;
 			$id = $this->input->post('ID');
 
 			if( empty($this->input->post('email')) OR empty($this->input->post('nama')) OR empty($this->input->post('level')) ){
@@ -273,12 +276,6 @@ class Manage_users extends CI_Controller{
 			$email 		= esc_sql(filter_txt($this->input->post('email')));
 			$nama 		= esc_sql(filter_txt($this->input->post('nama')));
 			$level 		= esc_sql(filter_int($this->input->post('level')));
-
-			// username check
-			$usernum = $this->Env_model->countdata('users',"userLogin = '{$username}'");
-			if($usernum > 0){
-				$error = "<strong>".t('error')."!!</strong> ". t('usernameavailebleerror');
-			}
 
 			// password check
 			if( !empty($this->input->post('pass')) ){

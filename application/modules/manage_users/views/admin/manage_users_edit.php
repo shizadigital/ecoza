@@ -92,6 +92,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
                             <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $data['userDisplayName']; ?>" required />
                         </div>
 
+                        <?php if( ($this->session->userdata('leveluser')=='1' OR $this->session->userdata('leveluser')=='2') ){ ?>
                         <div class="form-group">
                             <label class="req" for="level">Level</label>
                             <select class="custom-select" id="level" name="level" data-parsley-required="true">
@@ -107,8 +108,9 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
                                 ?>
                             </select>
                         </div>
+                        <?php } else { echo '<input type="hidden" name="level" value="'.$data['levelId'].'">'; } ?>
 
-                        <?php if( $data['levelId']!='1' AND $data['userId']!='1' ){ ?>
+                        <?php if( ($data['levelId']!='1' AND $data['userId']!='1') AND $this->session->userdata('leveluser')!=$data['levelId']){ ?>
                         <div class="form-group">
                             <label for="blokir">Blokir akun ini</label>
                             <div class="form-check">

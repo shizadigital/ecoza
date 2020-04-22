@@ -180,8 +180,8 @@ if( $this->input->get('act')=='detail_access' ):
                             </td>
                             <td class="text-center">
                                 <?php 
-                                if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4'){ 
-                                    if( $ci->session->userdata('leveluser')=='1'){ 
+                                if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4' OR $r['menuId']=='5'){ 
+                                    if( $ci->session->userdata('leveluser')=='1' AND $ci->input->get('levelaccess')=='1'){ 
                                 		echo '<input type="hidden" name="mod_view['.$r['menuId'].']" value="y" />-';
 	                                } else {
 	                                    echo '<input type="hidden" name="mod_view['.$r['menuId'].']" value="n" />-';
@@ -197,8 +197,8 @@ if( $this->input->get('act')=='detail_access' ):
 	                            } ?>
                             </td>
                             <td class="text-center">
-                                <?php if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4'){ 
-                                    if( $ci->session->userdata('leveluser')=='1'){
+                                <?php if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4' OR $r['menuId']=='5'){ 
+                                    if( $ci->session->userdata('leveluser')=='1' AND $ci->input->get('levelaccess')=='1'){
                                 		echo '<input type="hidden" name="mod_add['.$r['menuId'].']" value="y" />-';
                                 	} else {
 	                                    echo '<input type="hidden" name="mod_add['.$r['menuId'].']" value="n" />-';
@@ -212,8 +212,8 @@ if( $this->input->get('act')=='detail_access' ):
                                 <?php } } ?>
                             </td>
                             <td class="text-center">
-                                <?php if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4'){
-                                    if( $ci->session->userdata('leveluser')=='1'){
+                                <?php if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4' OR $r['menuId']=='5'){
+                                    if( $ci->session->userdata('leveluser')=='1' AND $ci->input->get('levelaccess')=='1'){
                                 		echo '<input type="hidden" name="mod_edit['.$r['menuId'].']" value="y" />-';
                                 	} else { 
 	                                    echo '<input type="hidden" name="mod_edit['.$r['menuId'].']" value="n" />-';
@@ -227,8 +227,8 @@ if( $this->input->get('act')=='detail_access' ):
                                 <?php } } ?>
                             </td>
                             <td class="text-center">
-                                <?php if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4'){
-                                    if( $ci->session->userdata('leveluser')=='1'){
+                                <?php if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4' OR $r['menuId']=='5'){
+                                    if( $ci->session->userdata('leveluser')=='1' AND $ci->input->get('levelaccess')=='1'){
                                 		echo '<input type="hidden" name="mod_delete['.$r['menuId'].']" value="y" />-';
 	                                } else { 
 	                                    echo '<input type="hidden" name="mod_delete['.$r['menuId'].']" value="n" />-';
@@ -242,7 +242,7 @@ if( $this->input->get('act')=='detail_access' ):
                                 <?php } } ?>
                             </td>
                             <td class="text-center" style="background:#eaffe2;">
-                                <?php if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4'){
+                                <?php if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4' OR $r['menuId']=='5'){
                                     	echo '-';
                                 } else {
                                 	$allchecked1='';
@@ -255,7 +255,7 @@ if( $this->input->get('act')=='detail_access' ):
                             </td>
                             <td class="text-center">
                                 <?php 
-                                if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4'){
+                                if($r['menuId']=='1' OR $r['menuId']=='2' OR $r['menuId']=='3' OR $r['menuId']=='4' OR $r['menuId']=='5'){
                                     echo "<i class=\"fe fe-minus\"></i>";
                                 } else { 
                                     if($r['menuActive']=='y'){ echo "<i class=\"fe fe-check\"></i>"; }

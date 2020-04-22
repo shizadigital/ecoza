@@ -144,6 +144,7 @@ class Menu_admin_privilage extends CI_Controller{
 
 	public function updatecrudacc(){
 		if(is_edit()){
+			$error = false;
 			foreach ($this->input->post('idmenu') as $key => $value) {
 				$viewv   = (empty($this->input->post('mod_view')[$value])) ? "n" : $this->input->post('mod_view')[$value];
 				$addv    = (empty($this->input->post('mod_add')[$value])) ? "n" : $this->input->post('mod_add')[$value];

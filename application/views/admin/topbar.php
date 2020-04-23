@@ -47,7 +47,7 @@
                             if( $lv == getAdminLocaleCode() ) {
                                 echo 'javascript:void(0)';
                             } else {
-                                echo admin_url('setlang/setadminlang/'.$lv);
+                                echo base_url('setlang/setadminlang/'.$lv);
                             }
 
                             $shortname = explode("_", $lv)[0];

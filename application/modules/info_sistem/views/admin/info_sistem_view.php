@@ -167,17 +167,23 @@ if(is_view()){
 									<div class="table-responsive-sm">
 										<table class="table table-bordered table-hover">
 											<?php
-											$myphp_location = explode(" ", exec("whereis php") );
-											if(count($myphp_location) > 0){
-												$no = 1;
-												foreach ($myphp_location as $key => $value) {
-													//if( $no === 1 ){ continue; }
-													echo '<tr>';
-													echo '<td style="width:30px;" class="text-center">'.$no.'</td>';
-													echo '<td>'.$value.'</td>';
-													echo '</tr>';
-													$no++;
+											if(function_exists('exec')){
+												$myphp_location = explode(" ", exec("whereis php") );
+												if(count($myphp_location) > 0){
+													$no = 1;
+													foreach ($myphp_location as $key => $value) {
+														//if( $no === 1 ){ continue; }
+														echo '<tr>';
+														echo '<td style="width:30px;" class="text-center">'.$no.'</td>';
+														echo '<td>'.$value.'</td>';
+														echo '</tr>';
+														$no++;
+													}
 												}
+											} else {
+												echo '<tr>';
+												echo '<td class="text-center">function exec() is not exists</td>';
+												echo '</tr>';
 											}
 											?>
 										</table>

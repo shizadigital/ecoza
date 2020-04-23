@@ -523,6 +523,10 @@ $lang['information'] = 'Informasi';
 $lang['chooseunit'] = 'Pilih Satuan';
 $lang['totalprice'] = "Total Harga";
 $lang['looktheicon'] = "Lihat Icon";
+$lang['multistore'] = "Multi Toko";
+$lang['enablemultistore'] = "Aktifkan Multi Toko";
+$lang['helpmultistore'] = "Fitur Multi Toko memungkinkan Anda untuk mengelola beberapa toko dengan satu Back Office. Jika fitur ini diaktifkan, halaman \"Multi Toko\" akan tersedia di menu \"Parameter Lanjut\".";
+$lang['alertmultistore'] = "Anda tidak dapat mengubah nilai pada bidang ini dalam konteks toko ini.";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

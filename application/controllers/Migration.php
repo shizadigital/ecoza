@@ -39,10 +39,13 @@ class Migration extends CI_Controller {
         Self::create_shiza_attribute_group_table();
         Self::create_shiza_attribute_relationship_table();
         Self::create_shiza_attribute_value_table();
+        Self::create_shiza_attribute_store_table();
         Self::create_shiza_badges_table();
         Self::create_shiza_badge_relationship_table();
+        Self::create_shiza_badge_store_table();
         Self::create_shiza_categories_table();
         Self::create_shiza_category_relationship_table();
+        Self::create_shiza_category_store_table();
         Self::create_shiza_currency_table();
         Self::create_shiza_comments_table();
         Self::create_shiza_contents_table();
@@ -52,6 +55,7 @@ class Migration extends CI_Controller {
         Self::create_shiza_email_template_table();
         Self::create_shiza_gallery_pic_table();
         Self::create_shiza_manufacturers_table();
+        Self::create_shiza_manufacturers_store_table();
         Self::create_shiza_message_table();
         Self::create_shiza_options_table();
         Self::create_shiza_product_table();
@@ -59,9 +63,11 @@ class Migration extends CI_Controller {
         Self::create_shiza_product_attribute_combination_table();
         Self::create_shiza_product_related_table();
         Self::create_shiza_product_images_table();
+        Self::create_shiza_product_store_table();
         Self::create_shiza_review_table();
         Self::create_shiza_seo_page_table();
         Self::create_shiza_slider_table();
+        Self::create_shiza_store_table();
         Self::create_shiza_tax_table();
         Self::create_shiza_tax_rule_table();
         Self::create_shiza_testimonial_table();
@@ -186,6 +192,18 @@ class Migration extends CI_Controller {
 
     }
 
+    protected function create_shiza_attribute_store_table(){
+
+        $schema = $this->schema->create_table('attribute_store');
+        $schema->increments('attrId', ['length' => '11']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
+
+    }
+
     protected function create_shiza_badges_table() {
         $schema = $this->schema->create_table('badges');
         $schema->increments('badgeId', ['length' => '11']);
@@ -211,6 +229,18 @@ class Migration extends CI_Controller {
         $schema->index('badgeId');
         $schema->index('relatedId');
         $schema->index('bdgrelType');
+
+    }
+
+    protected function create_shiza_badge_store_table(){
+
+        $schema = $this->schema->create_table('badge_store');
+        $schema->increments('badgeId', ['length' => '11']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
 
     }
 
@@ -243,6 +273,18 @@ class Migration extends CI_Controller {
         $schema->index('catId');
         $schema->index('relatedId');
         $schema->index('crelRelatedType');
+    }
+
+    protected function create_shiza_category_store_table(){
+
+        $schema = $this->schema->create_table('category_store');
+        $schema->increments('catId', ['length' => '11']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
+
     }
 
     protected function create_shiza_currency_table(){
@@ -426,6 +468,18 @@ class Migration extends CI_Controller {
         $schema->index('manufactActive');
     }
 
+    protected function create_shiza_manufacturers_store_table(){
+
+        $schema = $this->schema->create_table('manufacturers_store');
+        $schema->increments('manufactId', ['length' => '11']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
+
+    }
+
     protected function create_shiza_message_table() {
 
         $schema = $this->schema->create_table('message');
@@ -451,12 +505,14 @@ class Migration extends CI_Controller {
 
         $schema = $this->schema->create_table('options');
         $schema->increments('optionId', ['type' => 'BIGINT', 'length' => '30']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('optionName', ['length' => '100']);
         $schema->text('optionValue', ['type' => 'LONGTEXT']);
         $schema->run();
 
         // ADD index
         $schema->index('optionId');
+        $schema->index('storeId');
         $schema->index('optionName');
     }
 
@@ -578,6 +634,18 @@ class Migration extends CI_Controller {
         $schema->index('prodId');
     }
 
+    protected function create_shiza_product_store_table(){
+
+        $schema = $this->schema->create_table('product_store');
+        $schema->increments('prodId', ['length' => '11']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
+
+    }
+
     protected function create_shiza_review_table() {
 
         $schema = $this->schema->create_table('review');
@@ -632,6 +700,23 @@ class Migration extends CI_Controller {
         // ADD index
         $schema->index('slideType');
     }
+
+    protected function create_shiza_store_table() {
+
+        $schema = $this->schema->create_table('store');
+        $schema->increments('storeId', ['length' => '11']);
+        $schema->string('storeName', ['length' => '40']);
+        $schema->integer('storeAdded', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('storeUpdated', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->enum('storeDefault', ['y', 'n']);
+        $schema->enum('storeActive', ['y', 'n']);
+        $schema->integer('storeDeleted', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeDefault');
+    }
+
 
     protected function create_shiza_tax_table() {
 
@@ -808,10 +893,13 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('attribute_group');
         $this->schema->drop_table('attribute_relationship');
         $this->schema->drop_table('attribute_value');
+        $this->schema->drop_table('attribute_store');
         $this->schema->drop_table('badges');
         $this->schema->drop_table('badge_relationship');
+        $this->schema->drop_table('badge_store');
         $this->schema->drop_table('categories');
         $this->schema->drop_table('category_relationship');
+        $this->schema->drop_table('category_store');
         $this->schema->drop_table('currency');
         $this->schema->drop_table('comments');
         $this->schema->drop_table('contents');
@@ -821,6 +909,7 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('email_template');
         $this->schema->drop_table('gallery_pic');
         $this->schema->drop_table('manufacturers');
+        $this->schema->drop_table('manufacturers_store');
         $this->schema->drop_table('message');
         $this->schema->drop_table('options');
         $this->schema->drop_table('product');
@@ -828,9 +917,11 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('product_attribute_combination');
         $this->schema->drop_table('product_related');
         $this->schema->drop_table('product_images');
+        $this->schema->drop_table('product_store');
         $this->schema->drop_table('review');
         $this->schema->drop_table('seo_page');
         $this->schema->drop_table('slider');
+        $this->schema->drop_table('store');
         $this->schema->drop_table('tax');
         $this->schema->drop_table('tax_rule');
         $this->schema->drop_table('testimonial');
@@ -861,6 +952,7 @@ class Migration extends CI_Controller {
         Self::seeder_dynamic_translations_table();
         Self::seeder_email_template_table();
         Self::seeder_options_table();
+        Self::seeder_store_table();
         Self::seeder_users_table();
         Self::seeder_users_level_table();
         Self::seeder_users_menu_table();
@@ -1048,38 +1140,69 @@ class Migration extends CI_Controller {
 
     protected function seeder_options_table() {
 		$arr = [
-			['optionName' => 'sitename', 'optionValue' => 'E-Commerce Shiza'],
-			['optionName' => 'sitekeywords', 'optionValue' => 'framework, ci, codeigniter,shiza,ecommerce,ecoza'],
-			['optionName' => 'sitedescription', 'optionValue' => 'E-Commerce Shiza diciptakan untuk mempermudah pengguna dalam berjual beli online.'],
-			['optionName' => 'template', 'optionValue' => 'themekeren'],
-            ['optionName' => 'timezone', 'optionValue' => 'Asia/Jakarta'],
-            ['optionName' => 'phpminsupport', 'optionValue' => '5.6.x'],
-            ['optionName' => 'siteaddress', 'optionValue' => 'Jalan Cumi-cumi II No. 6 Kec. Marphoyan Damai - Pekanbaru'],
-            ['optionName' => 'robots', 'optionValue' => 'index,follow'],
-            ['optionName' => 'socialmediaurl', 'optionValue' => 'a:7:{s:8:"facebook";s:33:"https://www.facebook.com/shiza.id";s:7:"twitter";s:0:"";s:7:"youtube";s:0:"";s:9:"instagram";s:34:"https://www.instagram.com/shiza.id";s:4:"line";s:0:"";s:8:"whatsapp";s:0:"";s:10:"googleplay";s:0:"";}'],
-            ['optionName' => 'ringkaspost', 'optionValue' => '197'],
-            ['optionName' => 'favicon', 'optionValue' => ''],
-            ['optionName' => 'siteemail', 'optionValue' => 'info@shiza.id'],
-            ['optionName' => 'tagline', 'optionValue' => 'This is tagline'],
-            ['optionName' => 'emailsignature', 'optionValue' => '-- <br/>Best Regards, <br/>Admin'],
-            ['optionName' => 'emailheader', 'optionValue' => ''],
-            ['optionName' => 'httpsmode', 'optionValue' => 'no'],
-            ['optionName' => 'sitephone', 'optionValue' => '081276540054'],
-            ['optionName' => 'smtp_username', 'optionValue' => 'info@mail.com'],
-            ['optionName' => 'smtp_password', 'optionValue' => 'TFJlbkV3R1BvOUt4Zlg3eWs1VlpOZz09'],
-            ['optionName' => 'smtp_host', 'optionValue' => 'myhostmail.com'],
-            ['optionName' => 'smtp_ssltype', 'optionValue' => 'ssl'],
-            ['optionName' => 'smtp_port', 'optionValue' => '465'],
-            ['optionName' => 'productrules', 'optionValue' => 'a:4:{i:1;a:2:{s:4:"type";s:11:"add_to_cart";s:11:"description";s:16:"add_to_cart_desc";}i:2;a:2:{s:4:"type";s:16:"contact_to_order";s:11:"description";s:21:"contact_to_order_desc";}i:3;a:2:{s:4:"type";s:11:"coming_soon";s:11:"description";s:16:"coming_soon_desc";}i:4;a:2:{s:4:"type";s:8:"sold_out";s:11:"description";s:13:"sold_out_desc";}}'],
-            ['optionName' => 'defaultcurrency', 'optionValue' => 'IDR'],
-		];
-		foreach ( $arr as $item ) {
-			$data = [
-				'optionName' => $item['optionName'],
-				'optionValue' => $item['optionValue'],
-			];
-			$this->mc->save('shiza_options', $data);
-		}
+            ['optionName' => 'sitename', 'storeId' => 1, 'optionValue' => 'E-Commerce Shiza'],
+            ['optionName' => 'sitekeywords', 'storeId' => 1, 'optionValue' => 'framework, ci, codeigniter,shiza,ecommerce,ecoza'],
+            ['optionName' => 'sitedescription', 'storeId' => 1, 'optionValue' => 'E-Commerce Shiza diciptakan untuk mempermudah pengguna dalam berjual beli online.'],
+            ['optionName' => 'template', 'storeId' => 1, 'optionValue' => 'themekeren'],
+            ['optionName' => 'timezone', 'storeId' => 1, 'optionValue' => 'Asia/Jakarta'],
+            ['optionName' => 'phpminsupport', 'storeId' => 1, 'optionValue' => '7.0.1'],
+            ['optionName' => 'siteaddress', 'storeId' => 1, 'optionValue' => 'Jalan Cumi-cumi II No. 6 Kec. Marphoyan Damai - Pekanbaru'],
+            ['optionName' => 'robots', 'storeId' => 1, 'optionValue' => 'index,follow'],
+            ['optionName' => 'socialmediaurl', 'storeId' => 1, 'optionValue' => 'a:7:{s:8:"facebook";s:33:"https://www.facebook.com/shiza.id";s:7:"twitter";s:0:"";s:7:"youtube";s:0:"";s:9:"instagram";s:34:"https://www.instagram.com/shiza.id";s:4:"line";s:0:"";s:8:"whatsapp";s:0:"";s:10:"googleplay";s:0:"";}'],
+            ['optionName' => 'ringkaspost', 'storeId' => 1, 'optionValue' => '197'],
+            ['optionName' => 'favicon', 'storeId' => 1, 'optionValue' => ''],
+            ['optionName' => 'latitude', 'storeId' => 1, 'optionValue' => ''],
+            ['optionName' => 'longitude', 'storeId' => 1, 'optionValue' => ''],
+            ['optionName' => 'siteemail', 'storeId' => 1, 'optionValue' => 'info@shiza.id'],
+            ['optionName' => 'tagline', 'storeId' => 1, 'optionValue' => 'This is tagline'],
+            ['optionName' => 'emailsignature', 'storeId' => 1, 'optionValue' => '-- <br/>Best Regards, <br/>Admin'],
+            ['optionName' => 'emailheader', 'storeId' => 1, 'optionValue' => ''],
+            ['optionName' => 'httpsmode', 'storeId' => 1, 'optionValue' => 'no'],
+            ['optionName' => 'sitephone', 'storeId' => 1, 'optionValue' => '081276540054'],
+            ['optionName' => 'smtp_username', 'storeId' => 1, 'optionValue' => 'info@mail.com'],
+            ['optionName' => 'smtp_password', 'storeId' => 1, 'optionValue' => 'TFJlbkV3R1BvOUt4Zlg3eWs1VlpOZz09'],
+            ['optionName' => 'smtp_host', 'storeId' => 1, 'optionValue' => 'myhostmail.com'],
+            ['optionName' => 'smtp_ssltype', 'storeId' => 1, 'optionValue' => 'ssl'],
+            ['optionName' => 'smtp_port', 'storeId' => 1, 'optionValue' => '465'],
+            ['optionName' => 'productrules', 'storeId' => 1, 'optionValue' => 'a:4:{i:1;a:2:{s:4:"type";s:11:"add_to_cart";s:11:"description";s:16:"add_to_cart_desc";}i:2;a:2:{s:4:"type";s:16:"contact_to_order";s:11:"description";s:21:"contact_to_order_desc";}i:3;a:2:{s:4:"type";s:11:"coming_soon";s:11:"description";s:16:"coming_soon_desc";}i:4;a:2:{s:4:"type";s:8:"sold_out";s:11:"description";s:13:"sold_out_desc";}}'],
+            ['optionName' => 'defaultcurrency', 'storeId' => 1, 'optionValue' => 'IDR'],
+            ['optionName' => 'multistore', 'storeId' => 1, 'optionValue' => 'off'],
+            ['optionName' => 'postalcode', 'storeId' => 1, 'optionValue' => '28000'],
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'optionName' => $item['optionName'],
+                'storeId' => $item['storeId'],
+                'optionValue' => $item['optionValue'],
+            ];
+            $this->mc->save('options', $data);
+        }
+    }
+
+    protected function seeder_store_table() {
+        $arr = [
+            [
+                'storeId' => 1,
+                'storeName' => 'My Store',
+                'storeAdded' => time2timestamp(),
+                'storeUpdated' => time2timestamp(),
+                'storeDefault' => 'y',
+                'storeActive' => 'y',
+                'storeDeleted' => 0
+            ]
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'storeId' => $item['storeId'],
+                'storeName' => $item['storeName'],
+                'storeAdded' => $item['storeAdded'],
+                'storeUpdated' => $item['storeUpdated'],
+                'storeDefault' => $item['storeDefault'],
+                'storeActive' => $item['storeActive'],
+                'storeDeleted' => $item['storeDeleted'],
+            ];
+            $this->mc->save('store', $data);
+        }
     }
     
     protected function seeder_users_table() {

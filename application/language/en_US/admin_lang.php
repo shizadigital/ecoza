@@ -523,6 +523,10 @@ $lang['information'] = 'Information';
 $lang['chooseunit'] = 'Choose Unit';
 $lang['totalprice'] = "Total Harga";
 $lang['looktheicon'] = "Look the Icon";
+$lang['multistore'] = "Multi Store";
+$lang['enablemultistore'] = "Enable Multistore";
+$lang['helpmultistore'] = "The multistore feature allows you to manage several e-shops with one Back Office. If this feature is enabled, a \"Multistore\" page will be available in the \"Advanced Parameters\" menu.";
+$lang['alertmultistore'] = "You can't change the value of this configuration field in the context of this shop.";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

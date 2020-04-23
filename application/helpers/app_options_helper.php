@@ -165,8 +165,15 @@ function get_option($optname){
     if(isNotMigration()) {
 
         if( check_option($optname) > 0){
+            if( !empty($ci->session->userdata('storeid')) ){
+                $idstore = esc_sql( filter_int( $ci->session->userdata('storeid') ) );
+            } else {
+                $idstore = getval('storeId', 'store', "storeDefault='y'");
+            }
+
             $ci->db->select('optionValue');
             $ci->db->from( $ci->db->dbprefix('options') );
+            $ci->db->where('storeId', $idstore);
             $ci->db->where('optionName', $optname);
             $query = $ci->db->get();
             return $query->row()->optionValue;
@@ -178,16 +185,31 @@ function get_option($optname){
 
 function check_option($optname){
     $ci =& get_instance();
+
+    if( !empty($ci->session->userdata('storeid')) ){
+        $storeId = esc_sql( filter_int( $ci->session->userdata('storeid') ) );
+    } else {
+        $storeId = getval('storeId', 'store', "storeDefault='y'");
+    }
+
     $ci->db->select('count(*) AS total');
     $ci->db->from( $ci->db->dbprefix('options') );
-    $ci->db->where("optionName='{$optname}'");
+    $ci->db->where("optionName='{$optname}' AND storeId='{$storeId}'");
     $query = $ci->db->get();
     return $query->row()->total;
 }
 
 function set_option($option, $value = ''){
     $ci =& get_instance();
+
+    if( !empty($ci->session->userdata('storeid')) ){
+        $idstore = esc_sql( filter_int( $ci->session->userdata('storeid') ) );
+    } else {
+        $idstore = getval('storeId', 'store', "storeDefault='y'");
+    }
+
     $ci->db->set('optionValue', $value);
+    $ci->db->where('storeId', $idstore);
     $ci->db->where('optionName', $option);
     return $ci->db->update( $ci->db->dbprefix('options') );
 }
@@ -198,12 +220,34 @@ function add_option($option, $value = ''){
             'optionName' => $option,
             'optionValue' => $value
     );
+
+    if( !empty($ci->session->userdata('storeid')) ){
+        $idstore = esc_sql( filter_int( $ci->session->userdata('storeid') ) );
+        $store = array('storeId' => $idstore);
+    } else {
+        $getdefaulstore = getval('storeId', 'store', "storeDefault='y'");
+        $store = array('storeId'=>$getdefaulstore);
+    }
+    
+    $data = array_merge($data, $store);
+
     return $ci->db->insert( $ci->db->dbprefix('options'), $data); 
 }
 
 function delete_option($option){
     $ci =& get_instance();
-    return $ci->db->delete( $ci->db->dbprefix('options'), array('optionName' => $option));; 
+
+    if( !empty($ci->session->userdata('storeid')) ){
+        $idstore = esc_sql( filter_int( $ci->session->userdata('storeid') ) );
+        $store = array('storeId' => $idstore);
+    } else {
+        $getdefaulstore = getval('storeId', 'store', "storeDefault='y'");
+        $store = array('storeId'=>$getdefaulstore);
+    }
+    
+    $data = array_merge(array('optionName' => $option), $store);
+
+    return $ci->db->delete( $ci->db->dbprefix('options'), $data); 
 }
 
 function loginCP(){

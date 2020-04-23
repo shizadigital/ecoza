@@ -135,6 +135,13 @@ class Atur_web extends CI_Controller{
 				// SETTING ADDRESS
 				set_option('siteaddress', $this->input->post('siteaddress'));
 
+				// SETTING POSTALCODE
+				set_option('postalcode',$this->input->post('postalcode'));
+
+				// SETTING MULTISTORE
+				$multistore = (!empty($this->input->post('multistore')) AND $this->input->post('multistore')=='y') ? 'on':'off';
+				set_option('multistore',$multistore);
+
 				/*
 				*
 				* SMTP SETTING
@@ -158,7 +165,7 @@ class Atur_web extends CI_Controller{
 				set_option('smtp_ssltype', $this->input->post('smtp_ssltype'));
 
 				// SETTING EMAIL SIGNATURE
-				set_option('emailsignature', filter_txt($this->input->post('emailsignature')));
+				set_option('emailsignature', $this->input->post('emailsignature',true));
 
 
 				/*

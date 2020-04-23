@@ -164,7 +164,22 @@ include V_ADMIN_PATH . "topbar.php";
                                     'name' => 'siteaddress',
                                     'required' => false,
                                     'value' => get_option('siteaddress')
-                                )
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label' => t('postalcode'),
+                                    'name' => 'postalcode',
+                                    'value' => get_option('postalcode')
+                                ),
+                                array(
+                                    'type' => 'checkbox',
+                                    'label' => t('enablemultistore'),
+                                    'title' => t('yes'),
+                                    'name' => 'multistore',
+                                    'value' => 'y',
+                                    'checked' => ( get_option('multistore') =='on' ) ? true:false,
+                                    'help' => t('helpmultistore'),
+                                ),
                             );
 
                             $colsform = array('label'=>'col-sm-3 col-md-2', 'input'=>'col-sm-9 col-md-10');
@@ -223,11 +238,13 @@ include V_ADMIN_PATH . "topbar.php";
                                     ),
                                     'layout' => 'horizontal',
                                 ),
+
                                 array(
-                                    'type' => 'textarea',
+                                    'type' => 'texteditor',
                                     'label' => t('emailsignature'),
                                     'name' => 'emailsignature',
-                                    'value' => get_option('emailsignature')
+                                    'value' => get_option('emailsignature'),
+                                    'texteditor' => 'verysimple',
                                 ),
                             );
 

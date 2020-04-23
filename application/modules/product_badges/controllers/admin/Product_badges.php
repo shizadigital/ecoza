@@ -129,6 +129,13 @@ class Product_badges extends CI_Controller{
 					// insert and update multilanguage
 					translate_pushdata('desc', 'badges', 'badgeDesc', $nextId );
 
+					// add store
+					$datastore = array(
+						'badgeId' => $nextId,
+						'storeId' => storeId()
+					);
+					$query = $this->Env_model->insert('badge_store', $datastore);
+
 					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
 					redirect( admin_url('product_badges/edit/'.$nextId) ); exit;
 			    } else {

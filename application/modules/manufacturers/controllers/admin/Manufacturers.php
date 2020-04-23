@@ -126,6 +126,14 @@ class Manufacturers extends CI_Controller{
 				$query = $this->Env_model->insert('manufacturers', $datacat);
 				
 			    if($query){
+
+					// add store
+					$datastore = array(
+						'manufactId' => $nextId,
+						'storeId' => storeId()
+					);
+					$query = $this->Env_model->insert('manufacturers_store', $datastore);
+
 					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
 					redirect( admin_url('manufacturers/edit/'.$nextId) ); exit;
 			    } else {

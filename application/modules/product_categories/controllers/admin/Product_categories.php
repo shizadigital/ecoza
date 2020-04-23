@@ -127,6 +127,13 @@ class Product_categories extends CI_Controller{
 					translate_pushdata('nama', 'categories', 'catName', $nextId );
 					translate_pushdata('desc', 'categories', 'catDesc', $nextId );
 
+					// add store
+					$datastore = array(
+						'catId' => $nextId,
+						'storeId' => storeId()
+					);
+					$query = $this->Env_model->insert('category_store', $datastore);
+
 					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
 					redirect( admin_url('product_categories/edit/'.$nextId) ); exit;
 			    } else {

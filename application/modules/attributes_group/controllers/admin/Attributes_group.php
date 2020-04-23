@@ -129,6 +129,13 @@ class Attributes_group extends CI_Controller{
 					// insert or update data translation
 					translate_pushdata('label', 'attribute_group', 'attrgroupLabel', $nextId );
 
+					// add store
+					$datastore = array(
+						'attrgroupId' => $nextId,
+						'storeId' => storeId()
+					);
+					$query = $this->Env_model->insert('attribute_group_store', $datastore);
+
 					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
 					redirect( admin_url('attributes_group/edit/'.$nextId) ); exit;
 			    } else {

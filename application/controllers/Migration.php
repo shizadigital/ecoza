@@ -37,6 +37,7 @@ class Migration extends CI_Controller {
         Self::create_shiza_android_device_table();
         Self::create_shiza_attribute_table();
         Self::create_shiza_attribute_group_table();
+        Self::create_shiza_attribute_group_store_table();
         Self::create_shiza_attribute_relationship_table();
         Self::create_shiza_attribute_value_table();
         Self::create_shiza_attribute_store_table();
@@ -161,6 +162,16 @@ class Migration extends CI_Controller {
         // ADD index
         $schema->index('attrgroupSorting');
 
+    }
+
+    protected function create_shiza_attribute_group_store_table(){
+        $schema = $this->schema->create_table('attribute_group_store');
+        $schema->increments('attrgroupId', ['length' => '11']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
     }
 
     protected function create_shiza_attribute_relationship_table(){
@@ -891,6 +902,7 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('android_device');
         $this->schema->drop_table('attribute');
         $this->schema->drop_table('attribute_group');
+        $this->schema->drop_table('attribute_group_store');
         $this->schema->drop_table('attribute_relationship');
         $this->schema->drop_table('attribute_value');
         $this->schema->drop_table('attribute_store');

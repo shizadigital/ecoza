@@ -147,6 +147,13 @@ class Attributes extends CI_Controller{
 						$query = $this->Env_model->insert('attribute_relationship', $attrgroup);
 					}
 
+					// add store
+					$datastore = array(
+						'attrId' => $nextId,
+						'storeId' => storeId()
+					);
+					$query = $this->Env_model->insert('attribute_store', $datastore);
+
 					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
 					redirect( admin_url('attributes/edit/'.$nextId) ); exit;
 			    } else {

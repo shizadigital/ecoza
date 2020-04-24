@@ -17,7 +17,8 @@
                             echo '
                             <div class="dropdown-divider"></div>
                             <div class="dropdown-header">Super Admin Mode</div>
-                            <a class="dropdown-item" href="'.admin_url('product_categories').'"><i class="fe fe-plus"></i> '.t('addnewmenuadminmaster').'</a>
+                            <a class="dropdown-item" href="'.admin_url('menu_admin_master/tambah').'"><i class="fe fe-plus"></i> '.t('addnewmenuadminmaster').'</a>
+                            <a class="dropdown-item" href="'.admin_url('menu_admin_privilage').'"><i class="fe fe-user-check"></i> '.t('menuadminprivilege').'</a>
                             <a class="dropdown-item" href="'.admin_url('main/iconscomponent/?theval=feather').'" target="_blank"><i class="fe fe-grid"></i> '.t('looktheicon').'</a>';
                         }
                         ?>

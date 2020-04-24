@@ -137,6 +137,7 @@ if( is_view() ){
 				<div class="row">
 
 					<div class="col-md-6 form-inline">
+						<?php if( is_delete() ): ?>
 						<div class="input-group">
 							<select name="bulktype" class="form-control form-control-sm custom-select" required>
 								<option value="">-- <?php echo t('bulkaction'); ?> --</option>
@@ -146,35 +147,35 @@ if( is_view() ){
 								<button class="btn btn-light btn-sm submit_bulk" type="button"><i class="fa fa-cog"></i></button>
 							</div>
 						</div>
-					</div>
+						<script type="text/javascript">
+							$(document).ready(function(){
 
-					<script type="text/javascript">
-						$(document).ready(function(){
+								$(".submit_bulk").click( function(){
+									var bulktype = $( "select[name=bulktype]" ).val();
 
-							$(".submit_bulk").click( function(){
-								var bulktype = $( "select[name=bulktype]" ).val();
-
-								if(bulktype=='bulk_delete'){
-									var apply = confirm("<?php echo t('confirmbulkactiondelete'); ?>");
-									if(apply == true){
+									if(bulktype=='bulk_delete'){
+										var apply = confirm("<?php echo t('confirmbulkactiondelete'); ?>");
+										if(apply == true){
+											$('.form_bulk').submit();
+										}
+									} else {
 										$('.form_bulk').submit();
 									}
-								} else {
-									$('.form_bulk').submit();
-								}
-							});
-							
-							//Check all view
-							$("#check_all").click(function(){
-								if ( (this).checked == true ){
-								$('.check_item').prop('checked', true);
-								} else {
-								$('.check_item').prop('checked', false);
-								}
-							});
+								});
+								
+								//Check all view
+								$("#check_all").click(function(){
+									if ( (this).checked == true ){
+									$('.check_item').prop('checked', true);
+									} else {
+									$('.check_item').prop('checked', false);
+									}
+								});
 
-						});
-					</script>
+							});
+						</script>
+						<?php endif; ?>
+					</div>
 
 					<div class="col-md-6 pt-2">
 						<div class="text-right" style="font-style:italic;"><?php echo t('total'). " " . $totaldata; ?></div>
@@ -186,11 +187,13 @@ if( is_view() ){
 								
 								<thead>
 									<tr>
+										<?php if( is_delete() ): ?>
 										<th style="width:25px;" class="text-center">
 											<div class="form-group">
 												<input type="checkbox" id="check_all" />
 											</div>
 										</th>
+										<?php endif; ?>
 										<th style="width:25px;" class="text-center"><?php echo t('no_number'); ?></th>
 										<th><?php echo t('attributes'); ?></th>
 										<th><?php echo t('attributesgroup'); ?></th>
@@ -204,12 +207,15 @@ if( is_view() ){
                                         $label = t( array( 'table'=>'attribute', 'field'=>'attrLabel', 'id'=>$r['attrId']) );
 									?>
 									<tr>
+										<?php if( is_delete() ): ?>
 										<td class="text-center">
 											<div class="form-group">
 												<input type="checkbox" class="check_item" name="item[<?php echo $no; ?>]" value="y" />
 												<input type="hidden" name="item_val[<?php echo $no; ?>]" value="<?php echo $r['attrId']; ?>" />
 											</div>
 										</td>
+										<?php endif; ?>
+										
 										<td class="text-center"><?php echo $no; ?></td>
 										<td>
 											<strong><?php echo $label; ?></strong><br/>

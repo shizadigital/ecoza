@@ -73,6 +73,7 @@ if( is_view() ):
 
                 <div class="row">
                     <div class="col-md-12 form-inline">
+                        <?php if( is_delete() ){ ?>
                         <div class="input-group">
                             <select name="bulktype" class="form-control form-control-sm custom-select" required>
                                 <option value="">-- <?php echo t('bulkaction'); ?> --</option>
@@ -109,16 +110,18 @@ if( is_view() ):
 
                         });
                         </script>
-
+                        <?php } ?>
                     </div>
                     <div class="col-md-12 py-3 table-responsive-sm">
                         <table class="table table-striped table-hover">
 
                             <thead>
                                 <tr>
+                                    <?php if( is_delete() ){ ?>
                                     <th style="width:25px;" class="text-center">
                                         <input type="checkbox" id="check_all" />
                                     </th>
+                                    <?php } ?>
                                     <th style="width:25px;" class="text-center"><?php echo t('no_number'); ?></th>
                                     <th style="min-width:44px;" class="text-center"><?php echo t('images'); ?></th>
                                     <th><?php echo t('username'); ?></th>
@@ -135,6 +138,7 @@ if( is_view() ):
                                 foreach ($data AS $r){
                                 ?>
                                 <tr>
+                                    <?php if( is_delete() ){ ?>
                                     <td class="text-center">
                                         <?php if($r['userId']!='1'){ ?>
                                         <div class="form-group">
@@ -143,6 +147,7 @@ if( is_view() ):
                                         </div>
                                         <?php } ?>
                                     </td>
+                                    <?php } ?>
                                     <td class="text-center"><?php echo $no; ?></td>
                                     <?php 
                                         $userpic = admin_assets('components/core/img/avatars/avatar.png');

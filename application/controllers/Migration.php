@@ -572,7 +572,7 @@ class Migration extends CI_Controller {
 
         // ADD index
         $schema->index('prodType');
-        $schema->index('prodPermalink');
+        $schema->index('prodSlug');
         $schema->index('prodFinalPrice');
         $schema->index('prodWeight');
         $schema->index('prodDisplay');

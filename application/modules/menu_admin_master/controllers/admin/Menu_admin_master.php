@@ -108,7 +108,8 @@ class Menu_admin_master extends CI_Controller {
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('menu_admin_master')
+													'access' => admin_url('menu_admin_master'),
+													'permission' => 'view'
 												)
 											),
 							'data_menu' => $this->menu_data
@@ -140,7 +141,8 @@ class Menu_admin_master extends CI_Controller {
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('menu_admin_master')
+													'access' => admin_url('menu_admin_master'),
+													'permission' => 'view'
 												)
 											),
 							'data_menu' => $this->menu_data,
@@ -442,7 +444,8 @@ class {$capitalize_filename} extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('{$filename}')
+													'access' => admin_url('{$filename}'),
+													'permission' => 'view'
 												)
 											),
 						);
@@ -470,7 +473,8 @@ class {$capitalize_filename} extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('{$filename}')
+													'access' => admin_url('{$filename}'),
+													'permission' => 'view'
 												)
 											),
 						);

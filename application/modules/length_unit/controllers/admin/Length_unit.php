@@ -176,7 +176,8 @@ class Length_unit extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('length_unit')
+													'access' => admin_url('length_unit'),
+													'permission' => 'view'
 												)
 											),
 							'data' => $getdata

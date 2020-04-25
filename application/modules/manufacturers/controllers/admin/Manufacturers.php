@@ -166,7 +166,8 @@ class Manufacturers extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('manufacturers')
+													'access' => admin_url('manufacturers'),
+													'permission' => 'view'
 												)
 											),
 							'data' => $getdata

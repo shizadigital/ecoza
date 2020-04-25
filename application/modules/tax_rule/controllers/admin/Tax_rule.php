@@ -58,7 +58,8 @@ class Tax_rule extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('tax_rule')
+													'access' => admin_url('tax_rule'),
+													'permission' => 'view'
 												)
 											),
 						);
@@ -86,7 +87,8 @@ class Tax_rule extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('tax_rule')
+													'access' => admin_url('tax_rule'),
+													'permission' => 'view'
 												)
 											),
 						);

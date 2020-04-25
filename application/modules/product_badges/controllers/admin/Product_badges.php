@@ -168,7 +168,8 @@ class Product_badges extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('product_badges')
+													'access' => admin_url('product_badges'),
+													'permission' => 'view'
 												)
 											),
 							'data' => $getdata

@@ -166,7 +166,8 @@ class Product_categories extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('product_categories')
+													'access' => admin_url('product_categories'),
+													'permission' => 'view'
 												)
 											),
 							'data' => $getdata

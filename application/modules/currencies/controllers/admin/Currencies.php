@@ -91,7 +91,8 @@ class Currencies extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('currencies')
+													'access' => admin_url('currencies'),
+													'permission' => 'view'
 												)
 											),
 						);
@@ -196,7 +197,8 @@ class Currencies extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('currencies')
+													'access' => admin_url('currencies'),
+													'permission' => 'view'
 												)
 											),
 							'data' => $getdata

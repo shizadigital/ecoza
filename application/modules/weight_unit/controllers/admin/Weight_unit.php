@@ -177,7 +177,8 @@ class Weight_unit extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('weight_unit')
+													'access' => admin_url('weight_unit'),
+													'permission' => 'view'
 												)
 											),
 							'data' => $getdata

@@ -52,7 +52,8 @@ class Users_group extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('users_group')
+													'access' => admin_url('users_group'),
+													'permission' => 'view'
 												)
 											),
 						);
@@ -118,7 +119,8 @@ class Users_group extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('users_group')
+													'access' => admin_url('users_group'),
+													'permission' => 'view'
 												)
 											),
 							'data' => $datagroup

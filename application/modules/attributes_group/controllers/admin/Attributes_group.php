@@ -184,7 +184,8 @@ class Attributes_group extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('attributes_group')
+													'access' => admin_url('attributes_group'),
+													'permission' => 'view'
 												)
 											),	
 							'data' => $getdata,

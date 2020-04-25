@@ -162,7 +162,8 @@ class Tax extends CI_Controller{
 												array(
 													'title' => t('back'),
 													'icon'	=> 'fe fe-corner-up-left',
-													'access' => admin_url('tax')
+													'access' => admin_url('tax'),
+													'permission' => 'view'
 												)
 											),
 							'data' => $getdata

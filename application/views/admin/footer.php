@@ -55,6 +55,10 @@ echo $this->assetsloc->get_admin_script('library');
 <script src="<?php echo admin_assets('components/topbar/index.js'); ?>"></script>
 <script src="<?php echo admin_assets('custom.js'); ?>"></script>
 
+<?php 
+include V_ADMIN_PATH . "footercustom.php";
+?>
+
 <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 <?php 
 // LOAD JAVASCRIPT

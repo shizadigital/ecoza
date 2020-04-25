@@ -162,7 +162,13 @@ if( is_view() ):
                                                         // disable all select
                                                         $('.select_method_cur').attr('disabled','disabled');
 
-                                                        $.post("<?php echo admin_url($this->uri->segment(2).'/ajax_changemethodeupdate/'); ?>", {action:'method_update', method:value, CP:'<?php echo get_cookie('sz_token'); ?>' },
+                                                        $.post("<?php echo admin_url($this->uri->segment(2).'/ajax_changemethodeupdate/'); ?>", 
+                                                        {
+                                                            action:'method_update', 
+                                                            method:value, 
+                                                            CP:'<?php echo get_cookie('sz_token'); ?>'
+                                                            <?php echo ( is_csrf() ? ','.$this->security->get_csrf_token_name().':"'.$this->security->get_csrf_hash().'"':''); ?>
+                                                        },
                                                         function(data){
                                                             if(data){
                                                                 $('.air__initialLoading').show().delay(1000);

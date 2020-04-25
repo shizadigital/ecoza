@@ -47,6 +47,7 @@ $( document ).ready(function() {
                     search: params.term,
                     CP: '".get_cookie('sz_token')."',
                     class: classval
+                    ".( is_csrf() ? ','.$this->security->get_csrf_token_name().':"'.$this->security->get_csrf_hash().'"':'')."
                 }
             },
             processResults: function (data, page) {
@@ -68,6 +69,7 @@ $( document ).ready(function() {
             data : {
                 val: selectdata,
                 CP: '".get_cookie('sz_token')."'
+                ".( is_csrf() ? ','.$this->security->get_csrf_token_name().':"'.$this->security->get_csrf_hash().'"':'')."
             },
             beforeSend: function(data){
                 $('.chooseinforelated').remove();
@@ -115,7 +117,8 @@ $( document ).ready(function() {
                     val: selectdata,
                     group: groupattr,
                     CP: '".get_cookie('sz_token')."',
-                    attravailable: attrval,
+                    attravailable: attrval
+                    ".( is_csrf() ? ','.$this->security->get_csrf_token_name().':"'.$this->security->get_csrf_hash().'"':'')."
                 },
                 beforeSend: function(data){
                     if( $('#noitemattrinfo').length > 0 ){

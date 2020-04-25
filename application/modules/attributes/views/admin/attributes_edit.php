@@ -135,7 +135,11 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/editprocess'), a
 									$(this).addClass('btn-disabled');
 
 									// proccess
-									$.post("<?php echo admin_url($this->uri->segment(2) . '/ajax_addfieldattrval'); ?>", {CP: '<?php echo get_cookie('sz_token'); ?>'},
+									$.post("<?php echo admin_url($this->uri->segment(2) . '/ajax_addfieldattrval'); ?>", 
+									{
+										CP: '<?php echo get_cookie('sz_token'); ?>'
+										<?php echo ( is_csrf() ? ','.$this->security->get_csrf_token_name().':"'.$this->security->get_csrf_hash().'"':''); ?>
+									},
 									function(data){
 										if( $('tr#novalfound').length ){
 											$('tr#novalfound').remove();
@@ -285,7 +289,11 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/editprocess'), a
 																$(this).addClass('btn-disabled');
 
 																// proccess
-																$.post("<?php echo admin_url($this->uri->segment(2) . '/ajax_removedataattrval'); ?>", {attrval: '<?php echo $val['attrvalId']; ?>', CP: '<?php echo get_cookie('sz_token'); ?>'},
+																$.post("<?php echo admin_url($this->uri->segment(2) . '/ajax_removedataattrval'); ?>", 
+																{
+																	attrval: '<?php echo $val['attrvalId']; ?>', CP: '<?php echo get_cookie('sz_token'); ?>'
+																	<?php echo ( is_csrf() ? ','.$this->security->get_csrf_token_name().':"'.$this->security->get_csrf_hash().'"':''); ?>
+																},
 																function(data){
 																	$('#rmvattrvalue-data-<?php echo $val['attrvalId'] ?>').removeAttr('disabled');
 																	$('#rmvattrvalue-data-<?php echo $val['attrvalId'] ?>').removeClass('btn-disabled');

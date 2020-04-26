@@ -32,56 +32,56 @@ class Migration extends CI_Controller {
     }
     
     protected function create() {
-        Self::create_shiza_ads_table();
-        Self::create_shiza_ads_position_table();
-        Self::create_shiza_android_device_table();
-        Self::create_shiza_attribute_table();
-        Self::create_shiza_attribute_group_table();
-        Self::create_shiza_attribute_group_store_table();
-        Self::create_shiza_attribute_relationship_table();
-        Self::create_shiza_attribute_value_table();
-        Self::create_shiza_attribute_store_table();
-        Self::create_shiza_badges_table();
-        Self::create_shiza_badge_relationship_table();
-        Self::create_shiza_badge_store_table();
-        Self::create_shiza_categories_table();
-        Self::create_shiza_category_relationship_table();
-        Self::create_shiza_category_store_table();
-        Self::create_shiza_currency_table();
-        Self::create_shiza_comments_table();
-        Self::create_shiza_contents_table();
-        Self::create_shiza_cron_list_table();
-        Self::create_shiza_dynamic_translations_table();
-        Self::create_shiza_email_queue_table();
-        Self::create_shiza_email_template_table();
-        Self::create_shiza_gallery_pic_table();
-        Self::create_shiza_manufacturers_table();
-        Self::create_shiza_manufacturers_store_table();
-        Self::create_shiza_message_table();
-        Self::create_shiza_options_table();
-        Self::create_shiza_product_table();
-        Self::create_shiza_product_attribute_table();
-        Self::create_shiza_product_attribute_combination_table();
-        Self::create_shiza_product_related_table();
-        Self::create_shiza_product_images_table();
-        Self::create_shiza_product_store_table();
-        Self::create_shiza_review_table();
-        Self::create_shiza_seo_page_table();
-        Self::create_shiza_slider_table();
-        Self::create_shiza_store_table();
-        Self::create_shiza_tax_table();
-        Self::create_shiza_tax_rule_table();
-        Self::create_shiza_testimonial_table();
-        Self::create_shiza_unit_weight_table();
-        Self::create_shiza_unit_length_table();
-        Self::create_shiza_users_table();
-        Self::create_shiza_users_level_table();
-        Self::create_shiza_users_menu_table();
-        Self::create_shiza_users_menu_access_table();
-        Self::create_shiza_website_menu_table();
+        Self::create_ads_table();
+        Self::create_ads_position_table();
+        Self::create_android_device_table();
+        Self::create_attribute_table();
+        Self::create_attribute_group_table();
+        Self::create_attribute_group_store_table();
+        Self::create_attribute_relationship_table();
+        Self::create_attribute_value_table();
+        Self::create_attribute_store_table();
+        Self::create_badges_table();
+        Self::create_badge_relationship_table();
+        Self::create_badge_store_table();
+        Self::create_categories_table();
+        Self::create_category_relationship_table();
+        Self::create_category_store_table();
+        Self::create_currency_table();
+        Self::create_comments_table();
+        Self::create_contents_table();
+        Self::create_cron_list_table();
+        Self::create_dynamic_translations_table();
+        Self::create_email_queue_table();
+        Self::create_email_template_table();
+        Self::create_gallery_pic_table();
+        Self::create_manufacturers_table();
+        Self::create_manufacturers_store_table();
+        Self::create_message_table();
+        Self::create_options_table();
+        Self::create_product_table();
+        Self::create_product_attribute_table();
+        Self::create_product_attribute_combination_table();
+        Self::create_product_related_table();
+        Self::create_product_images_table();
+        Self::create_product_store_table();
+        Self::create_review_table();
+        Self::create_seo_page_table();
+        Self::create_slider_table();
+        Self::create_store_table();
+        Self::create_tax_table();
+        Self::create_tax_rule_table();
+        Self::create_testimonial_table();
+        Self::create_unit_weight_table();
+        Self::create_unit_length_table();
+        Self::create_users_table();
+        Self::create_users_level_table();
+        Self::create_users_menu_table();
+        Self::create_users_menu_access_table();
+        Self::create_website_menu_table();
     }
 
-    protected function create_shiza_ads_table() {
+    protected function create_ads_table() {
 
         $schema = $this->schema->create_table('ads');
         $schema->increments('adsId');
@@ -103,7 +103,7 @@ class Migration extends CI_Controller {
         $schema->index('adposId');
     }
 
-    protected function create_shiza_ads_position_table() {
+    protected function create_ads_position_table() {
 
         $schema = $this->schema->create_table('ads_position');
         $schema->increments('adposId');
@@ -116,7 +116,7 @@ class Migration extends CI_Controller {
         $schema->index('adposId');
     }
 
-    protected function create_shiza_android_device_table() {
+    protected function create_android_device_table() {
 
         $schema = $this->schema->create_table('android_device');
         $schema->increments('devId', ['length' => '10']);
@@ -136,7 +136,7 @@ class Migration extends CI_Controller {
         $schema->index('devAccountId');
     }
 
-    protected function create_shiza_attribute_table(){
+    protected function create_attribute_table(){
 
         $schema = $this->schema->create_table('attribute');
         $schema->increments('attrId', ['length' => '11']);
@@ -150,7 +150,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_attribute_group_table(){
+    protected function create_attribute_group_table(){
 
         $schema = $this->schema->create_table('attribute_group');
         $schema->increments('attrgroupId', ['length' => '11']);
@@ -164,7 +164,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_attribute_group_store_table(){
+    protected function create_attribute_group_store_table(){
         $schema = $this->schema->create_table('attribute_group_store');
         $schema->increments('attrgroupId', ['length' => '11']);
         $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
@@ -174,7 +174,7 @@ class Migration extends CI_Controller {
         $schema->index('storeId');
     }
 
-    protected function create_shiza_attribute_relationship_table(){
+    protected function create_attribute_relationship_table(){
 
         $schema = $this->schema->create_table('attribute_relationship');
         $schema->increments('attrrelId', ['type' => 'BIGINT', 'length' => '25']);
@@ -188,7 +188,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_attribute_value_table(){
+    protected function create_attribute_value_table(){
 
         $schema = $this->schema->create_table('attribute_value');
         $schema->increments('attrvalId', ['type' => 'BIGINT', 'length' => '25']);
@@ -203,7 +203,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_attribute_store_table(){
+    protected function create_attribute_store_table(){
 
         $schema = $this->schema->create_table('attribute_store');
         $schema->increments('attrId', ['length' => '11']);
@@ -215,7 +215,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_badges_table() {
+    protected function create_badges_table() {
         $schema = $this->schema->create_table('badges');
         $schema->increments('badgeId', ['length' => '11']);
         $schema->string('badgeLabel', ['length' => '60']);
@@ -228,7 +228,7 @@ class Migration extends CI_Controller {
         $schema->run();
     }
 
-    protected function create_shiza_badge_relationship_table() {
+    protected function create_badge_relationship_table() {
         $schema = $this->schema->create_table('badge_relationship');
         $schema->increments('bdgrelId', ['length' => '11']);
         $schema->integer('badgeId', ['length' => '11', 'unsigned' => TRUE]);
@@ -243,7 +243,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_badge_store_table(){
+    protected function create_badge_store_table(){
 
         $schema = $this->schema->create_table('badge_store');
         $schema->increments('badgeId', ['length' => '11']);
@@ -255,7 +255,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_categories_table() {
+    protected function create_categories_table() {
         $schema = $this->schema->create_table('categories');
         $schema->increments('catId', ['length' => '11']);
         $schema->string('catName', ['length' => '100']);
@@ -272,7 +272,7 @@ class Migration extends CI_Controller {
         $schema->index('catType');
     }
 
-    protected function create_shiza_category_relationship_table() {
+    protected function create_category_relationship_table() {
         $schema = $this->schema->create_table('category_relationship');
         $schema->increments('crelId', ['type' => 'BIGINT', 'length' => '20']);
         $schema->integer('catId', ['length' => '10', 'unsigned' => TRUE]);
@@ -286,7 +286,7 @@ class Migration extends CI_Controller {
         $schema->index('crelRelatedType');
     }
 
-    protected function create_shiza_category_store_table(){
+    protected function create_category_store_table(){
 
         $schema = $this->schema->create_table('category_store');
         $schema->increments('catId', ['length' => '11']);
@@ -298,7 +298,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_currency_table(){
+    protected function create_currency_table(){
         $schema = $this->schema->create_table('currency');
         $schema->increments('curId', ['length' => '11']);
         $schema->string('curTitle', ['length' => '30']);
@@ -319,7 +319,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_comments_table() {
+    protected function create_comments_table() {
 
         $schema = $this->schema->create_table('comments');
         $schema->increments('commentId', ['type' => 'BIGINT', 'length' => '20']);
@@ -343,7 +343,7 @@ class Migration extends CI_Controller {
         $schema->index('commentParentId');
     }
 
-    protected function create_shiza_contents_table() {
+    protected function create_contents_table() {
 
         $schema = $this->schema->create_table('contents');
         $schema->increments('contentId', ['type' => 'BIGINT', 'length' => '20']);
@@ -380,7 +380,7 @@ class Migration extends CI_Controller {
         $schema->index('contentType');
     }
 
-    protected function create_shiza_cron_list_table() {
+    protected function create_cron_list_table() {
 
         $schema = $this->schema->create_table('cron_list');
         $schema->increments('cronId', ['length' => '10']);
@@ -393,7 +393,7 @@ class Migration extends CI_Controller {
         $schema->run();
     }
 
-    protected function create_shiza_dynamic_translations_table() {
+    protected function create_dynamic_translations_table() {
 
         $schema = $this->schema->create_table('dynamic_translations');
         $schema->increments('dtId', ['type' => 'BIGINT', 'length' => '30']);
@@ -413,7 +413,7 @@ class Migration extends CI_Controller {
         $schema->index('dtRelatedId');
     }
 
-    protected function create_shiza_email_queue_table() {
+    protected function create_email_queue_table() {
 
         $schema = $this->schema->create_table('email_queue');
         $schema->increments('emailId', ['length' => '11']);
@@ -434,7 +434,7 @@ class Migration extends CI_Controller {
         $schema->index('emailId');
     }
 
-    protected function create_shiza_email_template_table() {
+    protected function create_email_template_table() {
 
         $schema = $this->schema->create_table('email_template');
         $schema->increments('tId', ['length' => '10']);
@@ -445,7 +445,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_gallery_pic_table() {
+    protected function create_gallery_pic_table() {
 
         $schema = $this->schema->create_table('gallery_pic');
         $schema->increments('galpicId', ['type' => 'BIGINT', 'length' => '25']);
@@ -460,7 +460,7 @@ class Migration extends CI_Controller {
         $schema->index('contentId');
     }
 
-    protected function create_shiza_manufacturers_table() {
+    protected function create_manufacturers_table() {
 
         $schema = $this->schema->create_table('manufacturers');
         $schema->increments('manufactId', ['length' => '11']);
@@ -479,7 +479,7 @@ class Migration extends CI_Controller {
         $schema->index('manufactActive');
     }
 
-    protected function create_shiza_manufacturers_store_table(){
+    protected function create_manufacturers_store_table(){
 
         $schema = $this->schema->create_table('manufacturers_store');
         $schema->increments('manufactId', ['length' => '11']);
@@ -491,7 +491,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_message_table() {
+    protected function create_message_table() {
 
         $schema = $this->schema->create_table('message');
         $schema->increments('msgId', ['length' => '11']);
@@ -512,7 +512,7 @@ class Migration extends CI_Controller {
         $schema->index('msgReplyId');
     }
 
-    protected function create_shiza_options_table() {
+    protected function create_options_table() {
 
         $schema = $this->schema->create_table('options');
         $schema->increments('optionId', ['type' => 'BIGINT', 'length' => '30']);
@@ -527,7 +527,7 @@ class Migration extends CI_Controller {
         $schema->index('optionName');
     }
 
-    protected function create_shiza_product_table(){
+    protected function create_product_table(){
         
         $schema = $this->schema->create_table('product');
         $schema->increments('prodId', ['length' => '11']);
@@ -579,7 +579,7 @@ class Migration extends CI_Controller {
         $schema->index('prodDeleted');
     }
 
-    protected function create_shiza_product_attribute_table(){
+    protected function create_product_attribute_table(){
         $schema = $this->schema->create_table('product_attribute');
         $schema->increments('pattrId', ['type' => 'BIGINT', 'length' => '30']);
         $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
@@ -606,7 +606,7 @@ class Migration extends CI_Controller {
         $schema->index('pattrFinalPrice');
     }
 
-    protected function create_shiza_product_attribute_combination_table(){
+    protected function create_product_attribute_combination_table(){
         $schema = $this->schema->create_table('product_attribute_combination');
         $schema->increments('pattrcombId', ['type' => 'BIGINT', 'length' => '30']);
         $schema->integer('pattrId', ['length' => '11', 'unsigned' => TRUE]);
@@ -620,7 +620,7 @@ class Migration extends CI_Controller {
         $schema->index('attrId');
     }
 
-    protected function create_shiza_product_related_table() {
+    protected function create_product_related_table() {
         $schema = $this->schema->create_table('product_related');
         $schema->increments('prelId', ['type' => 'BIGINT', 'length' => '30']);
         $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
@@ -631,7 +631,7 @@ class Migration extends CI_Controller {
         $schema->index('prodId');
     }
 
-    protected function create_shiza_product_images_table() {
+    protected function create_product_images_table() {
         $schema = $this->schema->create_table('product_images');
         $schema->increments('pimgId', ['type' => 'BIGINT', 'length' => '30']);
         $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
@@ -645,7 +645,7 @@ class Migration extends CI_Controller {
         $schema->index('prodId');
     }
 
-    protected function create_shiza_product_store_table(){
+    protected function create_product_store_table(){
 
         $schema = $this->schema->create_table('product_store');
         $schema->increments('prodId', ['length' => '11']);
@@ -657,7 +657,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_review_table() {
+    protected function create_review_table() {
 
         $schema = $this->schema->create_table('review');
         $schema->increments('reviewId', ['type' => 'BIGINT', 'length' => '30']);
@@ -676,7 +676,7 @@ class Migration extends CI_Controller {
         $schema->index('reviewType');
     }
 
-    protected function create_shiza_seo_page_table() {
+    protected function create_seo_page_table() {
 
         $schema = $this->schema->create_table('seo_page');
         $schema->increments('seoId', ['type' => 'BIGINT', 'length' => '20']);
@@ -693,7 +693,7 @@ class Migration extends CI_Controller {
         $schema->index('seoTypePage');
     }
 
-    protected function create_shiza_slider_table() {
+    protected function create_slider_table() {
 
         $schema = $this->schema->create_table('slider');
         $schema->increments('slideId', ['length' => '11']);
@@ -712,7 +712,7 @@ class Migration extends CI_Controller {
         $schema->index('slideType');
     }
 
-    protected function create_shiza_store_table() {
+    protected function create_store_table() {
 
         $schema = $this->schema->create_table('store');
         $schema->increments('storeId', ['length' => '11']);
@@ -729,7 +729,7 @@ class Migration extends CI_Controller {
     }
 
 
-    protected function create_shiza_tax_table() {
+    protected function create_tax_table() {
 
         $schema = $this->schema->create_table('tax');
         $schema->increments('taxId', ['length' => '11']);
@@ -744,7 +744,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_tax_rule_table() {
+    protected function create_tax_rule_table() {
 
         $schema = $this->schema->create_table('tax_rule');
         $schema->increments('txrId', ['length' => '11']);
@@ -759,7 +759,7 @@ class Migration extends CI_Controller {
 
     }
 
-    protected function create_shiza_testimonial_table() {
+    protected function create_testimonial_table() {
 
         $schema = $this->schema->create_table('testimonial');
         $schema->increments('testiId', ['length' => '11']);
@@ -772,7 +772,7 @@ class Migration extends CI_Controller {
         $schema->run();
     }
 
-    protected function create_shiza_unit_weight_table() {
+    protected function create_unit_weight_table() {
 
         $schema = $this->schema->create_table('unit_weight');
         $schema->increments('weightId', ['length' => '11']);
@@ -783,7 +783,7 @@ class Migration extends CI_Controller {
         $schema->run();
     }
 
-    protected function create_shiza_unit_length_table() {
+    protected function create_unit_length_table() {
 
         $schema = $this->schema->create_table('unit_length');
         $schema->increments('lengthId', ['length' => '11']);
@@ -794,7 +794,7 @@ class Migration extends CI_Controller {
         $schema->run();
     }
 
-    protected function create_shiza_users_table() {
+    protected function create_users_table() {
 
         $schema = $this->schema->create_table('users');
         $schema->increments('userId', ['length' => '11']);
@@ -824,7 +824,7 @@ class Migration extends CI_Controller {
         $schema->index('userDelete');
     }
 
-    protected function create_shiza_users_level_table() {
+    protected function create_users_level_table() {
 
         $schema = $this->schema->create_table('users_level');
         $schema->increments('levelId', ['length' => '10']);
@@ -836,7 +836,7 @@ class Migration extends CI_Controller {
         $schema->index('levelId');
     }
 
-    protected function create_shiza_users_menu_table() {
+    protected function create_users_menu_table() {
 
         $schema = $this->schema->create_table('users_menu');
         $schema->increments('menuId', ['length' => '10', 'unsigned' => TRUE]);
@@ -859,7 +859,7 @@ class Migration extends CI_Controller {
         $schema->index('menuParentId');
     }
 
-    protected function create_shiza_users_menu_access_table() {
+    protected function create_users_menu_access_table() {
 
         $schema = $this->schema->create_table('users_menu_access');
         $schema->increments('lmnId', ['length' => '10']);
@@ -876,7 +876,7 @@ class Migration extends CI_Controller {
         $schema->index('menuId');
     }
 
-    protected function create_shiza_website_menu_table() {
+    protected function create_website_menu_table() {
 
         $schema = $this->schema->create_table('website_menu');
         $schema->increments('menuId', ['length' => '10']);
@@ -1001,7 +1001,7 @@ class Migration extends CI_Controller {
 				'adposW' => $item['w'],
 				'adposH' => $item['h'],
 			];
-			$this->mc->save('shiza_ads_position', $data);
+			$this->mc->save('ads_position', $data);
 		}
     }
 
@@ -1107,7 +1107,7 @@ class Migration extends CI_Controller {
 				'curUpdateMethod' => $item['curUpdateMethod'],
 				'curStatus' => $item['curStatus'],
 			];
-			$this->mc->save('shiza_currency', $data);
+			$this->mc->save('currency', $data);
 		}
     }
 
@@ -1146,7 +1146,7 @@ class Migration extends CI_Controller {
                 'dtCreateDate'=>$item['dtCreateDate'],
                 'dtUpdateDate'=>$item['dtUpdateDate']
 			];
-			$this->mc->save('shiza_dynamic_translations', $data);
+			$this->mc->save('dynamic_translations', $data);
 		}
     }
 
@@ -1282,7 +1282,7 @@ class Migration extends CI_Controller {
 				'userOnlineStatus' => $item['userOnlineStatus'],
 				'userLang' => $item['userLang'],
 			];
-			$this->mc->save('shiza_users', $data);
+			$this->mc->save('users', $data);
 		}
     }
     
@@ -1297,7 +1297,7 @@ class Migration extends CI_Controller {
 				'levelName' => $item['levelName'],
 				'levelActive' => $item['levelActive'],
 			];
-			$this->mc->save('shiza_users_level', $data);
+			$this->mc->save('users_level', $data);
 		}
     }
     
@@ -1641,7 +1641,7 @@ class Migration extends CI_Controller {
 				'menuEdit' => $item['menuEdit'],
 				'menuDelete' => $item['menuDelete'],
 			];
-			$this->mc->save('shiza_users_menu', $data);
+			$this->mc->save('users_menu', $data);
 		}
     }
 
@@ -1866,7 +1866,7 @@ class Migration extends CI_Controller {
 				'lmnEdit' => $item['lmnEdit'],
 				'lmnDelete' => $item['lmnDelete'],
 			];
-			$this->mc->save('shiza_users_menu_access', $data);
+			$this->mc->save('users_menu_access', $data);
 		}
     }
     
@@ -2065,7 +2065,7 @@ class Migration extends CI_Controller {
 				'tEmail' => $item['tEmail'],
 				'tEmailbak' => $item['tEmailbak'],
 			];
-			$this->mc->save('shiza_email_template', $data);
+			$this->mc->save('email_template', $data);
 		}
     }
 }

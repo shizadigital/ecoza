@@ -50,3 +50,9 @@ function countingDiffPrice(harga1,harga2,printke,ket1,ket_salah){
         $(printke).html( ket1 + cetak);
     });
 }
+
+function numberFormat(value, dec=2, comma=',', sep='.') {
+    var parts = value.toFixed(dec).split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+    return parts.join(comma);
+}

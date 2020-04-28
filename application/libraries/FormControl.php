@@ -6,11 +6,11 @@ class FormControl {
     protected $CI;
 
     public function __construct(){
-        // load environment of CI
+		// load environment of CI
         $this->CI =& get_instance();
 
         // load helper
-        $this->CI->load->helper('cookie');
+		$this->CI->load->helper('cookie');
     }
 
     /**
@@ -58,7 +58,7 @@ class FormControl {
         }
 
         $sqlclause = "dtRelatedField='{$dbfield}' AND dtRelatedTable='{$dbtable}' AND dtRelatedId='{$dbrelid}'";
-        $sql = "SELECT dtLang,dtTranslation,dtInputType FROM ".$CI->db->dbprefix('dynamic_translations')." WHERE ".$sqlclause;
+	    $sql = "SELECT dtLang,dtTranslation,dtInputType FROM ".$CI->db->dbprefix('dynamic_translations')." WHERE ".$sqlclause;
         
         // unset variable
         unset($inputs['type'], $inputs['required'], $inputs['label'], $inputs['value'], $inputs['texteditor']);
@@ -159,7 +159,7 @@ class FormControl {
                             $querylang = $CI->db->query($langsql);
                             $dl = $querylang->result_array($querylang)[0];
                         }
-                    }
+			    	}
 
                     $result .= '<div class="tab-pane fade pt-2 tinymce-multilang'.( ($valuel2 == $defaultlang)? ' active show':'').'" id="lang-'.$theflagcode2.'-'.$attrId.'" role="tabpanel" aria-labelledby="tablang-'.$theflagcode2.'-'.$attrId.'">'."\n";
 
@@ -261,9 +261,9 @@ class FormControl {
         // check if this web is multilang
         if( is_multilang() AND $inputsType!='texteditor'){
             $result .= '
-            <div class="input-group-append">
-                <button data-toggle="modal" data-target="#translate_'.$inputs['name'].'" class="btn btn-light shiza_tooltip" title="'.t('translate').'" id="modal_'.$inputs['name'].'" type="button"><i class="fa fa-language"></i></button>
-            </div>';
+	        <div class="input-group-append">
+	            <button data-toggle="modal" data-target="#translate_'.$inputs['name'].'" class="btn btn-light shiza_tooltip" title="'.t('translate').'" id="modal_'.$inputs['name'].'" type="button"><i class="fa fa-language"></i></button>
+	        </div>';
         }
 
         $result .= '</div>'."\n";
@@ -308,11 +308,11 @@ class FormControl {
     
                     if($r['dtInputType']=='text'){
                         $attrinput = array(
-                            'class'         => 'form-control inputlang'.$attrClass,
-                            'name'          => 'datalang['.$inputs['name'].']['.$r['dtLang'].'][translation]',
-                            'placeholder'   => $country,
+							'class' 		=> 'form-control inputlang'.$attrClass,
+							'name' 			=> 'datalang['.$inputs['name'].']['.$r['dtLang'].'][translation]',
+                            'placeholder' 	=> $country,
                             'value'         => $r['dtTranslation']
-                        );
+						);
                         $result .='
                             <div class="input-group mb-3 mt-15">
                                 '. form_input($attrinput) .'
@@ -326,13 +326,13 @@ class FormControl {
                     }
                     elseif($r['dtInputType']=='textarea'){
                         $attrinput = array(
-                            'class'         => 'form-control inputlang'.$attrClass,
-                            'name'          => 'datalang['.$inputs['name'].']['.$r['dtLang'].'][translation]',
-                            'placeholder'   => $country,
-                            'rows'          => 5,
-                            'cols'          => '',
+							'class' 		=> 'form-control inputlang'.$attrClass,
+							'name' 			=> 'datalang['.$inputs['name'].']['.$r['dtLang'].'][translation]',
+							'placeholder' 	=> $country,
+							'rows' 			=> 5,
+                			'cols' 			=> '',
                             'value'         => $r['dtTranslation']
-                        );
+						);
                         $result .= '
                             <div class="input-group mb-3 mt-15">
                                 '.form_textarea($attrinput).'
@@ -384,74 +384,74 @@ class FormControl {
             <!-- End Modal -->
             
             <script type="text/javascript">
-            jQuery(function($) {
-                $("#modal_'.$inputs['name'].'").click(function(){
+	    	jQuery(function($) {
+	    		$("#modal_'.$inputs['name'].'").click(function(){
 
-                    $("#btnsubmit_'.$inputs['name'].'").attr(\'disabled\',\'disabled\');
+	    			$("#btnsubmit_'.$inputs['name'].'").attr(\'disabled\',\'disabled\');
 
-                    var langs = $("#thelang_'.$inputs['name'].'").attr("class");
+	    			var langs = $("#thelang_'.$inputs['name'].'").attr("class");
 
-                    $.ajax({
-                        type: "POST",
-                        url: "'. base_url('ajax/translation').'",
-                        data : { 
-                            fieldname: "'.$inputs['name'].'",
-                            availabellang: langs,
+	    			$.ajax({
+			            type: "POST",
+			            url: "'. base_url('ajax/translation').'",
+			            data : { 
+	                        fieldname: "'.$inputs['name'].'",
+	                        availabellang: langs,
                             CP: "'.get_cookie('sz_token').'"
                             '.( is_csrf() ? ','.$CI->security->get_csrf_token_name().':"'.$CI->security->get_csrf_hash().'"':'').'
-                        },
-                        beforeSend: function(data){
-                            $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
-                            $(this).attr(\'disabled\',\'disabled\');
-                        },
-                        success: function(data) {
-                            if(data){
-                                $(\'#content_'.$inputs['name'].'\').show().html(data);
-                            } else {
-                                $(\'content_'.$inputs['name'].'\').show().html(\'<center><h4>'.t('datacannotbeloaded').'</h4></center>\');
-                            }
-                            $(this).removeAttr("disabled");
-                        }
-                    });
+	                    },
+			            beforeSend: function(data){
+			                $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
+			                $(this).attr(\'disabled\',\'disabled\');
+			            },
+			            success: function(data) {
+			                if(data){
+			                	$(\'#content_'.$inputs['name'].'\').show().html(data);
+			                } else {
+			                	$(\'content_'.$inputs['name'].'\').show().html(\'<center><h4>'.t('datacannotbeloaded').'</h4></center>\');
+			                }
+			                $(this).removeAttr("disabled");
+			            }
+			        });
                 });
                 
                 $("#btnsubmit_'.$inputs['name'].'").click(function(){
 
-                    var vallang = $("input[name=\'chooselang[]\'].choose_'.$inputs['name'].':checked").map(function(){return $(this).val();}).get();
+	    			var vallang = $("input[name=\'chooselang[]\'].choose_'.$inputs['name'].':checked").map(function(){return $(this).val();}).get();
 
-                    var jsondata = { 
-                            fieldtype: "'.$inputsType.'",
-                            fieldname: "'.$inputs['name'].'",                           
-                            CP: "'.get_cookie('sz_token').'",
+	    			var jsondata = { 
+			            	fieldtype: "'.$inputsType.'",
+			            	fieldname: "'.$inputs['name'].'",			            	
+	                        CP: "'.get_cookie('sz_token').'",
                             val: vallang
                             '.( is_csrf() ? ','.$CI->security->get_csrf_token_name().': "'.$CI->security->get_csrf_hash().'"':'').'
-                        };
+	                    };
 
-                    $.ajax({
-                        type: "POST",
-                        url: "'. base_url('ajax/translation/langproccess') .'",
-                        data : jsondata,
-                        async: true,
-                        beforeSend: function(data){
-                            $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
-                            $(".btnmodallang_'.$inputs['name'].'").attr(\'disabled\',\'disabled\');
-                        },
-                        success: function(data) {
-                            if(data){
-                                if(data == \'503\'){
-                                    $(\'#translateresult_'.$inputs['name'].'\').show().html(\''.t('error').' 503\');
-                                } else {
-                                    $(\'#translateresult_'.$inputs['name'].'\').show().append(data);
-                                }
-                            } else {
-                                $(\'#translateresult_'.$inputs['name'].'\').show().html(\''.t('datacannotbeloaded').'\');
-                            }
-                            $(".btnmodallang_'.$inputs['name'].'").removeAttr("disabled");
-                            $("#translate_'.$inputs['name'].'").modal(\'hide\');
-                        }
-                    });
-                });
-            });
+	    			$.ajax({
+			            type: "POST",
+			            url: "'. base_url('ajax/translation/langproccess') .'",
+			            data : jsondata,
+			            async: true,
+			            beforeSend: function(data){
+			                $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
+			                $(".btnmodallang_'.$inputs['name'].'").attr(\'disabled\',\'disabled\');
+			            },
+			            success: function(data) {
+			                if(data){
+			                	if(data == \'503\'){
+			                		$(\'#translateresult_'.$inputs['name'].'\').show().html(\''.t('error').' 503\');
+			                	} else {
+			                		$(\'#translateresult_'.$inputs['name'].'\').show().append(data);
+			                	}
+			                } else {
+			                	$(\'#translateresult_'.$inputs['name'].'\').show().html(\''.t('datacannotbeloaded').'\');
+			                }
+			                $(".btnmodallang_'.$inputs['name'].'").removeAttr("disabled");
+			                $("#translate_'.$inputs['name'].'").modal(\'hide\');
+			            }
+			        });
+	    		});
+	    	});
             </script>
             ';
         }
@@ -473,7 +473,7 @@ class FormControl {
 
         if(count( $inputs ) > 0){
             
-            foreach( $inputs AS $key => $val ){
+            foreach( array_filter($inputs) AS $key => $val ){
                 
                 // define key before process the form
                 $required           = ( isset($val['required']) ) ? $val['required']:false;

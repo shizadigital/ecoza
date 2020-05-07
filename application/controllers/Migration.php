@@ -52,6 +52,7 @@ class Migration extends CI_Controller {
         Self::create_contents_table();
         Self::create_cron_list_table();
         Self::create_dynamic_translations_table();
+        Self::create_email_blacklist_table();
         Self::create_email_queue_table();
         Self::create_email_template_table();
         Self::create_gallery_pic_table();
@@ -413,11 +414,24 @@ class Migration extends CI_Controller {
         $schema->index('dtRelatedId');
     }
 
+    protected function create_email_blacklist_table(){
+        $schema = $this->schema->create_table('email_blacklist');
+        $schema->increments('eblId', ['length' => '11']);
+        $schema->string('eblEmail', ['length' => '255']);
+        $schema->string('eblReason', ['length' => '30']);
+        $schema->run();
+
+        // ADD index
+        $schema->index('eblEmail');
+    }
+
     protected function create_email_queue_table() {
 
         $schema = $this->schema->create_table('email_queue');
         $schema->increments('emailId', ['length' => '11']);
-        $schema->string('emailTo', ['length' => '50']);
+        $schema->string('emailTo', ['length' => '255']);
+        $schema->string('emailCC', ['length' => '255']);
+        $schema->string('emailBCC', ['length' => '255']);
         $schema->string('emailSubject');
         $schema->text('emailMsg', ['type' => 'MEDIUMTEXT']);
         $schema->enum('emailMsgType', ['text', 'html']);
@@ -425,9 +439,7 @@ class Migration extends CI_Controller {
         $schema->integer('emailDate', ['length' => '10', 'unsigned' => TRUE]);
         $schema->integer('emailDateSent', ['length' => '10', 'unsigned' => TRUE]);
         $schema->char('emailStatus', ['length' => '1']);
-        $schema->char('emailAttachDir', ['length' => '8']);
-        $schema->string('emailAttachFile');
-        $schema->string('emailAttachType', ['length' => '4']);
+        $schema->text('emailAttachFile');
         $schema->run();
 
         // ADD index
@@ -917,6 +929,7 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('contents');
         $this->schema->drop_table('cron_list');
         $this->schema->drop_table('dynamic_translations');
+        $this->schema->drop_table('email_blacklist');
         $this->schema->drop_table('email_queue');
         $this->schema->drop_table('email_template');
         $this->schema->drop_table('gallery_pic');
@@ -1133,7 +1146,11 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'17', 'dtLang'=>'en_US', 'dtTranslation'=>'Product Badges', 'dtInputType'=>'text', 'dtCreateDate'=>'1583350660', 'dtUpdateDate'=>'1583350660'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'18', 'dtLang'=>'en_US', 'dtTranslation'=>'Reports', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429030', 'dtUpdateDate'=>'1583429099'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'19', 'dtLang'=>'en_US', 'dtTranslation'=>'Weight Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583429622', 'dtUpdateDate'=>'1583429908'],
-            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'20', 'dtLang'=>'en_US', 'dtTranslation'=>'Length Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583430361', 'dtUpdateDate'=>'1583430361'],['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'21', 'dtLang'=>'en_US', 'dtTranslation'=>'Tax', 'dtInputType'=>'text', 'dtCreateDate'=>'1584089953', 'dtUpdateDate'=>'1584089953'],['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'22', 'dtLang'=>'en_US', 'dtTranslation'=>'Tax Rule', 'dtInputType'=>'text', 'dtCreateDate'=>'1584090162', 'dtUpdateDate'=>'1584090162'],['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'23', 'dtLang'=>'en_US', 'dtTranslation'=>'Currencies', 'dtInputType'=>'text', 'dtCreateDate'=>'1584090568', 'dtUpdateDate'=>'1584090568'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'20', 'dtLang'=>'en_US', 'dtTranslation'=>'Length Unit', 'dtInputType'=>'text', 'dtCreateDate'=>'1583430361', 'dtUpdateDate'=>'1583430361'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'21', 'dtLang'=>'en_US', 'dtTranslation'=>'Tax', 'dtInputType'=>'text', 'dtCreateDate'=>'1584089953', 'dtUpdateDate'=>'1584089953'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'22', 'dtLang'=>'en_US', 'dtTranslation'=>'Tax Rule', 'dtInputType'=>'text', 'dtCreateDate'=>'1584090162', 'dtUpdateDate'=>'1584090162'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'23', 'dtLang'=>'en_US', 'dtTranslation'=>'Currencies', 'dtInputType'=>'text', 'dtCreateDate'=>'1584090568', 'dtUpdateDate'=>'1584090568'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'24', 'dtLang'=>'en_US', 'dtTranslation'=>'Database', 'dtInputType'=>'text', 'dtCreateDate'=>'1588876649', 'dtUpdateDate'=>'1588876649'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1303,331 +1320,370 @@ class Migration extends CI_Controller {
     
     protected function seeder_users_menu_table() {
 		$arr = [
-			[
+            [
+                'menuId' => '1',
                 'menuParentId' => '0',
-                'menuName' => 'Developer', 
+                'menuName' => 'Developer',
                 'menuAccess' => '',
-                'menuAddedDate' => '1452867589', 
+                'menuAddedDate' => '1452867589',
                 'menuSort' => '5',
-                'menuIcon' => 'fe fe-award', 
+                'menuIcon' => 'fe fe-award',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'n', 
+                'menuAdd' => 'n',
                 'menuEdit' => 'n',
-                'menuDelete' => 'n',
+                'menuDelete' => 'n'
             ],
-			[
+            [
+                'menuId' => '2',
                 'menuParentId' => '1',
-                'menuName' => 'Menu Admin Master ', 
+                'menuName' => 'Menu Admin Master ',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:17:"menu_admin_master";}',
-                'menuAddedDate' => '1452867589', 
+                'menuAddedDate' => '1452867589',
                 'menuSort' => '1',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
-			[
+            [
+                'menuId' => '3',
                 'menuParentId' => '1',
-                'menuName' => 'Menu Admin Privilage', 
+                'menuName' => 'Menu Admin Privilage',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:20:"menu_admin_privilage";}',
-                'menuAddedDate' => '1577632987', 
+                'menuAddedDate' => '1577632987',
                 'menuSort' => '2',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
-			[
+            [
+                'menuId' => '4',
                 'menuParentId' => '0',
-                'menuName' => 'System', 
+                'menuName' => 'System',
                 'menuAccess' => '',
-                'menuAddedDate' => '1577728905', 
+                'menuAddedDate' => '1577728905',
                 'menuSort' => '4',
-                'menuIcon' => 'fe fe-settings', 
+                'menuIcon' => 'fe fe-settings',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'n', 
+                'menuAdd' => 'n',
                 'menuEdit' => 'y',
-                'menuDelete' => 'n',
+                'menuDelete' => 'n'
             ],
-			[
+            [
+                'menuId' => '5',
                 'menuParentId' => '4',
-                'menuName' => 'Info Sistem', 
+                'menuName' => 'Info Sistem',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"info_sistem";}',
-                'menuAddedDate' => '1577729211', 
+                'menuAddedDate' => '1577729211',
                 'menuSort' => '1',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
-			[
+            [
+                'menuId' => '6',
                 'menuParentId' => '0',
-                'menuName' => 'Pengaturan', 
+                'menuName' => 'Pengaturan',
                 'menuAccess' => '',
-                'menuAddedDate' => '1577892258', 
+                'menuAddedDate' => '1577892258',
                 'menuSort' => '3',
-                'menuIcon' => 'fe fe-sliders', 
+                'menuIcon' => 'fe fe-sliders',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'n', 
+                'menuAdd' => 'n',
                 'menuEdit' => 'n',
-                'menuDelete' => 'n',
+                'menuDelete' => 'n'
             ],
-			[
+            [
+                'menuId' => '7',
                 'menuParentId' => '6',
-                'menuName' => 'Atur Web', 
+                'menuName' => 'Atur Web',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:8:"atur_web";}',
-                'menuAddedDate' => '1577892344', 
+                'menuAddedDate' => '1577892344',
                 'menuSort' => '1',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'n', 
+                'menuAdd' => 'n',
                 'menuEdit' => 'y',
-                'menuDelete' => 'n',
+                'menuDelete' => 'n'
             ],
-			[
+            [
+                'menuId' => '8',
                 'menuParentId' => '0',
-                'menuName' => 'Pengguna', 
+                'menuName' => 'Pengguna',
                 'menuAccess' => '',
-                'menuAddedDate' => '1578138421', 
+                'menuAddedDate' => '1578138421',
                 'menuSort' => '2',
-                'menuIcon' => 'fe fe-user', 
+                'menuIcon' => 'fe fe-user',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'n', 
+                'menuAdd' => 'n',
                 'menuEdit' => 'n',
-                'menuDelete' => 'n',
+                'menuDelete' => 'n'
             ],
-			[
+            [
+                'menuId' => '9',
                 'menuParentId' => '8',
-                'menuName' => 'Kelola Pengguna', 
+                'menuName' => 'Kelola Pengguna',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:12:"manage_users";}',
-                'menuAddedDate' => '1578138586', 
+                'menuAddedDate' => '1578138586',
                 'menuSort' => '1',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
-			[
+            [
+                'menuId' => '10',
                 'menuParentId' => '8',
-                'menuName' => 'Grup Pengguna', 
+                'menuName' => 'Grup Pengguna',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"users_group";}',
-                'menuAddedDate' => '1579535259', 
+                'menuAddedDate' => '1579535259',
                 'menuSort' => '2',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
-			[
+            [
+                'menuId' => '11',
                 'menuParentId' => '0',
-                'menuName' => 'Katalog', 
+                'menuName' => 'Katalog',
                 'menuAccess' => '',
-                'menuAddedDate' => '1581957645', 
+                'menuAddedDate' => '1581957645',
                 'menuSort' => '1',
-                'menuIcon' => 'fe fe-file-text', 
+                'menuIcon' => 'fe fe-file-text',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'n', 
+                'menuAdd' => 'n',
                 'menuEdit' => 'n',
-                'menuDelete' => 'n',
+                'menuDelete' => 'n'
             ],
-			[
+            [
+                'menuId' => '12',
                 'menuParentId' => '11',
-                'menuName' => 'Kategori Produk', 
+                'menuName' => 'Kategori Produk',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:18:"product_categories";}',
-                'menuAddedDate' => '1581958817', 
+                'menuAddedDate' => '1581958817',
                 'menuSort' => '2',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '13',
                 'menuParentId' => '11',
-                'menuName' => 'Pabrikan', 
+                'menuName' => 'Pabrikan',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:13:"manufacturers";}',
-                'menuAddedDate' => '1583163512', 
+                'menuAddedDate' => '1583163512',
                 'menuSort' => '5',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '14',
                 'menuParentId' => '11',
-                'menuName' => 'Atribut', 
+                'menuName' => 'Atribut',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:10:"attributes";}',
-                'menuAddedDate' => '1583253180', 
+                'menuAddedDate' => '1583253180',
                 'menuSort' => '3',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '15',
                 'menuParentId' => '11',
-                'menuName' => 'Produk', 
+                'menuName' => 'Produk',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:7:"product";}',
-                'menuAddedDate' => '1583254882', 
+                'menuAddedDate' => '1583254882',
                 'menuSort' => '1',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '16',
                 'menuParentId' => '11',
-                'menuName' => 'Atribut Grup', 
+                'menuName' => 'Atribut Grup',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:16:"attributes_group";}',
-                'menuAddedDate' => '1583255841', 
+                'menuAddedDate' => '1583255841',
                 'menuSort' => '4',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '17',
                 'menuParentId' => '11',
-                'menuName' => 'Lencana Produk', 
+                'menuName' => 'Lencana Produk',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:14:"product_badges";}',
-                'menuAddedDate' => '1583350660', 
+                'menuAddedDate' => '1583350660',
                 'menuSort' => '6',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '18',
                 'menuParentId' => '0',
-                'menuName' => 'Laporan', 
+                'menuName' => 'Laporan',
                 'menuAccess' => '',
-                'menuAddedDate' => '1583429029', 
+                'menuAddedDate' => '1583429029',
                 'menuSort' => '3',
-                'menuIcon' => 'fe fe-clipboard', 
+                'menuIcon' => 'fe fe-clipboard',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'n', 
+                'menuAdd' => 'n',
                 'menuEdit' => 'n',
-                'menuDelete' => 'n',
+                'menuDelete' => 'n'
             ],
             [
+                'menuId' => '19',
                 'menuParentId' => '6',
-                'menuName' => 'Satuan Bobot', 
+                'menuName' => 'Satuan Bobot',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"weight_unit";}',
-                'menuAddedDate' => '1583429908', 
+                'menuAddedDate' => '1583429908',
                 'menuSort' => '1',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '20',
                 'menuParentId' => '6',
-                'menuName' => 'Satuan Panjang', 
+                'menuName' => 'Satuan Panjang',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"length_unit";}',
-                'menuAddedDate' => '1583430360', 
+                'menuAddedDate' => '1583430360',
                 'menuSort' => '2',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '21',
                 'menuParentId' => '6',
-                'menuName' => 'Pajak', 
+                'menuName' => 'Pajak',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:3:"tax";}',
-                'menuAddedDate' => '1584089953', 
+                'menuAddedDate' => '1584089953',
                 'menuSort' => '3',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '22',
                 'menuParentId' => '6',
-                'menuName' => 'Aturan Pajak', 
+                'menuName' => 'Aturan Pajak',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:8:"tax_rule";}',
-                'menuAddedDate' => '1584090162', 
+                'menuAddedDate' => '1584090162',
                 'menuSort' => '4',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
             [
+                'menuId' => '23',
                 'menuParentId' => '6',
-                'menuName' => 'Mata Uang', 
+                'menuName' => 'Mata Uang',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:10:"currencies";}',
-                'menuAddedDate' => '1584090345', 
+                'menuAddedDate' => '1584090345',
                 'menuSort' => '5',
-                'menuIcon' => '', 
+                'menuIcon' => '',
                 'menuAttrClass' => '',
-                'menuActive' => 'y', 
+                'menuActive' => 'y',
                 'menuView' => 'y',
-                'menuAdd' => 'y', 
+                'menuAdd' => 'y',
                 'menuEdit' => 'y',
-                'menuDelete' => 'y',
+                'menuDelete' => 'y'
             ],
-		];
+            [
+                'menuId' => '24',
+                'menuParentId' => '1',
+                'menuName' => 'Database',
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:8:"database";}',
+                'menuAddedDate' => '1588876649',
+                'menuSort' => '3',
+                'menuIcon' => '',
+                'menuAttrClass' => '',
+                'menuActive' => 'y',
+                'menuView' => 'y',
+                'menuAdd' => 'n',
+                'menuEdit' => 'n',
+                'menuDelete' => 'n'
+            ]
+        ];
 		foreach ( $arr as $item ) {
 			$data = [
+				'menuId' => $item['menuId'],
 				'menuParentId' => $item['menuParentId'],
 				'menuName' => $item['menuName'],
 				'menuAccess' => $item['menuAccess'],
@@ -1648,214 +1704,223 @@ class Migration extends CI_Controller {
     protected function seeder_users_menu_access_table() {
         
 		$arr = [
-			[
-                'lmnId' => '1', 
+            [
+                'lmnId' => '1',
                 'levelId' => '1',
-                'menuId' => '1', 
+                'menuId' => '1',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '2', 
+            [
+                'lmnId' => '2',
                 'levelId' => '1',
-                'menuId' => '2', 
+                'menuId' => '2',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '3', 
+            [
+                'lmnId' => '3',
                 'levelId' => '1',
-                'menuId' => '3', 
+                'menuId' => '3',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '4', 
+            [
+                'lmnId' => '4',
                 'levelId' => '1',
-                'menuId' => '4', 
+                'menuId' => '4',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '5', 
+            [
+                'lmnId' => '5',
                 'levelId' => '1',
-                'menuId' => '5', 
+                'menuId' => '5',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '6', 
+            [
+                'lmnId' => '6',
                 'levelId' => '1',
-                'menuId' => '6', 
+                'menuId' => '6',
                 'lmnView' => 'y',
-                'lmnAdd' => 'n', 
+                'lmnAdd' => 'n',
                 'lmnEdit' => 'n',
-                'lmnDelete' => 'n',
+                'lmnDelete' => 'n'
             ],
-			[
-                'lmnId' => '7', 
+            [
+                'lmnId' => '7',
                 'levelId' => '1',
-                'menuId' => '7', 
+                'menuId' => '7',
                 'lmnView' => 'y',
-                'lmnAdd' => 'n', 
+                'lmnAdd' => 'n',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'n',
+                'lmnDelete' => 'n'
             ],
-			[
-                'lmnId' => '8', 
+            [
+                'lmnId' => '8',
                 'levelId' => '1',
-                'menuId' => '8', 
+                'menuId' => '8',
                 'lmnView' => 'y',
-                'lmnAdd' => 'n', 
+                'lmnAdd' => 'n',
                 'lmnEdit' => 'n',
-                'lmnDelete' => 'n',
+                'lmnDelete' => 'n'
             ],
-			[
-                'lmnId' => '9', 
+            [
+                'lmnId' => '9',
                 'levelId' => '1',
-                'menuId' => '9', 
+                'menuId' => '9',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '10', 
+            [
+                'lmnId' => '10',
                 'levelId' => '1',
-                'menuId' => '10', 
+                'menuId' => '10',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '11', 
+            [
+                'lmnId' => '11',
                 'levelId' => '1',
-                'menuId' => '11', 
+                'menuId' => '11',
                 'lmnView' => 'y',
-                'lmnAdd' => 'n', 
+                'lmnAdd' => 'n',
                 'lmnEdit' => 'n',
-                'lmnDelete' => 'n',
+                'lmnDelete' => 'n'
             ],
-			[
-                'lmnId' => '12', 
+            [
+                'lmnId' => '12',
                 'levelId' => '1',
-                'menuId' => '12', 
+                'menuId' => '12',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '13', 
+            [
+                'lmnId' => '13',
                 'levelId' => '1',
-                'menuId' => '13', 
+                'menuId' => '13',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '14', 
+            [
+                'lmnId' => '14',
                 'levelId' => '1',
-                'menuId' => '14', 
+                'menuId' => '14',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '15', 
+            [
+                'lmnId' => '15',
                 'levelId' => '1',
-                'menuId' => '15', 
+                'menuId' => '15',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '16', 
+            [
+                'lmnId' => '16',
                 'levelId' => '1',
-                'menuId' => '16', 
+                'menuId' => '16',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '17', 
+            [
+                'lmnId' => '17',
                 'levelId' => '1',
-                'menuId' => '17', 
+                'menuId' => '17',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '18', 
+            [
+                'lmnId' => '18',
                 'levelId' => '1',
-                'menuId' => '18', 
+                'menuId' => '18',
                 'lmnView' => 'y',
-                'lmnAdd' => 'n', 
+                'lmnAdd' => 'n',
                 'lmnEdit' => 'n',
-                'lmnDelete' => 'n',
+                'lmnDelete' => 'n'
             ],
-			[
-                'lmnId' => '19', 
+            [
+                'lmnId' => '19',
                 'levelId' => '1',
-                'menuId' => '19', 
+                'menuId' => '19',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '20', 
+            [
+                'lmnId' => '20',
                 'levelId' => '1',
-                'menuId' => '20', 
+                'menuId' => '20',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '21', 
+            [
+                'lmnId' => '21',
                 'levelId' => '1',
-                'menuId' => '21', 
+                'menuId' => '21',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '22', 
+            [
+                'lmnId' => '22',
                 'levelId' => '1',
-                'menuId' => '22', 
+                'menuId' => '22',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-			[
-                'lmnId' => '23', 
+            [
+                'lmnId' => '23',
                 'levelId' => '1',
-                'menuId' => '23', 
+                'menuId' => '23',
                 'lmnView' => 'y',
-                'lmnAdd' => 'y', 
+                'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
-                'lmnDelete' => 'y',
+                'lmnDelete' => 'y'
             ],
-		];
+            [
+                'lmnId' => '24',
+                'levelId' => '1',
+                'menuId' => '24',
+                'lmnView' => 'y',
+                'lmnAdd' => 'n',
+                'lmnEdit' => 'n',
+                'lmnDelete' => 'n'
+            ]
+        ];
 		foreach ( $arr as $item ) {
 			$data = [
 				'lmnId' => $item['lmnId'],

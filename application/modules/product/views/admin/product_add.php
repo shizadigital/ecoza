@@ -363,6 +363,18 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
         </div></div>
         <script type="text/javascript">
             $(document).ready(function(){
+                $('input[name=shipping].shipping').change(function(e) {
+                    if ( $(this).val() == 'y') {
+                        var prodtypechoose = $('#producttypechoice').val();
+
+                        if(prodtypechoose == 'simpleproduct' || prodtypechoose =='configurableproduct'){
+                            $("#listtab-shipping").show();
+                        }
+                    } else {
+                        $("#listtab-shipping").hide();
+                    }
+                });
+                
                 $('#producttypechoice').change(function(e) {
                     var value = $(this).val();
                     
@@ -384,6 +396,9 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         moving_tab_to('#general');
                     }
 
+                    // define shipping choose
+                    var shipping_val = $("input[name=\'shipping\'].shipping:checked").val();
+
                     if(value == 'simpleproduct'){
                         // hide attribute
                         $("#listtab-attribute").hide();
@@ -391,8 +406,10 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         // hide downloadable
                         $("#listtab-downloadable").hide();
 
-                        // show shipping
-                        $("#listtab-shipping").show();
+                        if(shipping_val == 'y'){
+                            // show shipping
+                            $("#listtab-shipping").show();
+                        }
 
                         // enable field in general tab
                         $("#general-qty").removeAttr('disabled');
@@ -407,9 +424,10 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         // hide downloadable
                         $("#listtab-downloadable").hide();
 
-                        // show shipping
-                        $("#listtab-shipping").show();
-
+                        if(shipping_val == 'y'){
+                            // show shipping
+                            $("#listtab-shipping").show();
+                        }
                     }
                     else if(value == 'downloadableproduct'){
                         // moving tab
@@ -422,7 +440,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
 
                         // show downloadable
                         $("#listtab-downloadable").show();
-
+                        
                         // hide shipping
                         $("#listtab-shipping").hide();
                     }
@@ -748,6 +766,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                     'type' => 'radio',
                                     'label'=> t('shipping'),
                                     'name'=> 'shipping',
+                                    'class' => 'shipping',
                                     'value' => array(
                                         array(
                                             'value'=>'y',

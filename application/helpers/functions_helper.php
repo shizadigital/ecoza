@@ -86,10 +86,10 @@ function getMonth($bln){
 
 function hijriah($time){
     $theDate = getdate();
-    $wday = $theDate[wday];
-    $hr = $theDate[mday];
-    $theMonth = $theDate[mon];
-    $theYear = $theDate[year];
+    $wday = $theDate['wday'];
+    $hr = $theDate['mday'];
+    $theMonth = $theDate['mon'];
+    $theYear = $theDate['year'];
 
     if (($theYear > 1582) || (($theYear == 1582) && ($theMonth > 10)) || (($theYear == 1582) && ($theMonth == 10) && ($hr > 14))) {
         $zjd = (int)((1461 * ($theYear + 4800 + (int)(($theMonth - 14) / 12))) / 4) + (int)((367 * ($theMonth - 2 - 12 * ((int)(($theMonth - 14) / 12)))) / 12) - (int)((3 * (int)((($theYear + 4900 + (int)(($theMonth - 14) / 12)) / 100))) / 4) + $hr - 32075;
@@ -1130,79 +1130,115 @@ function getCombination( $arrays ){
 	return $result;
 }
 
-
 /**
-*
-* Send mail
-*
-* @param array $emailto
-* @param array $emailsubject
-* @param array $emailmsg
-* @param array $emailtype
-* @param array $emailhead
-* @param array $emailattach
-*
-* @return bool
-*/
-function sendMail($emailto, $emailsubject, $emailmsg='', $emailtype = 'html', $emailhead='', $emailattach=''){
-	//This function will queuing email before send it.
-	//Will not re-queue data to table if the email and content is exist
-	//You can count the successful query by the return value;
-	$now = time2timestamp();
-	$nowdir = '';
-	$targetFile = '';
-	$ext = '';
+ * check email black list
+ *
+ * @param string $email
+ * @return boolean
+ */
+function is_emailblacklist($email = null){
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ return true; }
 
-	//Checking whether same data exist in mail_queue and email_blacklist
-	$isemailexist = countdata("email_queue","emailMsg='$emailmsg' AND emailTo='$emailto'");
-	$blackemail   = countdata("email_blacklist","blackEmail='$emailto'");
+    $email = esc_sql(filter_txt($email)); 
+    $result = false;    
+    if( countdata('email_blacklist', array('eblEmail'=>$email)) > 0 ) $result =true;
 
-	if($isemailexist<1 and $blackemail<1){
-		#upload file
-		if (!empty ($emailattach)){
-			$nowdir = date('dmY');
-			
-			$targetFile = end(explode('/', $emailattach));
-			$targetDir = realpath(dirname(__file__).'/..').'/assets/emailqueue/'.$nowdir;
-			@mkdir($targetDir);
-			
-			#make it unique
-			if(file_exists($targetDir.'/'.$targetFile)){
-				list($origName, $origExt) = explode('.', $targetFile);
-				$ext = strtolower(end(explode('.', $targetFile)));
-				
-				$targetFile = $origName.'_'.strtolower(kodeacak(4)).'.'.$ext;
-			}
-			
-			@copy($emailattach, $targetDir.'/'.$targetFile);
-		}
-		$nextid = getNextId('emailId',$table_prefix.'email_queue');
-		$sql = "INSERT INTO {$table_prefix}email_queue VALUES ('$nextid','$emailto','$emailsubject','$emailmsg','$emailtype','$emailhead','$now','0','n','$nowdir','$targetFile', '$ext')";
-		$query = $MEMO_DB->query($sql);
-	}
-
-	if($query){
-		return true;
-	}else{
-		return false;
-	}
+    return $result;
 }
 
 /**
-*
-* Send mail with php mailer
-*
-* @param array $options
-*
-* @return bool
-*/
+ *
+ * Send mail to queue in database
+ *
+ * @param string $emailto
+ * @param string $subject
+ * @param string $msg
+ * @param mixed $cc
+ * @param mixed $bcc
+ * @param string $emailtype
+ * @param string $emailhead
+ * @param array $emailattach
+ *
+ * @return bool
+ */
+function sendMailToQueue($emailto, $subject='', $msg='', $cc='', $bcc='', $emailtype = 'html', $emailhead='', $emailattach=array()){
+    $ci =& get_instance();
+
+    $result = false;
+    $dataattach = '';
+
+    $countqueue = countdata('email_queue', array('emailMsg'=>$msg, 'emailTo'=>$emailto));
+    if( $countqueue < 1 AND !is_emailblacklist($emailto) ){
+
+        if(count($emailattach) > 0){
+            $dirextra = date('m').date('Y');
+            
+            $dirnamequeue ='emailqueue';
+            // make dir in files 
+            $makedir = makeDirUpload($dirnamequeue , $dirextra, 'files');
+
+            $dirname = FILES_PATH.$dirnamequeue;
+            $dirattach = $dirname.DIRECTORY_SEPARATOR.$dirextra.DIRECTORY_SEPARATOR;
+            if($makedir){
+                if(!empty( $emailattach['filename']) AND !empty( $emailattach['filepath'])){
+                    @copy($emailattach['filepath'], $dirattach);
+                } else {
+                    foreach( $emailattach as $val){
+                        if( is_array($val) ){
+                            @copy($val['filepath'], $dirattach);
+                        }
+                    }
+                }
+            }
+
+            $dataattach = serialize($emailattach);
+        }
+
+        if(is_array($cc)){
+            $cc = serialize($cc);
+        }
+        if(is_array($bcc)){
+            $bcc = serialize($bcc);
+        }
+
+        $nexid = getNextId('emailId','email_queue');
+        $data = array(
+                'emailId' => $nexid,
+                'emailTo' => $emailto,
+                'emailCC' => (string) $cc,
+                'emailBCC' => (string) $bcc,
+                'emailSubject' => (string) $subject,
+                'emailMsg' => (string) $msg,
+                'emailMsgType' => $emailtype,
+                'emailHead' => (string) $emailhead,
+                'emailDate' => time2timestamp(),
+                'emailDateSent' => 0,
+                'emailStatus' => 'n',
+                'emailAttachFile'=> $dataattach,
+        );
+
+        $query = $ci->db->insert( $ci->db->dbprefix('email_queue'), $data);
+
+        if($query){ $result = true; }
+    }
+
+    return $result;
+}
+
+/**
+ *
+ * Send mail with php mailer
+ *
+ * @param array $options
+ *
+ * @return bool
+ */
 function sendMailPHPMailer($options){
     // Unclude the file
     $ci =& get_instance();
-    $ci->load->library('phpmailer');
-	$mail = $ci->phpmailer->load();
+    $ci->load->library('SendMailPhpMailer');
+    $mail = $ci->sendmailphpmailer->load();
     
-	$filename = '';
 	foreach($options as $key=>$value){
 		$$key = $value;
 	}
@@ -1211,59 +1247,86 @@ function sendMailPHPMailer($options){
 		$mailopt = EMAIL_OPTION;
 	} else {
 		$mailopt = $mailopt;
-	}
+    }
+    
+    $result = false;
 	
 	if ($mailopt == "standard"){
+
+		$mail->IsSMTP();
 		
 		$mail->setFrom($from, $fromname);
 		$mail->addAddress($to, $toname);
 		$mail->addReplyTo($replyto, "Reply");
-		$mail->addCC($cc);
-		$mail->addBCC($bcc);
+        
+        if(is_array($cc)){
+            foreach($cc as $ccval){
+		        $mail->addCC($ccval);
+            }
+        }
+        else {
+            $mail->addCC($cc);
+        }
+
+        if(is_array($bcc)){
+            foreach($bcc as $bccval){
+		        $mail->addBCC($bccval);
+            }
+        }
+        else {
+            $mail->addBCC($bcc);
+        }
+
 		if($messagetype=='html'){
 			$mail->isHTML(true); 
 		}else{
 			$mail->isHTML(false); 
 		}
-		$mail->CharSet="UTF-8";
+		$mail->CharSet = "UTF-8";
 		$mail->Subject = $subject;
 		$mail->Body    = $message;
 
 		// Attachments
-		if(!empty($filename)){
-		    // $mail->addAttachment('files/proposal_web_berita_murah.pdf', 'proposal.pdf');     // Proposal
-		    // $mail->addAttachment('images/business-flyer-Memo-small.png', 'brochure.jpg');    // flyer brochure
-		}
-		
+		if(!empty($attachment)){
+            if( count($attachment) > 0 ){
+                if(!empty( $attachment['filename']) AND !empty( $attachment['filepath'])){
+                    $mail->addAttachment( $attachment['filepath'], $attachment['filename']);
+                } else {
+                    foreach( $attachment as $val){
+                        if( is_array($val) ){
+                            $mail->addAttachment( $val['filepath'], $val['filename']);
+                        }
+                    }
+                }
+            }
+        }
+        		
 		//set email SMTP
 		$mail->WordWrap = 50;
-		$mail->IsSMTP();
-		$mail->Host = memo_get_option('smtp_host');
-		$mail->Port = memo_get_option('smtp_port');
+		$mail->Host = get_option('smtp_host');
+		$mail->Port = get_option('smtp_port');
 		$mail->SMTPAuth = true;
-		$mail->Username = memo_get_option('smtp_username');
-		$mail->Password = decoder(memo_get_option('smtp_password'));
-    	$mail->SMTPSecure = memo_get_option('smtp_ssltype');
+		$mail->Username = get_option('smtp_username');
+		$mail->Password = decoder(get_option('smtp_password'));
+    	$mail->SMTPSecure = get_option('smtp_ssltype');
 		if(!$mail->send()) {
 			$result = FALSE;
 		} else {
 			$result = TRUE;
-		}
-		
-		//print "standar";
+        }
+        
 	}else if($mailopt == "queue"){
 		#header
 		$header = $fromname."#".$from;
 		if ($replyto) $header .= "#".$replyto;
 		if ($cc) $header .= "#".$cc;
 		if ($bcc) $header .= "#".$bcc;
-		
-		$result = sendmail($to, $subject, $message, $messagetype, $header, $filename);
-	}
-	$mail->ClearAddresses();
-	
-	if($result == FALSE and $mailopt != 'queue'){
-		$result = sendmail($to, $subject, $message, $messagetype, $header, $filename);
+        
+		$result = sendMailToQueue($to, $subject, $message, $cc, $bcc, $messagetype, $header, $attachment);
+    }
+    
+	if($result == FALSE AND $mailopt != 'queue'){
+        $result = sendMailToQueue($to, $subject, $message, $cc, $bcc, $messagetype, $header, $attachment);
     }
     
     return $result;

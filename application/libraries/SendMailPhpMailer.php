@@ -1,16 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PhpMailer {
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+class SendMailPhpMailer {
 
     public function __construct() {
         log_message('Debug', 'PHPMailer class is loaded.');
     }
 
     public function load() {
-        require_once('phpmailer/PHPMailerAutoload.php');
-
-        $mail = new PHPMailer;
+        $mail = new PHPMailer();
         return $mail;
     }
 }

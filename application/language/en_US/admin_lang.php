@@ -61,6 +61,7 @@ $lang['be_view'] = "View";
 $lang['close'] = "Close";
 $lang['cancel'] = "Cancel";
 $lang['total'] = "Total";
+$lang['total2'] = "Total";
 $lang['back'] = "Back";
 $lang['yes'] = "Yes";
 $lang['no'] = "No";
@@ -379,6 +380,7 @@ $lang['canceled'] = "Canceled";
 $lang['failed'] = "Failed";
 $lang['refunded'] = "Refunded";
 $lang['invoice'] = "Invoice";
+$lang['invoice2'] = "Invoice";
 $lang['orderdate'] = "Order Date";
 $lang['buyer'] = "Buyer";
 $lang['orderlist'] = "Order List";
@@ -527,6 +529,16 @@ $lang['multistore'] = "Multi Store";
 $lang['enablemultistore'] = "Enable Multistore";
 $lang['helpmultistore'] = "The multistore feature allows you to manage several e-shops with one Back Office. If this feature is enabled, a \"Multistore\" page will be available in the \"Advanced Parameters\" menu.";
 $lang['alertmultistore'] = "You can't change the value of this configuration field in the context of this shop.";
+$lang['managementtype'] = "Management Type";
+$lang['purchasepriceperunit'] = "Purchase Price Per Unit";
+$lang['totalpurchaseprice'] = "Total Purchase Price";
+$lang['supplier'] = "Supplier";
+$lang['database'] = "Database";
+$lang['insertedby'] = "Inserted By";
+$lang['insertedbyinfo'] = "If this field is empty, then the data will be inserted with your account.";
+$lang['pos'] = "POS";
+$lang['pointofsales'] = "Point of Sales";
+$lang['byuser'] = "By User";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -548,6 +560,12 @@ $lang['september'] = 'September';
 $lang['october'] = 'October';
 $lang['november'] = 'November';
 $lang['december'] = 'December';
+
+/**
+ * POS SETTING
+ */
+$lang['stockentrycodeprefix'] = "Stock Entry Code Prefix";
+$lang['totaldigitstockentrycode'] = "Total Digit Stock Entry Code";
 
 // lang module
 /**
@@ -652,6 +670,7 @@ $lang['totalproduct'] = "Total Product";
 /**
  * Products
  */
+$lang['addproduct'] = "Add Product";
 $lang['newproduct'] = "New Product";
 $lang['product'] = "Product";
 $lang['products'] = "Products";
@@ -708,6 +727,21 @@ $lang['edittax'] = "Edit Tax";
  */
 $lang['currencies'] = "Currencies";
 $lang['currency'] = "Currency";
+
+/**
+ * Warehouse
+ */
+$lang['warehouse'] = "Warehouse";
+
+/**
+ * Stock Entry
+ */
+$lang['stockentry'] = "Stock Entry";
+$lang['newstockentry'] = "New Stock Entry";
+$lang['stockcode'] = "Stock Code";
+$lang['stockentrycode'] = "Stock Entry Code";
+$lang['infoaddentrystock'] = "Make sure the data is correct before adding. After the data is added, the data is not allowed to be updated";
+$lang['entrydate'] = "Entry Date";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
@@ -778,6 +812,7 @@ $lang['stocknotenough'] = "Sorry, the stock of produk \"%s\" not enough. Availab
 $lang['phonenumbererror'] = "Please insert valid phone number";
 $lang['addresspriorityerror'] = "Priority of address cannot be change. because this address is priority";
 $lang['defaultattrisempty'] = "Please choose the default attribute";
+$lang['fefowarning'] = "Management type of warehouse used FEFO, please insert expired date field";
 
 // Product Error
 $lang['variationsamewithorigin'] = "There should be no option of the same product for the same origin";

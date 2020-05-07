@@ -61,6 +61,7 @@ $lang['be_view'] = "Dilihat";
 $lang['close'] = "Tutup";
 $lang['cancel'] = "Batal";
 $lang['total'] = "Total";
+$lang['total2'] = "Jumlah";
 $lang['back'] = "Kembali";
 $lang['yes'] = "Ya";
 $lang['no'] = "Tidak";
@@ -379,6 +380,7 @@ $lang['canceled'] = "Dibatalkan";
 $lang['failed'] = "Gagal";
 $lang['refunded'] = "Dikembalikan";
 $lang['invoice'] = "Faktur";
+$lang['invoice2'] = "Invoice";
 $lang['orderdate'] = "Tanggal Order";
 $lang['buyer'] = "Pembeli";
 $lang['orderlist'] = "Daftar Order";
@@ -527,6 +529,16 @@ $lang['multistore'] = "Multi Toko";
 $lang['enablemultistore'] = "Aktifkan Multi Toko";
 $lang['helpmultistore'] = "Fitur Multi Toko memungkinkan Anda untuk mengelola beberapa toko dengan satu Back Office. Jika fitur ini diaktifkan, halaman \"Multi Toko\" akan tersedia di menu \"Parameter Lanjut\".";
 $lang['alertmultistore'] = "Anda tidak dapat mengubah nilai pada bidang ini dalam konteks toko ini.";
+$lang['managementtype'] = "Tipe Manajemen";
+$lang['purchasepriceperunit'] = "Harga Beli Per Unit";
+$lang['totalpurchaseprice'] = "Total Harga Beli";
+$lang['supplier'] = "Supplier";
+$lang['database'] = "Database";
+$lang['insertedby'] = "Diinput Oleh";
+$lang['insertedbyinfo'] = "Jika bidang ini dikosongkan maka data akan dimasukkan dengan akun Anda";
+$lang['pos'] = "POS";
+$lang['pointofsales'] = "Point of Sales";
+$lang['byuser'] = "Oleh Pengguna";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -548,6 +560,12 @@ $lang['september'] = 'September';
 $lang['october'] = 'Oktober';
 $lang['november'] = 'November';
 $lang['december'] = 'Desember';
+
+/**
+ * POS SETTING
+ */
+$lang['stockentrycodeprefix'] = "Prefix Kode Stok Masuk";
+$lang['totaldigitstockentrycode'] = "Total Digit Kode Stok Masuk";
 
 // lang module
 /**
@@ -652,6 +670,7 @@ $lang['totalproduct'] = "Total Produk";
 /**
  * Products
  */
+$lang['addproduct'] = "Tambah Produk";
 $lang['newproduct'] = "Produk Baru";
 $lang['product'] = "Produk";
 $lang['products'] = "Produk";
@@ -708,6 +727,21 @@ $lang['edittax'] = "Edit Tax";
  */
 $lang['currencies'] = "Mata Uang";
 $lang['currency'] = "Mata Uang";
+
+/**
+ * Warehouse
+ */
+$lang['warehouse'] = "Gudang";
+
+/**
+ * Stock Entry
+ */
+$lang['stockentry'] = "Stok Masuk";
+$lang['newstockentry'] = "Stok Masuk Baru";
+$lang['stockcode'] = "Kode Stok";
+$lang['stockentrycode'] = "Kode Stok Masuk";
+$lang['infoaddentrystock'] = "Pastikan data sudah benar sebelum ditambahkan. Setelah data ditambahkan, data tidak dapat diperbarui";
+$lang['entrydate'] = "Tanggal Masuk";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
@@ -777,7 +811,8 @@ $lang['taxmax100'] = "Pajak tidak boleh lebih dari 100%";
 $lang['stocknotenough'] = "Maaf, stok untuk produk %s tidak cukup. Hanya tersedia %s, silahkan tambah stok terdahulu melalui menu PRODUCT STOCK.";
 $lang['phonenumbererror'] = "Silahkan masukkan nomor telp/handphone yang valid";
 $lang['addresspriorityerror'] = "Prioritas alamat ini tidak bisa diganti dikarenakan alamat ini adalah alamat utama.";
-$lang['defaultattrisempty'] = "Please choose the default attribute";
+$lang['defaultattrisempty'] = "SIlahkan pilih atribut default";
+$lang['fefowarning'] = "Gudang bertipe FEFO, silahkan isi tanggal kadaluarsa";
 
 // Product Error
 $lang['variationsamewithorigin'] = "Tidak boleh ada variasi produk yang sama untuk gudang yang sama";

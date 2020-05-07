@@ -408,7 +408,7 @@ class FormControl {
 			                if(data){
 			                	$(\'#content_'.$inputs['name'].'\').show().html(data);
 			                } else {
-			                	$(\'content_'.$inputs['name'].'\').show().html(\'<center><h4>'.t('datacannotbeloaded').'</h4></center>\');
+			                	$(\'#content_'.$inputs['name'].'\').show().html(\'<center><h4>'.t('datacannotbeloaded').'</h4></center>\');
 			                }
 			                $(this).removeAttr("disabled");
 			            }

@@ -430,8 +430,8 @@ class Migration extends CI_Controller {
         $schema = $this->schema->create_table('email_queue');
         $schema->increments('emailId', ['length' => '11']);
         $schema->string('emailTo', ['length' => '255']);
-        $schema->string('emailCC', ['length' => '255']);
-        $schema->string('emailBCC', ['length' => '255']);
+        $schema->text('emailCC');
+        $schema->text('emailBCC');
         $schema->string('emailSubject');
         $schema->text('emailMsg', ['type' => 'MEDIUMTEXT']);
         $schema->enum('emailMsgType', ['text', 'html']);

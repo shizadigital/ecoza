@@ -213,6 +213,34 @@ function getWeightUnitDefault($display = 'unit'){
 	return $result;
 }
 
+
+function getLengthDefault($display = 'unit'){
+	$unit = 'cm';
+	$title = 'Centimeter';
+	$value = 1.00000000;
+
+	if( countdata( 'unit_length', array('lengthDefault'=>'y') ) > 0 ){
+		// get rate data currency
+		$getval = getval("lengthTitle,lengthUnit,lengthValue","unit_length","lengthDefault='y'");
+
+		$unit = $getval['lengthUnit'];
+		$title = $getval['lengthTitle'];
+		$value = $getval['lengthValue'];
+	}
+
+	if($display == 'unit'){
+		$result = $unit;
+	} 
+	elseif($display == 'title'){
+		$result = $title;
+	}
+	elseif($display == 'value'){
+		$result = $value;
+	}
+
+	return $result;
+}
+
 function orderInvoice(){
 	// get invoice format
 	$invformat = get_option('invoiceformat');

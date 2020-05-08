@@ -539,6 +539,10 @@ $lang['insertedbyinfo'] = "If this field is empty, then the data will be inserte
 $lang['pos'] = "POS";
 $lang['pointofsales'] = "Point of Sales";
 $lang['byuser'] = "By User";
+$lang['width'] = "Width";
+$lang['height'] = "Height";
+$lang['length'] = "length";
+$lang['weight'] = "Weight";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -682,6 +686,7 @@ $lang['producttype'] = "Product Type";
 $lang['productinfo'] = "Product Info";
 $lang['relatedproducts'] = "Related Products";
 $lang['chooseproduct'] = "Choose Product";
+$lang['packagedimension'] = "Package Dimension";
 
 $lang['abbr_sku'] = "Stock Keeping Unit";
 $lang['abbr_isbn'] = "International Standard Book Number";

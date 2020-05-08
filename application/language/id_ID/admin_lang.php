@@ -539,6 +539,10 @@ $lang['insertedbyinfo'] = "Jika bidang ini dikosongkan maka data akan dimasukkan
 $lang['pos'] = "POS";
 $lang['pointofsales'] = "Point of Sales";
 $lang['byuser'] = "Oleh Pengguna";
+$lang['width'] = "Lebar";
+$lang['height'] = "Tinggi";
+$lang['length'] = "Panjang";
+$lang['weight'] = "Bobot";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -682,6 +686,7 @@ $lang['producttype'] = "Tipe Produk";
 $lang['productinfo'] = "Info Produk";
 $lang['relatedproducts'] = "Produk terkait";
 $lang['chooseproduct'] = "Pilih Produk";
+$lang['packagedimension'] = "Dimensi Paket";
 
 $lang['abbr_sku'] = "Stock Keeping Unit";
 $lang['abbr_isbn'] = "International Standard Book Number";

@@ -571,6 +571,7 @@ class Migration extends CI_Controller {
         $schema->integer('prodMinOrder', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('prodMaxOrder', ['length' => '11', 'unsigned' => TRUE]);
         $schema->char('prodShipping', ['length' => '1']);
+        $schema->enum('prodFreeShipping', ['y', 'n']);
         $schema->string('prodVideo', ['length' => '50']);
         $schema->text('prodNote');
         $schema->integer('prodBuyCount', ['length' => '11', 'unsigned' => TRUE]);
@@ -1151,6 +1152,8 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'22', 'dtLang'=>'en_US', 'dtTranslation'=>'Tax Rule', 'dtInputType'=>'text', 'dtCreateDate'=>'1584090162', 'dtUpdateDate'=>'1584090162'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'23', 'dtLang'=>'en_US', 'dtTranslation'=>'Currencies', 'dtInputType'=>'text', 'dtCreateDate'=>'1584090568', 'dtUpdateDate'=>'1584090568'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'24', 'dtLang'=>'en_US', 'dtTranslation'=>'Database', 'dtInputType'=>'text', 'dtCreateDate'=>'1588876649', 'dtUpdateDate'=>'1588876649'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'25', 'dtLang'=>'en_US', 'dtTranslation'=>'Shipping', 'dtInputType'=>'text', 'dtCreateDate'=>'1588958087', 'dtUpdateDate'=>'1588958087'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'26', 'dtLang'=>'en_US', 'dtTranslation'=>'Carriers', 'dtInputType'=>'text', 'dtCreateDate'=>'1588961467', 'dtUpdateDate'=>'1588961467'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1259,11 +1262,11 @@ class Migration extends CI_Controller {
 				'userLang' => 'id_ID',
             ],
             [
-				'userLogin' => 'demo',
+				'userLogin' => 'admin',
 				'userPass' => $passwordunik,
-				'userEmail' => 'demo@demo.com',
+				'userEmail' => 'admin@admin.com',
 				'userTlp' => '',
-				'userDisplayName' => 'Demo Shiza',
+				'userDisplayName' => 'Admin Shiza',
 				'levelId' => '2',
 				'userBlocked' => 'n',
 				'userDelete' => '0',
@@ -1326,7 +1329,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Developer',
                 'menuAccess' => '',
                 'menuAddedDate' => '1452867589',
-                'menuSort' => '5',
+                'menuSort' => '7',
                 'menuIcon' => 'fe fe-award',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1371,7 +1374,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'System',
                 'menuAccess' => '',
                 'menuAddedDate' => '1577728905',
-                'menuSort' => '4',
+                'menuSort' => '6',
                 'menuIcon' => 'fe fe-settings',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1401,7 +1404,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Pengaturan',
                 'menuAccess' => '',
                 'menuAddedDate' => '1577892258',
-                'menuSort' => '3',
+                'menuSort' => '4',
                 'menuIcon' => 'fe fe-sliders',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1431,7 +1434,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Pengguna',
                 'menuAccess' => '',
                 'menuAddedDate' => '1578138421',
-                'menuSort' => '2',
+                'menuSort' => '3',
                 'menuIcon' => 'fe fe-user',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1581,7 +1584,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Laporan',
                 'menuAccess' => '',
                 'menuAddedDate' => '1583429029',
-                'menuSort' => '3',
+                'menuSort' => '5',
                 'menuIcon' => 'fe fe-clipboard',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1596,7 +1599,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Satuan Bobot',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"weight_unit";}',
                 'menuAddedDate' => '1583429908',
-                'menuSort' => '1',
+                'menuSort' => '2',
                 'menuIcon' => '',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1611,7 +1614,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Satuan Panjang',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"length_unit";}',
                 'menuAddedDate' => '1583430360',
-                'menuSort' => '2',
+                'menuSort' => '3',
                 'menuIcon' => '',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1626,7 +1629,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Pajak',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:3:"tax";}',
                 'menuAddedDate' => '1584089953',
-                'menuSort' => '3',
+                'menuSort' => '4',
                 'menuIcon' => '',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1641,7 +1644,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Aturan Pajak',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:8:"tax_rule";}',
                 'menuAddedDate' => '1584090162',
-                'menuSort' => '4',
+                'menuSort' => '5',
                 'menuIcon' => '',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1656,7 +1659,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Mata Uang',
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:10:"currencies";}',
                 'menuAddedDate' => '1584090345',
-                'menuSort' => '5',
+                'menuSort' => '6',
                 'menuIcon' => '',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1679,6 +1682,36 @@ class Migration extends CI_Controller {
                 'menuAdd' => 'n',
                 'menuEdit' => 'n',
                 'menuDelete' => 'n'
+            ],
+            [
+                'menuId' => '25',
+                'menuParentId' => '0',
+                'menuName' => 'Pengiriman',
+                'menuAccess' => '',
+                'menuAddedDate' => '1588957989',
+                'menuSort' => '2',
+                'menuIcon' => 'fe fe-truck',
+                'menuAttrClass' => '',
+                'menuActive' => 'y',
+                'menuView' => 'y',
+                'menuAdd' => 'n',
+                'menuEdit' => 'n',
+                'menuDelete' => 'n'
+            ],
+            [
+                'menuId' => '26',
+                'menuParentId' => '25',
+                'menuName' => 'Pengirim',
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:7:"carrier";}',
+                'menuAddedDate' => '1588961466',
+                'menuSort' => '1',
+                'menuIcon' => '',
+                'menuAttrClass' => '',
+                'menuActive' => 'y',
+                'menuView' => 'y',
+                'menuAdd' => 'y',
+                'menuEdit' => 'y',
+                'menuDelete' => 'y'
             ]
         ];
 		foreach ( $arr as $item ) {
@@ -1919,6 +1952,24 @@ class Migration extends CI_Controller {
                 'lmnAdd' => 'n',
                 'lmnEdit' => 'n',
                 'lmnDelete' => 'n'
+            ],
+            [
+                'lmnId' => '25',
+                'levelId' => '1',
+                'menuId' => '25',
+                'lmnView' => 'y',
+                'lmnAdd' => 'n',
+                'lmnEdit' => 'n',
+                'lmnDelete' => 'n'
+            ],
+            [
+                'lmnId' => '26',
+                'levelId' => '1',
+                'menuId' => '26',
+                'lmnView' => 'y',
+                'lmnAdd' => 'y',
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y'
             ]
         ];
 		foreach ( $arr as $item ) {

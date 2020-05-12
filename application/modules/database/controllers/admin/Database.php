@@ -15,7 +15,7 @@ class Database extends CI_Controller{
 		$this->adminauth->auth_login();
 
 		// define module name variable
-		$this->moduleName = t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=> 30) );
+		$this->moduleName = t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=> 24) );
 
 		// load model
 		$this->load->model('database_model');

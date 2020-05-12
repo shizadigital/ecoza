@@ -95,7 +95,7 @@ pre[class*="language-"] {
                             $countr = count($r);
                             $nox=1;
                             foreach($r as $k => $v){
-                                echo (($linemethod)?"\t\t":"")."'{$k}' => '".htmlspecialchars($v)."'";
+                                echo (($linemethod)?"\t\t":"")."'{$k}' => '".str_replace("'","\'",htmlspecialchars($v))."'";
 
                                 if($countr != $nox){ echo ",".(($linemethod)?"\r\n":" "); }
                                 $nox++;

@@ -962,10 +962,99 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         Shipping Input Start Here
 
                         -->
-                        <div class="tab-pane fade py-4" id="shipping" role="tabpanel" aria-labelledby="tab-shipping">
-                        
+                        <div class="tab-pane fade py-3" id="shipping" role="tabpanel" aria-labelledby="tab-shipping">
                             
-                            
+                            <div class="row">
+                                <div class="col-md-12"><h5><?php echo t('packagedimension'); ?></h5></div>
+                                <div class="col-md-3">
+                                <?php 
+                                $widthinput1 = array(
+                                    array(
+                                        'type' => 'text',
+                                        'label'=> t('length'),
+                                        'name'=> 'length',
+                                        'onkeypress'=>'return isNumberComma(event)',
+                                        'value' => 0,
+                                        'input-group' => array(
+                                            'append'=> getLengthDefault(),
+                                        ),
+                                    )
+                                );
+                                $this->formcontrol->buildInputs($widthinput1);
+                                ?>
+                                </div>
+                                <div class="col-md-3">
+                                <?php 
+                                $widthinput2 = array(
+                                    array(
+                                        'type' => 'text',
+                                        'label'=> t('width'),
+                                        'name'=> 'width',
+                                        'onkeypress'=>'return isNumberComma(event)',
+                                        'value' => 0,
+                                        'input-group' => array(
+                                            'append'=> getLengthDefault(),
+                                        ),
+                                    )
+                                );
+                                $this->formcontrol->buildInputs($widthinput2);
+                                ?>
+                                </div>
+                                <div class="col-md-3">
+                                <?php 
+                                $widthinput2 = array(
+                                    array(
+                                        'type' => 'text',
+                                        'label'=> t('height'),
+                                        'name'=> 'height',
+                                        'onkeypress'=>'return isNumberComma(event)',
+                                        'value' => 0,
+                                        'input-group' => array(
+                                            'append'=> getLengthDefault(),
+                                        ),
+                                    )
+                                );
+                                $this->formcontrol->buildInputs($widthinput2);
+                                ?>
+                                </div>
+                                <div class="col-md-3">
+                                <?php 
+                                $widthinput2 = array(
+                                    array(
+                                        'type' => 'text',
+                                        'label'=> t('weight'),
+                                        'name'=> 'weight',
+                                        'onkeypress'=>'return isNumberComma(event)',
+                                        'value' => 0,
+                                        'input-group' => array(
+                                            'append'=> getLengthDefault(),
+                                        ),
+                                    )
+                                );
+                                $this->formcontrol->buildInputs($widthinput2);
+                                ?>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><h5><?php echo t('freeshipping'); ?></h5></div>
+                                <div class="col-md-12">
+                                <?php
+                                $freeshippinginput = array(
+                                    array(
+                                        'type' => 'checkbox',
+                                        'name' => 'freeshipping',
+                                        'value' => 'y',
+                                        'title' => t('yes'),
+                                        'checked' => false
+                                    ),
+                                );
+
+                                $this->formcontrol->buildInputs($freeshippinginput);
+                                ?>
+                                </div>
+
+                                <div class="col-md-12"><h5><?php echo t('freeshipping'); ?></h5></div>
+                            </div>
                         </div>
                         
                         <!--

@@ -432,6 +432,11 @@ class Migration extends CI_Controller {
         $schema->integer('courierId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('countryId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('zoneId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('ccostService', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->decimal('ccostCost', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->string('ccostETD', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('ccostNote', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('ccostAddedDate', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 
         // ADD index
@@ -539,6 +544,7 @@ class Migration extends CI_Controller {
         $schema->string('countryIsoCode2', ['length' => '2']);
         $schema->string('countryIsoCode3', ['length' => '3']);
         $schema->integer('countryStatus', ['type' => 'TINYINT', 'length' => '1', 'unsigned' => TRUE]);
+        $schema->integer('countryDeleted', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
     }
 
@@ -550,6 +556,7 @@ class Migration extends CI_Controller {
         $schema->string('zoneName', ['length' => '130']);
         $schema->string('zoneCode', ['length' => '35']);
         $schema->integer('zoneStatus', ['type' => 'TINYINT', 'length' => '1', 'unsigned' => TRUE]);
+        $schema->integer('zoneDeleted', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 
         // ADD index
@@ -1245,6 +1252,8 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'24', 'dtLang'=>'en_US', 'dtTranslation'=>'Database', 'dtInputType'=>'text', 'dtCreateDate'=>'1588876649', 'dtUpdateDate'=>'1588876649'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'25', 'dtLang'=>'en_US', 'dtTranslation'=>'Shipping', 'dtInputType'=>'text', 'dtCreateDate'=>'1588958087', 'dtUpdateDate'=>'1588958087'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'26', 'dtLang'=>'en_US', 'dtTranslation'=>'Couriers', 'dtInputType'=>'text', 'dtCreateDate'=>'1588961467', 'dtUpdateDate'=>'1588961467'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'27', 'dtLang'=>'en_US', 'dtTranslation'=>'Geo Country', 'dtInputType'=>'text', 'dtCreateDate'=>'1589390020', 'dtUpdateDate'=>'1589390020'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'28', 'dtLang'=>'en_US', 'dtTranslation'=>'Geo Zone', 'dtInputType'=>'text', 'dtCreateDate'=>'1589390105', 'dtUpdateDate'=>'1589390105'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1495,7 +1504,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Pengaturan',
                 'menuAccess' => '',
                 'menuAddedDate' => '1577892258',
-                'menuSort' => '4',
+                'menuSort' => '5',
                 'menuIcon' => 'fe fe-sliders',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1525,7 +1534,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Pengguna',
                 'menuAccess' => '',
                 'menuAddedDate' => '1578138421',
-                'menuSort' => '3',
+                'menuSort' => '4',
                 'menuIcon' => 'fe fe-user',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1675,7 +1684,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Laporan',
                 'menuAccess' => '',
                 'menuAddedDate' => '1583429029',
-                'menuSort' => '5',
+                'menuSort' => '3',
                 'menuIcon' => 'fe fe-clipboard',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1796,6 +1805,36 @@ class Migration extends CI_Controller {
                 'menuAccess' => 'a:1:{s:10:"admin_link";s:7:"courier";}',
                 'menuAddedDate' => '1588961466',
                 'menuSort' => '1',
+                'menuIcon' => '',
+                'menuAttrClass' => '',
+                'menuActive' => 'y',
+                'menuView' => 'y',
+                'menuAdd' => 'y',
+                'menuEdit' => 'y',
+                'menuDelete' => 'y'
+            ],
+            [
+                'menuId' => '27',
+                'menuParentId' => '6',
+                'menuName' => 'Geo Negara',
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:11:"geo_country";}',
+                'menuAddedDate' => '1589390020',
+                'menuSort' => '7',
+                'menuIcon' => '',
+                'menuAttrClass' => '',
+                'menuActive' => 'y',
+                'menuView' => 'y',
+                'menuAdd' => 'y',
+                'menuEdit' => 'y',
+                'menuDelete' => 'y'
+            ],
+            [
+                'menuId' => '28',
+                'menuParentId' => '6',
+                'menuName' => 'Geo Zona',
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:8:"geo_zone";}',
+                'menuAddedDate' => '1589390105',
+                'menuSort' => '8',
                 'menuIcon' => '',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -2057,6 +2096,24 @@ class Migration extends CI_Controller {
                 'lmnId' => '26',
                 'levelId' => '1',
                 'menuId' => '26',
+                'lmnView' => 'y',
+                'lmnAdd' => 'y',
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y'
+            ],
+            [
+                'lmnId' => '27',
+                'levelId' => '1',
+                'menuId' => '27',
+                'lmnView' => 'y',
+                'lmnAdd' => 'y',
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y'
+            ],
+            [
+                'lmnId' => '28',
+                'levelId' => '1',
+                'menuId' => '28',
                 'lmnView' => 'y',
                 'lmnAdd' => 'y',
                 'lmnEdit' => 'y',
@@ -2539,7 +2596,8 @@ class Migration extends CI_Controller {
 				'countryName' => $item['countryName'],
 				'countryIsoCode2' => $item['countryIsoCode2'],
 				'countryIsoCode3' => $item['countryIsoCode3'],
-				'countryStatus' => $item['countryStatus'],
+                'countryStatus' => $item['countryStatus'],
+                'countryDeleted' => 0
 			];
 			$this->mc->save('geo_country', $data);
 		}
@@ -6664,7 +6722,8 @@ class Migration extends CI_Controller {
 				'countryId' => $item['countryId'],
 				'zoneName' => $item['zoneName'],
 				'zoneCode' => $item['zoneCode'],
-				'zoneStatus' => $item['zoneStatus'],
+                'zoneStatus' => $item['zoneStatus'],
+                'zoneDeleted' => 0
 			];
 			$this->mc->save('geo_zone', $data);
 		}

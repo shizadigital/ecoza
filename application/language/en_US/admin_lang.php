@@ -543,6 +543,7 @@ $lang['width'] = "Width";
 $lang['height'] = "Height";
 $lang['length'] = "length";
 $lang['weight'] = "Weight";
+$lang['zone'] = "Zone";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

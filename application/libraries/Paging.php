@@ -33,14 +33,18 @@ class Paging {
             $getURI = '/?'.implode('&', $dataURI);
         }
 
+        if(!empty( $options['display_pages'] )) { 
+            $config['display_pages'] = true;
+        }
+
 		//konfigurasi pagination
         $config['base_url'] = $url.$getURI; //site url
         $config['total_rows'] = filter_int($totalrows); //total row
         $config['per_page'] = $per_page;  //show record per halaman
         $config["uri_segment"] = $segment;  // uri parameter
 
-        $choice = filter_int($totalrows) / $per_page;
-        $config["num_links"] = floor($choice);
+        $choice = (empty($options['num_links'])) ? floor( filter_int($totalrows) / $per_page ):filter_int($options['num_links']);
+        $config["num_links"] = $choice;
 
         $defaults = array(
             'attributes'       => array('class' => 'page-link'),

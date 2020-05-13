@@ -543,6 +543,7 @@ $lang['width'] = "Lebar";
 $lang['height'] = "Tinggi";
 $lang['length'] = "Panjang";
 $lang['weight'] = "Bobot";
+$lang['zone'] = "Zona";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

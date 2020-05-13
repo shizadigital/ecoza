@@ -10,6 +10,20 @@ application/logs/*
 
 composer.lock
 
+## System
+/system/sessions/
+
+## storage
+storage/thumbs/
+storage/temp/
+storage/files/*
+!storage/files/index.html
+storage/images/*
+!storage/images/index.html
+
+/vendor/
+.env
+
 # IDE Files
 #-------------------------
 /nbproject/
@@ -24,14 +38,5 @@ composer.lock
 /tests/tests/
 /tests/results/
 
-/system/sessions/
-
-storage/thumbs/
-storage/temp/
-storage/files/*
-!storage/files/index.html
-storage/images/*
-!storage/images/index.html
-
-/vendor/
-.env
+## VSCode
+.vscode

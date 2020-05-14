@@ -186,18 +186,20 @@ function priceConvertCurrency($price = '0.00', $convertTo = ''){
  * 
  * @return string
  */
-function getWeightUnitDefault($display = 'unit'){
+function getWeightDefault($display = 'unit'){
 	$unit = 'Kg';
 	$title = 'Kilogram';
 	$value = 1.00000000;
+	$id = 0;
 
 	if( countdata( 'unit_weight', array('weightDefault'=>'y') ) > 0 ){
 		// get rate data currency
-		$getval = getval("weightTitle,weightUnit,weightValue","unit_weight","weightDefault='y'");
+		$getval = getval("weightId,weightTitle,weightUnit,weightValue","unit_weight","weightDefault='y'");
 
 		$unit = $getval['weightUnit'];
 		$title = $getval['weightTitle'];
 		$value = $getval['weightValue'];
+		$id = $getval['weightId'];
 	}
 
 	if($display == 'unit'){
@@ -208,24 +210,28 @@ function getWeightUnitDefault($display = 'unit'){
 	}
 	elseif($display == 'value'){
 		$result = $value;
+	}
+	elseif($display == 'id'){
+		$result = $id;
 	}
 
 	return $result;
 }
 
-
 function getLengthDefault($display = 'unit'){
 	$unit = 'cm';
 	$title = 'Centimeter';
 	$value = 1.00000000;
+	$id = 0;
 
 	if( countdata( 'unit_length', array('lengthDefault'=>'y') ) > 0 ){
 		// get rate data currency
-		$getval = getval("lengthTitle,lengthUnit,lengthValue","unit_length","lengthDefault='y'");
+		$getval = getval("lengthId,lengthTitle,lengthUnit,lengthValue","unit_length","lengthDefault='y'");
 
 		$unit = $getval['lengthUnit'];
 		$title = $getval['lengthTitle'];
 		$value = $getval['lengthValue'];
+		$id = $getval['lengthId'];
 	}
 
 	if($display == 'unit'){
@@ -236,6 +242,38 @@ function getLengthDefault($display = 'unit'){
 	}
 	elseif($display == 'value'){
 		$result = $value;
+	}
+	elseif($display == 'id'){
+		$result = $id;
+	}
+
+	return $result;
+}
+
+function getCountryDefault($display = 'name'){
+	$codedefault = get_option('defaultcodecountry');
+
+	if( countdata( 'geo_country', array('countryIsoCode3'=>$codedefault) ) > 0 ){
+		// get rate data currency
+		$getval = getval("countryId,countryName,countryIsoCode2,countryIsoCode3","geo_country","countryDeleted='0' AND countryIsoCode3='{$codedefault}'");
+
+		$id = $getval['countryId'];
+		$name = $getval['countryName'];
+		$code2 = $getval['countryIsoCode2'];
+		$code3 = $getval['countryIsoCode3'];
+	}
+
+	if($display == 'name'){
+		$result = $name;
+	} 
+	elseif($display == 'id'){
+		$result = $id;
+	}
+	elseif($display == 'code2'){
+		$result = $code2;
+	}
+	elseif($display == 'code3'){
+		$result = $code3;
 	}
 
 	return $result;

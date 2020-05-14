@@ -265,7 +265,6 @@ $lang['discount'] = "Discount";
 $lang['maximumorder'] = "Maximum Order";
 $lang['minimumorder'] = "Minimum Order";
 $lang['infomaximumorderfiled'] = "Empty this field if there is no maximum limit for ordering this product";
-$lang['courier'] = "Courier";
 $lang['shipping'] = "Shipping";
 $lang['manufacturer'] = "Manufacturer";
 $lang['nomanufacturer'] = "No Manufacturer";
@@ -544,6 +543,14 @@ $lang['height'] = "Height";
 $lang['length'] = "length";
 $lang['weight'] = "Weight";
 $lang['zone'] = "Zone";
+$lang['urltracking'] = "URL Tracking";
+$lang['service'] = "Service";
+$lang['servicename'] = "Service Name";
+$lang['estimatedtimeofdelivery'] = "Estimated Time of Delivery";
+$lang['cost'] = "Cost";
+$lang['generalsetting'] = "General Setting";
+$lang['sizeandweightsetting'] = "Size and Weight Setting";
+$lang['shippinglocationandcost'] = "Shipping location and cost";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -749,6 +756,18 @@ $lang['stockentrycode'] = "Stock Entry Code";
 $lang['infoaddentrystock'] = "Make sure the data is correct before adding. After the data is added, the data is not allowed to be updated";
 $lang['entrydate'] = "Entry Date";
 
+/**
+ * Courier
+ */
+$lang['couriername'] = "Courier Name";
+$lang['couriercode'] = "Courier Code";
+$lang['maxpackagewidth'] = "Maximum package width";
+$lang['maxpackageheight'] = "Maximum package height";
+$lang['maxpackagelength'] = "Maximum package Length";
+$lang['maxpackageweight'] = "Maximum package weight";
+$lang['addservice'] = "Add Service";
+$lang['choosecountryfirst'] = "Choose Country First";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///
@@ -874,3 +893,7 @@ $lang['inputtypetranslationerror'] = "Input type is not valid for multi language
 $lang['errormultilangvalue'] = "Value for multilanguage is incorrect.";
 $lang['imagepriorityempty'] = "Please choose image priority";
 $lang['defaultnotselected'] = "Default is not selected";
+$lang['urlnotvalid'] = "URL is not valid";
+
+$lang['defaultlengthempty'] = "Default length unit is empty, please insert default length unit data first";
+$lang['defaultweightempty'] = "Default weight unit is empty, please insert default weight unit data first";

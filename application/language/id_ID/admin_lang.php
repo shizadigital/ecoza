@@ -265,7 +265,6 @@ $lang['discount'] = "Diskon";
 $lang['maximumorder'] = "Maksimal Qty Order";
 $lang['minimumorder'] = "Minimal Qty Order";
 $lang['infomaximumorderfiled'] = "Kosongkan field ini apabila tidak ada batas maksimum pemesanan";
-$lang['courier'] = "Kurir";
 $lang['shipping'] = "Pengiriman";
 $lang['manufacturer'] = "Manufaktur";
 $lang['nomanufacturer'] = "Tidak ada manufaktur";
@@ -544,6 +543,14 @@ $lang['height'] = "Tinggi";
 $lang['length'] = "Panjang";
 $lang['weight'] = "Bobot";
 $lang['zone'] = "Zona";
+$lang['urltracking'] = "URL Tracking";
+$lang['service'] = "Service";
+$lang['servicename'] = "Nama Service";
+$lang['estimatedtimeofdelivery'] = "Perkiraan Waktu Pengiriman";
+$lang['cost'] = "Biaya";
+$lang['generalsetting'] = "Pengaturan umum";
+$lang['sizeandweightsetting'] = "Pengaturan ukuran dan bobot";
+$lang['shippinglocationandcost'] = "Lokasi pengiriman dan biaya";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -749,6 +756,18 @@ $lang['stockentrycode'] = "Kode Stok Masuk";
 $lang['infoaddentrystock'] = "Pastikan data sudah benar sebelum ditambahkan. Setelah data ditambahkan, data tidak dapat diperbarui";
 $lang['entrydate'] = "Tanggal Masuk";
 
+/**
+ * Courier
+ */
+$lang['couriername'] = "Nama Kurir";
+$lang['couriercode'] = "Kode Kurir";
+$lang['maxpackagewidth'] = "Lebar paket maksimal";
+$lang['maxpackageheight'] = "Tinggi paket maksimal";
+$lang['maxpackagelength'] = "Panjang paket maksimal";
+$lang['maxpackageweight'] = "Bobot paket maksimal";
+$lang['addservice'] = "Tambah Service";
+$lang['choosecountryfirst'] = "Pilih Negara Dahulu";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///
@@ -874,3 +893,7 @@ $lang['inputtypetranslationerror'] = "Tipe input tidak valid untuk inputan multi
 $lang['errormultilangvalue'] = "Nilai masukan multi bahasa tidak tepat. Harus menggunakan array";
 $lang['imagepriorityempty'] = "Silahkan pilih prioritas gambar";
 $lang['defaultnotselected'] = "Default tidak terpilih";
+$lang['urlnotvalid'] = "URL tidak valid";
+
+$lang['defaultlengthempty'] = "Satuan panjang default tidak ditemukan, silahkan input data satuan panjang default terlebih dahulu";
+$lang['defaultweightempty'] = "Satuan bobot default tidak ditemukan, silahkan input data satuan bobot default terlebih dahulu";

@@ -327,7 +327,7 @@ class Product extends CI_Controller{
 					echo form_input('weightattr['.$key.']', '', $attrweight);
 				echo '
 						<div class="input-group-append">
-							<span class="input-group-text">'.getWeightUnitDefault().'</span>
+							<span class="input-group-text">'.getWeightDefault().'</span>
 						</div>
 					</div>
 				</td>';

@@ -53,6 +53,7 @@ class Migration extends CI_Controller {
         Self::create_contents_table();
         Self::create_courier_table();
         Self::create_courier_cost_table();
+        Self::create_courier_store_table();
         Self::create_cron_list_table();
         Self::create_dynamic_translations_table();
         Self::create_email_blacklist_table();
@@ -400,7 +401,6 @@ class Migration extends CI_Controller {
     protected function create_courier_table(){
         $schema = $this->schema->create_table('courier');
         $schema->increments('courierId', ['length' => '11']);
-        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('addonsId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('courierName', ['length' => '100']);
         $schema->string('courierCode', ['length' => '20']);
@@ -415,6 +415,7 @@ class Migration extends CI_Controller {
         $schema->string('courierFileLogo', ['length' => '255']);
         $schema->enum('courierFreeShipping', ['y', 'n']);
         $schema->integer('courierStatus', ['type' => 'TINYINT', 'length' => '1', 'unsigned' => TRUE]);
+        $schema->integer('courierAddedDate', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('courierDeleted', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 
@@ -443,6 +444,18 @@ class Migration extends CI_Controller {
         $schema->index('courierId');
         $schema->index('countryId');
         $schema->index('zoneId');
+    }
+
+    protected function create_courier_store_table(){
+
+        $schema = $this->schema->create_table('courier_store');
+        $schema->increments('courierId', ['length' => '11']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
+
     }
 
     protected function create_cron_list_table() {
@@ -1022,6 +1035,7 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('contents');
         $this->schema->drop_table('courier');
         $this->schema->drop_table('courier_cost');
+        $this->schema->drop_table('courier_store');
         $this->schema->drop_table('cron_list');
         $this->schema->drop_table('dynamic_translations');
         $this->schema->drop_table('email_blacklist');
@@ -1300,6 +1314,7 @@ class Migration extends CI_Controller {
             ['optionName' => 'defaultcurrency', 'storeId' => 1, 'optionValue' => 'IDR'],
             ['optionName' => 'multistore', 'storeId' => 1, 'optionValue' => 'off'],
             ['optionName' => 'postalcode', 'storeId' => 1, 'optionValue' => '28000'],
+            ['optionName' => 'defaultcodecountry', 'storeId' => 1, 'optionValue' => 'IDN'],
         ];
         foreach ( $arr as $item ) {
             $data = [

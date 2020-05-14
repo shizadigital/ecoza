@@ -222,7 +222,7 @@ class Manufacturers extends CI_Controller{
 							'large' 	=>'1920'
 						);
 
-						$dataimg = geval("*", 'manufacturers', "manufactId='{$ID}'" );
+						$dataimg = getval("*", 'manufacturers', "manufactId='{$ID}'" );
 						if(!empty($dataimg['manufactDir']) AND !empty($dataimg['manufactImg'])){
 							
 							//delete old file

@@ -91,6 +91,9 @@ class Product extends CI_Controller{
 				$attributegrpsopt[$v['attrgroupId']] = $v['attrgroupLabel'];
 			}
 
+			// get all shipping courier
+			$courierdata = $this->Env_model->view_where("courierId,courierName", "courier", "courierDeleted='0' AND courierStatus='1'");
+
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
@@ -110,7 +113,8 @@ class Product extends CI_Controller{
 							'badges' => $databadges,
 							'taxes' => $taxes,
 							'attrval' => $attributes,
-							'attrgroupopt' => $attributegrpsopt
+							'attrgroupopt' => $attributegrpsopt,
+							'courier' => $courierdata
 						);
 
 			$this->load->view( admin_root('product_add'), $data );

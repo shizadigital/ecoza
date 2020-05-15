@@ -551,6 +551,7 @@ $lang['cost'] = "Biaya";
 $lang['generalsetting'] = "Pengaturan umum";
 $lang['sizeandweightsetting'] = "Pengaturan ukuran dan bobot";
 $lang['shippinglocationandcost'] = "Lokasi pengiriman dan biaya";
+$lang['availablecouriers'] = "Kurir yang tersedia";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

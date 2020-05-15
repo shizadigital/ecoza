@@ -1027,7 +1027,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                         'onkeypress'=>'return isNumberComma(event)',
                                         'value' => 0,
                                         'input-group' => array(
-                                            'append'=> getLengthDefault(),
+                                            'append'=> getWeightDefault(),
                                         ),
                                     )
                                 );
@@ -1035,6 +1035,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                 ?>
                                 </div>
                             </div>
+                            <hr/>
                             <div class="row">
                                 <div class="col-md-12"><h5><?php echo t('freeshipping'); ?></h5></div>
                                 <div class="col-md-12">
@@ -1052,8 +1053,32 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                 $this->formcontrol->buildInputs($freeshippinginput);
                                 ?>
                                 </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-md-12"><h5><?php echo t('availablecouriers'); ?></h5></div>
+                                <div class="col-md-12">
+                                    <?php 
+                                    $c_x = 1;
+                                    foreach( $courier as $cdata ){
 
-                                <div class="col-md-12"><h5><?php echo t('freeshipping'); ?></h5></div>
+                                        $courierdata = array(
+                                            array(
+                                                'type' => 'checkbox',
+                                                'name' => 'courier['.$c_x.']',
+                                                'value' => $cdata['courierId'],
+                                                'title' => $cdata['courierName'],
+                                                'id' => 'courier-'.$c_x,
+                                                'checked' => false
+                                            ),
+                                        );
+        
+                                        $this->formcontrol->buildInputs($courierdata);
+
+                                        $c_x++;
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                         
@@ -1063,7 +1088,9 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
 
                         -->
                         <div class="tab-pane fade py-4" id="downloadable" role="tabpanel" aria-labelledby="tab-downloadable">
-                        Downloadable Product
+                            <div class="row">
+                                
+                            </div>
                         </div>
                         
                         <!--

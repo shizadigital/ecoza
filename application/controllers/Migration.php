@@ -435,7 +435,7 @@ class Migration extends CI_Controller {
         $schema->integer('zoneId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('ccostService', ['length' => '11', 'unsigned' => TRUE]);
         $schema->decimal('ccostCost', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->string('ccostETD', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('ccostETD', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('ccostNote', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('ccostAddedDate', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();

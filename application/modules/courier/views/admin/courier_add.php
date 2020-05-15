@@ -138,7 +138,7 @@ echo form_open( admin_url( $this->uri->segment(2) . '/addprocess'), array( 'id'=
                                 'onkeypress'=>'return isNumberComma(event)',
                                 'value' => 0,
                                 'input-group' => array(
-                                    'prepend'=> getLengthDefault(),
+                                    'append'=> getLengthDefault(),
                                 )
                             ),
                             array(
@@ -148,7 +148,7 @@ echo form_open( admin_url( $this->uri->segment(2) . '/addprocess'), array( 'id'=
                                 'onkeypress'=>'return isNumberComma(event)',
                                 'value' => 0,
                                 'input-group' => array(
-                                    'prepend'=> getLengthDefault(),
+                                    'append'=> getLengthDefault(),
                                 )
                             ),
                             array(
@@ -158,7 +158,7 @@ echo form_open( admin_url( $this->uri->segment(2) . '/addprocess'), array( 'id'=
                                 'onkeypress'=>'return isNumberComma(event)',
                                 'value' => 0,
                                 'input-group' => array(
-                                    'prepend'=> getLengthDefault(),
+                                    'append'=> getLengthDefault(),
                                 )
                             ),
                             array(
@@ -168,7 +168,7 @@ echo form_open( admin_url( $this->uri->segment(2) . '/addprocess'), array( 'id'=
                                 'onkeypress'=>'return isNumberComma(event)',
                                 'value' => 0,
                                 'input-group' => array(
-                                    'prepend'=> getWeightDefault(),
+                                    'append'=> getWeightDefault(),
                                 )
                             ),
                         );

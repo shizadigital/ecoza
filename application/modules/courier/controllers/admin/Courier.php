@@ -27,6 +27,30 @@ class Courier extends CI_Controller{
 
 	public function index(){
 		if( is_view() ){
+			$datapage = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+			$table = 'courier';
+			$where = "courierDeleted='0'";
+
+			$excClause = '';
+
+            if(!empty($this->input->get('kw'))){
+				$kw = $this->security->xss_clean( $this->input->get('kw') );
+
+				$queryserach = "courierName LIKE '%{$kw}%'";
+				$excClause = " AND ( $queryserach )";
+            }
+
+			$perPage = 30;
+
+			$where = $where.$excClause;
+			$datauser = $this->Env_model->view_where_order_limit('*', $table, $where, 'courierId', 'DESC', $perPage, $datapage);
+
+			$rows = countdata($table, $where);
+			$pagingURI = admin_url( $this->uri->segment(2) );
+
+			$this->load->library('paging');
+			$pagination = $this->paging->PaginationAdmin( $pagingURI, $rows, $perPage );
 
 			$data = array( 
 						'title' => $this->moduleName . ' - '.get_option('sitename'),
@@ -43,6 +67,9 @@ class Courier extends CI_Controller{
 												'permission' => 'add'
 											)
 										),
+						'data' => $datauser,
+						'pagination' => $pagination,
+						'totaldata' => $rows
 					);
 			
 			$this->load->view( admin_root('courier_view'), $data );
@@ -51,7 +78,6 @@ class Courier extends CI_Controller{
 
 	public function addnew(){
 		if( is_add() ){
-
 			
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
@@ -157,16 +183,16 @@ class Courier extends CI_Controller{
 					'courierId' => $nextId,
 					'addonsId' => 0,
 					'courierName' => $couriername,
-					'courierCode' => $couriercode,
-					'courierUrlTracking' => $urltracking,
+					'courierCode' => (string) $couriercode,
+					'courierUrlTracking' => (string) $urltracking,
 					'lengthId' => getLengthDefault('id'),
 					'courierMaxLength' => $maxpackagelength,
 					'courierMaxWidth' => $maxpackagewidth,
 					'courierMaxHeight' => $maxpackageheight,
 					'courierMaxWeight' => $maxpackageweight,
 					'weightId' => getWeightDefault('id'),
-					'courierDirLogo' =>$file_dir,
-					'courierFileLogo' =>$file_img,
+					'courierDirLogo' => (string) $file_dir,
+					'courierFileLogo' => (string) $file_img,
 					'courierFreeShipping' => $freeshipping,
 					'courierStatus' => $active,
 					'courierAddedDate' => $now,
@@ -174,17 +200,49 @@ class Courier extends CI_Controller{
 				);
 				
 				// insert data
-				$query = $this->Env_model->insert('stock_entry', $data);
+				$query = $this->Env_model->insert('courier', $data);
 				
 			    if($query){
 
+					// add store
+					$datastore = array(
+						'courierId' => $nextId,
+						'storeId' => storeId()
+					);
+					$query = $this->Env_model->insert('courier_store', $datastore);
+
 					// add cost
+					if(count($country)>0){
+						foreach($country as $key => $vl){
 
+							$country 		= esc_sql( filter_int( $vl ) );
+							$zone 			= esc_sql( filter_int( $this->input->post('zone')[$key] ) );
+							$servicename 	= esc_sql( filter_txt( $this->input->post('servicename')[$key] ) );
+							$cost 			= singleComma (esc_sql( filter_txt( $this->input->post('cost')[$key] ) ) );
+							$etd 			= esc_sql( filter_int( $this->input->post('etd')[$key] ) );
+							$note 			= filter_txt( $this->input->post('note')[$key] );
 
+							// cost getId
+							$nextcostId = getNextId('ccostId', 'courier_cost');
 
+							$dataarray = array(
+								'ccostId' => $nextcostId,
+								'courierId' => $nextId,
+								'countryId' => $country,
+								'zoneId' => $zone,
+								'ccostService' => (string) $servicename,
+								'ccostCost' => $cost,
+								'ccostETD' => (int) $etd,
+								'ccostNote' => (string) $note,
+								'ccostAddedDate' => $now
+							);
+
+							$this->Env_model->insert('courier_cost', $dataarray);
+						}
+					}
 
 					$this->session->set_flashdata( 'succeed', t('successfullyadd'));
-					echo '<script>window.location.href = "'.admin_url('stock_entry').'";</script>';
+					echo '<script>window.location.href = "'.admin_url('courier/edit/'.$nextId).'";</script>';
 				} else {
 					// error condition
 					// format: type|title|description
@@ -201,6 +259,13 @@ class Courier extends CI_Controller{
 
 	public function edit($id){
 		if( is_edit() ){
+			$id = esc_sql( filter_int($id) );
+			
+			$getdata = $this->Env_model->getval("*","courier", "courierId='{$id}'");
+
+			// get courier cost
+			$couriercost = $this->Env_model->view_where_order('*','courier_cost',"courierId='{$getdata['courierId']}'",'ccostId','ASC');
+
 			$data = array( 
 							'title' => $this->moduleName . ' - '.get_option('sitename'),
 							'page_header_on' => true,
@@ -222,15 +287,256 @@ class Courier extends CI_Controller{
 													'permission' => 'view'
 												)
 											),
+							'data' => $getdata,
+							'couriercost' => $couriercost,
+							'imgextention' => $this->extensi_allowed,
 						);
 
 			$this->load->view( admin_root('courier_edit'), $data );
 		}
 	}
 
+	public function editprocess(){
+		if( is_add() ){
+			$error = false;
+
+			$country 	= empty($this->input->post('country'))?array():$this->input->post('country');
+			$zone 		= empty($this->input->post('zone'))?array():$this->input->post('zone');
+
+			if( empty( $this->input->post('couriername') ) OR count($country)<1 OR count($zone)<1 ){
+				$error = t('emptyrequiredfield');
+			}
+
+			if(count($country)>0){
+				foreach(array_filter($country) as $ky => $vl){
+					if( empty( $zone[$ky] ) ){
+						$error = t('emptyrequiredfield'); break;
+					}
+				}
+			}
+
+			if( !empty( $this->input->post('urltracking') ) ){
+				if(!filter_var($this->input->post('urltracking'), FILTER_VALIDATE_URL)){
+					$error = t('urlnotvalid');
+				}
+			}
+
+			// check image upload
+			if(!empty($_FILES['logo']['tmp_name'])){
+				$ext_file = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
+
+				if(!in_array($ext_file,$this->extensi_allowed)) {
+					$error = "<strong>".t('error')."!!</strong> " . t('wrongextentionfile');
+				}
+			}
+
+			if(getLengthDefault('id') < 1){
+				$error = "<strong>".t('error')."!!</strong> " . t('defaultlengthempty');
+			}
+
+			if(getWeightDefault('id') < 1){
+				$error = "<strong>".t('error')."!!</strong> " . t('defaultweightempty');
+			}
+
+			if(!$error){
+				$couriername 	= esc_sql( filter_txt( $this->input->post('couriername') ) );
+				$couriercode 	= esc_sql( filter_txt( $this->input->post('couriercode') ) );
+				$urltracking 	= filter_txt( $this->input->post('urltracking', true) );
+				$freeshipping	= ($this->input->post('freeshipping') =='1' ) ? 'y':'n';
+				$active	= ($this->input->post('active') =='1' ) ? 1:0;
+				$maxpackagewidth = singleComma(esc_sql(filter_txt( $this->input->post('maxpackagewidth') )));
+				$maxpackageheight = singleComma(esc_sql(filter_txt( $this->input->post('maxpackageheight') )));
+				$maxpackagelength = singleComma(esc_sql(filter_txt( $this->input->post('maxpackagelength') )));
+				$maxpackageweight = singleComma(esc_sql(filter_txt( $this->input->post('maxpackageweight') )));
+
+				// getId
+				$id = esc_sql( filter_int( $this->input->post('ID') ) );
+
+				// now
+				$now = time2timestamp();
+
+				$file = array();
+				// upload image proccess
+				if(!empty($_FILES['logo']['tmp_name'])){
+					$ext_file = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
+
+					if(in_array($ext_file, $this->extensi_allowed)) {
+						$sizeimg = array(
+							'xsmall' 	=>'90',
+							'small' 	=>'210',
+							'medium' 	=>'530',
+							'large' 	=>'890'
+						);
+
+						$dataimg = getval("courierDirLogo,courierFileLogo", 'courier', "courierId='{$id}'" );
+						if(!empty($dataimg['courierDirLogo']) AND !empty($dataimg['courierFileLogo'])){
+							
+							//delete old file
+							foreach($sizeimg AS $imgkey => $valimg){
+								@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$dataimg['courierDirLogo'].DIRECTORY_SEPARATOR.$imgkey.'_'.$dataimg['courierFileLogo']);
+							}
+						}
+
+						$img = uploadImage('logo', 'courierlogo', $sizeimg, $this->extensi_allowed);
+						$file_img = $img['filename'];
+						$file_dir = $img['directory'];
+						
+						$file = array( 'courierDirLogo'=> $file_dir, 'courierFileLogo'=>$file_img );
+					}
+				}
+
+				$data = array(
+					'courierName' => $couriername,
+					'courierCode' => (string) $couriercode,
+					'courierUrlTracking' => (string) $urltracking,
+					'lengthId' => getLengthDefault('id'),
+					'courierMaxLength' => $maxpackagelength,
+					'courierMaxWidth' => $maxpackagewidth,
+					'courierMaxHeight' => $maxpackageheight,
+					'courierMaxWeight' => $maxpackageweight,
+					'weightId' => getWeightDefault('id'),
+					'courierFreeShipping' => $freeshipping,
+					'courierStatus' => $active,
+				);
+
+				$data = array_merge($data, $file);
+				
+				// insert data
+				$query = $this->Env_model->update('courier', $data, array('courierId' => $id));
+				
+			    if($query){
+
+					// add cost
+					if(count($country)>0){
+						// remove old all cost
+						$this->Env_model->delete('courier_cost', array('courierId' => $id));
+
+						foreach($country as $key => $vl){
+
+							$country 		= esc_sql( filter_int( $vl ) );
+							$zone 			= esc_sql( filter_int( $this->input->post('zone')[$key] ) );
+							$servicename 	= esc_sql( filter_txt( $this->input->post('servicename')[$key] ) );
+							$cost 			= singleComma (esc_sql( filter_txt( $this->input->post('cost')[$key] ) ) );
+							$etd 			= esc_sql( filter_int( $this->input->post('etd')[$key] ) );
+							$note 			= filter_txt( $this->input->post('note')[$key] );
+
+							// cost getId
+							$nextcostId = getNextId('ccostId', 'courier_cost');
+
+							$dataarray = array(
+								'ccostId' => $nextcostId,
+								'courierId' => $id,
+								'countryId' => $country,
+								'zoneId' => $zone,
+								'ccostService' => (string) $servicename,
+								'ccostCost' => $cost,
+								'ccostETD' => (int) $etd,
+								'ccostNote' => (string) $note,
+								'ccostAddedDate' => $now
+							);
+
+							$this->Env_model->insert('courier_cost', $dataarray);
+						}
+					}
+
+					$this->session->set_flashdata( 'succeed', t('successfullyupdated'));
+					echo '<script>window.location.href = "'.admin_url('courier/edit/'.$id).'";</script>';
+				} else {
+					// error condition
+					// format: type|title|description
+					echo 'danger|'.t('error').'|'.t('cannotprocessdata');
+				}
+				
+			} else {
+				// error condition
+				// format: type|title|description
+				echo 'danger|'.t('error').'|'.$error;
+			}
+		}
+	}
+
+	protected function deleteAction($id){
+		if( is_delete() ){
+			$id = esc_sql( filter_int( $id ) );
+
+			$set = array('courierDeleted' => time2timestamp() );
+			$query = $this->Env_model->update('courier', $set, "courierId='{$id}'");
+
+			if($query){
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 	public function delete($id){
 		if( is_delete() ){
+			$query = Self::deleteAction($id);
+			if($query){
 
+				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
+
+			} else {
+
+				$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
+
+			}
+
+			redirect( admin_url('courier') );
+		}
+	}
+
+	public function bulk_action(){
+		$error = false;
+		if(empty($this->input->post('bulktype'))){
+			$error = "<strong>".t('error')."!!</strong> ". t('bulkactionnotselectedyet');
+		}
+
+		if(!$error){
+			if( $this->input->post('bulktype')=='bulk_delete' AND is_delete() ){
+				$theitem = (!empty($this->input->post('item'))) ? array_filter($this->input->post('item')):array();
+
+				if( count($theitem) > 0 ){
+					$stat_hapus = FALSE;
+
+					foreach ($theitem as $key => $value) {
+						if($value == 'y'){
+							$id = filter_int($this->input->post('item_val')[$key]);
+
+							$queryact = Self::deleteAction($id);
+
+							if($queryact){
+
+								$stat_hapus = TRUE;
+
+							} else {
+
+								$stat_hapus = FALSE; break;
+
+							}
+						}
+					}
+
+					if($stat_hapus){
+						$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
+					} else {
+					  	$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
+					}
+
+					redirect( admin_url('courier') );
+					exit;
+
+				} else {
+					$error = "<strong>".t('error')."</strong>".t('bulkactionnotselecteditemyet');
+				}
+
+			}
+			redirect( admin_url('courier') );
+		}
+
+		if($error){
+			show_error($error, 503,t('actionfailed'));
+			exit;
 		}
 	}
 
@@ -280,10 +586,12 @@ class Courier extends CI_Controller{
 					<input type="text" name="note['.$idrow.']" class="form-control">
 				</td>
 				<td class="align-center">
-					<button class="btn btn-link" id="deleterow-'.$idrow.'" type="button"><i class="text-danger fe fe-trash-2"></i></button>
+					<button class="btn btn-link" id="deleterow-'.$idrow.'" type="button"><i class="text-danger fe fe-trash-2 shiza_tooltip" title="'.t('delete').'"></i></button>
 
 					<script type="text/javascript">
 					$( document ).ready(function() {
+						$(\'.shiza_tooltip\').tooltip();
+
 						$(\'#deleterow-'.$idrow.'\').click(function() {
 							$( "#rowval-'.$idrow.'" ).remove();
 						});

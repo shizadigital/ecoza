@@ -1,5 +1,10 @@
 $(document).ready(function() {
     $('.shiza_tooltip').tooltip();
+
+    $('input.custom-file-input').change(function(e){
+        var fileName = e.target.files[0].name;
+        $(this).next('.custom-file-label').html(fileName);
+    });
 });
 
 /**
@@ -55,4 +60,14 @@ function numberFormat(value, dec=2, comma=',', sep='.') {
     var parts = value.toFixed(dec).split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sep);
     return parts.join(comma);
+}
+
+function generatedCode(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }

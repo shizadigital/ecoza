@@ -153,6 +153,10 @@ $( document ).ready(function() {
                             $(\"#general-qtytype\").attr('disabled', true);
                             $(\"#nprice\").attr('disabled', true);
                             $(\"#nprice\").val('');
+
+                            // empty element in price desc
+                            $('#hasil_selisih').html('');
+                            $('#hasil_potongan').html('');
                         }
                     } else {
                         $('.attributevalue tbody').append('<tr class=\"loaderattrerror\"><td colspan=\"{$attrval_colpan_table}\" class=\"text-center\">".t('datacannotbeloaded')."</td></tr>');
@@ -620,7 +624,6 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                                         'label'=> t('qtytype'),
                                                         'name'=> 'qty-type',
                                                         'id' => 'general-qtytype',
-                                                        'onkeypress'=>'return isNumberKey(event)',
                                                         'class' => 'select2',
                                                         'option'=> array('limited'=>t('limited'),'unlimited'=>t('unlimited')),
                                                     ),
@@ -939,10 +942,11 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                             <thead>
                                                 <tr>
                                                     <th class="text-center"><?php echo t('combinations'); ?></th>
-                                                    <th style="width:240px;" class="text-center"><?php echo t('price'); ?></th>
-                                                    <th style="width:140px;" class="text-center"><?php echo t('quantity'); ?></th>
-                                                    <th style="width:140px;" class="text-center"><?php echo t('qtytype'); ?></th>
+                                                    <th style="width:200px;" class="text-center"><?php echo t('price'); ?></th>
+                                                    <th style="width:100px;" class="text-center"><?php echo t('quantity'); ?></th>
+                                                    <th style="width:130px;" class="text-center"><?php echo t('qtytype'); ?></th>
                                                     <th style="width:140px;" class="text-center"><?php echo t('weight'); ?></th>
+                                                    <th style="width:60px;" class="text-center"><?php echo t('default'); ?></th>
                                                     <th style="width:30px;" class="text-center"><i class="fe fe-settings"></i></th>
                                                 </tr>
                                             </thead>
@@ -1089,7 +1093,155 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                         -->
                         <div class="tab-pane fade py-4" id="downloadable" role="tabpanel" aria-labelledby="tab-downloadable">
                             <div class="row">
-                                
+                                <div class="col-md-12 d-block mb-3">
+                                    <button type="button" class="btn btn-rounded btn-light" id="adddownload"><i class="fe fe-plus mr-md-1"></i> <?php echo t('addlink'); ?></button>
+                                    <script type="text/javascript">
+                                    $( document ).ready(function() {
+                                        $('#adddownload').click(function() {
+                                            // Disable button
+                                            $(this).attr('disabled','disabled');
+                                            $(this).addClass('btn-disabled');
+
+                                            if( $('tr#noitemattrinfo').length ){
+                                                $('tr#noitemattrinfo').remove();
+                                            }
+
+                                            var code = generatedCode(8);
+                                            
+                                            $('.downloadfield tbody').append(
+                                                '<tr id="rowdwl-'+code+'" class="attrtrdata">\
+                                                    <td class="text-center">\
+                                                        <input type="text" class="form-control" name="dwltitle['+code+']" />\
+                                                    </td>\
+                                                    <td class="text-center">\
+                                                        <div class="input-group">\
+                                                            <div class="input-group-prepend">\
+                                                                <span class="input-group-text"><?php echo getCurrencySymbol(); ?></span>\
+                                                            </div>\
+                                                            <input type="text" class="form-control" name="dwlprice['+code+']" onkeypress="return isNumberComma(event)" />\
+                                                        </div>\
+                                                    </td>\
+                                                    <td class="text-center">\
+                                                        <select name="dwltype['+code+']" id="dwltype-'+code+'" class="custom-select form-control mb-1">\
+                                                            <option value="file"><?php echo t('file'); ?></option>\
+                                                            <option value="url">URL</option>\
+                                                        </select>\
+                                                        <div class="filetype'+code+' text-left">\
+                                                            <div class="custom-file">\
+                                                                <input type="file" class="custom-file-input" name="dwlfile['+code+']">\
+                                                                <label class="custom-file-label" for="customFile">Choose file</label>\
+                                                            </div>\
+                                                        </div>\
+                                                        <div class="urltype'+code+'" style="display:none;">\
+                                                            <input type="text" placeholder="URL" class="form-control" name="dwlurl['+code+']" />\
+                                                        </div>\
+                                                        <scri'+'pt type="text/javascript">\
+                                                        \$( document ).ready(function() {\
+                                                            \$(\'#dwltype-'+code+'\').change(function() {\
+                                                                var valtype = $(this).val();\
+                                                                if(valtype == \'file\'){\
+                                                                    \$(\'.filetype'+code+'\').show();\
+                                                                    \$(\'.urltype'+code+'\').hide();\
+                                                                } else {\
+                                                                    \$(\'.filetype'+code+'\').hide();\
+                                                                    \$(\'.urltype'+code+'\').show();\
+                                                                }\
+                                                            });\
+                                                        });\
+                                                        </scr'+'ipt>\
+                                                    </td>\
+                                                    <td class="text-center">\
+                                                        <select name="dwlsample['+code+']" id="dwlsample-'+code+'" class="custom-select form-control mb-1">\
+                                                            <option value="file"><?php echo t('file'); ?></option>\
+                                                            <option value="url">URL</option>\
+                                                        </select>\
+                                                        <div class="filesample'+code+' text-left">\
+                                                            <div class="custom-file">\
+                                                                <input type="file" class="custom-file-input" name="dwlfilesample['+code+']">\
+                                                                <label class="custom-file-label" for="customFile">Choose file</label>\
+                                                            </div>\
+                                                        </div>\
+                                                        <div class="urlsample'+code+'" style="display:none;">\
+                                                            <input type="text" placeholder="URL" class="form-control" name="dwlurlsample['+code+']" />\
+                                                        </div>\
+                                                        <scri'+'pt type="text/javascript">\
+                                                        \$( document ).ready(function() {\
+                                                            \$(\'#dwlsample-'+code+'\').change(function() {\
+                                                                var valtypesample = $(this).val();\
+                                                                if(valtypesample == \'file\'){\
+                                                                    \$(\'.filesample'+code+'\').show();\
+                                                                    \$(\'.urlsample'+code+'\').hide();\
+                                                                } else {\
+                                                                    \$(\'.filesample'+code+'\').hide();\
+                                                                    \$(\'.urlsample'+code+'\').show();\
+                                                                }\
+                                                            });\
+                                                        });\
+                                                        </scr'+'ipt>\
+                                                    </td>\
+                                                    <td class="text-center">\
+                                                        <input type="text" class="form-control mb-2" id="dwlmaxdownld-'+code+'" name="dwlmaxdownld['+code+']" onkeypress="return isNumberKey(event)" />\
+                                                        <div class="custom-control custom-checkbox">\
+                                                            <input type="checkbox" name="unlimited['+code+']" value="y" class="custom-control-input" id="unlimtd'+code+'" />\
+                                                            <label class="custom-control-label" for="unlimtd'+code+'"><?php echo t('unlimited'); ?></label>\
+                                                        </div>\
+                                                    </td>\
+                                                    <td class="text-center">\
+                                                        <button class="btn btn-link" id="removedwld-'+code+'" title="<?php echo t('remove'); ?>"><i class="fe fe-trash-2 text-red"></i></button>\
+                                                        <scri'+'pt type="text/javascript">\
+                                                        \$( document ).ready(function() {\
+                                                            \$("#removedwld-'+code+'").tooltip();\
+                                                            \$("#removedwld-'+code+'").click(function() {\
+                                                                \$(this).tooltip(\'dispose\');\
+                                                                \$("#rowdwl-'+code+'").remove();\
+                                                            });\
+                                                            \
+                                                            \$(\'input.custom-file-input\').change(function(e){\
+                                                                var fileName = e.target.files[0].name;\
+                                                                \$(this).next(\'.custom-file-label\').html(fileName);\
+                                                            });\
+                                                            \
+                                                            $(\'#unlimtd'+code+':checkbox\').change(function() {\
+                                                                if (this.checked) {\
+                                                                    \$(\'#dwlmaxdownld-'+code+'\').attr(\'disabled\', true);\
+                                                                } else {\
+                                                                    \$(\'#dwlmaxdownld-'+code+'\').removeAttr(\'disabled\');\
+                                                                }\
+                                                            });\
+                                                        });\
+                                                        </scr'+'ipt>\
+                                                    </td>\
+                                                </tr>'
+                                            );
+
+                                            $('#adddownload').removeAttr('disabled');
+                                            $('#adddownload').removeClass('btn-disabled');
+                                        });
+                                    });
+                                    </script>
+                                </div>
+
+                                <div class="col-md-12">
+                                    
+                                    <div class="table-responsive-md">
+                                        <table class="table table-hover table-striped downloadfield">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:140px;" class="text-center"><?php echo t('title'); ?></th>
+                                                    <th style="width:160px;" class="text-center"><?php echo t('price'); ?></th>
+                                                    <th style="width:150px;" class="text-center"><?php echo t('file'); ?></th>
+                                                    <th style="width:150px;" class="text-center"><?php echo t('sample'); ?></th>
+                                                    <th style="width:100px;" class="text-center"><?php echo t('maxdownloads'); ?></th>
+                                                    <th style="width:30px;" class="text-center"><i class="fe fe-settings"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id="noitemattrinfo"><td colspan="6" class="text-center"><?php echo t('nodatafound');?></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                         
@@ -1099,7 +1251,73 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
 
                         -->
                         <div class="tab-pane fade py-4" id="seo" role="tabpanel" aria-labelledby="tab-seo">
-                        seo
+                        
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <h5><span class="heading_text"><?php echo t('optimizationtitle'); ?> (SEO)</span></h5>
+                                    <hr/>
+                                </div>
+                                <div class="col-md-12 mb-4">
+                                    <span class="text-muted">
+                                    <?php echo t('infooptimization'); ?>
+                                    </span>
+                                </div>
+                                <div class="col-md-6">
+                                    <?php
+                                    $seoinput1 = array(
+                                        array(
+                                            'type' => 'text',
+                                            'label' => t('title'),
+                                            'name' => 'seo_judul',
+                                        ),
+                                        array(
+                                            'type' => 'text',
+                                            'label' => t('slug'),
+                                            'name' => 'seo_slug',
+                                        ),
+                                        array(
+                                            'type' => 'textarea',
+                                            'label' => t('description'),
+                                            'name' => 'seo_deskripsi',
+                                            'cols' => '30',
+                                            'rows' => '4',
+                                            'help' => t('infodescseo'),
+                                        ),
+                                    );
+    
+                                    $this->formcontrol->buildInputs($seoinput1);
+                                    ?>
+                                </div>
+                                <div class="col-md-6">
+                                    <?php
+                                    $seoinput2 = array(
+                                        array(
+                                            'type' => 'text',
+                                            'label' => t('keyword'),
+                                            'name' => 'kw',
+                                            'help' => t('infokeyword')
+                                        ),
+                                        array(
+                                            'type' => 'checkbox',
+                                            'title' => 'Robot Meta NOINDEX',
+                                            'name' => 'noindex',
+                                            'value' => 'noindex',
+                                            'help' => t('infonoindex'),
+                                        ),
+                                        array(
+                                            'type' => 'checkbox',
+                                            'title' => 'Robot Meta NOFOLLOW',
+                                            'name' => 'nofollow',
+                                            'value' => 'nofollow',
+                                            'help' => t('infonofollow'),
+                                        ),
+                                    );
+    
+                                    $this->formcontrol->buildInputs($seoinput2);
+                                    ?>
+                                </div>
+                            </div>
+                        
                         </div>
 
                     </div>

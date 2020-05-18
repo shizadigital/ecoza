@@ -69,6 +69,7 @@ class Migration extends CI_Controller {
         Self::create_product_table();
         Self::create_product_attribute_table();
         Self::create_product_attribute_combination_table();
+        Self::create_product_downloadable_table();
         Self::create_product_related_table();
         Self::create_product_images_table();
         Self::create_product_store_table();
@@ -737,6 +738,29 @@ class Migration extends CI_Controller {
         $schema->index('attrId');
     }
 
+    protected function create_product_downloadable_table() {
+        $schema = $this->schema->create_table('product_downloadable');
+        $schema->increments('pdwlId', ['type' => 'BIGINT', 'length' => '30']);
+        $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('pdwlTitle', ['length' => '255']);
+        $schema->decimal('pdwlPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('pdwlSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('pdwlFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->enum('pdwlDownloadType', ['file', 'url']);
+        $schema->string('pdwlFileDir', ['length' => '25']);
+        $schema->string('pdwlFile', ['length' => '255']);
+        $schema->enum('pdwlSampleType', ['file', 'url']);
+        $schema->string('pdwlSampleDir', ['length' => '25']);
+        $schema->string('pdwlSampleFile', ['length' => '255']);
+        $schema->enum('pdwlMaxDownloadType', ['unlimited', 'limited']);
+        $schema->integer('pdwlMaxDownload', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('pdwlAddedDate',['length'=>'11', 'unsigned'=>TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('prodId');
+    }
+
     protected function create_product_related_table() {
         $schema = $this->schema->create_table('product_related');
         $schema->increments('prelId', ['type' => 'BIGINT', 'length' => '30']);
@@ -1051,6 +1075,7 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('product');
         $this->schema->drop_table('product_attribute');
         $this->schema->drop_table('product_attribute_combination');
+        $this->schema->drop_table('product_downloadable');
         $this->schema->drop_table('product_related');
         $this->schema->drop_table('product_images');
         $this->schema->drop_table('product_store');

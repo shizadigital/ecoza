@@ -552,6 +552,9 @@ $lang['generalsetting'] = "General Setting";
 $lang['sizeandweightsetting'] = "Size and Weight Setting";
 $lang['shippinglocationandcost'] = "Shipping location and cost";
 $lang['availablecouriers'] = "Available Couriers";
+$lang['maxdownloads'] = "Max. Downloads";
+$lang['sample'] = "Sample";
+$lang['addlink'] = "Add link";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

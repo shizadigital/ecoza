@@ -552,6 +552,9 @@ $lang['generalsetting'] = "Pengaturan umum";
 $lang['sizeandweightsetting'] = "Pengaturan ukuran dan bobot";
 $lang['shippinglocationandcost'] = "Lokasi pengiriman dan biaya";
 $lang['availablecouriers'] = "Kurir yang tersedia";
+$lang['maxdownloads'] = "Maks. Download";
+$lang['sample'] = "Sampel";
+$lang['addlink'] = "Tambah link";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

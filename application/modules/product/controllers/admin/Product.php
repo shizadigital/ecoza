@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Product extends CI_Controller{ 
 	
 	private $moduleName = '';
+	private $extention_allowed = array();
 
 	public function __construct(){
 		parent::__construct();
@@ -16,6 +17,8 @@ class Product extends CI_Controller{
 
 		// define module name variable
 		$this->moduleName = t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=> 15) );
+
+		$this->extention_allowed = array('jpg','jpeg','png','gif');
 
 		// load model
 		$this->load->model('product_model');
@@ -149,6 +152,19 @@ class Product extends CI_Controller{
 		}
 	}
 
+	public function addingprocess(){
+		if(is_add()){
+			$error = false;
+
+			$kategori = !empty($this->input->post('categories')) ? $this->input->post('categories'):array();
+			$extention_allowed = $this->extention_allowed;
+			
+			$producttype = $this->input->post('producttype');
+
+
+		}
+	}
+
 	public function delete($id){
 		if( is_delete() ){
 
@@ -219,7 +235,7 @@ class Product extends CI_Controller{
 	}
 	
 	public function ajax_generate_attrvalue(){
-		if( is_view() AND $this->input->post('CP') === get_cookie('sz_token') ){
+		if( ( is_add() OR is_edit() ) AND $this->input->post('CP') === get_cookie('sz_token') ){
 			$valattr = $this->security->xss_clean( $this->input->post('val') );
 			$groupattr = $this->security->xss_clean( $this->input->post('group') );
 			$attravailable = $this->security->xss_clean( $this->input->post('attravailable') );
@@ -258,6 +274,9 @@ class Product extends CI_Controller{
 			// combination array
 			$arrayCombination = getCombination($dataattrval);
 
+			$countattravailable = count($attravailable);
+
+			$ncomb = ($countattravailable > 0) ? $countattravailable+1:1;
 			foreach($arrayCombination as $key => $val){
 				// generate unique code for identity
 				$codeid = generate_code(8);
@@ -284,7 +303,7 @@ class Product extends CI_Controller{
 					$nx++;
 				}
 
-				if( count($attravailable) > 0 ){
+				if( $countattravailable > 0 ){
 					if( in_array($attridspattern, $attravailable) ){
 						continue;
 					}
@@ -294,41 +313,41 @@ class Product extends CI_Controller{
 
 				echo '<td>';
 					echo $words;
-					echo '<input type="hidden" class="attrvaluedata" name="attributevalue['.$key.']" value="'.$attridspattern.'" />';
+					echo '<input type="hidden" class="attrvaluedata" name="attributevalue['.$ncomb.']" value="'.$attridspattern.'" />';
 				echo '</td>';
 
 				echo '
-				<td>
+				<td class="text-center">
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">'.getCurrencySymbol().'</span>
 						</div>';
 					$attrprice = array('class'=>'form-control', 'onkeypress'=>'return isNumberComma(event)');
-					echo form_input('priceattr['.$key.']', '', $attrprice);
+					echo form_input('priceattr['.$ncomb.']', '', $attrprice);
 					
 				echo '
 					</div>
 				</td>';
 				
 				echo '
-				<td>';
-					$attrqty = array('class'=>'form-control', 'onkeypress'=>'return isNumberKey(event)', 'id'=>'qtyinputset-'.$key.'-'.$codeid);
-					echo form_input('qtyattr['.$key.']', '', $attrqty);
+				<td class="text-center">';
+					$attrqty = array('class'=>'form-control', 'onkeypress'=>'return isNumberComma(event)', 'id'=>'qtyinputset-'.$key.'-'.$codeid);
+					echo form_input('qtyattr['.$ncomb.']', '', $attrqty);
 				echo '
 				</td>';
 
 				echo '
-				<td>';
+				<td class="text-center">';
 					$optqtytype = array('limited'=>t('limited'),'unlimited'=>t('unlimited'));
-					echo form_dropdown('qtytypeattr['.$key.']', $optqtytype, 'limited', array( 'class'=>'custom-select', 'id'=>'qtytypeset-'.$key.'-'.$codeid  ));
+					echo form_dropdown('qtytypeattr['.$ncomb.']', $optqtytype, 'limited', array( 'class'=>'custom-select', 'id'=>'qtytypeset-'.$key.'-'.$codeid ));
 				echo '
 				</td>';
 
 				echo '
-				<td>
+				<td class="text-center">
 					<div class="input-group">';
 					$attrweight = array('class'=>'form-control', 'onkeypress'=>'return isNumberComma(event)');
-					echo form_input('weightattr['.$key.']', '', $attrweight);
+					echo form_input('weightattr['.$ncomb.']', '', $attrweight);
 				echo '
 						<div class="input-group-append">
 							<span class="input-group-text">'.getWeightDefault().'</span>
@@ -337,7 +356,19 @@ class Product extends CI_Controller{
 				</td>';
 
 				echo '
-				<td>
+				<td class="text-center">';
+					$defaultchecked = array();
+					if($ncomb == 1 AND $countattravailable < 1){
+						$defaultchecked = array('checked'=>'checked');
+					}
+					$defaultattrset = array('name'=>'defaultattr','value'=>$ncomb);
+					$defaultattr = array_merge($defaultattrset,$defaultchecked);
+					echo form_radio($defaultattr);
+				echo '
+				</td>';
+
+				echo '
+				<td class="text-center">
 				<button class="btn btn-link" id="removeattr-'.$key.'-'.$codeid.'" title="'.t('remove').': '.$words.'"><i class="fe fe-trash-2 text-red"></i></button>
 				<script type="text/javascript">
 				$( document ).ready(function() {
@@ -350,7 +381,6 @@ class Product extends CI_Controller{
 								$("#general-qty").removeAttr(\'disabled\');
 								$("#general-qtytype").removeAttr(\'disabled\');
 								$("#general-qtytype").removeAttr(\'disabled\');
-								$("#nprice").removeAttr(\'disabled\');
 							}
 
 							$(this).tooltip(\'dispose\');
@@ -367,7 +397,9 @@ class Product extends CI_Controller{
 
 				echo '</tr>';
 
+				$ncomb++;
 			}
 		}
 	}
+	
 }

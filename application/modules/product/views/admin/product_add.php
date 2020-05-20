@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$attrval_colpan_table = 6;
+$attrval_colpan_table = 7;
 
 /************************************
 Register style (CSS)
@@ -549,7 +549,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                         array(
                                             'type' => 'multilanguage_texteditor',
                                             'texteditor' => 'standard',
-                                            'label' => '<h4 class="d-inline-block">'.t('description').': <span class="text-danger">*</span></h4>',
+                                            'label' => '<h4 class="d-inline-block">'.t('description').':</h4>',
                                             'name' => 'desc',
                                         ),
                                         array(
@@ -583,7 +583,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                             $buildgeneralform2 = array(
                                                 array(
                                                     'type' => 'checkbox',
-                                                    'name' => 'publis',
+                                                    'name' => 'publish',
                                                     'value' => 'y',
                                                     'title' => t('published'),
                                                     'checked' => true
@@ -841,7 +841,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                     'type' => 'select',
                                     'label'=> t('relatedproducts'),
                                     'option'=> array(""=>'-- '.t('chooseproduct').' --'),
-                                    'name'=>'relatedproduct',
+                                    'name'=>'relatedproductsearch',
                                     'id'=>'relatedproduct',
                                     'class' => 'select2relatedproduct',
                                     'extra' => '
@@ -879,11 +879,11 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                     <tbody id="dynamic-image">
                                         <tr>
                                             <td>
-                                                <input type="file" name="imgprod[0]">
+                                                <input type="file" name="imgprod[1]">
                                             </td>
                                             <td>
                                                 <div>
-                                                    <label><input type="radio" name="primary" value="0" checked>
+                                                    <label><input type="radio" name="primary" value="1" checked>
                                                     <?php echo t('primaryimg'); ?></label>
                                                 </div>
                                             </td>
@@ -897,11 +897,13 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                 var idrow = 1;
 
                                 function addimg(){
+                                    var identify = idrow+1;
+
                                     var x=document.getElementById('dynamic-image').insertRow(idrow);
                                     var td1=x.insertCell(0);
                                     var td2=x.insertCell(1);
-                                    td1.innerHTML="<input type=\"file\" name=\"imgprod["+idrow+"]\">";
-                                    td2.innerHTML="<div><label><input type=\"radio\" name=\"primary\" value=\""+idrow+"\"> <?php echo t('primaryimg'); ?></label></div>";
+                                    td1.innerHTML="<input type=\"file\" name=\"imgprod["+identify+"]\">";
+                                    td2.innerHTML="<div><label><input type=\"radio\" name=\"primary\" value=\""+identify+"\"> <?php echo t('primaryimg'); ?></label></div>";
                                     idrow++;
                                 }
 
@@ -912,7 +914,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                     }
                                 }
                             </script>
-                        </div>                        
+                        </div>
                         
                         <!--
 
@@ -1227,9 +1229,9 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                         <table class="table table-hover table-striped downloadfield">
                                             <thead>
                                                 <tr>
-                                                    <th style="width:140px;" class="text-center"><?php echo t('title'); ?></th>
+                                                    <th style="width:140px;" class="text-center"><?php echo t('title'); ?> <span class="text-red">*</span></th>
                                                     <th style="width:160px;" class="text-center"><?php echo t('price'); ?></th>
-                                                    <th style="width:150px;" class="text-center"><?php echo t('file'); ?></th>
+                                                    <th style="width:150px;" class="text-center"><?php echo t('file'); ?> <span class="text-red">*</span></th>
                                                     <th style="width:150px;" class="text-center"><?php echo t('sample'); ?></th>
                                                     <th style="width:100px;" class="text-center"><?php echo t('maxdownloads'); ?></th>
                                                     <th style="width:30px;" class="text-center"><i class="fe fe-settings"></i></th>
@@ -1269,11 +1271,6 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/addingprocess'),
                                             'type' => 'text',
                                             'label' => t('title'),
                                             'name' => 'seo_judul',
-                                        ),
-                                        array(
-                                            'type' => 'text',
-                                            'label' => t('slug'),
-                                            'name' => 'seo_slug',
                                         ),
                                         array(
                                             'type' => 'textarea',

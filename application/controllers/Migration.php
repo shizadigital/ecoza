@@ -69,6 +69,7 @@ class Migration extends CI_Controller {
         Self::create_product_table();
         Self::create_product_attribute_table();
         Self::create_product_attribute_combination_table();
+        Self::create_product_courier_table();
         Self::create_product_downloadable_table();
         Self::create_product_related_table();
         Self::create_product_images_table();
@@ -651,6 +652,7 @@ class Migration extends CI_Controller {
         $schema->string('userLogin', ['length' => '100']);
         $schema->integer('manufactId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('optionProdRules', ['type'=>'TINYINT', 'length' => '3', 'unsigned' => TRUE]);
+        $schema->integer('taxId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('prodType', ['length' => '25']);
         $schema->string('prodSku', ['length' => '65']);
         $schema->string('prodUpc', ['length' => '15']);
@@ -662,9 +664,9 @@ class Migration extends CI_Controller {
         $schema->enum('prodFeatured', ['y', 'n']);
         $schema->decimal('prodBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('prodPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->decimal('prodSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('prodSpecialPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('prodFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->integer('prodQty', ['length' => '11', 'unsigned'=>TRUE]);
+        $schema->decimal('prodQty', ['length' => '15,8']);
         $schema->enum('prodQtyType', ['unlimited', 'limited']);
         $schema->decimal('prodWeight', ['length' => '15,8']);
         $schema->string('prodWeightUnit', ['length' => '5']);
@@ -689,6 +691,7 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
+        $schema->index('taxId');
         $schema->index('prodType');
         $schema->index('prodSlug');
         $schema->index('prodFinalPrice');
@@ -703,16 +706,10 @@ class Migration extends CI_Controller {
         $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('pimgId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->decimal('pattrPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->decimal('pattrSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->decimal('pattrFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->integer('pattrQty', ['type'=> 'SMALLINT', 'length' => '5', 'unsigned' => TRUE]);
+        $schema->decimal('pattrQty', ['length' => '15,8']);
         $schema->enum('pattrQtyType', ['unlimited', 'limited']);        
         $schema->decimal('pattrWeight', ['length' => '15,8']);
         $schema->string('pattrWeightUnit', ['length' => '5']);
-        $schema->string('pattrPath', ['length' => '11']);
-        $schema->integer('pattrDownloadLimit', ['type'=>'BIGINT', 'length' => '25']);
-        $schema->enum('pattrDownloadFrom', ['email', 'server', 'externaluri']);
-        $schema->text('pattrExternalUrl');
         $schema->enum('pattrDefault', ['y', 'n']);
         $schema->integer('pattrAddedDate',['length'=>'11', 'unsigned'=>TRUE]);
         $schema->integer('pattrModifiedDate',['length'=>'11', 'unsigned'=>TRUE]);
@@ -738,20 +735,32 @@ class Migration extends CI_Controller {
         $schema->index('attrId');
     }
 
+    protected function create_product_courier_table(){
+        $schema = $this->schema->create_table('product_courier');
+        $schema->increments('pcId', ['type' => 'BIGINT', 'length' => '30']);
+        $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('courierId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('prodId');
+        $schema->index('courierId');
+    }
+
     protected function create_product_downloadable_table() {
         $schema = $this->schema->create_table('product_downloadable');
         $schema->increments('pdwlId', ['type' => 'BIGINT', 'length' => '30']);
         $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('pdwlTitle', ['length' => '255']);
         $schema->decimal('pdwlPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->decimal('pdwlSpecPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->decimal('pdwlFinalPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->enum('pdwlDownloadType', ['file', 'url']);
-        $schema->string('pdwlFileDir', ['length' => '25']);
+        $schema->string('pdwlFileDir', ['length' => '30']);
         $schema->string('pdwlFile', ['length' => '255']);
+        $schema->text('pdwlURL');
         $schema->enum('pdwlSampleType', ['file', 'url']);
-        $schema->string('pdwlSampleDir', ['length' => '25']);
+        $schema->string('pdwlSampleDir', ['length' => '30']);
         $schema->string('pdwlSampleFile', ['length' => '255']);
+        $schema->text('pdwlSampleURL');
         $schema->enum('pdwlMaxDownloadType', ['unlimited', 'limited']);
         $schema->integer('pdwlMaxDownload', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('pdwlAddedDate',['length'=>'11', 'unsigned'=>TRUE]);
@@ -1075,6 +1084,7 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('product');
         $this->schema->drop_table('product_attribute');
         $this->schema->drop_table('product_attribute_combination');
+        $this->schema->drop_table('product_courier');
         $this->schema->drop_table('product_downloadable');
         $this->schema->drop_table('product_related');
         $this->schema->drop_table('product_images');

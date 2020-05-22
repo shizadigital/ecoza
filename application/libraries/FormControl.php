@@ -172,6 +172,8 @@ class FormControl {
 
                     $result .= '</textarea>'."\n";
 
+			    	$result .= '<input type="hidden" name="datalang['.$inputs['name'].']['.$valuel2.'][InputType]" value="texteditor">';
+
                     $result .= '</div>'."\n";
                 }
             }

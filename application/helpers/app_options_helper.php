@@ -321,16 +321,8 @@ function web_info($info = '') {
         case 'tagline':
             $output = get_option('tagline');
             break;
-        case 'php_support':
+        case 'phpsupport':
             $output = get_option('phpsupport');
-            break;
-        case 'php_versi':
-            if( SYSTEM_INFO_LOCKED == FALSE ){ $sysfo = phpversion(); } else { $sysfo = ''; }
-            $output = $sysfo;
-            break;
-        case 'mysql_versi':
-            if( SYSTEM_INFO_LOCKED == FALSE ){ $sysfo = mysql_get_server_info(); } else { $sysfo = ''; }
-            $output = $sysfo;
             break;
         case 'keyword':
             $output = get_option('sitekeywords');
@@ -338,13 +330,13 @@ function web_info($info = '') {
         case 'robots':
             $output = get_option('robots');
             break;
-        case 'rss_url':
+        case 'rss':
             $output = base_url()."/rss.xml";
             break;
         case 'version':
-            $output = CMS_VERSION;
+            $output = SHIZA_VERSION;
             break;
-        case 'nama':
+        case 'name':
         default:
             $output = get_option('sitename');
             break;
@@ -470,5 +462,145 @@ function is_csrf(){
     if($ci->config->item('csrf_protection')){
         $result = true;
     } 
+    return $result;
+}
+
+function setSeoContent($method = null, $typepage = null, $id = null, $title = null, $desc = null, $keyword = null, $noindex = null, $nofollow = null){
+    $ci =& get_instance();
+    $result = false;
+        
+    $id = esc_sql(filter_int($id));
+    $typepage = esc_sql(filter_txt($typepage));
+    $title = esc_sql(filter_txt($title));
+    $seodeskripsi = esc_sql(filter_txt($desc));
+    $keyword = esc_sql(filter_txt($keyword));
+
+    if($method=='insert'){
+
+        if(!empty($title) OR !empty($seodeskripsi) OR !empty($keyword) OR !empty($noindex) OR !empty($nofollow)){
+            if(!empty($typepage) AND !empty($id)){
+
+                if(!empty($noindex) AND !empty($nofollow)){
+                    $SEO_robots = $noindex.",".$nofollow;
+                } elseif(empty($noindex) AND !empty($nofollow)){
+                    $SEO_robots = $nofollow;
+                } elseif(!empty($noindex) AND empty($nofollow)){
+                    $SEO_robots = $noindex;
+                } else {
+                    $SEO_robots = '';
+                }
+            
+                $nextIDSeo = getNextId('seoId','seo_page');
+            
+                //Insert Badge In Group
+                $insvalueseo = array(
+                    'seoId'    	=> $nextIDSeo,
+                    'relatiedId'=> $id,
+                    'seoTypePage'=> $typepage,
+                    'seoTitle'	=> (string) $title,
+                    'seoDesc'	=> (string) $seodeskripsi,
+                    'seoKeyword'=> (string) $keyword,
+                    'seoRobots'	=> (string) $SEO_robots
+                );
+            
+                $query = $ci->db->insert( $ci->db->dbprefix('seo_page'), $insvalueseo);
+
+                if($query){
+                    $result = true;
+                }
+
+            }
+        }
+
+    } elseif($method=='update'){
+        //update SEO
+        if(!empty($title) OR !empty($seodeskripsi) OR !empty($keyword) OR !empty($noindex) OR !empty($nofollow)){
+                        
+            if(!empty($noindex) AND !empty($nofollow)){
+                $SEO_robots = $noindex.",".$nofollow;
+            } elseif(empty($noindex) AND !empty($nofollow)){
+                $SEO_robots = $nofollow;
+            } elseif(!empty($noindex) AND empty($nofollow)){
+                $SEO_robots = $noindex;
+            } else {
+                $SEO_robots = '';
+            }
+
+            $numseo = countdata('seo_page',array('relatiedId'=> $id,'seoTypePage'=> $typepage));
+
+            if($numseo>0){
+                //Insert Badge In Group
+                $upvalueseo = array(
+                    'relatiedId'=> $id,
+                    'seoTypePage'=> $typepage,
+                    'seoTitle'	=> (string) $title,
+                    'seoDesc'	=> (string) $seodeskripsi,
+                    'seoKeyword'=> (string) $keyword,
+                    'seoRobots'	=> (string) $SEO_robots
+                );
+
+                $ci->db->where( array('relatiedId'=> $id, 'seoTypePage'=> $typepage) );
+                $query = $ci->db->update( $ci->db->dbprefix('seo_page'), $upvalueseo );
+
+                if($query){
+                    $result = true;
+                }
+            } else {        
+                $nextIDSeo = getNextId('seoId','seo_page');
+
+                //Insert new seo
+                $insvalueseo = array(
+                    'seoId'    	=> $nextIDSeo,
+                    'relatiedId'=> $id,
+                    'seoTypePage'=> $typepage,
+                    'seoTitle'	=> (string) $title,
+                    'seoDesc'	=> (string) $seodeskripsi,
+                    'seoKeyword'=> (string) $keyword,
+                    'seoRobots'	=> (string) $SEO_robots
+                );
+        
+                $query = $ci->db->insert( $ci->db->dbprefix('seo_page'), $insvalueseo);
+
+                if($query){
+                    $result = true;
+                }
+            }
+        } else {
+            $numseo = countdata('seo_page',array('relatiedId'=> $id,'seoTypePage'=> $typepage));
+
+            if($numseo>0){
+                $ci->db->where( array('relatiedId'=> $id,'seoTypePage'=> $typepage) );
+                $query = $ci->db->delete( $ci->db->dbprefix('seo_page'));
+
+                if($query){
+                    $result = true;
+                }
+            }
+        }
+    }
+
+    return $result;
+}
+
+function getSeoPage($id = null, $type = null){
+    $result = array(
+        'seoId' => '',
+        'relatiedId' => '',
+        'seoTypePage' => '',
+        'seoTitle' => '',
+        'seoDesc' => '',
+        'seoKeyword' => '',
+        'seoRobots' => ''
+    );
+
+    if(!empty($id) AND !empty($type) ){
+        $id = esc_sql(filter_int($id));
+        $type = esc_sql(filter_txt($type));
+        
+        if(countdata('seo_page', array('relatiedId'=>$id,'seoTypePage'=>$type)) > 0){
+            $result = getval('seoId,relatiedId,seoTypePage,seoTitle,seoDesc,seoKeyword,seoRobots', 'seo_page', array('relatiedId'=>$id,'seoTypePage'=>$type));
+        }
+    }
+
     return $result;
 }

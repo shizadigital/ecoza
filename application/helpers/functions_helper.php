@@ -773,7 +773,7 @@ function uploadFile($filekeyarray, $dir=null, $ext_allowed = array(), $specialna
 
     // check valid extention here
     if( $filecount > 0){
-        foreach ($_FILES[$filekeyarray]['name'] as $key => $value) {
+        foreach (array_filter($_FILES[$filekeyarray]['name']) as $key => $value) {
             $extfilename = strtolower( pathinfo($_FILES[$filekeyarray]['name'][$key], PATHINFO_EXTENSION) );  
             if( in_array($extfilename, $ext_allowed) ){
                 $extentionvalid = true;
@@ -920,7 +920,7 @@ function uploadImage($filekeyarray, $dir=null, $sizeofimage = array(), $ext_allo
 
     // check valid extention here
     if( $imgcount > 0){
-        foreach ($_FILES[$filekeyarray]['name'] as $key => $value) {
+        foreach (array_filter($_FILES[$filekeyarray]['name']) as $key => $value) {
             $extfilename = strtolower( pathinfo($_FILES[$filekeyarray]['name'][$key], PATHINFO_EXTENSION) );  
             if( in_array($extfilename, $ext_allowed) ){
                 $extentionvalid = true;
@@ -1330,4 +1330,44 @@ function sendMailPHPMailer($options){
     }
     
     return $result;
+}
+
+/**
+ *
+ * Check youtube url
+ *
+ * @param string $url
+ *
+ * @return bool
+ */
+function youtubeChecker($url){
+    $result = false;
+
+    if(filter_var($url, FILTER_VALIDATE_URL)){
+    
+        if ( strpos($url, 'youtube.') != false ) {
+            $result = true;
+        } elseif ( strpos($url, 'youtu.be') != false ) {
+            $result = true;
+        }
+
+    }
+
+    return $result;
+}
+
+/**
+ *
+ * get youtube id value
+ *
+ * @param string $url
+ *
+ * @return string
+ */
+function getYoutubeId($url){
+    
+    if( youtubeChecker($url) ){
+        parse_str(parse_url($url, PHP_URL_QUERY), $variables);
+        return $variables['v'];
+    }
 }

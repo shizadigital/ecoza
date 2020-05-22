@@ -555,6 +555,7 @@ $lang['availablecouriers'] = "Kurir yang tersedia";
 $lang['maxdownloads'] = "Maks. Download";
 $lang['sample'] = "Sampel";
 $lang['addlink'] = "Tambah link";
+$lang['download'] = "Download";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -822,7 +823,7 @@ $lang['wrongurlvideo'] = "Silahkan masukkan URL Video dengan benar";
 $lang['mainimgerror'] = "Silahkan pilih gambar primary";
 $lang['errorprocess'] = "Gagal, silahkan refresh halaman dan ulangi kembali";
 $lang['startenddateerror'] = "Tanggal berakhir tidak boleh lebih kecil daripada tanggal mulai. Silahkan periksa kembali.";
-$lang['productcatgempty'] = "Silahkan pilih produk atau kategori terlebih dahulu.";
+$lang['productcatempty'] = "Silahkan pilih kategori produk terlebih dahulu.";
 $lang['percentageerror'] = "Nilai persentase tidak boleh lebih dari 100%.";
 $lang['couponcharactercodeerror'] = "Karakter kode kupon diperbolehkan hanya huruf dan angka.";
 $lang['couponcodenotavailable'] = "Kode kupon \"%s\" tidak dapat digunakan, dikarenakan kode tersebut telah digunakan oleh kupon yang lain yang sedang aktif.";
@@ -901,3 +902,7 @@ $lang['urlnotvalid'] = "URL tidak valid";
 
 $lang['defaultlengthempty'] = "Satuan panjang default tidak ditemukan, silahkan input data satuan panjang default terlebih dahulu";
 $lang['defaultweightempty'] = "Satuan bobot default tidak ditemukan, silahkan input data satuan bobot default terlebih dahulu";
+$lang['donwloadfiletitleempty'] = "Judul download file kosong, silahkan masukkan judul download";
+$lang['donwloadfileurlempty'] = "File atau URL download tidak tersedia, silahkan masukkan terlebih dahulu";
+$lang['donwloadurlnotvalid'] = "URL download tidak valid, silahkan masukkan URL yang valid";
+$lang['donwloadsampleurlnotvalid'] = "URL sampel download tidak valid, silahkan masukkan URL yang valid";

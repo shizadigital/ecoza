@@ -555,6 +555,7 @@ $lang['availablecouriers'] = "Available Couriers";
 $lang['maxdownloads'] = "Max. Downloads";
 $lang['sample'] = "Sample";
 $lang['addlink'] = "Add link";
+$lang['download'] = "Download";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -822,7 +823,7 @@ $lang['wrongurlvideo'] = "Please insert the Video URL correctly";
 $lang['mainimgerror'] = "Please select the primary image";
 $lang['errorprocess'] = "Failed, please refresh the page and try again";
 $lang['startenddateerror'] = "End date must not be smaller than than start date. Please check again.";
-$lang['productcatgempty'] = "Please choose the products or categories first";
+$lang['productcatempty'] = "Please choose product category";
 $lang['percentageerror'] = "Percentage value must not be greater than 100%.";
 $lang['couponcharactercodeerror'] = "Character of coupon code only letter and number";
 $lang['couponcodenotavailable'] = "The code \"%s\" cannot to be used, because this code has been used by another coupon or this coupon code is active";
@@ -901,3 +902,7 @@ $lang['urlnotvalid'] = "URL is not valid";
 
 $lang['defaultlengthempty'] = "Default length unit is empty, please insert default length unit data first";
 $lang['defaultweightempty'] = "Default weight unit is empty, please insert default weight unit data first";
+$lang['donwloadfiletitleempty'] = "Download title is empty, please insert the download title";
+$lang['donwloadfileurlempty'] = "File or URL for download is not available, please insert file or URL first";
+$lang['donwloadurlnotvalid'] = "URL for download is not valid, please insert the valid URL";
+$lang['donwloadsampleurlnotvalid'] = "URL for sample download is not valid, please insert the valid URL";

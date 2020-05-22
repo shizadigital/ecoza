@@ -685,7 +685,7 @@ $countattravailable = countdata('product_attribute', array('prodId'=>$data['prod
                                                 <h4 class="mb-4"><?php echo t('quantity'); ?></h4>
                                                 <?php
                                                 // configurable condition
-                                                if($data['prodType']=='configurableproduct' AND $countattravailable>0){
+                                                if(($data['prodType']=='configurableproduct' OR $data['prodType']=='downloadableproduct') AND $countattravailable>0){
                                                     $qtysetting = array(
                                                         'disabled' => 'disabled',
                                                         'value' => '',
@@ -766,7 +766,7 @@ $countattravailable = countdata('product_attribute', array('prodId'=>$data['prod
 
                                                 // configurable condition
                                                 $classadditional = '';
-                                                if($data['prodType']=='configurableproduct' AND $countattravailable>0){
+                                                if(($data['prodType']=='configurableproduct' OR $data['prodType']=='downloadableproduct') AND $countattravailable>0){
                                                     $price_setting = array(
                                                         'disabled' => 'disabled',
                                                         'value' => '',
@@ -1284,7 +1284,7 @@ $countattravailable = countdata('product_attribute', array('prodId'=>$data['prod
                                             </thead>
                                             <tbody>
                                                 <?php 
-                                                if($data['prodType']=='configurableproduct' AND $countattravailable>0){
+                                                if(($data['prodType']=='configurableproduct' OR $data['prodType']=='downloadableproduct') AND $countattravailable>0){
                                                     
                                                     $numbattr = 1;
                                                     foreach( $productattribute as $keyattr => $valattr ){
@@ -1727,7 +1727,154 @@ $countattravailable = countdata('product_attribute', array('prodId'=>$data['prod
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr id="noitemattrinfo"><td colspan="6" class="text-center"><?php echo t('nodatafound');?></td></tr>
+                                                <?php
+                                                $countdownloadable = count($downloadable);
+
+                                                if($countdownloadable > 0 AND $data['prodType']=='downloadableproduct'){
+
+                                                    foreach($downloadable as $file){
+                                                        $gencode = generate_code(8);
+
+                                                        // price                                                        
+                                                        $dwl_price = explode('.', $file['pdwlPrice']);
+                                                        $capitalprice = $dwl_price[0].( ($dwl_price[1]=='00')?'':','.$dwl_price[1] );
+
+                                                        echo '
+                                                        <tr id="rowdwl-'.$gencode.'" class="attrtrdata">
+                                                            <td class="text-center">
+                                                                <input type="hidden" value="'.$file['pdwlId'].'" name="dwlid['.$gencode.']" />
+                                                                <input type="text" value="'.$file['pdwlTitle'].'" class="form-control" name="dwltitle['.$gencode.']" />
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">'.getCurrencySymbol().'</span>
+                                                                    </div>
+                                                                    <input type="text" value="'.$capitalprice.'" class="form-control" name="dwlprice['.$gencode.']" onkeypress="return isNumberComma(event)" />
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <select name="dwltype['.$gencode.']" id="dwltype-'.$gencode.'" class="custom-select form-control mb-1">
+                                                                    <option value="file"'.(($file['pdwlDownloadType']=='file')?' selected="selected"':'').'>'.t('file').'</option>
+                                                                    <option value="url"'.(($file['pdwlDownloadType']=='url')?' selected="selected"':'').'>URL</option>
+                                                                </select>
+                                                                <div class="filetype'.$gencode.' text-left"'.(($file['pdwlDownloadType']!='file')?' style="display:none;"':'').'>';
+                                                                    if(!empty($file['pdwlFileDir']) AND !empty($file['pdwlFile'])){
+                                                                        echo '<div class="d-block mt-1 mb-2">
+                                                                        <a href="'.admin_url( $this->uri->segment(2) . '/download/file/?id='.$file['pdwlId']).'" class="btn btn-success btn-sm btn-block"><i class="fe fe-download"></i> '.t('download').'</a>
+                                                                        </div>';
+                                                                    }
+                                                                    echo '
+                                                                    <div class="custom-file">
+                                                                        <input type="file" class="custom-file-input" name="dwlfile['.$gencode.']">
+                                                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="urltype'.$gencode.'"'.(($file['pdwlDownloadType']!='url')?' style="display:none;"':'').'>';
+                                                                    if(!empty($file['pdwlURL'])){
+                                                                        echo '<div class="d-block mt-1 mb-2">
+                                                                        <a href="'.$file['pdwlURL'].'" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fe fe-download"></i> '.t('download').'</a>
+                                                                        </div>';
+                                                                    }
+                                                                    echo '
+                                                                    <input type="text" value="'.$file['pdwlURL'].'" placeholder="URL" class="form-control" name="dwlurl['.$gencode.']" />
+                                                                </div>
+                                                                <script type="text/javascript">
+                                                                $( document ).ready(function() {
+                                                                    $(\'#dwltype-'.$gencode.'\').change(function() {
+                                                                        var valtype = $(this).val();
+                                                                        if(valtype == \'file\'){
+                                                                            $(\'.filetype'.$gencode.'\').show();
+                                                                            $(\'.urltype'.$gencode.'\').hide();
+                                                                        } else {
+                                                                            $(\'.filetype'.$gencode.'\').hide();
+                                                                            $(\'.urltype'.$gencode.'\').show();
+                                                                        }
+                                                                    });
+                                                                });
+                                                                </script>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <select name="dwlsample['.$gencode.']" id="dwlsample-'.$gencode.'" class="custom-select form-control mb-1">
+                                                                    <option value="file"'.(($file['pdwlSampleType']=='file')?' selected="selected"':'').'>'.t('file').'</option>
+                                                                    <option value="url"'.(($file['pdwlSampleType']=='url')?' selected="selected"':'').'>URL</option>
+                                                                </select>
+                                                                <div class="filesample'.$gencode.' text-left"'.(($file['pdwlSampleType']!='file')?' style="display:none;"':'').'>';
+                                                                    if(!empty($file['pdwlSampleDir']) AND !empty($file['pdwlSampleFile'])){
+                                                                        echo '<div class="d-block mt-1 mb-2">
+                                                                        <a href="'.admin_url( $this->uri->segment(2) . '/download/sample/?id='.$file['pdwlId']).'" class="btn btn-success btn-sm btn-block"><i class="fe fe-download"></i> '.t('download').'</a>
+                                                                        </div>';
+                                                                    }
+                                                                    echo '                                                                    
+                                                                    <div class="custom-file">
+                                                                        <input type="file" class="custom-file-input" name="dwlfilesample['.$gencode.']">
+                                                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="urlsample'.$gencode.'"'.(($file['pdwlSampleType']!='url')?' style="display:none;"':'').'>';
+                                                                    if(!empty($file['pdwlSampleURL'])){
+                                                                        echo '<div class="d-block mt-1 mb-2">
+                                                                        <a href="'.$file['pdwlSampleURL'].'" target="_blank" class="btn btn-success btn-sm btn-block"><i class="fe fe-download"></i> '.t('download').'</a>
+                                                                        </div>';
+                                                                    }
+                                                                    echo '
+                                                                    <input type="text" value="'.$file['pdwlSampleURL'].'" placeholder="URL" class="form-control" name="dwlurlsample['.$gencode.']" />
+                                                                </div>
+                                                                <script type="text/javascript">
+                                                                $( document ).ready(function() {
+                                                                    $(\'#dwlsample-'.$gencode.'\').change(function() {
+                                                                        var valtypesample = $(this).val();
+                                                                        if(valtypesample == \'file\'){
+                                                                            $(\'.filesample'.$gencode.'\').show();
+                                                                            $(\'.urlsample'.$gencode.'\').hide();
+                                                                        } else {
+                                                                            $(\'.filesample'.$gencode.'\').hide();
+                                                                            $(\'.urlsample'.$gencode.'\').show();
+                                                                        }
+                                                                    });
+                                                                });
+                                                                </script>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <input type="text" value="'.(($file['pdwlMaxDownloadType']!='unlimited')? $file['pdwlMaxDownload']:'').'" class="form-control mb-2" id="dwlmaxdownld-'.$gencode.'"'.(($file['pdwlMaxDownloadType']=='unlimited')? ' disabled="disabled"':'').' name="dwlmaxdownld['.$gencode.']" onkeypress="return isNumberKey(event)" />
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" name="unlimited['.$gencode.']" value="y" class="custom-control-input" id="unlimtd'.$gencode.'"'.(($file['pdwlMaxDownloadType']=='unlimited')? ' checked="checked"':'').' />
+                                                                    <label class="custom-control-label" for="unlimtd'.$gencode.'">'.t('unlimited').'</label>
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <button class="btn btn-link" id="removedwld-'.$gencode.'" title="'.t('remove').'"><i class="fe fe-trash-2 text-red"></i></button>
+                                                                <script type="text/javascript">
+                                                                $( document ).ready(function() {
+                                                                    $("#removedwld-'.$gencode.'").tooltip();
+                                                                    $("#removedwld-'.$gencode.'").click(function() {
+                                                                        $(this).tooltip(\'dispose\');
+                                                                        $("#rowdwl-'.$gencode.'").remove();
+                                                                    });
+                                                                    
+                                                                    $(\'input.custom-file-input\').change(function(e){
+                                                                        var fileName = e.target.files[0].name;
+                                                                        $(this).next(\'.custom-file-label\').html(fileName);
+                                                                    });
+                                                                    
+                                                                    $(\'#unlimtd'.$gencode.':checkbox\').change(function() {
+                                                                        if (this.checked) {
+                                                                            $(\'#dwlmaxdownld-'.$gencode.'\').attr(\'disabled\', true);
+                                                                        } else {
+                                                                            $(\'#dwlmaxdownld-'.$gencode.'\').removeAttr(\'disabled\');
+                                                                        }
+                                                                    });
+                                                                });
+                                                                </script>
+                                                            </td>
+                                                        </tr>
+                                                        ';
+                                                    }
+
+                                                } else {
+                                                    echo '<tr id="noitemattrinfo"><td colspan="6" class="text-center">'.t('nodatafound').'</td></tr>';
+                                                }                                                    
+                                                ?>                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -1735,7 +1882,7 @@ $countattravailable = countdata('product_attribute', array('prodId'=>$data['prod
                                 </div>
                             </div>
                         </div>
-                        
+                                                
                         <!--
 
                         SEO Input Start Here
@@ -1824,7 +1971,7 @@ $countattravailable = countdata('product_attribute', array('prodId'=>$data['prod
                 <!-- END .card-body  -->
 
                 <div class="card-footer">
-                    <button class="btn btn-primary float-right" type="submit"><i class="fe fe-plus"></i> <?php echo t('btnaddproduct'); ?></button>
+                    <button class="btn btn-primary float-right" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo t('btnupdate'); ?></button>
                     <div class="clearfix"></div>
                 </div>
 

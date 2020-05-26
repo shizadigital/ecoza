@@ -33,6 +33,68 @@ class Product extends CI_Controller{
 
 	public function index(){
 		if( is_view() ){
+			$clausequery ='';
+			$datapage = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			
+			if( $this->input->get('prodDisplay')=='draft' ){
+				$clausequery = " AND prodDisplay='n'";
+			}
+
+			$table = 'product';
+			$where = "prodDeleted='0'".$clausequery;
+
+			$excClause = '';
+
+            if(!empty($this->input->get('kw'))){
+				$kw = $this->security->xss_clean( $this->input->get('kw') );
+
+				$queryserach = "prodName LIKE '%{$kw}%'";
+				$excClause = " AND ( $queryserach )";
+				
+				// check multilanguage
+				$lang = get_cookie('admin_lang');
+				if( $lang != $this->config->item('language') ){
+					// check the keyword here
+					$dataidresult = $this->Env_model->view_where("dtRelatedId","dynamic_translations","dtRelatedTable='{$table}' AND dtLang='{$lang}' AND ( dtRelatedId IN (SELECT prodId FROM ".$this->db->dbprefix($table)." WHERE prodId=dtRelatedId) AND (dtRelatedField='prodName' AND dtTranslation LIKE '%{$kw}%') )");
+
+					$standardlangcount = countdata($table, $where . $excClause);
+
+					if( count($dataidresult)>0 ){
+						$resultlangsearch = array();
+						foreach($dataidresult AS $key => $val){
+							$resultlangsearch[] = $val['dtRelatedId'];
+						}
+
+						$querysearchlang = ($standardlangcount > 0) ? '(':'';
+						$querysearchlang .= '( prodId=\'' .implode('\' OR prodId=\'', $resultlangsearch). '\' )';
+
+						if( $standardlangcount > 0 ){
+							$querysearchlang .= " OR (".$queryserach.")";
+						}
+
+						$querysearchlang .= ($standardlangcount > 0) ? ')':'';
+
+						$excClause = " AND $querysearchlang";
+						
+					} else {
+						if($standardlangcount < 1){
+							$excClause = " AND prodName=''";
+						}
+					}
+				}
+            }
+
+			$perPage = 30;
+
+			$where = $where.$excClause;
+			$datauser = $this->Env_model->view_where_order_limit('*', $table, $where, 'prodId', 'DESC', $perPage, $datapage);
+
+			$rows = countdata($table, $where);
+			$pagingURI = admin_url( $this->uri->segment(2) );
+
+			$this->load->library('paging');
+			$pagination = $this->paging->PaginationAdmin( $pagingURI, $rows, $perPage );
+
 
 			$data = array( 
 						'title' => $this->moduleName . ' - '.get_option('sitename'),
@@ -49,6 +111,9 @@ class Product extends CI_Controller{
 												'permission' => 'add'
 											)
 										),
+						'data' => $datauser,
+						'pagination' => $pagination,
+						'totaldata' => $rows
 					);
 			
 			$this->load->view( admin_root('product_view'), $data );
@@ -264,7 +329,6 @@ class Product extends CI_Controller{
 	public function download($type){
 		if(is_view()){
 			$id = esc_sql( filter_int( $this->input->get('id', true) ) );
-
 
 			if($type=='file'){
 				$data = getval('pdwlId,pdwlFileDir,pdwlFile', 'product_downloadable', array('pdwlId'=>$id) );
@@ -1631,9 +1695,112 @@ class Product extends CI_Controller{
 		}
 	}
 
+	protected function deleteAction($id){
+		if( is_delete() ){
+			$id = esc_sql( filter_int($id) );
+			$result = false;
+			$remove = true;		
+
+			// check order not completed
+			$arraytable = array('orders_detail a', 'orders b');
+			$countordercomplete = countdata($arraytable,"a.prodId='{$id}' AND a.orderId=b.orderId AND b.orderCompleted < 1");
+
+			if($countordercomplete>0){
+				$remove = false;
+			} 
+			
+			if($remove){
+				// remove product first
+				$query = $this->Env_model->delete('product',array('prodId'=> $id));
+
+				if($query){
+					// remove translate
+					translate_removedata('product', $id );
+
+					// remove categories
+					$sqlcat = $this->Env_model->delete('category_relationship',array('relatedId'=> $id, 'crelRelatedType'=>'product'));
+
+					// remove badges
+					$sqlbdg = $this->Env_model->delete('badge_relationship',array('relatedId' => $id, 'bdgrelType'=>'product'));
+
+					// remove attribute
+					if( countdata( 'product_attribute', array('prodId'=>$id) ) > 0 ){
+						//remove attr combination first
+						$dataattr = $this->Env_model->view_where('pattrId', 'product_attribute', array('prodId'=> $id));
+						foreach($dataattr as $val){
+							$sqlcombattr = $this->Env_model->delete('product_attribute_combination',array('pattrId' => $val['pattrId']));
+						}
+
+						// remove all attribute 
+						$sqlattr = $this->Env_model->delete('product_attribute',array('pattrId' => $id));
+					}
+
+					// remove courier
+					$sqlcrr = $this->Env_model->delete('product_courier',array('prodId' => $id));
+					
+					// remmove downloadable
+					if( countdata( 'product_downloadable', array('prodId'=>$id) ) > 0 ){
+						// get downloadable data and remove
+						$dwndata = $this->Env_model->view_where('pdwlDownloadType,pdwlFileDir,pdwlFile,pdwlSampleType,pdwlSampleDir,pdwlSampleFile', "product_downloadable", "prodId='{$id}'");
+						foreach($dwndata as $valdwn){
+							// remove file
+							if($valdwn['pdwlDownloadType']=='file'){
+								@unlink( FILES_PATH . $valdwn['pdwlFileDir'].DIRECTORY_SEPARATOR.$valdwn['pdwlFile']);
+							}
+
+							// remove file
+							if($valdwn['pdwlSampleType']=='file'){
+								@unlink( FILES_PATH . $valdwn['pdwlSampleDir'].DIRECTORY_SEPARATOR.$valdwn['pdwlSampleFile']);
+							}
+						}
+
+						// remove old attribute
+						$this->Env_model->delete('product_downloadable', array('prodId' => $id));
+					}
+
+					// remove product images
+					if(countdata( "product_images","pimgId='{$id}'" ) > 0){
+						$sizeimg = array( 'xsmall', 'small', 'medium', 'large' );
+
+						//remove image file
+						$dataattr = $this->Env_model->view_where('pimgImg,pimgDir', 'product_images', array('prodId'=> $id));
+						foreach($dataattr as $valimg){
+							foreach($sizeimg as $imgsize){
+								@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$valimg['pimgDir'].DIRECTORY_SEPARATOR.$imgsize.'_'.$valimg['pimgImg']);
+							}
+						}
+
+						// remove images data
+						$sqlpic = $this->Env_model->delete('product_images',array('prodId'=> $id));
+					}
+
+					// remove related
+					$sqlreldata = $this->Env_model->delete('product_related',array('prodId' => $id));
+					$sqlrelrel = $this->Env_model->delete('product_related',array('relatedId' => $id));
+
+					// remove store ID
+					$sqlreldata = $this->Env_model->delete('product_store',array('prodId' => $id));				
+
+					$result = true;
+				}
+				
+			}
+
+			return $result;
+		}
+	}
 	public function delete($id){
 		if( is_delete() ){
+			$result = Self::deleteAction($id);
 
+			if($result){
+				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
+
+			} else {
+
+				$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
+			}
+			redirect( admin_url('product') );
 		}
 	}
 
@@ -1669,6 +1836,61 @@ class Product extends CI_Controller{
 			}
 
 			redirect( admin_url('product') );
+		}
+	}
+
+	public function bulk_action(){
+		$error = false;
+		if(empty($this->input->post('bulktype'))){
+			$error = "<strong>".t('error')."!!</strong> ". t('bulkactionnotselectedyet');
+		}
+
+		if(!$error){
+			if( $this->input->post('bulktype')=='bulk_delete' AND is_delete() ){
+				$theitem = (!empty($this->input->post('item'))) ? array_filter($this->input->post('item')):array();
+
+				if( count($theitem) > 0 ){
+					$stat_hapus = FALSE;
+
+					foreach ($theitem as $key => $value) {
+						if($value == 'y'){
+							$id = filter_int($this->input->post('item_val')[$key]);
+
+							$queryact = Self::deleteAction($id);
+
+							if($queryact){
+
+								$stat_hapus = TRUE;
+
+							} else {
+
+								$stat_hapus = FALSE; break;
+
+							}
+						}
+					}
+
+					if($stat_hapus){
+						$this->session->set_flashdata( 'succeed', t('successfullydeleted') );
+					} else {
+					  	$this->session->set_flashdata( 'failed', t('cannotprocessdata') );
+					}
+
+					redirect( admin_url('product') );
+					exit;
+
+				} else {
+					$error = "<strong>".t('error')."</strong>".t('bulkactionnotselecteditemyet');
+				}
+
+			}
+			
+			redirect( admin_url('product') );
+		}
+
+		if($error){
+			show_error($error, 503,t('actionfailed'));
+			exit;
 		}
 	}
 

@@ -64,8 +64,11 @@ class Migration extends CI_Controller {
         Self::create_geo_zone_table();
         Self::create_manufacturers_table();
         Self::create_manufacturers_store_table();
+        Self::create_member_table();
         Self::create_message_table();
         Self::create_options_table();
+        Self::create_orders_table();
+        Self::create_orders_detail_table();
         Self::create_product_table();
         Self::create_product_attribute_table();
         Self::create_product_attribute_combination_table();
@@ -609,6 +612,63 @@ class Migration extends CI_Controller {
 
     }
 
+    protected function create_member_table(){
+
+        $schema = $this->schema->create_table('member');
+        $schema->increments('mId', ['length' => '11']);
+        $schema->integer('storeId', ['length' => '15', 'unsigned' => TRUE]);
+        $schema->string('mName', ['length' => '255']);
+        $schema->string('mEmail', ['length' => '255']);
+        $schema->string('mPassword', ['length' => '255']);
+        $schema->string('mHP', ['length' => '20']);
+        $schema->enum('mGender', ['m', 'f']);
+        $schema->string('mDefaultLang', ['length' => '10']);
+        $schema->string('mDefaultCurrency', ['length' => '5']);
+        $schema->integer('mNewsletter', ['type'=>'TINYINT', 'length' => '1', 'unsigned' => TRUE]);
+        $schema->date('mBirthday');
+        $schema->string('mCode', ['length' => '255']);
+        $schema->string('mEmailSecureKey', ['length' => '150']);
+        $schema->integer('mEmailSecureKeyDate', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('mHPSecureKey', ['length' => '150']);
+        $schema->integer('mHPSecureKeyDate', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('mRegDate', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('mDir', ['length' => '25']);
+        $schema->string('mPic', ['length' => '255']);
+        $schema->enum('mType', ['guest', 'member']);
+        $schema->integer('mStatus', ['type'=>'TINYINT', 'length' => '1', 'unsigned' => TRUE]);
+        $schema->integer('mLastLogin', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('mDeleted', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
+        $schema->index('mDeleted');
+        $schema->index('mType');
+        $schema->index('mEmailSecureKey');
+        $schema->index('mHPSecureKey');
+
+    }
+
+    protected function create_member_addressbook_table(){
+
+        $schema = $this->schema->create_table('member_addressbook');
+        $schema->increments('adId', ['length' => '11']);
+        $schema->integer('mId', ['length' => '15', 'unsigned' => TRUE]);
+        $schema->string('adLabel', ['length' => '255']);
+        $schema->string('adReceiveName', ['length' => '255']);
+        $schema->text('adAddress');
+        $schema->string('adPostalCode', ['length' => '10']);
+        $schema->string('countryIsoCode2', ['length' => '3']);
+        $schema->string('adCity', ['length' => '70']);
+        $schema->string('adHP', ['length' => '20']);
+        $schema->enum('adPriority', ['primary', 'secondary']);
+        $schema->run();
+
+        // ADD index
+        $schema->index('mId');
+        $schema->index('adPriority');
+    }
+
     protected function create_message_table() {
 
         $schema = $this->schema->create_table('message');
@@ -643,6 +703,27 @@ class Migration extends CI_Controller {
         $schema->index('optionId');
         $schema->index('storeId');
         $schema->index('optionName');
+    }
+
+    protected function create_orders_table() {
+
+        $schema = $this->schema->create_table('orders');
+        $schema->increments('orderId', ['type' => 'BIGINT', 'length' => '30']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('orderDate', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('orderCompleted', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
+    }
+
+    protected function create_orders_detail_table(){
+
+        $schema = $this->schema->create_table('orders_detail');
+        $schema->increments('ordetId', ['type' => 'BIGINT', 'length' => '30']);
+        $schema->integer('orderId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
     }
 
     protected function create_product_table(){
@@ -1079,8 +1160,11 @@ class Migration extends CI_Controller {
         $this->schema->drop_table('geo_zone');
         $this->schema->drop_table('manufacturers');
         $this->schema->drop_table('manufacturers_store');
+        $this->schema->drop_table('member');
         $this->schema->drop_table('message');
         $this->schema->drop_table('options');
+        $this->schema->drop_table('orders');
+        $this->schema->drop_table('orders_detail');
         $this->schema->drop_table('product');
         $this->schema->drop_table('product_attribute');
         $this->schema->drop_table('product_attribute_combination');

@@ -159,11 +159,17 @@ class FormControl {
                             $querylang = $CI->db->query($langsql);
                             $dl = $querylang->result_array($querylang)[0];
                         }
-			    	}
+                    }
+                    
+                    $nameoffield = 'datalang['.$inputs['name'].']['.$valuel2.'][translation]';
+
+                    if($valuel2 == $defaultlang){
+                        $nameoffield = $inputs['name'];
+                    }
 
                     $result .= '<div class="tab-pane fade pt-2 tinymce-multilang'.( ($valuel2 == $defaultlang)? ' active show':'').'" id="lang-'.$theflagcode2.'-'.$attrId.'" role="tabpanel" aria-labelledby="tablang-'.$theflagcode2.'-'.$attrId.'">'."\n";
 
-                    $result .= '<textarea id="'.$attrId.'-'.$theflagcode2.'" name="datalang['.$inputs['name'].']['.$valuel2.'][translation]" placeholder="'.$country2.'" rows="5" class="form-control'.$classtexteditor.$attrClass.'"'.( ($valuel2 == $defaultlang AND count($required) > 0)? ' data-parsley-required="true"':'').'>';
+                    $result .= '<textarea id="'.$attrId.'-'.$theflagcode2.'" name="'.$nameoffield.'" placeholder="'.$country2.'" rows="5" class="form-control'.$classtexteditor.$attrClass.'"'.( ($valuel2 == $defaultlang AND count($required) > 0)? ' data-parsley-required="true"':'').'>';
 
                     $dtranslation = (!empty($dl['dtTranslation']))? $dl['dtTranslation']:'';
                     $texteditorval = ($valuel2 == $defaultlang)?$value:$dtranslation;

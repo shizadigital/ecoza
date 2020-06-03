@@ -297,6 +297,7 @@ $lang['failedforremove'] = "Gagal Dihapus";
 $lang['noprocess'] = "Tidak ada proses";
 $lang['phisycalstock'] = "Stok Fisik";
 $lang['virtualstock'] = "Stok Virtual";
+$lang['stockinappinfo'] = "Stok pada aplikasi";
 $lang['ordered'] = "Dipesan";
 $lang['deficit'] = "Defisit";
 $lang['stocks'] = "Stok";
@@ -556,6 +557,9 @@ $lang['maxdownloads'] = "Maks. Download";
 $lang['sample'] = "Sampel";
 $lang['addlink'] = "Tambah link";
 $lang['download'] = "Download";
+$lang['currentproductqty'] = "Qty Produk Saat ini";
+$lang['totalreduction'] = "Jumlah Pengurangan";
+$lang['rectification'] = "Pembetulan";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -583,6 +587,10 @@ $lang['december'] = 'Desember';
  */
 $lang['stockentrycodeprefix'] = "Prefix Kode Stok Masuk";
 $lang['totaldigitstockentrycode'] = "Total Digit Kode Stok Masuk";
+$lang['stockoutcodeprefix'] = "Prefix Kode Stok Keluar";
+$lang['totaldigitstockoutcode'] = "Total Digit Kode Stok Keluar";
+$lang['stockopnamecodeprefix'] = "Prefix Kode Stok Opname";
+$lang['totaldigitstockopnamecode'] = "Total Digit Kode Stok Opname";
 
 // lang module
 /**
@@ -762,6 +770,19 @@ $lang['infoaddentrystock'] = "Pastikan data sudah benar sebelum ditambahkan. Set
 $lang['entrydate'] = "Tanggal Masuk";
 
 /**
+ * Stock Out
+ */
+$lang['stockout'] = "Stok Keluar";
+$lang['stockoutcode'] = "Kode Stok Keluar";
+
+/**
+ * Stock Opname
+ */
+$lang['stockopname'] = "Stok Opname";
+$lang['stockopnamecode'] = "Kode Stok Opname";
+$lang['lastvirtualstock'] = "Stok virtual terakhir";
+
+/**
  * Courier
  */
 $lang['couriername'] = "Nama Kurir";
@@ -906,3 +927,6 @@ $lang['donwloadfiletitleempty'] = "Judul download file kosong, silahkan masukkan
 $lang['donwloadfileurlempty'] = "File atau URL download tidak tersedia, silahkan masukkan terlebih dahulu";
 $lang['donwloadurlnotvalid'] = "URL download tidak valid, silahkan masukkan URL yang valid";
 $lang['donwloadsampleurlnotvalid'] = "URL sampel download tidak valid, silahkan masukkan URL yang valid";
+$lang['warehouseempty'] = "Silahkan pilih gudang terlebih dahulu";
+$lang['stockentryempty'] = "Silahkan pilih stok masuk terlebih dahulu";
+$lang['stockisnotavailable'] = "Belum terdapat rekaman stok yang tersedia";

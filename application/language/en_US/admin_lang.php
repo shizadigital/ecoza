@@ -297,6 +297,7 @@ $lang['failedforremove'] = "Remove Failed";
 $lang['noprocess'] = "No Process";
 $lang['phisycalstock'] = "Phisycal Stock";
 $lang['virtualstock'] = "Virtual Stock";
+$lang['stockinappinfo'] = "Stock in application";
 $lang['ordered'] = "Ordered";
 $lang['deficit'] = "Deficit";
 $lang['stocks'] = "Stocks";
@@ -556,6 +557,9 @@ $lang['maxdownloads'] = "Max. Downloads";
 $lang['sample'] = "Sample";
 $lang['addlink'] = "Add link";
 $lang['download'] = "Download";
+$lang['currentproductqty'] = "Current Product Qty";
+$lang['totalreduction'] = "Total Reduction";
+$lang['rectification'] = "Rectification";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -583,6 +587,10 @@ $lang['december'] = 'December';
  */
 $lang['stockentrycodeprefix'] = "Stock Entry Code Prefix";
 $lang['totaldigitstockentrycode'] = "Total Digit Stock Entry Code";
+$lang['stockoutcodeprefix'] = "Stock Out Code Prefix";
+$lang['totaldigitstockoutcode'] = "Total Digit Stock Out Code";
+$lang['stockopnamecodeprefix'] = "Stock Opname Code Prefix";
+$lang['totaldigitstockopnamecode'] = "Total Digit Stock Opname Code";
 
 // lang module
 /**
@@ -762,6 +770,19 @@ $lang['infoaddentrystock'] = "Make sure the data is correct before adding. After
 $lang['entrydate'] = "Entry Date";
 
 /**
+ * Stock Out
+ */
+$lang['stockout'] = "Stock Out";
+$lang['stockoutcode'] = "Stock Out Code";
+
+/**
+ * Stock Opname
+ */
+$lang['stockopname'] = "Stock Opname";
+$lang['stockopnamecode'] = "Stock Opname Code";
+$lang['lastvirtualstock'] = "Last virtual stock";
+
+/**
  * Courier
  */
 $lang['couriername'] = "Courier Name";
@@ -906,3 +927,6 @@ $lang['donwloadfiletitleempty'] = "Download title is empty, please insert the do
 $lang['donwloadfileurlempty'] = "File or URL for download is not available, please insert file or URL first";
 $lang['donwloadurlnotvalid'] = "URL for download is not valid, please insert the valid URL";
 $lang['donwloadsampleurlnotvalid'] = "URL for sample download is not valid, please insert the valid URL";
+$lang['warehouseempty'] = "Please choose warehouse first";
+$lang['stockentryempty'] = "Please choose stock entry first";
+$lang['stockisnotavailable'] = "Stock record is not available";

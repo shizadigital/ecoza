@@ -97,10 +97,42 @@ function get_permission_access($type = ''){
 
     return $result;
 }
-function is_view(){ return get_permission_access('view'); }
-function is_add(){ return get_permission_access('add'); }
-function is_edit(){ return get_permission_access('edit'); }
-function is_delete(){ return get_permission_access('delete'); }
+function is_view($menuid=null){ 
+    if(empty($menuid)){
+        return get_permission_access('view');
+    } else {
+        $ci =& get_instance();
+        $leveluser = $ci->session->userdata('leveluser');
+        return $ci->Adminenv_model->permissionMenuAccess($menuid, $leveluser, 'view');
+    }
+}
+function is_add($menuid=null){ 
+    if(empty($menuid)){
+        return get_permission_access('add');
+    } else {
+        $ci =& get_instance();
+        $leveluser = $ci->session->userdata('leveluser');
+        return $ci->Adminenv_model->permissionMenuAccess($menuid, $leveluser, 'add');
+    }
+}
+function is_edit($menuid=null){
+    if(empty($menuid)){
+        return get_permission_access('edit');
+    } else {
+        $ci =& get_instance();
+        $leveluser = $ci->session->userdata('leveluser');
+        return $ci->Adminenv_model->permissionMenuAccess($menuid, $leveluser, 'edit');
+    }
+}
+function is_delete($menuid=null){
+    if(empty($menuid)){
+        return get_permission_access('delete');
+    } else {
+        $ci =& get_instance();
+        $leveluser = $ci->session->userdata('leveluser');
+        return $ci->Adminenv_model->permissionMenuAccess($menuid, $leveluser, 'delete');
+    }
+}
 
 /**
 *

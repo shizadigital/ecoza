@@ -339,4 +339,19 @@ class Env_model extends CI_model{
         }
 
     }
+
+    public function enum_values( $table, $field ){
+        $table = $this->db->dbprefix($table);
+        $query = $this->db->query( "SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'" );
+        $dataresult = $query->result_array();
+
+		if( count($dataresult[0]) >0 ){
+			$type = $dataresult[0]['Type'];
+		    preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
+		    $enum = explode("','", $matches[1]);
+		    $return = $enum;
+		}
+
+		return $return;
+	}
 }

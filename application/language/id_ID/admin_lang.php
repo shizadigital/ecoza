@@ -560,6 +560,9 @@ $lang['download'] = "Download";
 $lang['currentproductqty'] = "Qty Produk Saat ini";
 $lang['totalreduction'] = "Jumlah Pengurangan";
 $lang['rectification'] = "Pembetulan";
+$lang['statustype'] = "Tipe Status";
+$lang['orderstatus'] = "Order Status";
+$lang['editorderstatus'] = "Perbarui Status Order";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -763,7 +766,7 @@ $lang['warehouse'] = "Gudang";
  * Stock Entry
  */
 $lang['stockentry'] = "Stok Masuk";
-$lang['newstockentry'] = "Stok Masuk Baru";
+$lang['newstockentry'] = "Buat Stok Masuk";
 $lang['stockcode'] = "Kode Stok";
 $lang['stockentrycode'] = "Kode Stok Masuk";
 $lang['infoaddentrystock'] = "Pastikan data sudah benar sebelum ditambahkan. Setelah data ditambahkan, data tidak dapat diperbarui";
@@ -774,6 +777,7 @@ $lang['entrydate'] = "Tanggal Masuk";
  */
 $lang['stockout'] = "Stok Keluar";
 $lang['stockoutcode'] = "Kode Stok Keluar";
+$lang['newstockout'] = "Buat Stok Keluar";
 
 /**
  * Stock Opname
@@ -781,6 +785,7 @@ $lang['stockoutcode'] = "Kode Stok Keluar";
 $lang['stockopname'] = "Stok Opname";
 $lang['stockopnamecode'] = "Kode Stok Opname";
 $lang['lastvirtualstock'] = "Stok virtual terakhir";
+$lang['newstockopname'] = "Buat Stok Opname";
 
 /**
  * Courier

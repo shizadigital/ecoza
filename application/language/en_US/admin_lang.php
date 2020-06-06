@@ -560,6 +560,9 @@ $lang['download'] = "Download";
 $lang['currentproductqty'] = "Current Product Qty";
 $lang['totalreduction'] = "Total Reduction";
 $lang['rectification'] = "Rectification";
+$lang['statustype'] = "Status Type";
+$lang['orderstatus'] = "Status Order";
+$lang['editorderstatus'] = "Edit Status Order";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -763,7 +766,7 @@ $lang['warehouse'] = "Warehouse";
  * Stock Entry
  */
 $lang['stockentry'] = "Stock Entry";
-$lang['newstockentry'] = "New Stock Entry";
+$lang['newstockentry'] = "Add Stock Entry";
 $lang['stockcode'] = "Stock Code";
 $lang['stockentrycode'] = "Stock Entry Code";
 $lang['infoaddentrystock'] = "Make sure the data is correct before adding. After the data is added, the data is not allowed to be updated";
@@ -774,6 +777,7 @@ $lang['entrydate'] = "Entry Date";
  */
 $lang['stockout'] = "Stock Out";
 $lang['stockoutcode'] = "Stock Out Code";
+$lang['newstockout'] = "Add Stock Out";
 
 /**
  * Stock Opname
@@ -781,6 +785,7 @@ $lang['stockoutcode'] = "Stock Out Code";
 $lang['stockopname'] = "Stock Opname";
 $lang['stockopnamecode'] = "Stock Opname Code";
 $lang['lastvirtualstock'] = "Last virtual stock";
+$lang['newstockopname'] = "Add Stock Opname";
 
 /**
  * Courier

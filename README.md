@@ -101,6 +101,7 @@ http(s)://example.com/shiza_admin
 ~~~
 
 username: superadmin
+
 password: password
 
 ## Contributing

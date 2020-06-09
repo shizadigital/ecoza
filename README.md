@@ -76,7 +76,7 @@ Install database migration & seeder dengan menggunakan command PHP
 $ php index.php Migration install seed
 ```
 
-**5. Akses Ecommerce Shiza pada browser**
+**6. Akses Ecommerce Shiza pada browser**
 
 ~~~
 http(s)://localhost/ecoza/
@@ -87,6 +87,21 @@ atau
 ~~~
 http(s)://example.com/
 ~~~
+
+**7. Administrator**
+
+~~~
+http(s)://localhost/ecoza/shiza_admin
+~~~
+
+atau
+
+~~~
+http(s)://example.com/shiza_admin
+~~~
+
+username: superadmin
+password: password
 
 ## Contributing
 Permintaan kontribusi dipersilakan. Untuk perubahan yang besar, silahkan laporkan masalah terlebih dahulu untuk membahas apa yang ingin Anda ubah.

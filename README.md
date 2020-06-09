@@ -24,7 +24,14 @@ Source Code (Kode Sumber) EcoZa dapat didownload secara gratis pada [github](htt
 ## Installation and Configuration
 
 **1. Download atau Clone Ecommerce Shiza:**
-[https://github.com/shizadigital/shiza/archive/master.zip](https://github.com/shizadigital/shiza/archive/master.zip).
+
+Clone:
+
+[https://github.com/shizadigital/shiza.git](https://github.com/shizadigital/shiza.git)
+
+Download:
+
+[https://github.com/shizadigital/shiza/archive/master.zip](https://github.com/shizadigital/shiza/archive/master.zip)
 
 **2. Extract Hasil Download ke Localhost (Jika file didownload dari github)**
 

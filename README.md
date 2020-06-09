@@ -8,10 +8,6 @@ EcoZa saat ini dikembangkan dengan menggunakan salah satu mesin framework terpop
 
 Source Code (Kode Sumber) EcoZa dapat didownload secara gratis pada [github](https://github.com/shizadigital/shiza) yang telah disediakan.
 
-## Installation
-
-..............
-
 ## Requirements
 
 - OS: Ubuntu 16.04 LTS or higher / Windows 7 or Higher (WampServer / XAMPP).
@@ -20,14 +16,67 @@ Source Code (Kode Sumber) EcoZa dapat didownload secara gratis pada [github](htt
 - PHP: 7.2 or higher.
 - For MySQL users: 5.7.23 or higher.
 - For MariaDB users: 10.2.7 or Higher.
+- Composer: 1.6.5 or higher.
 - php mbstring.
 - [OpenSSL](https://www.php.net/manual/en/openssl.installation.php)
 - [base64_encode](https://www.php.net/manual/en/function.base64-encode.php) and [base64_decode](https://www.php.net/manual/en/function.base64-decode.php)
 
-## Contributing
-Permintaan kontribusi dipersilakan. Untuk perubahan besar, laporkan masalah terlebih dahulu untuk membahas apa yang ingin Anda ubah.
+## Installation and Configuration
 
-Pastikan untuk memperbarui tes yang sesuai.
+**1. Download atau Clone Ecommerce Shiza:**
+[https://github.com/shizadigital/shiza/archive/master.zip](https://github.com/shizadigital/shiza/archive/master.zip).
+
+**2. Extract Hasil Download ke Localhost (Jika file didownload dari github)**
+
+~~~
+http(s)://localhost/ecoza/
+~~~
+
+atau
+
+~~~
+http(s)://example.com/
+~~~
+
+**3. Install Dependensi**
+
+Install dependensi menggunakan composer pada direktori ecommerce shiza. silahkan download composer terlebih dahulu [disini](https://getcomposer.org/)
+
+```sh
+composer install
+```
+
+**4. Konfigurasi Database**
+
+Buka file *.env.example* kemudian rename menjadi *.env*
+
+Buat database baru pada host Anda dan silahkan edit dans sesuaikan database pada file *.env* Anda:
+
+```sh
+DB_HOST=localhost
+DB_USERNAME=root
+DB_PASSWORD=mypassword
+DB_DATABASE=example
+DB_PREFIX=example_
+DB_CHARSET=utf8
+```
+
+**5. Akses Ecommerce Shiza pada browser**
+
+~~~
+http(s)://localhost/ecoza/
+~~~
+
+atau
+
+~~~
+http(s)://example.com/
+~~~
+
+## Contributing
+Permintaan kontribusi dipersilakan. Untuk perubahan yang besar, silahkan laporkan masalah terlebih dahulu untuk membahas apa yang ingin Anda ubah.
+
+Pastikan untuk memperbarui tes yang disesuaikan.
 
 ## License
 EcoZa adalah framework E-Commerce yang sepenuhnya opensource yang akan selalu gratis di bawah [Lisensi MIT](https://github.com/shizadigital/shiza/blob/master/LICENSE)

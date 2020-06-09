@@ -43,14 +43,14 @@ http(s)://example.com/
 Install dependensi menggunakan composer pada direktori ecommerce shiza. silahkan download composer terlebih dahulu [disini](https://getcomposer.org/)
 
 ```sh
-composer install
+$ composer install
 ```
 
 **4. Konfigurasi Database**
 
 Buka file *.env.example* kemudian rename menjadi *.env*
 
-Buat database baru pada host Anda dan silahkan edit dans sesuaikan database pada file *.env* Anda:
+Buat database baru pada host Anda. Silahkan edit dan sesuaikan database pada file *.env* Anda:
 
 ```sh
 DB_HOST=localhost
@@ -59,6 +59,14 @@ DB_PASSWORD=mypassword
 DB_DATABASE=example
 DB_PREFIX=example_
 DB_CHARSET=utf8
+```
+
+**5. Install Migration & Seeder Database**
+
+Install database migration & seeder dengan menggunakan command PHP
+
+```sh
+$ php index.php Migration install seed
 ```
 
 **5. Akses Ecommerce Shiza pada browser**

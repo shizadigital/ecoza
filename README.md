@@ -55,9 +55,9 @@ $ composer install
 
 **4. Konfigurasi Database**
 
-Buka file *.env.example* kemudian rename menjadi *.env*
+Rename file *.env.example* menjadi *.env*
 
-Buat database baru pada host Anda. Silahkan edit dan sesuaikan database pada file *.env* Anda:
+Silahkan edit dan sesuaikan database pada file *.env* Anda:
 
 ```sh
 DB_HOST=localhost

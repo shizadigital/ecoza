@@ -100,9 +100,10 @@ atau
 http(s)://example.com/shiza_admin
 ~~~
 
+~~~
 username: superadmin
-
 password: password
+~~~
 
 ## Contributing
 Permintaan kontribusi dipersilakan. Untuk perubahan yang besar, silahkan laporkan masalah terlebih dahulu untuk membahas apa yang ingin Anda ubah.

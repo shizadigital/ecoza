@@ -1,6 +1,6 @@
 # Selamat Datang di Shiza Ecommerce
 
-<p align="center"><img src="http://shiza.id/images/shiza-logo-web.png" width="275"></p>
+<p align="center"><img src="https://shiza.id/images/shiza-logo-web.png" width="275"></p>
 
 Kami berfokus pada berbagai pengembangan aplikasi website dan mobile, termasuk pada pengembangan ecommerce yakni EcoZa (Ecommerce of Shiza). EcoZa merupakan aplikasi opensource yang dibangun dengan sukarela untuk memudahkan pekerjaan developer lain dalam menggembangkan aplikasi ecommerce serta memudahkan pengguna dalam mengoperasikan sebuah sistem ecommerce.
 

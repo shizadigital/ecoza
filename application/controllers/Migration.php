@@ -799,7 +799,6 @@ class Migration extends CI_Controller {
         // ADD index
         $schema->index('prodId');
         $schema->index('pimgId');
-        $schema->index('pattrFinalPrice');
     }
 
     protected function create_product_attribute_combination_table(){

@@ -378,8 +378,12 @@ $lang['completed'] = "Completed";
 $lang['shipped'] = "Shipped";
 $lang['canceled'] = "Canceled";
 $lang['failed'] = "Failed";
+$lang['return'] = "Return";
 $lang['refunded'] = "Refunded";
+$lang['returned'] = "Returned";
 $lang['invoice'] = "Invoice";
+$lang['supplierinvoice'] = "Supplier Invoice";
+$lang['supplierinvoice2'] = "Supplier Invoice";
 $lang['invoice2'] = "Invoice";
 $lang['orderdate'] = "Order Date";
 $lang['buyer'] = "Buyer";
@@ -563,6 +567,11 @@ $lang['rectification'] = "Rectification";
 $lang['statustype'] = "Status Type";
 $lang['orderstatus'] = "Status Order";
 $lang['editorderstatus'] = "Edit Status Order";
+$lang['returntype'] = "Return Type";
+$lang['received'] = "Received";
+$lang['totalreturned'] = "Total Returned";
+$lang['totalstockbefore'] = "Total Stock Before";
+$lang['downloadinvoice'] = "Download Invoice";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -594,6 +603,8 @@ $lang['stockoutcodeprefix'] = "Stock Out Code Prefix";
 $lang['totaldigitstockoutcode'] = "Total Digit Stock Out Code";
 $lang['stockopnamecodeprefix'] = "Stock Opname Code Prefix";
 $lang['totaldigitstockopnamecode'] = "Total Digit Stock Opname Code";
+$lang['returncodeprefix'] = "Product Return Code Prefix";
+$lang['totaldigitreturncode'] = "Product Return Stock Opname Code";
 
 // lang module
 /**
@@ -788,6 +799,13 @@ $lang['lastvirtualstock'] = "Last virtual stock";
 $lang['newstockopname'] = "Add Stock Opname";
 
 /**
+ * Product Return
+ */
+$lang['productreturn'] = "Product Retur";
+$lang['returncode'] = "Return Code";
+$lang['returninvoice'] = "Return Invoice";
+
+/**
  * Courier
  */
 $lang['couriername'] = "Courier Name";
@@ -933,5 +951,6 @@ $lang['donwloadfileurlempty'] = "File or URL for download is not available, plea
 $lang['donwloadurlnotvalid'] = "URL for download is not valid, please insert the valid URL";
 $lang['donwloadsampleurlnotvalid'] = "URL for sample download is not valid, please insert the valid URL";
 $lang['warehouseempty'] = "Please choose warehouse first";
+$lang['warehouseandsupplierempty'] = "Please choose warehouse and supplier first";
 $lang['stockentryempty'] = "Please choose stock entry first";
 $lang['stockisnotavailable'] = "Stock record is not available";

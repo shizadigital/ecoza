@@ -378,8 +378,12 @@ $lang['completed'] = "Selesai";
 $lang['shipped'] = "Dikirim";
 $lang['canceled'] = "Dibatalkan";
 $lang['failed'] = "Gagal";
+$lang['return'] = "Kembalikan";
 $lang['refunded'] = "Dikembalikan";
+$lang['returned'] = "Dikembalikan";
 $lang['invoice'] = "Faktur";
+$lang['supplierinvoice'] = "Faktur Supplier";
+$lang['supplierinvoice2'] = "Invoice Supplier";
 $lang['invoice2'] = "Invoice";
 $lang['orderdate'] = "Tanggal Order";
 $lang['buyer'] = "Pembeli";
@@ -563,6 +567,11 @@ $lang['rectification'] = "Pembetulan";
 $lang['statustype'] = "Tipe Status";
 $lang['orderstatus'] = "Order Status";
 $lang['editorderstatus'] = "Perbarui Status Order";
+$lang['returntype'] = "Tipe Retur";
+$lang['received'] = "Diterima";
+$lang['totalreturned'] = "Jumlah Retur";
+$lang['totalstockbefore'] = "Jumlah Stock Sebelumnya";
+$lang['downloadinvoice'] = "Download Invoice";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -594,6 +603,8 @@ $lang['stockoutcodeprefix'] = "Prefix Kode Stok Keluar";
 $lang['totaldigitstockoutcode'] = "Total Digit Kode Stok Keluar";
 $lang['stockopnamecodeprefix'] = "Prefix Kode Stok Opname";
 $lang['totaldigitstockopnamecode'] = "Total Digit Kode Stok Opname";
+$lang['returncodeprefix'] = "Prefix Kode Retur Produk";
+$lang['totaldigitreturncode'] = "Total Digit Kode Retur Produk";
 
 // lang module
 /**
@@ -788,6 +799,13 @@ $lang['lastvirtualstock'] = "Stok virtual terakhir";
 $lang['newstockopname'] = "Buat Stok Opname";
 
 /**
+ * Product Return
+ */
+$lang['productreturn'] = "Retur Produk";
+$lang['returncode'] = "Kode Retur";
+$lang['returninvoice'] = "Invoice Retur";
+
+/**
  * Courier
  */
 $lang['couriername'] = "Nama Kurir";
@@ -933,5 +951,6 @@ $lang['donwloadfileurlempty'] = "File atau URL download tidak tersedia, silahkan
 $lang['donwloadurlnotvalid'] = "URL download tidak valid, silahkan masukkan URL yang valid";
 $lang['donwloadsampleurlnotvalid'] = "URL sampel download tidak valid, silahkan masukkan URL yang valid";
 $lang['warehouseempty'] = "Silahkan pilih gudang terlebih dahulu";
+$lang['warehouseandsupplierempty'] = "Silahkan pilih gudang dan supplier terlebih dahulu";
 $lang['stockentryempty'] = "Silahkan pilih stok masuk terlebih dahulu";
 $lang['stockisnotavailable'] = "Belum terdapat rekaman stok yang tersedia";

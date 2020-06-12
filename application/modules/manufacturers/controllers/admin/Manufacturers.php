@@ -278,7 +278,7 @@ class Manufacturers extends CI_Controller{
 			$id = esc_sql( filter_int($id) );
 
 			// remove image file first
-			$dataimg = geval("*", 'manufacturers', "manufactId='{$id}'" );
+			$dataimg = getval("*", 'manufacturers', "manufactId='{$id}'" );
 			if(!empty($dataimg['manufactDir']) AND !empty($dataimg['manufactImg'])){
 				$sizeimg = array( 'xsmall', 'small', 'medium', 'large' );
 

@@ -577,8 +577,9 @@ $lang['invoicedate'] = "Invoice Date";
 $lang['invoicedate2'] = "Invoice Date";
 $lang['invoiceto'] = "Invoice to";
 $lang['customer'] = "Customer";
-$lang['customer1'] = "Pelanggan";
-$lang['customer2'] = "Pemesan";
+$lang['customer1'] = "Customer";
+$lang['customer2'] = "Customer";
+$lang['usernameinfo'] = "Make sure the username is correct before your adding. After the data is added, the data is not allowed to be updated";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -824,6 +825,17 @@ $lang['maxpackageweight'] = "Maximum package weight";
 $lang['addservice'] = "Add Service";
 $lang['choosecountryfirst'] = "Choose Country First";
 
+/**
+ * Employee
+ */
+$lang['employee'] = "Employee";
+$lang['adminprivilege'] = "Admin Privilege";
+$lang['fullname'] = "Full Name";
+$lang['pin'] = "PIN";
+$lang['repeatpin'] = "Repeat PIN";
+$lang['abbr_pin'] = "Personal Identification Number";
+$lang['pinentryinfo'] = "Insert %s digits for your PIN number and don't start with a zero";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///
@@ -895,6 +907,9 @@ $lang['addresspriorityerror'] = "Priority of address cannot be change. because t
 $lang['defaultattrisempty'] = "Please choose the default attribute";
 $lang['fefowarning'] = "Management type of warehouse used FEFO, please insert expired date field";
 
+$lang['usernameavailebleerror_employee'] = 'Please choose another username because it is already used in administrator.';
+$lang['emailavailebleerror_employee'] = 'Please choose another email because it is already used in administrator.';
+
 // Product Error
 $lang['variationsamewithorigin'] = "There should be no option of the same product for the same origin";
 $lang['variationnotyetcorrectly'] = "You have not filled out the options / variations of the product correctly. Check again!";
@@ -961,3 +976,4 @@ $lang['warehouseempty'] = "Please choose warehouse first";
 $lang['warehouseandsupplierempty'] = "Please choose warehouse and supplier first";
 $lang['stockentryempty'] = "Please choose stock entry first";
 $lang['stockisnotavailable'] = "Stock record is not available";
+$lang['pinnotequal'] = "PIN confirmation is not equal. please try again";

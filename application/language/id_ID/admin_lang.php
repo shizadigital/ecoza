@@ -579,6 +579,7 @@ $lang['invoiceto'] = "Invoice ke";
 $lang['customer'] = "Customer";
 $lang['customer1'] = "Pelanggan";
 $lang['customer2'] = "Pemesan";
+$lang['usernameinfo'] = "Pastikan nama pengguna/username sudah benar sebelum ditambahkan, nama pengguna tidak dapat diperbarui";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -824,6 +825,17 @@ $lang['maxpackageweight'] = "Bobot paket maksimal";
 $lang['addservice'] = "Tambah Service";
 $lang['choosecountryfirst'] = "Pilih Negara Dahulu";
 
+/**
+ * Employee
+ */
+$lang['employee'] = "Karyawan";
+$lang['adminprivilege'] = "Hak Akses Admin";
+$lang['fullname'] = "Nama Lengkap";
+$lang['pin'] = "PIN";
+$lang['repeatpin'] = "Ulangi PIN";
+$lang['abbr_pin'] = "Personal Identification Number";
+$lang['pinentryinfo'] = "Masukkan %s digit angka untuk nomor PIN Anda dan tidak diawali dengan angka 0 (nol)";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///
@@ -895,6 +907,9 @@ $lang['addresspriorityerror'] = "Prioritas alamat ini tidak bisa diganti dikaren
 $lang['defaultattrisempty'] = "SIlahkan pilih atribut default";
 $lang['fefowarning'] = "Gudang bertipe FEFO, silahkan isi tanggal kadaluarsa";
 
+$lang['usernameavailebleerror_employee'] = 'Nama pengguna telah tersedia untuk akun admin. silahkan coba dengan nama pengguna lain';
+$lang['emailavailebleerror_employee'] = 'Email telah tersedia untuk akun admin. silahkan coba dengan email lain';
+
 // Product Error
 $lang['variationsamewithorigin'] = "Tidak boleh ada variasi produk yang sama untuk gudang yang sama";
 $lang['variationnotyetcorrectly'] = "Anda belum mengisi variasi produk dengan benar. Periksa kembali!";
@@ -961,3 +976,4 @@ $lang['warehouseempty'] = "Silahkan pilih gudang terlebih dahulu";
 $lang['warehouseandsupplierempty'] = "Silahkan pilih gudang dan supplier terlebih dahulu";
 $lang['stockentryempty'] = "Silahkan pilih stok masuk terlebih dahulu";
 $lang['stockisnotavailable'] = "Belum terdapat rekaman stok yang tersedia";
+$lang['pinnotequal'] = "Konfirmasi PIN tidak sama, silahkan ulangi";

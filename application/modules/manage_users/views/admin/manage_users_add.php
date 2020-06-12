@@ -117,7 +117,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosestambah'), 
                         <div class="form-group">
                             <label class="req" for="pwdSt_password"><?php echo t('password'); ?></label>
                             <div id="pwd-container">
-                                <input type="password" class="form-control sepH_a" id="pwdSt_password" name="pass" required />
+                                <input type="password" class="form-control sepH_a" id="pwdSt_password" name="pass" autocomplete="off" required />
                                 <div class="pwstrength_viewport_progress sepH_b"></div>
                                 <span class="form-text pwstrength_viewport_verdict"></span>
                             </div>
@@ -125,13 +125,13 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosestambah'), 
 
                         <div class="form-group">
                             <label class="req" for="repeat_password"><?php echo t('repeatpassword'); ?></label>
-                            <input type="password" class="form-control" id="repeat_password" name="ulang_pass" data-parsley-equalto="#pwdSt_password" required />
+                            <input type="password" class="form-control" id="repeat_password" name="ulang_pass" autocomplete="off" data-parsley-equalto="#pwdSt_password" required />
                         </div>
 
                         <?php                             
                             $buildform2 = array(
                                 array(
-                                    'type' => 'file',
+                                    'type' => 'file-img',
                                     'label' => t('picture'),
                                     'name' => 'fupload',
                                     'help' => t('infofile') . ' *.jpg, *.jpeg, *.png'

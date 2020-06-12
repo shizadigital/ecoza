@@ -98,6 +98,7 @@ class Manage_users extends CI_Controller{
 	}
 	public function prosestambah(){
 		if( is_add() ){
+			$error = false;
 
 			if(empty($this->input->post('username')) OR empty($this->input->post('email')) OR empty($this->input->post('nama')) OR empty($this->input->post('pass')) OR empty($this->input->post('level')) OR empty($this->input->post('ulang_pass'))){
 				$error = "<strong>".t('error')."</strong> ".t('emptyrequiredfield');
@@ -256,7 +257,7 @@ class Manage_users extends CI_Controller{
 	public function prosesedit(){
 		if( is_edit() ){
 			$error = false;
-			$id = $this->input->post('ID');
+			$id = esc_sql(filter_int($this->input->post('ID')));
 
 			if( empty($this->input->post('email')) OR empty($this->input->post('nama')) OR empty($this->input->post('level')) ){
 				$error = "<strong>".t('error')."</strong> ".t('emptyrequiredfield');
@@ -323,7 +324,7 @@ class Manage_users extends CI_Controller{
 							'large' 	=>'1920'
 						);
 
-						$dataimg = geval("*", 'users', "userId='{$id}'" );
+						$dataimg = getval("*", 'users', "userId='{$id}'" );
 						if(!empty($dataimg['userDir']) AND !empty($dataimg['userPic'])){							
 							//delete old file
 							foreach($sizeimg AS $imgkey => $valimg){
@@ -367,17 +368,6 @@ class Manage_users extends CI_Controller{
 	protected function deleteAction($id){
 		if( is_delete() ){
 			$id = filter_int($id);
-
-			$data = getval("*", 'users', "userId='{$id}'" );
-			if(!empty($data['userDir']) AND !empty($data['userPic'])){
-				// remove img first
-				$sizeimg = array('xsmall','small','medium','large');
-				
-				//delete old file
-				foreach($sizeimg AS $valimg){
-					@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$data['userDir'].DIRECTORY_SEPARATOR.$valimg.'_'.$data['userPic']);
-				}
-			}
 
 			// update to delete
 			$deleted = time2timestamp();

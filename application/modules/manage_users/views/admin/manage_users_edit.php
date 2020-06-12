@@ -125,7 +125,7 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
                         <div class="form-group">
                             <label for="pwdSt_password">Password</label>
                             <div id="pwd-container">
-                                <input type="password" class="form-control sepH_a" id="pwdSt_password" name="pass" />
+                                <input type="password" class="form-control sepH_a" id="pwdSt_password" autocomplete="off" name="pass" />
                                 <div class="pwstrength_viewport_progress sepH_b"></div>
                                 <span class="form-text pwstrength_viewport_verdict"></span>
                             </div>
@@ -133,19 +133,22 @@ echo form_open_multipart( admin_url( $this->uri->segment(2) . '/prosesedit'), ar
 
                         <div class="form-group">
                             <label for="repeat_password">Ulangi Password</label>
-                            <input type="password" class="form-control" id="repeat_password" name="ulang_pass" data-parsley-equalto="#pwdSt_password" />
+                            <input type="password" class="form-control" id="repeat_password" name="ulang_pass" autocomplete="off" data-parsley-equalto="#pwdSt_password" />
                         </div>
+                        
+                        <?php                             
+                            $buildform2 = array(
+                                array(
+                                    'type' => 'file-img',
+                                    'label' => t('picture'),
+                                    'name' => 'fupload',
+                                    'help' => t('infofile') . ' *.jpg, *.jpeg, *.png',
+                                    'value' => $potoadmin
+                                )
+                            );
 
-                        <div class="form-group">
-                            <label for="gambar">Gambar</label>
-                            <div class="row">
-                                <div class="col-12 mb-3">
-                                    <img src="<?php print $potoadmin; ?>" />
-                                </div>
-                            </div>
-                            <input type="file" name="fupload" class="fileInput" id="fupload" />
-                            <small class="form-text text-muted">Ekstensi yang diizinkan *.jpg, *.jpeg, *.png</small>
-                        </div>
+                            $this->formcontrol->buildInputs($buildform2);
+                        ?>
                     </div>
 
                     <div class="col-md-12">

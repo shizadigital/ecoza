@@ -126,7 +126,7 @@ class Mc extends CI_Model
 	 * Pagination
 	 * @return [type] [description]
 	 */
-	function pagination_fetch($table, $limit, $start, $opt='')
+	function pagination_fetch($table, $limit, $start, $opt=null)
 	{
 		$fields = $this->db->list_fields($table);
 
@@ -146,14 +146,17 @@ class Mc extends CI_Model
 	 			$this->db->select($opt['join_select']);
 	 		}
 
-	 		if(count($opt['join']) > 1) {
-	 			foreach($opt['join'] AS $join) {
-	 				$this->db->join($join['table'], $join['current'] . ' = ' . $join['with']);
-	 			}
-	 		} else {
-	 			$this->db->join($opt['join'][0]['table'], $opt['join'][0]['current'] . ' = ' . $opt['join'][0]['with']);
-	 		}
-	 	}
+			if(is_array($opt['join'])){
+				if(count($opt['join']) > 1) {
+					foreach($opt['join'] AS $join) {
+						$this->db->join($join['table'], $join['current'] . ' = ' . $join['with']);
+					}
+				} else {
+					$this->db->join($opt['join'][0]['table'], $opt['join'][0]['current'] . ' = ' . $opt['join'][0]['with']);
+				}
+			}
+		}
+		 
 	 	// :: SEARCH
 	 	if(!empty($opt['s'])) {
 	 		if(isset($access[0])) {
@@ -192,4 +195,26 @@ class Mc extends CI_Model
 	{
 		return $this->db->count_all($table);
 	}
+
+	/**
+	 * Show all table in database
+	 * @param  
+	 * @return array table database record
+	 */
+	function showAllTables(){
+        $envdb = $this->db->query("SHOW TABLES");
+        $dataresult = $envdb->result_array();
+        $rslt = array();
+
+        foreach($dataresult as $r){
+            foreach($r as $d){
+                $envdb = $this->db->query("SHOW TABLE STATUS WHERE Name = '{$d}'");
+                $dataresult = $envdb->result_array()[0];
+
+                $rslt[$d] = $dataresult;
+            }
+        }
+
+        return $rslt;
+    }
 }

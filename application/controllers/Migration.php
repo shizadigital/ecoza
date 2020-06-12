@@ -1127,65 +1127,17 @@ class Migration extends CI_Controller {
     }
 
     protected function drop() {
-        $this->schema->drop_table('addons');
-        $this->schema->drop_table('ads');
-        $this->schema->drop_table('ads_position');
-        $this->schema->drop_table('android_device');
-        $this->schema->drop_table('attribute');
-        $this->schema->drop_table('attribute_group');
-        $this->schema->drop_table('attribute_group_store');
-        $this->schema->drop_table('attribute_relationship');
-        $this->schema->drop_table('attribute_value');
-        $this->schema->drop_table('attribute_store');
-        $this->schema->drop_table('badges');
-        $this->schema->drop_table('badge_relationship');
-        $this->schema->drop_table('badge_store');
-        $this->schema->drop_table('categories');
-        $this->schema->drop_table('category_relationship');
-        $this->schema->drop_table('category_store');
-        $this->schema->drop_table('currency');
-        $this->schema->drop_table('comments');
-        $this->schema->drop_table('contents');
-        $this->schema->drop_table('courier');
-        $this->schema->drop_table('courier_cost');
-        $this->schema->drop_table('courier_store');
-        $this->schema->drop_table('cron_list');
-        $this->schema->drop_table('dynamic_translations');
-        $this->schema->drop_table('email_blacklist');
-        $this->schema->drop_table('email_queue');
-        $this->schema->drop_table('email_template');
-        $this->schema->drop_table('gallery_pic');
-        $this->schema->drop_table('geo_country');
-        $this->schema->drop_table('geo_zone');
-        $this->schema->drop_table('manufacturers');
-        $this->schema->drop_table('manufacturers_store');
-        $this->schema->drop_table('member');
-        $this->schema->drop_table('message');
-        $this->schema->drop_table('options');
-        $this->schema->drop_table('orders');
-        $this->schema->drop_table('orders_detail');
-        $this->schema->drop_table('product');
-        $this->schema->drop_table('product_attribute');
-        $this->schema->drop_table('product_attribute_combination');
-        $this->schema->drop_table('product_courier');
-        $this->schema->drop_table('product_downloadable');
-        $this->schema->drop_table('product_related');
-        $this->schema->drop_table('product_images');
-        $this->schema->drop_table('product_store');
-        $this->schema->drop_table('review');
-        $this->schema->drop_table('seo_page');
-        $this->schema->drop_table('slider');
-        $this->schema->drop_table('store');
-        $this->schema->drop_table('tax');
-        $this->schema->drop_table('tax_rule');
-        $this->schema->drop_table('testimonial');
-        $this->schema->drop_table('unit_weight');
-        $this->schema->drop_table('unit_length');
-        $this->schema->drop_table('users');
-        $this->schema->drop_table('users_level');
-        $this->schema->drop_table('users_menu');
-        $this->schema->drop_table('users_menu_access');
-        $this->schema->drop_table('website_menu');
+
+        $data = $this->mc->showAllTables();
+
+        // drop database table with prefix setting
+        foreach ($data AS $key => $r){
+            $table = str_replace($_ENV['DB_PREFIX'], '', $key);
+
+            // drop data
+            $this->schema->drop_table($table);
+        }
+        
     }
 
     function drop_one($name)

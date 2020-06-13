@@ -409,7 +409,7 @@ class FormControl {
                             '.( is_csrf() ? ','.$CI->security->get_csrf_token_name().':"'.$CI->security->get_csrf_hash().'"':'').'
 	                    },
 			            beforeSend: function(data){
-			                $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
+			                $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.base_assets('img/loader/loading.gif').'" alt="loader"></div>\');
 			                $(this).attr(\'disabled\',\'disabled\');
 			            },
 			            success: function(data) {
@@ -441,7 +441,7 @@ class FormControl {
 			            data : jsondata,
 			            async: true,
 			            beforeSend: function(data){
-			                $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
+			                $(\'#content_'.$inputs['name'].'\').show().html(\'<div class="h-100 d-flex justify-content-center"><img src="'.base_assets('img/loader/loading.gif').'" alt="loader"></div>\');
 			                $(".btnmodallang_'.$inputs['name'].'").attr(\'disabled\',\'disabled\');
 			            },
 			            success: function(data) {

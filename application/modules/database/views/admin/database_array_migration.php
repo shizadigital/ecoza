@@ -23,8 +23,8 @@ include V_ADMIN_PATH . "topbar.php";
 
 if( is_view() ):
 
-	echo '<link rel="stylesheet" type="text/css" href="'.web_assets('vendors/prism/prism.css').'">';
-	$this->assetsloc->place_element_to_footer('<script src="'.web_assets('vendors/prism/prism.js').'"></script>');
+	echo '<link rel="stylesheet" type="text/css" href="'.base_assets('vendors/prism/prism.css').'">';
+	$this->assetsloc->place_element_to_footer('<script src="'.base_assets('vendors/prism/prism.js').'"></script>');
 ?>
 <style>
 code[class*="language-"],

@@ -296,11 +296,19 @@ class MX_Loader extends CI_Loader
 
 		if ($path != FALSE)
 		{
-			$this->_ci_view_paths = array($path => TRUE) + $this->_ci_view_paths;
+			$this->_ci_view_paths = array_merge($this->_ci_view_paths, array($path => TRUE), array( FCPATH .'templates/'=>TRUE));
 			$view = $_view;
 		}
+		
+        if(!is_admin()){
+            // load template view
+            $templatedir = FCPATH .'templates/'.get_option('template');
+            if(file_exists($templatedir) != FALSE){
+                $this->_ci_view_paths = array_merge($this->_ci_view_paths, array( FCPATH .'templates/'.get_option('template').'/' =>TRUE));
+            }
+        }
 
-		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((method_exists($this,'_ci_object_to_array')) ? $this->_ci_object_to_array($vars) : $this->_ci_prepare_view_vars($vars)), '_ci_return' => $return));
 	}
 
 	protected function &_ci_get_component($component)

@@ -73,7 +73,7 @@ $( document ).ready(function() {
             },
             beforeSend: function(data){
                 $('.chooseinforelated').remove();
-                $('#relatedresult').prepend('<li class=\"loadajaxresult\"><img src=\"".web_assets('img/loader/loading.gif')."\" alt=\"loader\"></li>');
+                $('#relatedresult').prepend('<li class=\"loadajaxresult\"><img src=\"".base_assets('img/loader/loading.gif')."\" alt=\"loader\"></li>');
             },
             success: function(data) {
                 $('.loadajaxresult').remove();
@@ -125,7 +125,7 @@ $( document ).ready(function() {
                         $('#noitemattrinfo').remove();
                     }
 
-                    $('.attributevalue tbody').append('<tr class=\"loaderresult\"><td colspan=\"{$attrval_colpan_table}\" class=\"text-center\"><div class=\"py-2\"><img src=\"".web_assets('img/loader/loading.gif')."\" alt=\"loader\"></div></td></tr>');
+                    $('.attributevalue tbody').append('<tr class=\"loaderresult\"><td colspan=\"{$attrval_colpan_table}\" class=\"text-center\"><div class=\"py-2\"><img src=\"".base_assets('img/loader/loading.gif')."\" alt=\"loader\"></div></td></tr>');
                 },
                 success: function(data) {
                     $('.loaderresult').remove();

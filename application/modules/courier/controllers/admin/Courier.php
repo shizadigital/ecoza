@@ -597,7 +597,7 @@ class Courier extends CI_Controller{
 						});
 
 						$(\'#select2product'.$idrow.'\').change(function() {
-							$(\'#zoneinput-'.$idrow.'\').html(\'<div class="text-center"><img src="'.web_assets('img/loader/loading.gif').'" alt="loader"></div>\');
+							$(\'#zoneinput-'.$idrow.'\').html(\'<div class="text-center"><img src="'.base_assets('img/loader/loading.gif').'" alt="loader"></div>\');
 
 							var idzone = $(this).val();
 

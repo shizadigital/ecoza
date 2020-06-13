@@ -30,6 +30,6 @@ class Home extends CI_Controller {
 					'title' =>  get_option('sitename'),
 					'web_meta' => $web_meta
 				);
-		$this->load->view( template_root(), $data, false);
+		$this->load->view( 'main', $data, false);
 	}
 }

@@ -38,7 +38,7 @@ $CI->load->helper('admin_functions');
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('vendors/font-icomoon/style.css'); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo admin_assets('vendors/perfect-scrollbar/css/perfect-scrollbar.css'); ?>">
 <!-- LOAD FLAG -->
-<link rel="stylesheet" type="text/css" href="<?php echo web_assets('vendors/flag-icon-css-master/css/flag-icon.min.css'); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo base_assets('vendors/flag-icon-css-master/css/flag-icon.min.css'); ?>">
 
 <?php
 echo $this->assetsloc->get_admin_style('library');
@@ -95,7 +95,7 @@ $(document).ready(function () {
 <div class="air__initialLoading"></div>
 <div id="result_ajax" class="bg-danger"></div>
 <div id="loading_ajax">
-    <div class="loaderpageajax"><img src="<?php echo web_assets('img/loader/loading.gif'); ?>" alt="loader"><br/><h4><?php echo t('ajaxprocess'); ?></h4></div>
+    <div class="loaderpageajax"><img src="<?php echo base_assets('img/loader/loading.gif'); ?>" alt="loader"><br/><h4><?php echo t('ajaxprocess'); ?></h4></div>
 </div>
     <div class="air__layout air__layout--hasSider">
         

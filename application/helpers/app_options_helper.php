@@ -258,25 +258,38 @@ function get_social_url($social=''){
     return $social_url;
 }
 
-/**************** Templating location ********************/
-function template_root($themeroot = null){
-    $mainroot = get_option('template').'/main';
-    if(!empty($themeroot)){ $mainroot = get_option('template').'/'.$themeroot; }
-    return $mainroot;
-}
-
-function web_assets($rootassets = null){
+/**
+ * 
+ * 
+ * Templating location 
+ *
+ *  
+ */
+/**************** Web Options ********************/
+function base_assets($rootassets = null){
     $assets = base_url('assets');
     if(!empty($rootassets)){ $assets = $assets.'/'.$rootassets; }
     return $assets;
 }
 
+function template_url(){
+    $result = base_url('template');
+    return $result;
+}
+
+function template_current_url($themeroot = null){
+    $mainurl = template_url() . '/' . get_option('template');
+    if(!empty($themeroot)){ $mainurl = $mainurl.'/'.$themeroot; }
+    return $mainurl;
+}
+
 function web_path( $themeroot = null ){
-    $mainroot = V_BASE_PATH . DIRECTORY_SEPARATOR . get_option('template');
+    $mainroot = FCPATH . 'templates' . DIRECTORY_SEPARATOR . get_option('template');
     if(!empty($themeroot)){ $mainroot = $mainroot.'/'.$themeroot; }
     return $mainroot;
 }
 
+/*************** Admin Options ********************/
 function admin_root($themeroot = null){
     $adminroot = 'admin';
     if(!empty($themeroot)){ $adminroot = $adminroot.'/'.$themeroot; }
@@ -284,7 +297,7 @@ function admin_root($themeroot = null){
 }
 
 function admin_assets($rootassets = null){
-    $adm_assets = web_assets('admin');
+    $adm_assets = base_assets('admin');
     if(!empty($rootassets)){ $adm_assets = $adm_assets.'/'.$rootassets; }
     return $adm_assets;
 }
@@ -295,6 +308,18 @@ function admin_url($rootaccess = null){
     $adm_url = base_url() . $ci->config->item('admin_slug');
     if(!empty($rootaccess)){ $adm_url = $adm_url.'/'.$rootaccess; }
     return $adm_url;
+}
+
+function is_admin(){
+    $ci =& get_instance();
+
+    $result = false;
+    if($ci->config->item('admin_slug') == $ci->uri->segment(1)){
+        $result = true;
+    }
+
+    return $result;
+    
 }
 
 /**************** Files dir URL ********************/
@@ -347,7 +372,6 @@ function web_info($info = '') {
 
 /**************** Head web ********************/
 function web_head_properties($opt = array()){
-    $ci =& get_instance();
 
     $view = empty($opt['meta_keyword'])?"":"<meta name=\"keywords\" content=\"".$opt['meta_keyword']."\" />\n";
     $view .= empty($opt['meta_description'])?"":"<meta name=\"description\" content=\"".$opt['meta_description']."\" />\n";

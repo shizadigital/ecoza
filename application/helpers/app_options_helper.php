@@ -272,8 +272,14 @@ function base_assets($rootassets = null){
     return $assets;
 }
 
+function vendors_assets_url($rootvendors = null){
+    $assets = base_assets('vendors');
+    if(!empty($rootvendors)){ $assets = $assets.'/'.$rootvendors; }
+    return $assets;
+}
+
 function template_url(){
-    $result = base_url('template');
+    $result = base_url('templates');
     return $result;
 }
 
@@ -287,6 +293,44 @@ function web_path( $themeroot = null ){
     $mainroot = FCPATH . 'templates' . DIRECTORY_SEPARATOR . get_option('template');
     if(!empty($themeroot)){ $mainroot = $mainroot.'/'.$themeroot; }
     return $mainroot;
+}
+
+/* template structure */
+function html_lang(){
+    return explode("_",  t('locale') )[0];
+}
+
+function get_header($name = null){
+	$name = (string) $name;
+	if ( '' !== $name ) {
+		$templates = "header-{$name}.php";
+	} else {
+		$templates = 'header.php';
+    }
+    
+    return web_path( $templates );
+}
+
+function get_footer($name = null){
+	$name = (string) $name;
+	if ( '' !== $name ){
+		$templates = "footer-{$name}.php";
+	} else {
+		$templates = 'footer.php';
+	}
+    
+    return web_path( $templates );
+}
+
+function get_sidebar($name = null, $require_once = true){
+	$name = (string) $name;
+	if ( '' !== $name ){
+		$templates = "sidebar-{$name}.php";
+	} else {
+		$templates = 'sidebar.php';
+	}
+    
+    return web_path( $templates );
 }
 
 /*************** Admin Options ********************/
@@ -416,12 +460,16 @@ function favicon_img_url(){
 function the_favicon($display = true){
     // Tampilkan
     if ( $display ){        
-        echo "\n\n".'<link rel="icon" href="'.favicon_img_url().'" type="image/x-icon">'."\n";
+        echo "\n".'<link rel="icon" href="'.favicon_img_url().'" type="image/x-icon">'."\n";
+        echo '<link rel="icon" href="'.favicon_img_url().'" type="image/ico">'."\n";
         echo '<link rel="shortcut icon" href="'.favicon_img_url().'" type="image/x-icon">'."\n";
+        echo '<link rel="shortcut icon" href="'.favicon_img_url().'">'."\n";
     }
     else {      
-        return "\n\n".'<link rel="icon" href="'.favicon_img_url().'" type="image/x-icon">'."\n";
-        return '<link rel="shortcut icon" href="'.favicon_img_url().'" type="image/x-icon">'."\n";
+        return "\n".'<link rel="icon" href="'.favicon_img_url().'" type="image/x-icon">'."\n".
+        '<link rel="icon" href="'.favicon_img_url().'" type="image/ico">'."\n".
+        '<link rel="shortcut icon" href="'.favicon_img_url().'" type="image/x-icon">'."\n".
+        '<link rel="shortcut icon" href="'.favicon_img_url().'">'."\n";
     }
 }
 

@@ -47,8 +47,12 @@ class Setlang extends CI_Controller {
 	public function setLang($lang){
 
 		$referrer = $this->agent->referrer();
+		
+		$httpmodel = ( is_https() OR $_SERVER['SERVER_PORT'] == 443 ) ? "https://" : "http://";
 
-		if( in_array($lang, langlist()) AND strpos($referrer, base_url()) ){
+		$cuthttpreferrer = str_replace( $httpmodel,'',substr(base_url(), 0, -1) );
+
+		if( in_array($lang, langlist()) AND strpos($referrer, $cuthttpreferrer) ){
 
 			// filter lang data
 			$langdata = filter_txt( $this->security->xss_clean( $lang ) );	

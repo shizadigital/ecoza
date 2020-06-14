@@ -1110,6 +1110,7 @@ class Migration extends CI_Controller {
 
         $schema = $this->schema->create_table('website_menu');
         $schema->increments('menuId', ['length' => '10']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('menuParentId', ['length' => '10', 'unsigned' => TRUE]);
         $schema->integer('menuRelationshipId', ['length' => '10', 'unsigned' => TRUE]);
         $schema->string('menuName');
@@ -1122,6 +1123,7 @@ class Migration extends CI_Controller {
         $schema->run();
 
         // ADD index
+        $schema->index('storeId');
         $schema->index('menuParentId');
         $schema->index('menuRelationshipId');
     }
@@ -1153,6 +1155,7 @@ class Migration extends CI_Controller {
 
     // ======= SEED
     protected function seed() {
+        Self::seeder_category_table();
         Self::seeder_ads_position_table();
         Self::seeder_currency_table();
         Self::seeder_dynamic_translations_table();
@@ -1198,6 +1201,25 @@ class Migration extends CI_Controller {
 				'adposH' => $item['h'],
 			];
 			$this->mc->save('ads_position', $data);
+		}
+    }
+
+    protected function seeder_category_table() {
+
+		$arr = [
+			['catId' => '1', 'catName' => 'Main Menu', 'catSlug' => '', 'catDesc' => 'primary', 'catColor' => '', 'catActive' => '1', 'catType' => 'webmenu'],
+		];
+		foreach ( $arr as $item ) {
+			$data = [
+                'catId' => $item['catId'],
+                'catName' => $item['catName'],
+                'catSlug' => $item['catSlug'],
+                'catDesc' => $item['catDesc'],
+                'catColor' => $item['catColor'],
+                'catActive' => $item['catActive'],
+                'catType' => $item['catType']
+			];
+			$this->mc->save('categories', $data);
 		}
     }
 
@@ -1338,6 +1360,8 @@ class Migration extends CI_Controller {
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'26', 'dtLang'=>'en_US', 'dtTranslation'=>'Couriers', 'dtInputType'=>'text', 'dtCreateDate'=>'1588961467', 'dtUpdateDate'=>'1588961467'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'27', 'dtLang'=>'en_US', 'dtTranslation'=>'Geo Country', 'dtInputType'=>'text', 'dtCreateDate'=>'1589390020', 'dtUpdateDate'=>'1589390020'],
             ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'28', 'dtLang'=>'en_US', 'dtTranslation'=>'Geo Zone', 'dtInputType'=>'text', 'dtCreateDate'=>'1589390105', 'dtUpdateDate'=>'1589390105'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'29', 'dtLang'=>'en_US', 'dtTranslation'=>'Appearance', 'dtInputType'=>'text', 'dtCreateDate'=>'1592164468', 'dtUpdateDate'=>'1592164468'],
+            ['dtRelatedTable'=>'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId'=>'30', 'dtLang'=>'en_US', 'dtTranslation'=>'Website Menu', 'dtInputType'=>'text', 'dtCreateDate'=>'1592164764', 'dtUpdateDate'=>'1592164764'],
 		];
 		foreach ( $arr as $item ) {
 			$data = [
@@ -1359,7 +1383,7 @@ class Migration extends CI_Controller {
             ['optionName' => 'sitename', 'storeId' => 1, 'optionValue' => 'E-Commerce Shiza'],
             ['optionName' => 'sitekeywords', 'storeId' => 1, 'optionValue' => 'framework, ci, codeigniter,shiza,ecommerce,ecoza'],
             ['optionName' => 'sitedescription', 'storeId' => 1, 'optionValue' => 'E-Commerce Shiza diciptakan untuk mempermudah pengguna dalam berjual beli online.'],
-            ['optionName' => 'template', 'storeId' => 1, 'optionValue' => 'themekeren'],
+            ['optionName' => 'template', 'storeId' => 1, 'optionValue' => 'ogani'],
             ['optionName' => 'timezone', 'storeId' => 1, 'optionValue' => 'Asia/Jakarta'],
             ['optionName' => 'phpminsupport', 'storeId' => 1, 'optionValue' => '7.0.1'],
             ['optionName' => 'siteaddress', 'storeId' => 1, 'optionValue' => 'Jalan Cumi-cumi II No. 6 Kec. Marphoyan Damai - Pekanbaru'],
@@ -1514,7 +1538,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Developer',
                 'menuAccess' => '',
                 'menuAddedDate' => '1452867589',
-                'menuSort' => '7',
+                'menuSort' => '8',
                 'menuIcon' => 'fe fe-award',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1559,7 +1583,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'System',
                 'menuAccess' => '',
                 'menuAddedDate' => '1577728905',
-                'menuSort' => '6',
+                'menuSort' => '7',
                 'menuIcon' => 'fe fe-settings',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1589,7 +1613,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Pengaturan',
                 'menuAccess' => '',
                 'menuAddedDate' => '1577892258',
-                'menuSort' => '5',
+                'menuSort' => '6',
                 'menuIcon' => 'fe fe-sliders',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1619,7 +1643,7 @@ class Migration extends CI_Controller {
                 'menuName' => 'Pengguna',
                 'menuAccess' => '',
                 'menuAddedDate' => '1578138421',
-                'menuSort' => '4',
+                'menuSort' => '5',
                 'menuIcon' => 'fe fe-user',
                 'menuAttrClass' => '',
                 'menuActive' => 'y',
@@ -1927,6 +1951,36 @@ class Migration extends CI_Controller {
                 'menuAdd' => 'y',
                 'menuEdit' => 'y',
                 'menuDelete' => 'y'
+            ],
+            [
+                'menuId' => '29',
+                'menuParentId' => '0',
+                'menuName' => 'Tampilan',
+                'menuAccess' => '',
+                'menuAddedDate' => '1592164468',
+                'menuSort' => '4',
+                'menuIcon' => 'fe fe-layers',
+                'menuAttrClass' => '',
+                'menuActive' => 'y',
+                'menuView' => 'y',
+                'menuAdd' => 'n',
+                'menuEdit' => 'n',
+                'menuDelete' => 'n'
+            ],
+            [
+                'menuId' => '30',
+                'menuParentId' => '29',
+                'menuName' => 'Menu Website',
+                'menuAccess' => 'a:1:{s:10:"admin_link";s:12:"website_menu";}',
+                'menuAddedDate' => '1592164764',
+                'menuSort' => '1',
+                'menuIcon' => '',
+                'menuAttrClass' => '',
+                'menuActive' => 'y',
+                'menuView' => 'y',
+                'menuAdd' => 'y',
+                'menuEdit' => 'y',
+                'menuDelete' => 'y'
             ]
         ];
 		foreach ( $arr as $item ) {
@@ -2199,6 +2253,24 @@ class Migration extends CI_Controller {
                 'lmnId' => '28',
                 'levelId' => '1',
                 'menuId' => '28',
+                'lmnView' => 'y',
+                'lmnAdd' => 'y',
+                'lmnEdit' => 'y',
+                'lmnDelete' => 'y'
+            ],
+            [
+                'lmnId' => '29',
+                'levelId' => '1',
+                'menuId' => '29',
+                'lmnView' => 'y',
+                'lmnAdd' => 'n',
+                'lmnEdit' => 'n',
+                'lmnDelete' => 'n'
+            ],
+            [
+                'lmnId' => '30',
+                'levelId' => '1',
+                'menuId' => '30',
                 'lmnView' => 'y',
                 'lmnAdd' => 'y',
                 'lmnEdit' => 'y',

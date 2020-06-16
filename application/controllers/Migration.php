@@ -371,7 +371,8 @@ class Migration extends CI_Controller {
         $schema = $this->schema->create_table('contents');
         $schema->increments('contentId', ['type' => 'BIGINT', 'length' => '20']);
         $schema->string('contentUsername', ['length' => '150']);
-        $schema->text('contentTitle',['type' => 'LONGTEXT']);
+        $schema->text('contentTitle');
+        $schema->text('contentPost',['type' => 'LONGTEXT']);
         $schema->string('contentType', ['length' => '25']);
         $schema->string('contentDay', ['length' => '10']);
         $schema->integer('contentDd', ['length' => '5', 'unsigned' => TRUE]);
@@ -384,13 +385,13 @@ class Migration extends CI_Controller {
         $schema->string('contentAddDate', ['length' => '11']);
         $schema->string('contentSlug');
         $schema->integer('contentRead', ['type' => 'BIGINT', 'length' => '30']);
-        $schema->integer('contentCommentStatus', ['length' => '3', 'unsigned' => TRUE]);
-        $schema->integer('contentStatus', ['length' => '3', 'unsigned' => TRUE]);
+        $schema->integer('contentCommentStatus', ['type' => 'TINYINT','length' => '1', 'unsigned' => TRUE]);
+        $schema->integer('contentStatus', ['type' => 'TINYINT', 'length' => '1', 'unsigned' => TRUE]);
         $schema->string('contentEditor', ['length' => '100']);
         $schema->string('contentAuthor', ['length' => '100']);
         $schema->string('contentImg');
         $schema->string('contentDirImg', ['length' => '25']);
-        $schema->text('contentTextImg');
+        $schema->text('contentCaptionImg');
         $schema->integer('contentHeadline', ['length' => '3', 'unsigned' => TRUE]);
         $schema->integer('contentFeature', ['length' => '3', 'unsigned' => TRUE]);
         $schema->run();

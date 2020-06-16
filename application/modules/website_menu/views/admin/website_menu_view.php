@@ -397,14 +397,80 @@ $countgroupmenu = countdata("categories","catType='webmenu'");
         </div>
         <?php } ?>
 
-
-
-
-
-
     </div>
 
+    <?php if(is_edit()){
+
+    $countmenuweb = countdata("website_menu a, category_relationship b","b.relatedId = a.menuId AND b.crelRelatedType = 'webmenu' AND b.catId = '{$groupId}'");
+    ?>
+    <div class="col-md-8">
+        <?php 
+        if( $countmenuweb > 0 ){ 
+            echo form_open( admin_url( $this->uri->segment(2).'/updatesortmenu' ), '', array('groupmenu'=>$groupId) );
+        }
+        ?>
+        <div class="card card-statistics">
+
+            <div class="card-header">
+                <div class="d-xxs-flex justify-content-between align-items-center row">
+                    <div class="col-md-10">
+                        <h4 class="card-title"><?php echo t('menustructure'); ?></h4>
+                    </div>
+                    <?php if( $countmenuweb > 0 ){ ?>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-sm" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo t('btnupdate'); ?></button>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="mb-20">
+                    <i class="fa fa-info-circle"></i> <?php echo t('menuinfo'); ?>
+                </div>
+                <?php if( $countmenuweb > 0 ) : ?>
+                <div class="row nestable-contant">
+                    <div class="col-md-12">
+                        <div id="nestable-menu">
+                            <div class="float-right">
+                                <button type="button" class="btn btn-warning btn-sm" data-action="expand-all"><span class="fa fa-expand"></span> <?php echo t('expand'); ?></button>
+                                <button type="button" class="btn btn-danger btn-sm" data-action="collapse-all"><span class="fa fa-compress"></span> <?php echo t('collapse'); ?></button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <section>
+
+                            <div class="dd" id="nestable">
+                                <?php echo $nestablemenu; ?>
+                            </div>
+                            
+                        </section>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <input type="hidden" id="nestable-output" name="menu_data">
+                        <hr/>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-sm float-right" type="submit"><i class="fe fe-refresh-cw"></i> <?php echo t('btnupdate'); ?></button>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+
+        </div>
+        <?php 
+        if( $countmenuweb > 0 ){
+            echo form_close();
+        }
+        ?>
+
+    </div>
     <?php } ?>
+
+<?php } ?>
 
 </div>
 

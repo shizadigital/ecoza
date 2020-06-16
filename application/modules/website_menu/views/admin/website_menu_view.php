@@ -238,6 +238,167 @@ $countgroupmenu = countdata("categories","catType='webmenu'");
 
 
 
+        <?php 
+        if(is_add()){ ?>
+        <div class="card card-statistics">
+
+            <div class="card-header">
+                <h4 class="card-title"><?php echo t('addnew'); ?></h4>
+            </div>
+            
+            <?php echo form_open( admin_url( $this->uri->segment(2).'/addnew' ), array( 'class'=>'validasi' ), array('groupmenu'=>$groupId) ); ?>
+
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="induk"><?php echo t('parent'); ?></label>
+                    <select class="custom-select" id="induk" name="induk">
+                        <option value="0-0"><?php echo t('noparent'); ?></option>
+                        <?php 
+                            echo $optadminmenu;
+                        ?>
+                    </select>
+                </div>
+
+                <?php
+                    $build_input = array(
+                        array(
+                            'type' => 'multilanguage_text',
+                            'label' => t('menuname'),
+                            'name' => 'nama_menu',
+                            'required' => true,
+                        ),
+                        array(
+                            'type' => 'text',
+                            'label' => t('class'),
+                            'name' => 'attrclass',
+                            'help' => t('classinfo')
+                        ),
+                        array(
+                            'type' => 'select',
+                            'label' => t('methodaccess'),
+                            'name' => 'menu_akses',
+                            'id' => 'accesstype',
+                            'option' => array(
+                                'pagecontent_link' => t('pages'),
+                                'newscategory_link' => t('postcategories'),
+                                'outgoing_link' => t('url'),
+                                'no_link' => t('noaccess'),
+                            ),
+                            'selected' => 'pagecontent_link'
+                        )
+                    );
+                    $this->formcontrol->buildInputs($build_input);
+                ?>
+
+                <div class="form-group">
+                    <div id="pagecontentlink">
+                        <label for="pagecontent" class="req"><?php echo t('pages'); ?></label>
+                        <select class="custom-select" id="pagecontent" name="pagecontent" required>
+                            <option value="">-- <?php echo t('choose'); ?> --</option>
+                            <?php 
+                                foreach( $datapage as $kp => $vp){
+                                    echo '<option value="'.$kp.'">'.$vp.'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div id="newscategorylink" style="display:none;">
+                        <label for="newscategory" class="req"><?php echo t('postcategories'); ?></label>
+                        <select class="custom-select" id="newscategory" name="newscategory" disabled="disabled">
+                            <option value="">-- <?php echo t('choose'); ?> --</option>
+                            <?php 
+                                foreach( $datacatpost as $pstky => $vlpst){
+                                    echo '<option value="'.$pstky.'">'.$vlpst.'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div id="urllink" style="display:none;">
+                        <label for="outgoinglink" class="req"><?php echo t('url'); ?></label>
+                        <input type="text" class="form-control" id="outgoinglink" disabled="disabled" name="outgoinglink" />
+                        <small class="form-text text-muted"><?php echo t('example'); ?>: http://myurl.com/</small>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                $( document ).ready(function() {
+                    $('#accesstype').change(function(e) {
+                        var value = $(this).val();
+
+                        if(value == 'pagecontent_link'){
+                            $('#pagecontentlink').show();
+                            $('#pagecontent').attr('required','required');
+                            $('#pagecontent').removeAttr('disabled');
+
+                            $('#newscategorylink').hide();
+                            $('#newscategory').removeAttr("required"); 
+                            $('#newscategory').attr("disabled","disabled");
+
+                            $('#urllink').hide();
+                            $('#outgoinglink').removeAttr("required"); 
+                            $('#outgoinglink').attr("disabled","disabled");
+                        }
+                        else if(value == 'newscategory_link'){
+                            $('#pagecontentlink').hide();
+                            $('#pagecontent').removeAttr("required");
+                            $('#pagecontent').attr("disabled","disabled");
+
+                            $('#newscategorylink').show();
+                            $('#newscategory').attr('required','required');
+                            $('#newscategory').removeAttr("disabled");
+
+                            $('#urllink').hide();
+                            $('#outgoinglink').removeAttr("required");
+                            $('#outgoinglink').attr("disabled","disabled");
+                        }
+                        else if(value == 'outgoing_link'){
+                            $('#pagecontentlink').hide();
+                            $('#pagecontent').removeAttr("required");
+                            $('#pagecontent').attr("disabled","disabled");
+
+                            $('#newscategorylink').hide();
+                            $('#newscategory').removeAttr("required"); 
+                            $('#newscategory').attr("disabled","disabled");
+
+                            $('#urllink').show();
+                            $('#outgoinglink').attr("required","required");
+                            $('#outgoinglink').removeAttr("disabled");
+                        }
+                        else if(value == 'no_link'){
+                            $('#pagecontentlink').hide();
+                            $('#pagecontent').removeAttr("required");
+                            $('#pagecontent').attr("disabled","disabled");
+
+                            $('#newscategorylink').hide();
+                            $('#newscategory').removeAttr("required"); 
+                            $('#newscategory').attr("disabled","disabled");
+
+                            $('#urllink').hide();
+                            $('#outgoinglink').removeAttr("required"); 
+                            $('#outgoinglink').attr("disabled","disabled");
+                        }
+
+                    });
+                });
+                </script>
+
+                <hr/>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit"><i class="fe fe-plus"></i> <?php echo t('btnadd'); ?></button>
+                </div>
+
+            </div>
+            </form>
+
+        </div>
+        <?php } ?>
+
+
+
 
 
 

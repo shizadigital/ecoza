@@ -836,6 +836,20 @@ $lang['repeatpin'] = "Ulangi PIN";
 $lang['abbr_pin'] = "Personal Identification Number";
 $lang['pinentryinfo'] = "Masukkan %s digit angka untuk nomor PIN Anda dan tidak diawali dengan angka 0 (nol)";
 
+/**
+ * Webmenu
+ */
+$lang['noparent'] = "Tidak Ada Induk";
+$lang['menuname'] = "Nama Menu";
+$lang['methodaccess'] = "Metode Akses";
+$lang['pages'] = "Halaman";
+$lang['postcategories'] = "Kategori Posting";
+$lang['availableurl'] = "URL Tersedia";
+$lang['choosesometing'] = "Pilih Sesuatu";
+$lang['menustructure'] = "Atur Menu";
+$lang['editmenu'] = "Perbarui Menu";
+$lang['infomenu'] = "Info Menu";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///

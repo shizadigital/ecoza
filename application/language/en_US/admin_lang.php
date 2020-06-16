@@ -836,6 +836,20 @@ $lang['repeatpin'] = "Repeat PIN";
 $lang['abbr_pin'] = "Personal Identification Number";
 $lang['pinentryinfo'] = "Insert %s digits for your PIN number and don't start with a zero";
 
+/**
+ * Webmenu
+ */
+$lang['noparent'] = "No Parent";
+$lang['menuname'] = "Menu Name";
+$lang['methodaccess'] = "Method Access";
+$lang['pages'] = "Pages";
+$lang['postcategories'] = "Post Categories";
+$lang['availableurl'] = "Available URL";
+$lang['choosesometing'] = "Choose Something";
+$lang['menustructure'] = "Menu Structure";
+$lang['editmenu'] = "Edit Menu";
+$lang['infomenu'] = "Info Menu";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///

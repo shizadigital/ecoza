@@ -580,6 +580,8 @@ $lang['customer'] = "Customer";
 $lang['customer1'] = "Customer";
 $lang['customer2'] = "Customer";
 $lang['usernameinfo'] = "Make sure the username is correct before your adding. After the data is added, the data is not allowed to be updated";
+$lang['totalpayment'] = "Total Payment";
+$lang['balance'] = "Balance";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

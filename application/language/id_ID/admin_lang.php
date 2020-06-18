@@ -580,6 +580,8 @@ $lang['customer'] = "Customer";
 $lang['customer1'] = "Pelanggan";
 $lang['customer2'] = "Pemesan";
 $lang['usernameinfo'] = "Pastikan nama pengguna/username sudah benar sebelum ditambahkan, nama pengguna tidak dapat diperbarui";
+$lang['totalpayment'] = "Total Pembayaran";
+$lang['balance'] = "Balance";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

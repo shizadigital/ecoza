@@ -290,7 +290,7 @@ function template_current_url($themeroot = null){
 }
 
 function web_path( $themeroot = null ){
-    $mainroot = FCPATH . 'templates' . DIRECTORY_SEPARATOR . get_option('template');
+    $mainroot = FCPATH . 'templates' . DIRECTORY_SEPARATOR . get_option('template') . DIRECTORY_SEPARATOR .'views';
     if(!empty($themeroot)){ $mainroot = $mainroot.'/'.$themeroot; }
     return $mainroot;
 }

@@ -289,8 +289,14 @@ function template_current_url($themeroot = null){
     return $mainurl;
 }
 
-function web_path( $themeroot = null ){
-    $mainroot = FCPATH . 'templates' . DIRECTORY_SEPARATOR . get_option('template') . DIRECTORY_SEPARATOR .'views';
+function template_path( $themeroot = null ){
+    $mainroot = FCPATH . 'templates' . DIRECTORY_SEPARATOR . get_option('template');
+    if(!empty($themeroot)){ $mainroot = $mainroot.'/'.$themeroot; }
+    return $mainroot;
+}
+
+function template_view_path( $themeroot = null ){
+    $mainroot = template_path( DIRECTORY_SEPARATOR .'views' );
     if(!empty($themeroot)){ $mainroot = $mainroot.'/'.$themeroot; }
     return $mainroot;
 }
@@ -308,7 +314,7 @@ function get_header($name = null){
 		$templates = 'header.php';
     }
     
-    return web_path( $templates );
+    return template_view_path( $templates );
 }
 
 function get_footer($name = null){
@@ -319,7 +325,7 @@ function get_footer($name = null){
 		$templates = 'footer.php';
 	}
     
-    return web_path( $templates );
+    return template_view_path( $templates );
 }
 
 function get_sidebar($name = null, $require_once = true){
@@ -330,7 +336,7 @@ function get_sidebar($name = null, $require_once = true){
 		$templates = 'sidebar.php';
 	}
     
-    return web_path( $templates );
+    return template_view_path( $templates );
 }
 
 /*************** Admin Options ********************/

@@ -11,7 +11,7 @@ class MY_Loader extends MX_Loader {
         $this->CI =& get_instance();
     }
 
-    public function get_template(){
+    protected function get_template(){
         $this->CI->load->database();
 
         $idstore = 1;
@@ -37,7 +37,7 @@ class MY_Loader extends MX_Loader {
 
         if(!is_admin()){
             // load template view
-            $templatedir = FCPATH .'templates/'.get_option('template').'/views';
+            $templatedir = FCPATH .'templates/'.$this->get_template().'/views';
             if(file_exists($templatedir) != FALSE){
                 $this->_ci_view_paths = array_merge($this->_ci_view_paths, array( $templatedir.'/' =>TRUE));
             }

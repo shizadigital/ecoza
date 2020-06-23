@@ -25,72 +25,72 @@ class Migration extends CI_Controller {
     }
 
 	public function install($action = null){
-        Self::drop();
-        Self::create();
+        $this->drop();
+        $this->create();
 
-        if($action == 'seed') Self::seed();
+        if($action == 'seed') $this->seed();
     }
     
     protected function create() {
-        Self::create_addons_table();
-        Self::create_ads_table();
-        Self::create_ads_position_table();
-        Self::create_android_device_table();
-        Self::create_attribute_table();
-        Self::create_attribute_group_table();
-        Self::create_attribute_group_store_table();
-        Self::create_attribute_relationship_table();
-        Self::create_attribute_value_table();
-        Self::create_attribute_store_table();
-        Self::create_badges_table();
-        Self::create_badge_relationship_table();
-        Self::create_badge_store_table();
-        Self::create_categories_table();
-        Self::create_category_relationship_table();
-        Self::create_category_store_table();
-        Self::create_currency_table();
-        Self::create_comments_table();
-        Self::create_contents_table();
-        Self::create_courier_table();
-        Self::create_courier_cost_table();
-        Self::create_courier_store_table();
-        Self::create_cron_list_table();
-        Self::create_dynamic_translations_table();
-        Self::create_email_blacklist_table();
-        Self::create_email_queue_table();
-        Self::create_email_template_table();
-        Self::create_gallery_pic_table();
-        Self::create_geo_country_table();
-        Self::create_geo_zone_table();
-        Self::create_manufacturers_table();
-        Self::create_manufacturers_store_table();
-        Self::create_member_table();
-        Self::create_message_table();
-        Self::create_options_table();
-        Self::create_orders_table();
-        Self::create_orders_detail_table();
-        Self::create_product_table();
-        Self::create_product_attribute_table();
-        Self::create_product_attribute_combination_table();
-        Self::create_product_courier_table();
-        Self::create_product_downloadable_table();
-        Self::create_product_related_table();
-        Self::create_product_images_table();
-        Self::create_product_store_table();
-        Self::create_review_table();
-        Self::create_seo_page_table();
-        Self::create_slider_table();
-        Self::create_store_table();
-        Self::create_tax_table();
-        Self::create_tax_rule_table();
-        Self::create_testimonial_table();
-        Self::create_unit_weight_table();
-        Self::create_unit_length_table();
-        Self::create_users_table();
-        Self::create_users_level_table();
-        Self::create_users_menu_table();
-        Self::create_users_menu_access_table();
-        Self::create_website_menu_table();
+        $this->create_addons_table();
+        $this->create_ads_table();
+        $this->create_ads_position_table();
+        $this->create_android_device_table();
+        $this->create_attribute_table();
+        $this->create_attribute_group_table();
+        $this->create_attribute_group_store_table();
+        $this->create_attribute_relationship_table();
+        $this->create_attribute_value_table();
+        $this->create_attribute_store_table();
+        $this->create_badges_table();
+        $this->create_badge_relationship_table();
+        $this->create_badge_store_table();
+        $this->create_categories_table();
+        $this->create_category_relationship_table();
+        $this->create_category_store_table();
+        $this->create_currency_table();
+        $this->create_comments_table();
+        $this->create_contents_table();
+        $this->create_courier_table();
+        $this->create_courier_cost_table();
+        $this->create_courier_store_table();
+        $this->create_cron_list_table();
+        $this->create_dynamic_translations_table();
+        $this->create_email_blacklist_table();
+        $this->create_email_queue_table();
+        $this->create_email_template_table();
+        $this->create_gallery_pic_table();
+        $this->create_geo_country_table();
+        $this->create_geo_zone_table();
+        $this->create_manufacturers_table();
+        $this->create_manufacturers_store_table();
+        $this->create_member_table();
+        $this->create_message_table();
+        $this->create_options_table();
+        $this->create_orders_table();
+        $this->create_orders_detail_table();
+        $this->create_product_table();
+        $this->create_product_attribute_table();
+        $this->create_product_attribute_combination_table();
+        $this->create_product_courier_table();
+        $this->create_product_downloadable_table();
+        $this->create_product_related_table();
+        $this->create_product_images_table();
+        $this->create_product_store_table();
+        $this->create_review_table();
+        $this->create_seo_page_table();
+        $this->create_slider_table();
+        $this->create_store_table();
+        $this->create_tax_table();
+        $this->create_tax_rule_table();
+        $this->create_testimonial_table();
+        $this->create_unit_weight_table();
+        $this->create_unit_length_table();
+        $this->create_users_table();
+        $this->create_users_level_table();
+        $this->create_users_menu_table();
+        $this->create_users_menu_access_table();
+        $this->create_website_menu_table();
     }
 
     protected function create_addons_table(){
@@ -1156,19 +1156,19 @@ class Migration extends CI_Controller {
 
     // ======= SEED
     protected function seed() {
-        Self::seeder_category_table();
-        Self::seeder_ads_position_table();
-        Self::seeder_currency_table();
-        Self::seeder_dynamic_translations_table();
-        Self::seeder_email_template_table();
-        Self::seeder_options_table();
-        Self::seeder_store_table();
-        Self::seeder_users_table();
-        Self::seeder_users_level_table();
-        Self::seeder_users_menu_table();
-        Self::seeder_users_menu_access_table();
-        Self::seeder_geo_country_table();
-        Self::seeder_geo_zone_table();
+        $this->seeder_category_table();
+        $this->seeder_ads_position_table();
+        $this->seeder_currency_table();
+        $this->seeder_dynamic_translations_table();
+        $this->seeder_email_template_table();
+        $this->seeder_options_table();
+        $this->seeder_store_table();
+        $this->seeder_users_table();
+        $this->seeder_users_level_table();
+        $this->seeder_users_menu_table();
+        $this->seeder_users_menu_access_table();
+        $this->seeder_geo_country_table();
+        $this->seeder_geo_zone_table();
     }
 
     protected function seeder_ads_position_table() {

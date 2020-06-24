@@ -86,22 +86,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a href="#"><i class="fa fa-user"></i> Login</a>
             </div>
         </div>
+        <?php if( $this->navigation->hasMenu('1') ): ?>
         <nav class="humberger__menu__nav mobile-menu">
-            <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-            </ul>
+            <?php 
+            // set menu property
+            $datamenu = array(
+                'openingtag' => array(
+                    1 => array(
+                        'tag' => 'ul',
+                        'attr' => array('class'=>'menumobile'),
+                    ),
+                    2 => array(
+                        'tag' => 'ul',
+                        'attr' => array('class'=>'header__menu__dropdown'),
+                    )
+                ),
+                'listingtag' => array(
+                    'activeclass' => array('tagposition' => 'li', 'class'=>'active'),
+                    'subindicator' => array('topmenu' => '<i class="arrow_carrot-down"></i>', 'submenu'=>'<i class="arrow_carrot-right"></i>'),
+                    1 => array(
+                        'tag' => 'li',
+                        'attr' => array(),
+                        'anchor_attr' => array()
+                    )
+                ),
+            );
+
+            echo $this->navigation->navMenu( 1, $datamenu );
+            ?>
         </nav>
+        <?php endif; ?>
         <div id="mobile-menu-wrap"></div>
         <div class="header__top__right__social">
             <?php
@@ -201,22 +215,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 <div class="col-lg-6">
+                    <?php if( $this->navigation->hasMenu('1') ): ?>
                     <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
-                        </ul>
+                        <?php 
+                        // set menu property
+                        $datamenu = array(
+                            'openingtag' => array(
+                                1 => array(
+                                    'tag' => 'ul',
+                                    'attr' => array('class'=>'menudesktop'),
+                                ),
+                                2 => array(
+                                    'tag' => 'ul',
+                                    'attr' => array('class'=>'header__menu__dropdown'),
+                                )
+                            ),
+                            'listingtag' => array(
+                                'activeclass' => array('tagposition' => 'li', 'class'=>'active'),
+                                'subindicator' => array('topmenu' => '<i class="arrow_carrot-down"></i>', 'submenu'=>'<i class="arrow_carrot-right"></i>'),
+                                1 => array(
+                                    'tag' => 'li',
+                                    'attr' => array(),
+                                    'anchor_attr' => array()
+                                )
+                            ),
+                        );
+
+                        echo $this->navigation->navMenu( 1, $datamenu );
+                        ?>
                     </nav>
+                    <?php endif; ?>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">

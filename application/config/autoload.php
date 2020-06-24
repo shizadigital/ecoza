@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+$ci =& get_instance();
 /*
 | -------------------------------------------------------------------
 | AUTO-LOADER
@@ -58,7 +59,17 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'email', 'session', 'form_validation', 'AdminAuth', 'AssetsLoc', 'FormControl');
+$autoloaderlib = array('database', 'email', 'session', 'form_validation', 'FormControl');
+$autoloaderlibset = array();
+if($ci->uri->segment(1) == $ci->config->item('admin_slug')){
+    $autoloaderlibset = array('AdminAuth', 'AssetsLoc');
+} else {
+    $autoloaderlibset = array('navigation');
+}
+
+$autoloadlibraies = array_merge($autoloaderlib, $autoloaderlibset);
+
+$autoload['libraries'] = $autoloadlibraies;
 
 /*
 | -------------------------------------------------------------------

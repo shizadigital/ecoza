@@ -1157,6 +1157,7 @@ class Migration extends CI_Controller {
     // ======= SEED
     protected function seed() {
         $this->seeder_category_table();
+        $this->seeder_category_store_table();
         $this->seeder_ads_position_table();
         $this->seeder_currency_table();
         $this->seeder_dynamic_translations_table();
@@ -1221,6 +1222,20 @@ class Migration extends CI_Controller {
                 'catType' => $item['catType']
 			];
 			$this->mc->save('categories', $data);
+		}
+    }
+
+    protected function seeder_category_store_table() {
+
+		$arr = [
+			['catId' => '1', 'storeId' => '1'],
+		];
+		foreach ( $arr as $item ) {
+			$data = [
+                'catId' => $item['catId'],
+                'storeId' => $item['storeId']
+			];
+			$this->mc->save('category_store', $data);
 		}
     }
 

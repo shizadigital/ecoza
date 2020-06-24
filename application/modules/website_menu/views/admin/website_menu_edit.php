@@ -224,7 +224,7 @@ echo form_open( admin_url( $this->uri->segment(2) . '/editprocess'), array( 'id'
                         'type' => 'checkbox',
                         'label' => t('active'),
                         'name' => 'active',
-                        'value' => '1',
+                        'value' => 'y',
                         'title' => t('yes'),
                         'checked' => ($data['menuActive']=='y') ?true:false
                     ),

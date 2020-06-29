@@ -281,8 +281,8 @@ function getCountryDefault($display = 'name'){
 
 function orderInvoice(){
 	// get invoice format
-	$invformat = get_option('invoiceformat');
-	$invstartnumber = get_option('invoicenumberstart');
+	$invformat = get_option('invoiceorderformat');
+	$invstartnumber = get_option('invoiceordernumberstart');
 
 	$DAY = date("d");
 	$MONTH = date("m");

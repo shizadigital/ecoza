@@ -6,25 +6,33 @@ require APPPATH."third_party/MX/Loader.php";
 class MY_Loader extends MX_Loader {
 
     protected $CI;
+    protected $segment;
 
     public function __construct(){
         $this->CI =& get_instance();
+
+        $this->segment = trim( strtolower( $this->CI->uri->segment(1) ) );
     }
 
     protected function get_template(){
-        $this->CI->load->database();
 
-        $idstore = 1;
-        if(isset($_SESSION['storeid'])){
-            $idstore = (int) $_SESSION['storeid'];
-        }
+    	if( $this->segment != 'migration' ) :
+    		
+	        $this->CI->load->database();
 
-        $this->CI->db->select('optionValue');
-        $this->CI->db->from( $this->CI->db->dbprefix('options') );
-        $this->CI->db->where('storeId', $idstore);
-        $this->CI->db->where('optionName', 'template');
-        $query = $this->CI->db->get();
-        return $query->row()->optionValue;
+	        $idstore = 1;
+	        if(isset($_SESSION['storeid'])){
+	            $idstore = (int) $_SESSION['storeid'];
+	        }
+
+	        $this->CI->db->select('optionValue');
+	        $this->CI->db->from( $this->CI->db->dbprefix('options') );
+	        $this->CI->db->where('storeId', $idstore);
+	        $this->CI->db->where('optionName', 'template');
+	        $query = $this->CI->db->get();
+	        return $query->row()->optionValue;
+
+        endif;
     }
 
     public function view($view, $vars = array(), $return = FALSE){

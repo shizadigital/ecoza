@@ -45,7 +45,7 @@ class MY_Loader extends MX_Loader {
 
         if(!is_admin()){
             // load template view
-            $templatedir = FCPATH .'templates/'.$this->get_template().'/views';
+            $templatedir = FCPATH .'sz_templates/'.$this->get_template().'/views';
             if(file_exists($templatedir) != FALSE){
                 $this->_ci_view_paths = array_merge($this->_ci_view_paths, array( $templatedir.'/' =>TRUE));
             }
@@ -65,7 +65,7 @@ class MY_Loader extends MX_Loader {
 
         if($this->CI->config->item('admin_slug') != $this->CI->uri->segment(1)){
 
-            $templatedir = FCPATH .'templates/'.$this->get_template();  
+            $templatedir = FCPATH .'sz_templates/'.$this->get_template();  
             if(file_exists($templatedir.'/helpers/'.$helper.'_helper'.EXT) != FALSE){
                 $path = $templatedir.'/helpers/';
             }
@@ -101,7 +101,7 @@ class MY_Loader extends MX_Loader {
 
         if($this->CI->config->item('admin_slug') != $this->CI->uri->segment(1)){
 
-            $templatedir = FCPATH .'templates/'.$this->get_template();  
+            $templatedir = FCPATH .'sz_templates/'.$this->get_template();  
             if(file_exists($templatedir.'/libraries/'.$library.EXT) != FALSE){
                 $path = $templatedir.'/libraries/';
             }

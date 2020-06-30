@@ -180,9 +180,9 @@ class MY_Router extends MX_Router {
 		}
 
 		$templateset = $this->get_template();
-		if(is_file(FCPATH.'templates/'.$templateset.'/controllers/'.ucfirst($module).$ext)){
+		if(is_file(FCPATH.'sz_templates/'.$templateset.'/controllers/'.ucfirst($module).$ext)){
 			
-			$this->directory = '../../templates/' . $templateset . '/controllers/';
+			$this->directory = '../../sz_templates/' . $templateset . '/controllers/';
 			return $segments;
         }
 		

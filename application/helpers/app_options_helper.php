@@ -279,7 +279,7 @@ function vendors_assets_url($rootvendors = null){
 }
 
 function template_url(){
-    $result = base_url('templates');
+    $result = base_url('sz_templates');
     return $result;
 }
 
@@ -290,7 +290,7 @@ function template_current_url($themeroot = null){
 }
 
 function template_path( $themeroot = null ){
-    $mainroot = FCPATH . 'templates' . DIRECTORY_SEPARATOR . get_option('template');
+    $mainroot = FCPATH . 'sz_templates' . DIRECTORY_SEPARATOR . get_option('template');
     if(!empty($themeroot)){ $mainroot = $mainroot.'/'.$themeroot; }
     return $mainroot;
 }

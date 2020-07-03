@@ -57,7 +57,7 @@ include V_ADMIN_PATH . "topbar.php";
 
 			<div class="card-body">
                 <?php 
-                $typetax = array('percentage'=> t('percentage').' (%)', 'fix'=>t('fixedamount'));
+                $typetax = array('percentage'=> t('percentage').' (%)', 'fixed'=>t('fixedamount'));
 
 				// make tag form structure
 				$tagForm = array(

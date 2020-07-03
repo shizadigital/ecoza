@@ -966,7 +966,7 @@ class Migration extends CI_Controller {
         $schema->increments('taxId', ['length' => '11']);
         $schema->string('taxName', ['length' => '90']);
         $schema->decimal('taxRate', ['length' => '15,4']);
-        $schema->enum('taxType', ['percentage', 'fix']);
+        $schema->enum('taxType', ['percentage', 'fixed']);
         $schema->enum('taxActive', ['y', 'n']);
         $schema->integer('taxAdded', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('taxModified', ['length' => '11', 'unsigned' => TRUE]);
@@ -6901,4 +6901,25 @@ class Migration extends CI_Controller {
 			$this->mc->save('geo_zone', $data);
 		}
     }
+
+    protected function seeder_tax_table() {
+
+        $arr = [
+            ['taxId' => '1', 'taxName' => 'Pajak PPN (10%)', 'taxRate' => '10.0000', 'taxType' => 'percentage', 'taxActive' => 'y', 'taxAdded' => '1593813276', 'taxModified' => '1593813276', 'taxDeleted' => '0']
+        ];
+        foreach ( $arr as $item ) {
+            $data = [
+                'taxId' => $item['taxId'],
+                'taxName' => $item['taxName'],
+                'taxRate' => $item['taxRate'],
+                'taxType' => $item['taxType'],
+                'taxActive' => $item['taxActive'],
+                'taxAdded' => $item['taxAdded'],
+                'taxModified' => $item['taxModified'],
+                'taxDeleted' => $item['taxDeleted']
+            ];
+            $this->mc->save('tax', $data);
+        }
+    }
+    
 }

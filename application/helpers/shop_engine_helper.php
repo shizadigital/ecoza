@@ -300,3 +300,74 @@ function orderInvoice(){
 
 	return $invoice;
 }
+
+/**
+ * get tax status
+ *
+ * @return bool
+ */
+function taxStatus(){
+
+	$statustax = get_option('taxstatus');
+
+	if($statustax == 'y'){
+		return true;
+	} else {
+		return false;
+	}
+
+}
+
+/**
+ * get tax value
+ *
+ * @return array
+ */
+function getGeneralTaxValue(){
+
+	if(taxStatus()){
+
+		$taxid = get_option('taxId');
+
+		// get tax data
+		$taxdata = getval('taxRate,taxType,taxActive', 'tax', array('taxId'=>$taxid));
+
+		if($taxdata['taxActive']=='y'){
+
+			return array('rate' => $taxdata['taxRate'], 'type' => $taxdata['taxType']);
+
+		}
+
+	}
+
+	return false;
+}
+
+/**
+ * count value with selected tax
+ * 
+ * @param double $value
+ * @param int $taxid
+ * 
+ * @return double
+ */
+function countTax($value, $taxid){
+	$result = 0;
+	if(taxStatus() AND !empty($value) AND !empty($taxid)){
+
+		$taxdata = getval('taxRate,taxType,taxActive', 'tax', array('taxId'=>$taxid));
+
+		if($taxdata['taxActive']=='y'){
+
+			if($taxdata['taxType'] == 'percentage'){
+				$result = ($taxdata['taxRate'] / 100) * $value;
+			} 
+			elseif($taxdata['taxType'] == 'fixed') {
+				$result = $taxdata['taxRate'];
+			}
+
+		}
+		
+	}
+	return $result;
+}

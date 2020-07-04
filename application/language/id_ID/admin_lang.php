@@ -582,6 +582,13 @@ $lang['customer2'] = "Pemesan";
 $lang['usernameinfo'] = "Pastikan nama pengguna/username sudah benar sebelum ditambahkan, nama pengguna tidak dapat diperbarui";
 $lang['totalpayment'] = "Total Pembayaran";
 $lang['balance'] = "Balance";
+$lang['order'] = "Pesanan";
+$lang['orders'] = "Pesanan";
+$lang['etc'] = "Lain-lain";
+$lang['clickhere'] = "Klik disini";
+$lang['paymentexpired'] = "Kadaluarsa pembayaran";
+$lang['removepaymentexpired'] = "Hapus kadaluarsa pembayaran";
+$lang['removepaymentexpiredinfo'] = "Hapus kadaluarsa pembayaran harus lebih besar dari kadaluarsa pembayaran";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -767,6 +774,8 @@ $lang['length'] = "Panjang";
  * Tax
  */
 $lang['tax'] = "Pajak";
+$lang['taxes'] = "Pajak";
+$lang['enabletax'] = "Aktifkan pajak";
 $lang['notax'] = "Tidak ada pajak";
 $lang['taxinfo'] = "Isi pajak dengan Angka";
 $lang['taxnameinfo'] = "Nama pajak untuk ditampilkan dalam keranjang dan faktur (mis. \"PPN\"). Karakter yang tidak valid: <>; = # {}";
@@ -993,3 +1002,5 @@ $lang['warehouseandsupplierempty'] = "Silahkan pilih gudang dan supplier terlebi
 $lang['stockentryempty'] = "Silahkan pilih stok masuk terlebih dahulu";
 $lang['stockisnotavailable'] = "Belum terdapat rekaman stok yang tersedia";
 $lang['pinnotequal'] = "Konfirmasi PIN tidak sama, silahkan ulangi";
+
+$lang['taxempty'] = "Please choose the tax";

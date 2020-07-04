@@ -582,6 +582,13 @@ $lang['customer2'] = "Customer";
 $lang['usernameinfo'] = "Make sure the username is correct before your adding. After the data is added, the data is not allowed to be updated";
 $lang['totalpayment'] = "Total Payment";
 $lang['balance'] = "Balance";
+$lang['order'] = "Order";
+$lang['orders'] = "Orders";
+$lang['etc'] = "Etc";
+$lang['clickhere'] = "Click here";
+$lang['paymentexpired'] = "Payment expired";
+$lang['removepaymentexpired'] = "Remove payment expired";
+$lang['removepaymentexpiredinfo'] = "Remove payment expired must greater than payment expired";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -767,6 +774,8 @@ $lang['length'] = "Length";
  * Tax
  */
 $lang['tax'] = "Tax";
+$lang['taxes'] = "Taxes";
+$lang['enabletax'] = "Enable tax";
 $lang['notax'] = "No tax";
 $lang['taxinfo'] = "Insert the tax field with numeric";
 $lang['taxnameinfo'] = "Tax name to display in carts and on invoices (e.g. \"VAT\"). Invalid characters: <>;=#{}";
@@ -993,3 +1002,5 @@ $lang['warehouseandsupplierempty'] = "Please choose warehouse and supplier first
 $lang['stockentryempty'] = "Please choose stock entry first";
 $lang['stockisnotavailable'] = "Stock record is not available";
 $lang['pinnotequal'] = "PIN confirmation is not equal. please try again";
+
+$lang['taxempty'] = "Please choose the tax";

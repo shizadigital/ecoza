@@ -565,7 +565,7 @@ class FormControl {
                         
                         $val_ = array_merge($val, $attrStandard);
 
-                        echo self::buildTranslationInputs( $val_ );
+                        echo $this->buildTranslationInputs( $val_ );
                     }
 
                     /**
@@ -582,7 +582,7 @@ class FormControl {
                         
                         $val_ = array_merge($val, $attrStandard);
 
-                        echo self::buildTranslationInputs( $val_ );
+                        echo $this->buildTranslationInputs( $val_ );
                     }
 
                     /**
@@ -600,7 +600,7 @@ class FormControl {
                         
                         $val_ = array_merge($val, $attrStandard);
 
-                        echo self::buildTranslationInputs( $val_ );
+                        echo $this->buildTranslationInputs( $val_ );
                     }
 
                     /**

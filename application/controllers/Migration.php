@@ -1170,6 +1170,7 @@ class Migration extends CI_Controller {
         $this->seeder_users_menu_access_table();
         $this->seeder_geo_country_table();
         $this->seeder_geo_zone_table();
+        $this->seeder_tax_table();
     }
 
     protected function seeder_ads_position_table() {
@@ -1425,6 +1426,14 @@ class Migration extends CI_Controller {
             ['optionName' => 'multistore', 'storeId' => 1, 'optionValue' => 'off'],
             ['optionName' => 'postalcode', 'storeId' => 1, 'optionValue' => '28000'],
             ['optionName' => 'defaultcodecountry', 'storeId' => 1, 'optionValue' => 'IDN'],
+            ['optionName' => 'invoicepaytotext', 'storeId' => 1, 'optionValue' => ''],
+            ['optionName' => 'paymentexpired', 'storeId' => 1, 'optionValue' => '3'],
+            ['optionName' => 'paymentexpiredremove', 'storeId' => 1, 'optionValue' => '5'],
+            ['optionName' => 'invoiceorderformat', 'storeId' => 1, 'optionValue' => 'INV-{NUMBER}'],
+            ['optionName' => 'invoiceordernumberstart', 'storeId' => 1, 'optionValue' => '1'],
+            ['optionName' => 'invoiceorderduedate', 'storeId' => 1, 'optionValue' => '2'],
+            ['optionName' => 'taxstatus', 'storeId' => 1, 'optionValue' => 'y'],
+            ['optionName' => 'taxId', 'storeId' => 1, 'optionValue' => '1'],
         ];
         foreach ( $arr as $item ) {
             $data = [

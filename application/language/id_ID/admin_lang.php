@@ -589,6 +589,13 @@ $lang['clickhere'] = "Klik disini";
 $lang['paymentexpired'] = "Kadaluarsa pembayaran";
 $lang['removepaymentexpired'] = "Hapus kadaluarsa pembayaran";
 $lang['removepaymentexpiredinfo'] = "Hapus kadaluarsa pembayaran harus lebih besar dari kadaluarsa pembayaran";
+$lang['titlestocktentryreport'] = "Stok masuk minggu ini";
+$lang['subtitlestocktentryreport'] = "Stok masuk keseluruhan produk";
+$lang['titlestocktentrypurchasesreport'] = "Pembelian minggu ini";
+$lang['subtitlestocktentrypurchasesreport'] = "Pembelian keseluruhan produk";
+$lang['totalallstocks'] = "Total semua stok";
+$lang['totalpurchases'] = "Total pembelian";
+$lang['totalallpurchases'] = "Total semua pembelian";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

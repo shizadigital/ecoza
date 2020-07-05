@@ -589,6 +589,13 @@ $lang['clickhere'] = "Click here";
 $lang['paymentexpired'] = "Payment expired";
 $lang['removepaymentexpired'] = "Remove payment expired";
 $lang['removepaymentexpiredinfo'] = "Remove payment expired must greater than payment expired";
+$lang['titlestocktentryreport'] = "Stock entry of this week";
+$lang['subtitlestocktentryreport'] = "Stock entry for overall product";
+$lang['titlestocktentrypurchasesreport'] = "Purchases of this week";
+$lang['subtitlestocktentrypurchasesreport'] = "Purchases for overall product";
+$lang['totalallstocks'] = "Total all stocks";
+$lang['totalpurchases'] = "Total purchases";
+$lang['totalallpurchases'] = "Total all purchases";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

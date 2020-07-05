@@ -27,8 +27,21 @@ function getDisc($bigval=0,$smallval=0,$decimal = 2, $sep = '.'){
     return $cetak;
 }
 
-function digitFormat($angka, $decimal = 2){
-	$return=number_format($angka,$decimal,',','.');
+function digitFormat($angka, $decimal = 2, $removezerodecimal = false){
+	$return = number_format($angka,$decimal,',','.');
+
+	if($removezerodecimal == true){
+		// make total zero
+		$zerocount = '';
+		for($z=0; $z < $decimal; $z++){
+			$zerocount .= '0';
+		}
+		
+		// remove zero
+		$qtyexp = explode(',',$return);
+		if(isset($qtyexp[1]) == $zerocount){ $return = $qtyexp[0]; }
+	}
+
 	return $return;
 }
 

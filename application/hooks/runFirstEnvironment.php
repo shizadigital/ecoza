@@ -37,6 +37,12 @@ class runFirstEnvironment {
 							);
 					$ci_env->input->set_cookie($cookie);
 				}
+
+				// set the first time using this system
+				if( check_option('startupdate') < 1 ){
+					add_option('startupdate', date('Y-m-d'));
+				}
+				
 			}
 		}
 

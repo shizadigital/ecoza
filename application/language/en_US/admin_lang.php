@@ -589,13 +589,16 @@ $lang['clickhere'] = "Click here";
 $lang['paymentexpired'] = "Payment expired";
 $lang['removepaymentexpired'] = "Remove payment expired";
 $lang['removepaymentexpiredinfo'] = "Remove payment expired must greater than payment expired";
-$lang['titlestocktentryreport'] = "Stock entry of this week";
+$lang['titlestocktentryreport'] = "Stock entry accumulation of this week";
 $lang['subtitlestocktentryreport'] = "Stock entry for overall product";
 $lang['titlestocktentrypurchasesreport'] = "Purchases of this week";
 $lang['subtitlestocktentrypurchasesreport'] = "Purchases for overall product";
 $lang['totalallstocks'] = "Total all stocks";
 $lang['totalpurchases'] = "Total purchases";
 $lang['totalallpurchases'] = "Total all purchases";
+$lang['qtybefore'] = "Qty Before";
+$lang['accumulation'] = "Accumulation";
+$lang['purchases'] = "Purchases";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -808,6 +811,7 @@ $lang['stockcode'] = "Stock Code";
 $lang['stockentrycode'] = "Stock Entry Code";
 $lang['infoaddentrystock'] = "Make sure the data is correct before adding. After the data is added, the data is not allowed to be updated";
 $lang['entrydate'] = "Entry Date";
+$lang['stockentryaccumulation'] = "Stock Entry Accumulation";
 
 /**
  * Stock Out

@@ -589,13 +589,16 @@ $lang['clickhere'] = "Klik disini";
 $lang['paymentexpired'] = "Kadaluarsa pembayaran";
 $lang['removepaymentexpired'] = "Hapus kadaluarsa pembayaran";
 $lang['removepaymentexpiredinfo'] = "Hapus kadaluarsa pembayaran harus lebih besar dari kadaluarsa pembayaran";
-$lang['titlestocktentryreport'] = "Stok masuk minggu ini";
+$lang['titlestocktentryreport'] = "Akumulasi stok masuk minggu ini";
 $lang['subtitlestocktentryreport'] = "Stok masuk keseluruhan produk";
 $lang['titlestocktentrypurchasesreport'] = "Pembelian minggu ini";
 $lang['subtitlestocktentrypurchasesreport'] = "Pembelian keseluruhan produk";
 $lang['totalallstocks'] = "Total semua stok";
 $lang['totalpurchases'] = "Total pembelian";
 $lang['totalallpurchases'] = "Total semua pembelian";
+$lang['qtybefore'] = "Qty Sebelumnya";
+$lang['accumulation'] = "Akumulasi";
+$lang['purchases'] = "Pembelian";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -808,6 +811,7 @@ $lang['stockcode'] = "Kode Stok";
 $lang['stockentrycode'] = "Kode Stok Masuk";
 $lang['infoaddentrystock'] = "Pastikan data sudah benar sebelum ditambahkan. Setelah data ditambahkan, data tidak dapat diperbarui";
 $lang['entrydate'] = "Tanggal Masuk";
+$lang['stockentryaccumulation'] = "Akumulasi Stok Masuk";
 
 /**
  * Stock Out

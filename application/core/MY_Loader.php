@@ -48,6 +48,7 @@ class MY_Loader extends MX_Loader {
             $templatedir = FCPATH .'sz_templates/'.$this->get_template().'/views';
             if(file_exists($templatedir) != FALSE){
                 $this->_ci_view_paths = array_merge($this->_ci_view_paths, array( $templatedir.'/' =>TRUE));
+				$view = $_view;
             }
         }
  

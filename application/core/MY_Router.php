@@ -32,7 +32,81 @@ class MY_Router extends MX_Router {
         $DB->where('optionName', 'template');
         $query = $DB->get();
         return $query->row()->optionValue;
-    }
+	}
+	
+	protected function _set_request($segments = array())
+	{
+		if ($this->translate_uri_dashes === TRUE)
+		{
+			foreach(range(0, 2) as $v)
+			{
+				isset($segments[$v]) && $segments[$v] = str_replace('-', '_', $segments[$v]);
+			}
+		}
+		
+		$segments = $this->locate($segments);
+
+		if($this->located == -1){
+			$this->_set_404override_controller();
+			return;
+		}
+
+		if(empty($segments)) {
+			$this->_set_default_controller();
+			return;
+		}
+		
+		$this->set_class($segments[0]);
+		
+		if (isset($segments[1])) {
+
+			/*
+			 *
+			 * 
+			 * SHIZA ADMIN SEGMENT CONTROL IN ADMIN
+			 * 
+			 * 
+			 */
+			if($segments[1] == 'admin'){
+
+				if( empty($segments[2]) ){
+					$segments[2] = 'index';
+				}
+
+			} else {
+				$this->set_method($segments[1]);
+			}
+
+		}
+		else {
+			$segments[1] = 'index';
+		}
+       
+		array_unshift($segments, NULL);
+		unset($segments[0]);
+		$this->uri->rsegments = $segments;
+	}
+	
+	protected function _set_404override_controller()
+	{
+		$this->_set_module_path($this->routes['404_override']);
+	}
+
+	protected function _set_default_controller()
+	{
+		if (empty($this->directory))
+		{
+			/* set the default controller module path */
+			$this->_set_module_path($this->default_controller);
+		}
+
+		parent::_set_default_controller();
+		
+		if(empty($this->class))
+		{
+			$this->_set_404override_controller();
+		}
+	}
 
 	/** Locate the controller **/
 	public function locate($segments)
@@ -187,5 +261,32 @@ class MY_Router extends MX_Router {
         }
 		
 		$this->located = -1;
+	}
+
+	/* set module path */
+	protected function _set_module_path(&$_route)
+	{
+		if ( ! empty($_route))
+		{
+			// Are module/directory/controller/method segments being specified?
+			$sgs = sscanf($_route, '%[^/]/%[^/]/%[^/]/%s', $module, $directory, $class, $method);
+			
+			// set the module/controller directory location if found
+			if ($this->locate(array($module, $directory, $class)))
+			{
+				//reset to class/method
+				switch ($sgs)
+				{
+					case 1:	$_route = $module.'/index';
+						break;
+					case 2: $_route = ($this->located < 2) ? $module.'/'.$directory : $directory.'/index';
+						break;
+					case 3: $_route = ($this->located == 2) ? $directory.'/'.$class : $class.'/index';
+						break;
+					case 4: $_route = ($this->located == 3) ? $class.'/'.$method : $method.'/index';
+						break;
+				}
+			}
+		}
 	}
 }

@@ -186,7 +186,7 @@ class MY_Router extends MX_Router {
 									if(is_file($source.ucfirst($controller).$ext))
 									{
 										$this->located = 3;
-										return array_slice($c_segments, 2);
+										return array_slice($segments, 2);
 									}
 
 								}

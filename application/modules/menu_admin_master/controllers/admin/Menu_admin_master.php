@@ -391,8 +391,6 @@ class {$capitalize_filename} extends CI_Controller{
 
 	public function __construct(){
 		parent::__construct();
-		// load helper required
-		\$this->load->helper('cookie');
 		\$this->load->helper('admin_functions');
 
 		// protect the page

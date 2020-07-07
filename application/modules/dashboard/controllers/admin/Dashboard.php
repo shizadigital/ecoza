@@ -5,8 +5,6 @@ class Dashboard extends CI_Controller {
 	// load model
 	public function __construct(){
 		parent::__construct();
-		// load helper random string
-		$this->load->helper('cookie');
 
 		// protect the page
 		$this->adminauth->auth_login();

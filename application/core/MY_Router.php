@@ -223,7 +223,7 @@ class MY_Router extends MX_Router {
 					}
 
 					/* module controller exists? */
-					if(is_file($source.ucfirst($c_module).$ext))
+					if(is_file($source.ucfirst($c_module).$ext) AND $this->located != -1)
 					{
 						$this->located = 1;
 						return $c_segments;

@@ -601,6 +601,8 @@ $lang['accumulation'] = "Accumulation";
 $lang['purchases'] = "Purchases";
 $lang['titlestocktoutreport'] = "Stock out accumulation of this week";
 $lang['subtitlestocktoutreport'] = "Stock out for overall product";
+$lang['segment'] = "Segment";
+$lang['location'] = "Location";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

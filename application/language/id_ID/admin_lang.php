@@ -601,6 +601,8 @@ $lang['accumulation'] = "Akumulasi";
 $lang['purchases'] = "Pembelian";
 $lang['titlestocktoutreport'] = "Akumulasi stok keluar minggu ini";
 $lang['subtitlestocktoutreport'] = "Stok keluar keseluruhan produk";
+$lang['segment'] = "Segmen";
+$lang['location'] = "Lokasi";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

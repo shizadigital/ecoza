@@ -179,8 +179,23 @@ class MY_Router extends MX_Router {
 							*/
 							if($c_directory == 'admin'){
 
-								$this->located = 3;
-								return array_slice($segments, 1);
+								/* module sub-directory controller exists? */
+								if($controller)
+								{
+	
+									if(is_file($source.ucfirst($controller).$ext))
+									{
+										$this->located = 3;
+										return array_slice($c_segments, 2);
+									}
+									else { $this->located = -1; }
+
+								} else {
+
+									$this->located = 3;
+									return array_slice($segments, 1);
+
+								}
 
 							} else {
 

@@ -599,6 +599,8 @@ $lang['totalallpurchases'] = "Total semua pembelian";
 $lang['qtybefore'] = "Qty Sebelumnya";
 $lang['accumulation'] = "Akumulasi";
 $lang['purchases'] = "Pembelian";
+$lang['titlestocktoutreport'] = "Akumulasi stok keluar minggu ini";
+$lang['subtitlestocktoutreport'] = "Stok keluar keseluruhan produk";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -819,6 +821,7 @@ $lang['stockentryaccumulation'] = "Akumulasi Stok Masuk";
 $lang['stockout'] = "Stok Keluar";
 $lang['stockoutcode'] = "Kode Stok Keluar";
 $lang['newstockout'] = "Buat Stok Keluar";
+$lang['stockoutaccumulation'] = "Akumulasi Stok Keluar";
 
 /**
  * Stock Opname

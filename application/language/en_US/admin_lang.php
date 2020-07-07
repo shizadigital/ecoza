@@ -599,6 +599,8 @@ $lang['totalallpurchases'] = "Total all purchases";
 $lang['qtybefore'] = "Qty Before";
 $lang['accumulation'] = "Accumulation";
 $lang['purchases'] = "Purchases";
+$lang['titlestocktoutreport'] = "Stock out accumulation of this week";
+$lang['subtitlestocktoutreport'] = "Stock out for overall product";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -819,6 +821,7 @@ $lang['stockentryaccumulation'] = "Stock Entry Accumulation";
 $lang['stockout'] = "Stock Out";
 $lang['stockoutcode'] = "Stock Out Code";
 $lang['newstockout'] = "Add Stock Out";
+$lang['stockoutaccumulation'] = "Stock Out Accumulation";
 
 /**
  * Stock Opname

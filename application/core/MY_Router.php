@@ -188,14 +188,11 @@ class MY_Router extends MX_Router {
 										$this->located = 3;
 										return array_slice($c_segments, 2);
 									}
-									else { $this->located = -1; }
-
-								} else {
-
-									$this->located = 3;
-									return array_slice($segments, 1);
 
 								}
+
+								$this->located = 3;
+								return array_slice($segments, 1);
 
 							} else {
 
@@ -223,7 +220,7 @@ class MY_Router extends MX_Router {
 					}
 
 					/* module controller exists? */
-					if(is_file($source.ucfirst($c_module).$ext) AND $this->located != -1)
+					if(is_file($source.ucfirst($c_module).$ext))
 					{
 						$this->located = 1;
 						return $c_segments;

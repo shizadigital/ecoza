@@ -18,6 +18,13 @@ class Atur_web extends CI_Controller{
 
 	public function index(){
 		if( is_view() ){
+			
+			// get tax
+			$tax = $this->Env_model->view_where_order('taxId, taxName, taxRate, taxType','tax', "taxDeleted='0' AND taxActive='y'",'taxId','ASC');
+			$taxes[''] = t('notax');
+			foreach( $tax as $k => $v ){
+				$taxes[$v['taxId']] = $v['taxName'] . ( ($v['taxType']=='percentage') ? ' (%)':'');
+			}
 
 			$data = array( 
 						'title' => t('websetting') . ' - '.get_option('sitename'),
@@ -25,8 +32,7 @@ class Atur_web extends CI_Controller{
 						'title_page' => '',
 						'title_page_icon' => '',
 						'title_page_secondary' => '',
-						'header_button_action' => array(
-										),
+						'choosetax' => $taxes
 					);
 			
 			$this->load->view( admin_root('atur_web_view'), $data );
@@ -44,6 +50,34 @@ class Atur_web extends CI_Controller{
 			// Validate Email
 			if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 				$error = "<strong>".t('error')."!!</strong> " . t('emailinvalid');
+			}
+
+			// check tax
+			if($this->input->post('enabletax') == 'y'){
+				if( empty( $this->input->post('tax') ) ){
+					$error = "<strong>".t('error')."!!</strong> " . t('taxempty');
+				}
+			}
+
+			// check invoice order format number
+			if(strpos($this->input->post('invoiceorderformat'), "{NUMBER}")===false){
+				$error = "<strong>".t('error')."</strong> ".t('invoiceformatnumberempty');
+			}
+
+			// check invoice order number start
+			if(!empty($this->input->post('invoiceordernumberstart'))){
+				if(filter_var($this->input->post('invoiceordernumberstart'), FILTER_VALIDATE_INT) === false){
+					$error = "<strong>".t('error')."</strong> ".t('invoicestartingwrongdata');
+				} else {
+					if(get_option('invoiceordernumberstart') >= $this->input->post('invoiceordernumberstart')){
+						$error = "<strong>".t('error')."</strong> ".sprintf(t('invoicestartingstillsmaller'),get_option('invoiceordernumberstart'));
+					}
+				}
+			}
+
+			// check payment expired
+			if( $this->input->post('paymentexpired') > $this->input->post('removepaymentexpired') ){
+				$error = "<strong>".t('error')."</strong> ".t('removepaymentexpiredinfo');
 			}
 
 			if(!$error){
@@ -185,6 +219,64 @@ class Atur_web extends CI_Controller{
 				$sosmedurl = serialize($social_url_array);
 				set_option('socialmediaurl', $sosmedurl);
 
+				/*
+				*
+				* ORDER SETTING
+				*
+				*/
+
+				// SETTING ENABLE TAX
+				if(check_option('taxstatus') > 0){
+					set_option('taxstatus',$this->input->post('enabletax'));
+				} else {
+					add_option('taxstatus',$this->input->post('enabletax'));
+				}
+
+				// SETTING TAX
+				if($this->input->post('enabletax') == 'y'){
+					if(check_option('taxId') > 0){
+						set_option('taxId',$this->input->post('tax'));
+					} else {
+						add_option('taxId',$this->input->post('tax'));
+					}
+				}
+
+				// SETTING INVOICE FORMAT ORDER
+				if(check_option('invoiceorderformat') > 0){
+					set_option('invoiceorderformat',$this->input->post('invoiceorderformat'));
+				} else {
+					add_option('invoiceorderformat',$this->input->post('invoiceorderformat'));
+				}
+
+				// SETTING INVOICE NUMBER START
+				if( !empty($this->input->post('invoiceordernumberstart')) ){
+					if(check_option('invoiceordernumberstart') > 0){
+						set_option('invoiceordernumberstart',filter_int($this->input->post('invoiceordernumberstart')));
+					} else {
+						add_option('invoiceordernumberstart',filter_int($this->input->post('invoiceordernumberstart')));
+					}
+				}
+
+				// SETTING PAYMENT EXPIRED
+				if(check_option('paymentexpired') > 0){
+					set_option('paymentexpired',$this->input->post('paymentexpired'));
+				} else {
+					add_option('paymentexpired',$this->input->post('paymentexpired'));
+				}
+
+				// SETTING PAYMENT EXPIRED
+				if(check_option('removepaymentexpired') > 0){
+					set_option('removepaymentexpired',$this->input->post('removepaymentexpired'));
+				} else {
+					add_option('removepaymentexpired',$this->input->post('removepaymentexpired'));
+				}
+
+				// SETTING PAY TO TEXT 
+				set_option('invoicepaytotext', $this->input->post('invoicepaytotext',true));
+
+				/**
+				 * FINISH HERE
+				 */
 				$this->session->set_flashdata( 'succeed', t('successfullyupdated') );
 			}
 

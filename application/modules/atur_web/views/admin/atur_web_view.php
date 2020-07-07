@@ -56,6 +56,9 @@ include V_ADMIN_PATH . "topbar.php";
                         <li class="nav-item">
                             <a class="nav-link" id="socialmedia-tab" data-toggle="tab" href="#socialmedia" role="tab" aria-controls="socialmedia" aria-selected="false"><?php echo t('socialmedia'); ?></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab" aria-controls="order" aria-selected="false"><?php echo t('order'); ?></a>
+                        </li>
                     </ul>
                     
                 </div>
@@ -312,6 +315,119 @@ include V_ADMIN_PATH . "topbar.php";
                             $this->formcontrol->buildInputs( $buildform3, 'horizontal', $colsform );
                             ?>
                         </div>
+
+						<div class="tab-pane fade py-3" id="order" role="tabpanel" aria-labelledby="order-tab">
+							<?php 
+                            $colsform = array('label'=>'col-sm-3 col-md-2', 'input'=>'col-sm-9 col-md-10');
+
+                            echo '<div class="air__utils__heading"><h5>'.t('taxes').'</h5></div>';
+                            $buildenabletax = array(
+                                array(
+                                    'type' => 'radio',
+                                    'label' => t('enabletax'),
+                                    'name' => 'enabletax',
+                                    'value' => array(
+                                        array(
+                                            'title' => t('yes'),
+                                            'value' => 'y',
+                                            'checked' => ( get_option('taxstatus') == 'y' ) ? true:false,
+                                        ),
+                                        array(
+                                            'title' => t('no'),
+                                            'value' => 'n',
+                                            'checked' => ( get_option('taxstatus') =='n' ) ? true:false,
+                                        ),
+                                    ),
+                                    'layout' => 'horizontal',
+                                ),
+                            );
+							$this->formcontrol->buildInputs( $buildenabletax, 'horizontal', $colsform );
+
+							echo '
+							<script type="text/javascript">
+							$( document ).ready(function() {
+								$( "input[name=\'enabletax\']" ).change(function() {
+									var val = $("input[name=\'enabletax\']:checked").val();
+
+									if(val=="y"){
+										$("#choosetaxresult").show();
+									} else{
+										$("#choosetaxresult").hide();
+									}
+								});
+							});
+							</script>
+							
+							<div id="choosetaxresult">';
+							$buildformtaxchoose = array(
+                                array(
+                                    'type' => 'select',
+                                    'label' => t('tax'),
+                                    'name' => 'tax',
+									'option'=> $choosetax,
+									'selected' => get_option('taxId')
+                                ),
+                            );
+							$this->formcontrol->buildInputs( $buildformtaxchoose, 'horizontal', $colsform );
+							echo '</div>';
+
+							echo '<div class="air__utils__heading"><h5>'.t('invoice2').'</h5></div>';
+                            $invoicefield = array(
+                                array(
+                                    'type' => 'text',
+                                    'label' => t('invoiceformat'),
+                                    'name' => 'invoiceorderformat',
+									'value' => get_option('invoiceorderformat'),
+									'required' => true,
+									'help'=> t('invoiceformatinfo').' {DAY} {MONTH} {YEAR} {NUMBER}',
+								),
+								array(
+                                    'type' => 'text',
+                                    'label' => t('invoicestarting'),
+                                    'name' => 'invoiceordernumberstart',
+                                    'onkeypress' => 'return isNumberKey(event)',
+									'help'=> sprintf( t('invoicestartinginfo'), get_option('invoiceordernumberstart') ),
+								),
+                            );
+							$this->formcontrol->buildInputs( $invoicefield, 'horizontal', $colsform );
+
+							echo '<div class="air__utils__heading"><h5>'.t('etc').'</h5></div>';
+							$etcfield = array(
+								array(
+                                    'type' => 'texteditor',
+                                    'label' => t('paytotext'),
+                                    'name' => 'invoicepaytotext',
+                                    'value' => get_option('invoicepaytotext'),
+                                    'texteditor' => 'verysimple',
+                                    'help' => t('paytotextinfo')
+                                ),
+                                array(
+                                    'type' => 'text',
+                                    'label' => t('paymentexpired'),
+                                    'name' => 'paymentexpired',
+									'onkeypress' => 'return isNumberKey(event)',
+									'input-group' => array(
+										'append'=> t('days'),
+									),
+									'required' => true,
+									'value' => get_option('paymentexpired')
+								),
+								array(
+                                    'type' => 'text',
+                                    'label' => t('removepaymentexpired'),
+                                    'name' => 'removepaymentexpired',
+									'onkeypress' => 'return isNumberKey(event)',
+									'input-group' => array(
+										'append'=> t('days'),
+									),
+									'required' => true,
+									'value' => get_option('paymentexpiredremove'),
+									'help' => t('removepaymentexpiredinfo')
+                                ),
+                            );
+							$this->formcontrol->buildInputs( $etcfield, 'horizontal', $colsform );
+							?>
+						</div>
                     </div>
 
                     <div class="form-group mb-5">

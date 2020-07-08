@@ -88,6 +88,12 @@ include V_ADMIN_PATH . "topbar.php";
 							'help' => t('infocategcolor')
 						),
 						array(
+							'type' => 'file-img',
+							'label' => t('picture'),
+							'name' => 'picture',
+							'help' => t('infomainimg') . ' *.jpg, *.jpeg, *.png, *.gif'
+						),
+						array(
 							'type' => 'submit',
 							'label' => '<i class="fe fe-plus"></i> '.t('btnadd'),
 							'class' => 'btn-primary btn-block',
@@ -96,7 +102,7 @@ include V_ADMIN_PATH . "topbar.php";
 								
 				);
 
-				$this->formcontrol->buildForm($tagForm, $inputs);
+				$this->formcontrol->buildForm($tagForm, $inputs, 'multipart');
 				?>
 			</div>
 		</div>
@@ -225,6 +231,10 @@ include V_ADMIN_PATH . "topbar.php";
 											</div>
 											<strong><?php echo  t( array( 'table'=>'categories', 'field'=>'catName', 'id'=>$r['catId']) ); ?></strong><br/>
 											<div class="btn-group btn-group-xs">
+												<?php if(!empty($r['catImgDir']) AND !empty($r['catImg'])){ ?>
+												<a data-toggle="modal" href="#viewpic<?php echo $r['catId']; ?>" class="btn btn-sm btn-secondary"><i class="fe fe-image"></i> <?php echo t('picture'); ?></a>
+												<?php } ?>
+
 												<?php if(is_edit()){ ?>
 												<a href="<?php echo admin_url($this->uri->segment(2).'/edit/'.$r['catId']); ?>" class="btn btn-sm btn-info"><i class="fe fe-edit"></i> <?php echo t('edit'); ?></a> 
 												<?php } 
@@ -244,6 +254,28 @@ include V_ADMIN_PATH . "topbar.php";
 												?>
 												<?php } ?>
 											</div>
+											<?php
+											if(!empty($r['catImgDir']) AND !empty($r['catImg'])){
+												$imgcategory = images_url($r['catImgDir'].'/medium_'.$r['catImg']);
+											
+												$imgcontent = '
+												<div class="modal fade" id="viewpic'.$r['catId'].'" tabindex="-1" role="dialog" aria-hidden="true">
+													<div class="modal-dialog" style="width:400px;">
+														<div class="modal-content">
+															<div class="modal-body text-center">
+																<img style="width:100%;" src="'.$imgcategory.'" alt="img category '.$r['catId'].'">
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">'.t('close').'</button>
+															</div>
+														</div><!-- /.modal-content -->
+													</div>
+													<!-- /.modal-dialog -->
+												</div>
+												';
+												$this->assetsloc->place_element_to_footer($imgcontent);
+											}
+											?>
 										</td>
 										<td class="text-center"><?php if($r['catActive']=='1'){ echo t('yes'); } else { echo t('no'); } ?></td>
 										<td class="text-center">

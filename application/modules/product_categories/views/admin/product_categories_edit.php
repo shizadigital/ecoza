@@ -70,6 +70,12 @@ if( is_edit() ){
 					'attributes' 	=> array( 'id'=>'valid' ),
 					'hidden' 		=> array('ID' => $data['catId'])
 				);
+
+				// image availability
+                $imgcategory = admin_assets('img/no-image2.png');
+                if(!empty($data['catImgDir']) AND !empty($data['catImg'])){
+                    $imgcategory = images_url($data['catImgDir'].'/small_'.$data['catImg']);
+                }
 				
 				// make input structure
 				$inputs = array(
@@ -113,6 +119,13 @@ if( is_edit() ){
 							'class' => 'thecolorpicker',
 							'help' => t('infocategcolor')
 						),
+                        array(
+                            'type' => 'file-img',
+                            'label' => t('picture'),
+                            'name' => 'picture',
+							'value' => $imgcategory,
+                            'help' => t('infomainimg') . ' *.jpg, *.jpeg, *.png, *.gif'
+                        ),
 						array(
 							'type' => 'checkbox',
 							'label' => t('active'),

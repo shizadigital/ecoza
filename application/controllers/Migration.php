@@ -285,6 +285,8 @@ class Migration extends CI_Controller {
         $schema->string('catSlug');
         $schema->text('catDesc');
         $schema->string('catColor', ['length' => '12']);
+        $schema->string('catColor', ['length' => '9']);
+        $schema->string('catImgDir', ['length' => '35']);
         $schema->integer('catActive', ['length' => '3', 'unsigned' => TRUE]);
         $schema->string('catType', ['length' => '20']);
         $schema->run();

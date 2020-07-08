@@ -98,6 +98,18 @@ class Product_categories extends CI_Controller{
 				$error = "<strong>".t('error')."!!</strong> ".t('emptyrequiredfield');
 			}
 
+			// file extention allowed
+			$extensi_allowed = array('jpg','jpeg','png','gif');
+
+			// check image upload
+			if(!empty($_FILES['picture']['tmp_name'])){
+				$ext_file = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
+
+				if(!in_array($ext_file,$extensi_allowed)) {
+					$error = "<strong>".t('error')."!!</strong> " . t('wrongextentionfile');
+				}
+			}
+
 			if(!$error){
 				$nama 		= esc_sql( filter_txt( $this->input->post('nama') ) );
 				$deskripsi 	= esc_sql( filter_txt( $this->input->post('desc') ) );
@@ -107,12 +119,33 @@ class Product_categories extends CI_Controller{
 
 				$slugcat = slugURL($nama);
 
+				$file_img = '';
+				$file_dir = '';
+				// upload image proccess
+				if(!empty($_FILES['picture']['tmp_name'])){
+					$ext_file = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
+
+					if(in_array($ext_file,$extensi_allowed)) {
+						$sizeimg = array(
+							'xsmall' 	=>'90',
+							'small' 	=>'210',
+							'medium' 	=>'530',
+							'large' 	=>'1024'
+						);
+						$img = uploadImage('picture', 'categories', $sizeimg, $extensi_allowed);
+						$file_img = $img['filename'];
+						$file_dir = $img['directory'];
+					}
+				}
+
 				$datacat = array(
 					'catId' => $nextId,
 					'catName' => $nama,
 					'catSlug'=> $slugcat,
 					'catDesc' => (string) $deskripsi,
 					'catColor' => (string) $warna,
+					'catImgDir' => $file_dir,
+					'catImg' => $file_img,
 					'catActive' => 1,
 					'catType' => 'product'
 				);

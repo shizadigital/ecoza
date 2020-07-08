@@ -65,6 +65,8 @@ class Migration extends CI_Controller {
         $this->create_manufacturers_table();
         $this->create_manufacturers_store_table();
         $this->create_member_table();
+        $this->create_member_addressbook_table();
+        $this->create_member_store_table();
         $this->create_message_table();
         $this->create_options_table();
         $this->create_orders_table();
@@ -655,21 +657,35 @@ class Migration extends CI_Controller {
     protected function create_member_addressbook_table(){
 
         $schema = $this->schema->create_table('member_addressbook');
-        $schema->increments('adId', ['length' => '11']);
+        $schema->increments('maddrId', ['length' => '11']);
         $schema->integer('mId', ['length' => '15', 'unsigned' => TRUE]);
-        $schema->string('adLabel', ['length' => '255']);
-        $schema->string('adReceiveName', ['length' => '255']);
-        $schema->text('adAddress');
-        $schema->string('adPostalCode', ['length' => '10']);
-        $schema->string('countryIsoCode2', ['length' => '3']);
-        $schema->string('adCity', ['length' => '70']);
-        $schema->string('adHP', ['length' => '20']);
-        $schema->enum('adPriority', ['primary', 'secondary']);
+        $schema->integer('countryId', ['length' => '15', 'unsigned' => TRUE]);
+        $schema->string('maddrLabel', ['length' => '255']);
+        $schema->string('maddrReceiveName', ['length' => '255']);
+        $schema->string('maddrCompany', ['length' => '255']);
+        $schema->text('maddrAddress');
+        $schema->string('maddrPostalCode', ['length' => '10']);
+        $schema->string('maddrCity', ['length' => '70']);
+        $schema->string('maddrHP', ['length' => '20']);
+        $schema->enum('maddrPriority', ['primary', 'secondary']);
         $schema->run();
 
         // ADD index
         $schema->index('mId');
-        $schema->index('adPriority');
+        $schema->index('countryId');
+        $schema->index('maddrPriority');
+    }
+
+    protected function create_member_store_table(){
+
+        $schema = $this->schema->create_table('member_store');
+        $schema->increments('mId', ['length' => '11']);
+        $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('storeId');
+
     }
 
     protected function create_message_table() {

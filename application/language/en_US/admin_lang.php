@@ -415,7 +415,7 @@ $lang['addressinfoforcompleted'] = "Please insert the address in the address fie
 $lang['addnewaddress'] = "Add New Address";
 $lang['editaddress'] = "Update Address";
 $lang['addnewmember'] = "Add New Member";
-$lang['sex'] = "Sex";
+$lang['gender'] = "Gender";
 $lang['profilepic'] = "Profile Picture";
 $lang['data'] = "Data";
 $lang['membersuccessfullysaved'] = "Member successfully saved and email confirmation successfully sent";
@@ -603,6 +603,7 @@ $lang['titlestocktoutreport'] = "Stock out accumulation of this week";
 $lang['subtitlestocktoutreport'] = "Stock out for overall product";
 $lang['segment'] = "Segment";
 $lang['location'] = "Location";
+$lang['company'] = "Company";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

@@ -415,7 +415,7 @@ $lang['addressinfoforcompleted'] = "Silahkan ketik alamat lengkap pada form alam
 $lang['addnewaddress'] = "Tambah alamat baru";
 $lang['editaddress'] = "Perbarui alamat";
 $lang['addnewmember'] = "Tambah Member baru";
-$lang['sex'] = "Jenis Kelamin";
+$lang['gender'] = "Jenis Kelamin";
 $lang['profilepic'] = "Profile Picture";
 $lang['data'] = "Data";
 $lang['membersuccessfullysaved'] = "Member berhasil ditambahkan dan email konfirmasi berhasil dikirim";
@@ -603,6 +603,7 @@ $lang['titlestocktoutreport'] = "Akumulasi stok keluar minggu ini";
 $lang['subtitlestocktoutreport'] = "Stok keluar keseluruhan produk";
 $lang['segment'] = "Segmen";
 $lang['location'] = "Lokasi";
+$lang['company'] = "Perusahaan";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

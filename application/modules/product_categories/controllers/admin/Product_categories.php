@@ -216,15 +216,57 @@ class Product_categories extends CI_Controller{
 				$error = "<strong>".t('error')."!!</strong> ".t('emptyrequiredfield');
 			}
 
+			// file extention allowed
+			$extensi_allowed = array('jpg','jpeg','png','gif');
+
+			// check image upload
+			if(!empty($_FILES['picture']['tmp_name'])){
+				$ext_file = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
+
+				if(!in_array($ext_file,$extensi_allowed)) {
+					$error = "<strong>".t('error')."!!</strong> " . t('wrongextentionfile');
+				}
+			}
+
 			if(!$error){
 				$id 		= esc_sql( filter_int( $this->input->post('ID') ) );
 
 				$nama 		= esc_sql( filter_txt( $this->input->post('nama') ) );
 				$slug 		= esc_sql( filter_txt( $this->input->post('slug') ) );
+				$slug 		= slugURL($slug);
 				$deskripsi 	= esc_sql( filter_txt( $this->input->post('desc') ) );
 				$warna 		= esc_sql( filter_txt( $this->input->post('warna') ) );
 				$active		= ($this->input->post('active') !==NULL) ? esc_sql( filter_txt( $this->input->post('active') ) ):0;
 				
+				$file = array();
+				// upload image proccess
+				if(!empty($_FILES['picture']['tmp_name'])){
+					$ext_file = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
+
+					if(in_array($ext_file,$extensi_allowed)) {
+						$sizeimg = array(
+							'xsmall' 	=>'90',
+							'small' 	=>'210',
+							'medium' 	=>'530',
+							'large' 	=>'1920'
+						);
+
+						$dataimg = getval("*", 'categories', "catId='{$id}'" );
+						if(!empty($dataimg['catImgDir']) AND !empty($dataimg['catImg'])){
+							
+							//delete old file
+							foreach($sizeimg AS $imgkey => $valimg){
+								@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$dataimg['catImgDir'].DIRECTORY_SEPARATOR.$imgkey.'_'.$dataimg['catImg']);
+							}
+						}
+
+						$img = uploadImage('picture', 'categories', $sizeimg, $extensi_allowed);
+						$file_img = $img['filename'];
+						$file_dir = $img['directory'];
+						
+						$file = array( 'catImgDir'=> $file_dir, 'catImg'=>$file_img );
+					}
+				}
 
 				$datacat = array(
 					'catName' => $nama,
@@ -233,9 +275,11 @@ class Product_categories extends CI_Controller{
 					'catColor' => (string) $warna,
 					'catActive' => $active,
 				);
+
+				$data_ = array_merge($datacat,$file);
 				
 				// update data
-				$query = $this->Env_model->update('categories', $datacat, "catId='{$id}'");
+				$query = $this->Env_model->update('categories', $data_, "catId='{$id}'");
 				
 			    if($query){
 					// insert or update data translation
@@ -259,6 +303,21 @@ class Product_categories extends CI_Controller{
 	protected function deleteAction($id){
 		if( is_delete() ){
 			$id = esc_sql( filter_int( $id ) );
+			
+			$dataimg = getval("*", 'categories', "catId='{$id}'" );
+			if(!empty($dataimg['catImgDir']) AND !empty($dataimg['catImg'])){
+				$sizeimg = array(
+					'xsmall' 	=>'90',
+					'small' 	=>'210',
+					'medium' 	=>'530',
+					'large' 	=>'1920'
+				);
+
+				//delete old file
+				foreach($sizeimg AS $imgkey => $valimg){
+					@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$dataimg['catImgDir'].DIRECTORY_SEPARATOR.$imgkey.'_'.$dataimg['catImg']);
+				}
+			}
 
 			$where = array('catId' => $id, 'catType' => 'product');
 			$query = $this->Env_model->delete('categories', $where);
@@ -277,7 +336,7 @@ class Product_categories extends CI_Controller{
 	}
 	public function delete($id){
 		if( is_delete() ){
-			$query = Self::deleteAction($id);
+			$query = $this->deleteAction($id);
 			if($query){
 
 				$this->session->set_flashdata( 'succeed', t('successfullydeleted') );

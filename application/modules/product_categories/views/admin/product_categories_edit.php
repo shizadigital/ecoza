@@ -143,7 +143,7 @@ if( is_edit() ){
 								
 				);
 
-				$this->formcontrol->buildForm($tagForm, $inputs);
+				$this->formcontrol->buildForm($tagForm, $inputs, 'multipart');
 				?>
 			</div>
 		</div>

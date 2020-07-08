@@ -6,7 +6,6 @@ class Translation extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		
-		$this->load->helper('cookie');
 		$this->lang->load('admin',get_cookie('admin_lang'));
 		
 		// validate ajax with token cookie

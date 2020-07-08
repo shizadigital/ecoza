@@ -7,7 +7,6 @@ class Setlang extends CI_Controller {
 	{
 		parent::__construct();
 		// load helper random string
-		$this->load->helper('cookie');
 		$this->load->library('user_agent');
 	}
 

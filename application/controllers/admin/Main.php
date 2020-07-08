@@ -7,7 +7,6 @@ class Main extends CI_Controller {
 	{
 		parent::__construct();
 		// load helper random string
-		$this->load->helper('cookie');
 		$this->load->helper('admin_functions');
 
 		// load model random string

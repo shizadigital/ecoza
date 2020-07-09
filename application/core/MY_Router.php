@@ -128,107 +128,105 @@ class MY_Router extends MX_Router {
 		$directory = $segmentspad[1];
 		$controller = $segmentspad[2];
 		
-		if($this->config->item('admin_slug') == $this->uri->segment(1)){
-			/*
-			 *
-			 * 
-			 *  SHIZA ADMIN LOCATE CONTROL FOR CHECK MODULES
-			 * 
-			 * 
-			 */
-			if($module == 'admin'){ 			
-				$c_module = $directory;
-				$c_directory = 'admin';
-				
-				// create new segments variable for check module
-				$c_segments[0] = $c_module;
-				$c_segments[1] = $c_directory;
-				if( !empty($controller) ){
-					$c_segments[2] = $controller;
-				}
-			} else {
-				$c_module = $module;
-				$c_directory = $directory;
-				$c_segments = $segments;
+		/*
+		*
+		* 
+		*  SHIZA ADMIN LOCATE CONTROL FOR CHECK MODULES
+		* 
+		* 
+		*/
+		if($module == 'admin'){ 			
+			$c_module = $directory;
+			$c_directory = 'admin';
+			
+			// create new segments variable for check module
+			$c_segments[0] = $c_module;
+			$c_segments[1] = $c_directory;
+			if( !empty($controller) ){
+				$c_segments[2] = $controller;
 			}
-
-			/* check modules */
-			foreach (Modules::$locations as $location => $offset)
-			{
-				/* module exists? */
-				if (is_dir($source = $location.$c_module.'/controllers/'))
-				{
-					$this->module = $c_module;
-					$this->directory = $offset.$c_module.'/controllers/';
-
-					/* module sub-controller exists? */
-					if($c_directory)
-					{
-						/* module sub-directory exists? */
-						if(is_dir($source.$c_directory.'/'))
-						{	
-							$source .= $c_directory.'/';
-							$this->directory .= $c_directory.'/';
-
-							/*
-							*
-							* 
-							*  SHIZA ADMIN LOCATE CONTROL FOR CHECK MODULES
-							* 
-							* 
-							*/
-							if($c_directory == 'admin'){
-
-								/* module sub-directory controller exists? */
-								if($controller)
-								{
-	
-									if(is_file($source.ucfirst($controller).$ext))
-									{
-										$this->located = 3;
-										return array_slice($segments, 2);
-									}
-
-								}
-
-								$this->located = 3;
-								return array_slice($segments, 1);
-
-							} else {
-
-								/* module sub-directory controller exists? */
-								if($controller)
-								{
-									if(is_file($source.ucfirst($controller).$ext))
-									{
-										$this->located = 3;
-										return array_slice($c_segments, 2);
-									}
-									else { $this->located = -1; }
-								}
-
-							}
-						}
-						else {
-							if(is_file($source.ucfirst($c_directory).$ext))
-							{
-								$this->located = 2;
-								return array_slice($c_segments, 1);
-							}
-							else { $this->located = -1; }
-						}
-					}
-
-					/* module controller exists? */
-					if(is_file($source.ucfirst($c_module).$ext))
-					{
-						$this->located = 1;
-						return $c_segments;
-					}
-				}
-			}
-
+		} else {
+			$c_module = $module;
+			$c_directory = $directory;
+			$c_segments = $segments;
 		}
+
+		/* check modules */
+		foreach (Modules::$locations as $location => $offset)
+		{
+			/* module exists? */
+			if (is_dir($source = $location.$c_module.'/controllers/'))
+			{
+				$this->module = $c_module;
+				$this->directory = $offset.$c_module.'/controllers/';
+
+				/* module sub-controller exists? */
+				if($c_directory)
+				{
+					/* module sub-directory exists? */
+					if(is_dir($source.$c_directory.'/'))
+					{	
+						$source .= $c_directory.'/';
+						$this->directory .= $c_directory.'/';
+
+						/*
+						*
+						* 
+						*  SHIZA ADMIN LOCATE CONTROL FOR CHECK MODULES
+						* 
+						* 
+						*/
+						if($c_directory == 'admin'){
+
+							/* module sub-directory controller exists? */
+							if($controller)
+							{
+
+								if(is_file($source.ucfirst($controller).$ext))
+								{
+									$this->located = 3;
+									return array_slice($segments, 2);
+								}
+
+							}
+
+							$this->located = 3;
+							return array_slice($segments, 1);
+
+						} else {
+
+							/* module sub-directory controller exists? */
+							if($controller)
+							{
+								if(is_file($source.ucfirst($controller).$ext))
+								{
+									$this->located = 3;
+									return array_slice($c_segments, 2);
+								}
+								else { $this->located = -1; }
+							}
+
+						}
+					}
+					else {
+						if(is_file($source.ucfirst($c_directory).$ext))
+						{
+							$this->located = 2;
+							return array_slice($c_segments, 1);
+						}
+						else { $this->located = -1; }
+					}
+				}
+
+				/* module controller exists? */
+				if(is_file($source.ucfirst($c_module).$ext))
+				{
+					$this->located = 1;
+					return $c_segments;
+				}
+			}
+		}
+
 
 		if( ! empty($this->directory)) return;
 

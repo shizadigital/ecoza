@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * 
  * CREATE NEW MIGRATION
  * 
- * php index.php Migration create {database name}
+ * php index.php Migration create {table name}
  * 
  * --------------------------------------------------------
  * 

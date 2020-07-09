@@ -101,7 +101,7 @@ class Migration extends CI_Controller {
         if($action == 'seed'){
 
 			if($tablename == null){
-				$this->drop_all($tablename);
+				$this->drop_all();
 			} else {
 				$this->drop_one($tablename);
 			}

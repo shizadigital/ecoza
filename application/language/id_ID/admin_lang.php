@@ -604,6 +604,8 @@ $lang['subtitlestocktoutreport'] = "Stok keluar keseluruhan produk";
 $lang['segment'] = "Segmen";
 $lang['location'] = "Lokasi";
 $lang['company'] = "Perusahaan";
+$lang['subscribenewsletter'] = "Langganan Newsletter";
+$lang['sendinfotomail'] = "Kirimkan informasi ke email tertera";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

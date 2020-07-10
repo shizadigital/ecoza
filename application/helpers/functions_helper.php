@@ -1400,3 +1400,20 @@ function variable_parser($content=null){
     
     return $result;
 }
+
+/**
+ * Validation for phone number
+ *
+ * @param string $phone
+ * @return bool
+ */
+function validatePhoneNumber($phone){
+	$result = false;
+	$check_id_phone = preg_match("/\+?([ -]?\d+)+|\(\d+\)([ -]\d+)/", $phone, $phonenum_match);
+
+	if($check_id_phone){
+		$result = true;
+	}
+
+	return $result;
+}

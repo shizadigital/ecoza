@@ -27,7 +27,6 @@ class Table_member {
 	public function migrate(){
 		$schema = $this->CI->schema->create_table('member');
         $schema->increments('mId', ['length' => '11']);
-        $schema->integer('storeId', ['length' => '15', 'unsigned' => TRUE]);
         $schema->string('mName', ['length' => '255']);
         $schema->string('mEmail', ['length' => '255']);
         $schema->string('mPassword', ['length' => '255']);
@@ -52,7 +51,6 @@ class Table_member {
         $schema->run();
 
         // ADD index
-        $schema->index('storeId');
         $schema->index('mDeleted');
         $schema->index('mType');
         $schema->index('mEmailSecureKey');

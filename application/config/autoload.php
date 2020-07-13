@@ -61,10 +61,18 @@ $autoload['packages'] = array();
 */
 $autoloaderlib = array('database', 'email', 'session', 'form_validation', 'FormControl');
 $autoloaderlibset = array();
-if($ci->uri->segment(1) == $ci->config->item('admin_slug')){
-    $autoloaderlibset = array('AdminAuth', 'AssetsLoc');
+$segment_lowertrim = trim( strtolower( $ci->uri->segment(1) ) );
+
+if($ci->uri->segment(1) == $ci->config->item('admin_slug') ){
+
+	$autoloaderlibset = array('AdminAuth', 'AssetsLoc');
+
 } else {
-    $autoloaderlibset = array('navigation');
+
+	if( $segment_lowertrim != 'migration' ){
+		$autoloaderlibset = array('navigation');
+	}
+
 }
 
 $autoloadlibraies = array_merge($autoloaderlib, $autoloaderlibset);

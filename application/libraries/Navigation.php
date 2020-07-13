@@ -12,24 +12,24 @@ class Navigation {
     protected function drawMenu($groupId, $data=array(), $listParentMenu = null, $submenulevel = 1, $lastulkeylevel = 1, $lastlikeylevel = 1){
         $result = '';
 
-		// check sub menu
-		if($submenulevel <= WEBMENUDEEPLIMIT){
+        // check sub menu
+        if($submenulevel <= WEBMENUDEEPLIMIT){
 
-			$tablemenu = array('website_menu a', 'category_relationship b');
+            $tablemenu = array('website_menu a', 'category_relationship b');
 
-			$where = '';
-			if($listParentMenu == null){
-				$where .= "a.menuParentId = '0' AND ";
-			} else {
-				$where .= "a.menuParentId = '{$listParentMenu}' AND a.menuParentId != '0' AND ";
-			}
+            $where = '';
+            if($listParentMenu == null){
+                $where .= "a.menuParentId = '0' AND ";
+            } else {
+                $where .= "a.menuParentId = '{$listParentMenu}' AND a.menuParentId != '0' AND ";
+            }
 
-			$where .= "a.menuActive='y' AND b.relatedId = a.menuId AND b.crelRelatedType = 'webmenu' AND b.catId = '{$groupId}' AND a.storeId='".storeId()."'";
+            $where .= "a.menuActive='y' AND b.relatedId = a.menuId AND b.crelRelatedType = 'webmenu' AND b.catId = '{$groupId}' AND a.storeId='".storeId()."'";
 
-			$countmenuavailabel = countdata($tablemenu, $where);
+            $countmenuavailabel = countdata($tablemenu, $where);
 
             
-			if($countmenuavailabel > 0){
+            if($countmenuavailabel > 0){
 
                 $menudata = $this->CI->Env_model->view_where_order("a.*", $tablemenu, $where,'a.menuSort','ASC');
 
@@ -69,7 +69,7 @@ class Navigation {
                 $currenturl = str_replace( $httptype, '', current_url() );
                 $currenturl = ( substr($currenturl, -1) == '/' ) ? substr($currenturl, 0, -1):$currenturl;
                 
-				foreach ($menudata AS $pm1) {
+                foreach ($menudata AS $pm1) {
 
                     $menurul = '';
                     if(!empty($pm1['menuUrlAccess'])){
@@ -143,7 +143,7 @@ class Navigation {
                     }
 
                     $result .= '>';
-                    $result .= t(array('table'=>'website_menu','field'=>'menuName','id'=>$pm1['menuId']));	
+                    $result .= t(array('table'=>'website_menu','field'=>'menuName','id'=>$pm1['menuId']));  
                     
                     if( countdata( 'website_menu', array('menuParentId'=>$pm1['menuId'], 'menuActive'=>'y','storeId'=>storeId() ) )  > 0 ){
 
@@ -154,23 +154,23 @@ class Navigation {
                         }
                     }
                     
-					$result .= "</a>"."\n";
+                    $result .= "</a>"."\n";
 
-					$nextsubmenu = $submenulevel+1;
+                    $nextsubmenu = $submenulevel+1;
 
-					// recursive menu
-					$result .= $this->drawMenu($groupId, $data, $pm1['menuId'], $nextsubmenu, $ulkeylevel, $likeylevel);
+                    // recursive menu
+                    $result .= $this->drawMenu($groupId, $data, $pm1['menuId'], $nextsubmenu, $ulkeylevel, $likeylevel);
 
-					$result .= '</'. $data['listingtag'][$likeylevel]['tag']. '>'."\n";
-					
+                    $result .= '</'. $data['listingtag'][$likeylevel]['tag']. '>'."\n";
+                    
                 }
 
                 $result .= '</'. $data['openingtag'][$ulkeylevel]['tag'] . '>'."\n";
                 
-			}
-		}
+            }
+        }
 
-		return $result;
+        return $result;
     }
 
     public function hasMenu( $groupmenu=null ){
@@ -197,10 +197,7 @@ class Navigation {
 
         if( is_array($menudata) AND $group!=null AND $this->hasMenu($group) ){
             
-            $themenu = $this->drawMenu(
-                $group,
-                $menudata,
-            );
+            $themenu = $this->drawMenu( $group, $menudata );
 
             if( $display ){
                 echo $themenu;

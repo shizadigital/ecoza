@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Table_orders_detail {
+class Table_order_status {
 	/**
 	 * !!! CAUTION !!!
 	 * 
@@ -25,11 +25,18 @@ class Table_orders_detail {
 	}
 
 	public function migrate(){
-		$schema = $this->CI->schema->create_table('orders_detail');
-        $schema->increments('ordetId', ['type' => 'BIGINT', 'length' => '30']);
+		$schema = $this->CI->schema->create_table('order_status');
+        $schema->increments('orderstatId', ['type' => 'BIGINT', 'length' => '11']);
         $schema->integer('orderId', ['length' => '11', 'unsigned' => TRUE]);
-        $schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
-		$schema->run();
+        $schema->integer('optorderstatId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('orderstatName', ['length' => '150']);
+        $schema->integer('orderstatDate', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('orderstatCurrentStatus', ['type' => 'TINYINT', 'length' => '1', 'unsigned' => TRUE]);
+        $schema->run();
+
+        // ADD index
+        $schema->index('orderId');
+        $schema->index('optorderstatId');
 	}
 
 	public function seeder(){

@@ -606,6 +606,8 @@ $lang['location'] = "Location";
 $lang['company'] = "Company";
 $lang['subscribenewsletter'] = "Subscribe Newsletter";
 $lang['sendinfotomail'] = "Send information to the email listed";
+$lang['birthday'] = "Birthday";
+$lang['dateofbirth'] = "Date of birth";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -1023,3 +1025,4 @@ $lang['stockisnotavailable'] = "Stock record is not available";
 $lang['pinnotequal'] = "PIN confirmation is not equal. please try again";
 
 $lang['taxempty'] = "Please choose the tax";
+$lang['errordateformat'] = "Wrong date format, please insert the correct date";

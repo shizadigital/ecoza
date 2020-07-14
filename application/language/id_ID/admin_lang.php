@@ -606,6 +606,8 @@ $lang['location'] = "Lokasi";
 $lang['company'] = "Perusahaan";
 $lang['subscribenewsletter'] = "Langganan Newsletter";
 $lang['sendinfotomail'] = "Kirimkan informasi ke email tertera";
+$lang['birthday'] = "Ulang tahun";
+$lang['dateofbirth'] = "Tanggal lahir";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -1023,3 +1025,4 @@ $lang['stockisnotavailable'] = "Belum terdapat rekaman stok yang tersedia";
 $lang['pinnotequal'] = "Konfirmasi PIN tidak sama, silahkan ulangi";
 
 $lang['taxempty'] = "Please choose the tax";
+$lang['errordateformat'] = "Format penanggalan salah, silahkan masukkan format penanggalan yang benar";

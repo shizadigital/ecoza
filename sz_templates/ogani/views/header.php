@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo template_current_url('assets/css/slicknav.min.css'); ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo template_current_url('assets/css/style.css'); ?>" type="text/css">
 
-    <link rel="stylesheet" href="<?php echo vendors_assets_url('flag-icon-css-master/css/flag-icon.min.css'); ?>" type="text/css">
+    <link rel="stylesheet" href="<?php echo vendor_assets_url('flag-icon-css-master/css/flag-icon.min.css'); ?>" type="text/css">
 
     <!-- Load js -->
     <script src="<?php echo template_current_url('assets/js/jquery-3.3.1.min.js'); ?>"></script>

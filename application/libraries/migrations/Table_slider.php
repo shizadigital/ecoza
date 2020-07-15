@@ -31,11 +31,11 @@ class Table_slider {
         $schema->string('slideUri');
         $schema->text('slideDesc');
         $schema->string('slideType', ['length' => '20']);
-        $schema->string('slideImg');
+        $schema->text('slideFile');
         $schema->string('slideDirFile', ['length' => '25']);
         $schema->string('slideAnimate', ['length' => '30']);
         $schema->enum('slideOverlay', ['y', 'n']);
-        $schema->integer('slidePublish', ['length' => '3', 'unsigned' => TRUE]);
+        $schema->integer('slidePublish', ['type' => 'TINYINT','length' => '1', 'unsigned' => TRUE]);
         $schema->run();
 
         // ADD index
@@ -43,7 +43,21 @@ class Table_slider {
 	}
 
 	public function seeder(){
-		
+		$arr = [
+			[
+				'slideId' => '1', 
+				'slideTitle' => 'Menunjang Kreatifitas', 
+				'slideUri' => 'http://www.google.com/', 
+				'slideDesc' => 'Kami memberikan fasilitas yang menunjang kreatifitas siswa, agar siswa dapat berkreasi dan berkembang sesuai dengan kemampuannya', 
+				'slideType' => 'image', 
+				'slideImg' => 'd1da61062020_utkslide2.jpeg', 
+				'slideDirFile' => 'slider/062020', 
+				'slideAnimate' => 'fadeIn',
+				'slideOverlay' => 'y',
+				'slidePublish' => '1',
+			]
+        ];
+		return $arr;
 	}
 
 }

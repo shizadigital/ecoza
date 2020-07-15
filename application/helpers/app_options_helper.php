@@ -272,7 +272,7 @@ function base_assets($rootassets = null){
     return $assets;
 }
 
-function vendors_assets_url($rootvendors = null){
+function vendor_assets_url($rootvendors = null){
     $assets = base_assets('vendors');
     if(!empty($rootvendors)){ $assets = $assets.'/'.$rootvendors; }
     return $assets;

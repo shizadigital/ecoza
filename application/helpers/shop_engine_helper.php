@@ -384,3 +384,87 @@ function countTax($value, $taxid){
 	}
 	return $result;
 }
+
+function getAttrUsed($productid){
+	$ci =& get_instance();
+
+	if(empty($productid)) return array();
+
+	$prodid = esc_sql( filter_int($productid) );
+
+	$whereprod = array('prodId'=>$prodid, 'prodDisplay'=>'y', 'prodDeleted'=>'0');
+	$data = getval('*', 'product', $whereprod);
+
+	$result = array();
+
+	if( $data['prodType']=='configurableproduct' OR $data['prodType']=='downloadableproduct'){
+
+		$countattravailable = countdata('product_attribute', array('prodId'=>$data['prodId']));						
+		if( $countattravailable > 0){
+
+			$tblatr = array('product_attribute a', 'product_attribute_combination b');
+			$whereattr = "a.prodId='{$data['prodId']}' AND a.pattrId=b.pattrId";
+			$attrdataused = $ci->Env_model->view_where_order("DISTINCT(b.attrId), b.attrId", $tblatr, $whereattr,'b.attrId','ASC');
+			$n = 0;
+			foreach($attrdataused AS $value){
+				$attrlabel = getval('attrLabel','attribute', array('attrId'=>$value['attrId']));
+				$result[$value['attrId']] = $attrlabel;
+
+				$n++;
+			}
+		}
+
+	}
+
+	return $result;
+}
+
+function getAttrValueUsed($productid, $attrid=null){
+	$ci =& get_instance();
+
+	if(empty($productid)) return array();
+
+	$prodid = esc_sql( filter_int($productid) );
+
+	$whereprod = array('prodId'=>$prodid, 'prodDisplay'=>'y', 'prodDeleted'=>'0');
+	$data = getval('*', 'product', $whereprod);
+
+	$result = array();
+
+	if( $data['prodType']=='configurableproduct' OR $data['prodType']=='downloadableproduct'){
+
+		$countattravailable = countdata('product_attribute', array('prodId'=>$data['prodId']));						
+		if( $countattravailable > 0){
+
+			$tblatr = array('product_attribute a', 'product_attribute_combination b');
+
+			$wherewithattrid = ( $attrid!=null) ? " AND b.attrId='".esc_sql( filter_int($attrid))."'":"";
+			$whereattr = "a.prodId='{$data['prodId']}' AND a.pattrId=b.pattrId";
+			$attrdataused = $ci->Env_model->view_where_order("DISTINCT(b.attrvalId), b.attrvalId", $tblatr, $whereattr.$wherewithattrid,'b.attrvalId','ASC');
+
+			// get default atttr val
+			$defaultdata = $ci->Env_model->view_where_order("b.attrvalId", $tblatr, $whereattr." AND a.pattrDefault='y'",'b.attrvalId','ASC');
+			$default = array();
+			foreach($defaultdata as $rdef){
+				$default[] = $rdef['attrvalId'];
+			}
+
+			$n = 0;
+			foreach($attrdataused AS $value){
+
+				$attrValueData = getval('attrId,attrvalVisual,attrvalValue,attrvalLabel','attribute_value', array('attrvalId'=>$value['attrvalId']));
+				$attrValueData['default'] = ( in_array( $value['attrvalId'], $default) ) ? true:false;
+				$result[$value['attrvalId']] = $attrValueData;				
+
+				$n++;
+			}
+		}
+
+	}
+
+	return $result;
+}
+
+function getDefaultAttrValue(){
+	
+}

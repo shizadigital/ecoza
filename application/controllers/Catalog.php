@@ -2,40 +2,37 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Catalog extends CI_Controller {
-
-	private $params = null;
 	
 	public function __construct(){
 		parent::__construct();
 	}
 
 	public function _remap ($param1=null, $params = array() ){
-		if(count($params) > 0){
-			if(strlen($params[0]) > 0){
-				$this->params = $params;
-			}
-		}
+		if($param1){
+			
+			$method = strtolower(trim($param1));
+			if(method_exists($this, $method)){
+				
+				return call_user_func_array (array($this, $method), $params);
 
-		if($this->params){
-			$method = strtolower(trim($this->params[0]));
-		    if(method_exists($this, $method)){
-		        return call_user_func_array (array($this, $method), $this->params);
-		    }else{
-				$this->index();
-		    }
-		}else{
-			if(empty($param1)){
-				$this->index();
 			} else {
-				$this->index($param1);
+				
+				// redirect to 404 if more parameter arguments in method
+				if(count($params)>0) show_404();
+				else $this->index($param1);
+
 			}
+		} else {
+
+			$this->index();
+
 		}
 	}
 	
 	public function index($param=null){	
 		if($param=='index'){
 			show_404();
-		} else {			
+		} else {		
 			// get segment
 			$segment = explode('-', $this->uri->segment(2));
 
@@ -55,6 +52,26 @@ class Catalog extends CI_Controller {
 				$hit = $data['prodViewCount'] + 1;
 				$this->Env_model->update('product', array( 'prodViewCount' => $hit),  array('prodId'=>$id));
 
+				$attrcombination = array();
+				if( $data['prodType']=='configurableproduct' OR $data['prodType']=='downloadableproduct'){
+					
+					$countattravailable = countdata('product_attribute', array('prodId'=>$data['prodId']));						
+					if( $countattravailable > 0){
+
+						// get product attribute combination
+						$productattrdata = $this->Env_model->view_where_order("pattrId", "product_attribute", "prodId='{$data['prodId']}'",'pattrId','ASC');
+						$xattv = 0;
+						foreach($productattrdata AS $key => $value){
+							$attrval = $this->Env_model->view_where_order("*", "product_attribute_combination", "pattrId='{$value['pattrId']}'",'pattrId','ASC');
+							$attrcombination[$xattv] = $value;
+							$attrcombination[$xattv]['attrval'] = $attrval;
+
+							$xattv++;
+						}
+						
+					}
+				}
+
 				// get meta category
 				$categoryprod = $this->meta->product_categories($data['prodId']);
 
@@ -66,6 +83,9 @@ class Catalog extends CI_Controller {
 
 				// seo page start here
 				$seo = getSeoPage($data['prodId'], 'product');
+
+				//title web
+				$webtitle = (empty($seo['seoTitle'])) ? $data['prodName']:$seo['seoTitle'];
 
 				$seodesc = '';
 				if(!empty($seo['seoKeyword'])){
@@ -129,9 +149,10 @@ class Catalog extends CI_Controller {
 				);
 		
 				$dataview = array( 
-							'title' => $data['prodName'] .' - '. get_option('sitename'),
+							'title' => $webtitle .' - '. get_option('sitename'),
 							'web_meta' => $web_meta,
 							'data' => $data,
+							'attrcombination' => $attrcombination,
 							'metacategories' => $categoryprod,
 							'primaryimage' => $primaryimg,
 							'allimages' => $allimages
@@ -141,12 +162,11 @@ class Catalog extends CI_Controller {
 			} else {
 				show_404();
 			}
-
 		}
 	}
 
-	public function category($param=null, $sldls=null){
-		
+	public function category($param=null){
+		echo $param;
 	}
 
 	

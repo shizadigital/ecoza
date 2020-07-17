@@ -3,32 +3,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Post extends CI_Controller {
 	
-	private $params = null;
-	
 	public function __construct(){
 		parent::__construct();
 	}
 
 	public function _remap ($param1=null, $params = array() ){
-		if(count($params) > 0){
-			if(strlen($params[0]) > 0){
-				$this->params = $params;
-			}
-		}
+		if($param1){
+			
+			$method = strtolower(trim($param1));
+			if(method_exists($this, $method)){
+				
+				return call_user_func_array (array($this, $method), $params);
 
-		if($this->params){
-			$method = strtolower(trim($this->params[0]));
-		    if(method_exists($this, $method)){
-		        return call_user_func_array (array($this, $method), $this->params);
-		    }else{
-				$this->index();
-		    }
-		}else{
-			if(empty($param1)){
-				$this->index();
-			} else {
+			} else {	
+				
 				$this->index($param1);
+
 			}
+		} else {
+
+			$this->index();
+
 		}
 	}
 	

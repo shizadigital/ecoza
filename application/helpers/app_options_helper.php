@@ -419,33 +419,128 @@ function web_info($info = '') {
     return $output;
 }
 
+function defaultImageSite(){
+
+	$url = null;
+    if(check_option('defaultimagesite')){
+        $img_data = get_option('defaultimagesite');
+
+        $array_img = unserialize($img_data);
+        
+        $image = "standard_".$array_img['filename'];
+
+        $url = images_url($array_img['directory']."/".$image);
+    }
+
+    return $url;
+}
 
 /**************** Head web ********************/
 function web_head_properties($opt = array()){
 
-    $view = empty($opt['meta_keyword'])?"":"<meta name=\"keywords\" content=\"".$opt['meta_keyword']."\" />\n";
-    $view .= empty($opt['meta_description'])?"":"<meta name=\"description\" content=\"".$opt['meta_description']."\" />\n";
-    $view .= empty($opt['meta_robots'])?"":"<meta name=\"robots\" content=\"".$opt['meta_robots']."\"/>\n";
+    $view = "<meta name=\"keywords\" content=\"".(empty($opt['meta_keyword'])? get_option('sitekeywords') :$opt['meta_keyword'])."\" />\n";
+    $view .= "<meta name=\"description\" content=\"".(empty($opt['meta_description'])? get_option('sitedescription'):$opt['meta_description'])."\" />\n";
+    $view .= "<meta name=\"robots\" content=\"".(empty($opt['meta_robots'])?get_option('robots'):$opt['meta_robots'])."\"/>\n"; 
 
-    $view .= empty($opt['meta_ogimage'])?"":"<meta property=\"og:image\" content=\"".$opt['meta_ogimage']."\"/>\n";
-    $view .= empty($opt['meta_ogtitle'])?"":"<meta property=\"og:title\" content=\"".$opt['meta_ogtitle']."\"/>\n";
-    $view .= empty($opt['meta_ogtype'])?"":"<meta property=\"og:type\" content=\"".$opt['meta_ogtype']."\"/>\n";
-    $view .= empty($opt['meta_ogdescription'])?"":"<meta property=\"og:description\" content=\"".$opt['meta_ogdescription']."\"/>\n";
-    $view .= empty($opt['meta_ogurl'])?"":"<meta property=\"og:url\" content=\"".$opt['meta_ogurl']."\"/>\n";
-    $view .= empty($opt['meta_ogsitename'])?"":"<meta property=\"og:site_name\" content=\"".$opt['meta_ogsitename']."\"/>\n";
+	/**
+	 * Set FB Open Graph
+	 */
+	if (!array_key_exists('og:locale', $opt['og']) OR empty($opt['og']['og:locale']) ) {
+		$view .= "<meta property=\"og:locale\" content=\"".t('locale')."\"/>\n";
+	}
 
-    $view .= empty($opt['meta_articlesection'])?"":"<meta property=\"article:section\" content=\"".$opt['meta_articlesection']."\" />\n";
+	if (!array_key_exists('og:url', $opt['og']) OR empty($opt['og']['og:url']) ) {
+		$view .= "<meta property=\"og:url\" content=\"".this_url()."\"/>\n";
+	}
 
-    $view .= empty($opt['meta_twtimg'])?"":"<meta name=\"twitter:image:src\" content=\"".$opt['meta_twtimg']."\"/>\n";
-    $view .= empty($opt['meta_twttitle'])?"":"<meta name=\"twitter:title\" content=\"".$opt['meta_twttitle']."\"/>\n";
-    $view .= empty($opt['meta_twtdescription'])?"":"<meta name=\"twitter:description\" content=\"".$opt['meta_twtdescription']."\"/>\n";
-    $view .= empty($opt['meta_twtcard'])?"":"<meta name=\"twitter:card\" content=\"".$opt['meta_twtcard']."\"/>\n";
-    $view .= empty($opt['meta_twtsite'])?"":"<meta name=\"twitter:site\" content=\"".$opt['meta_twtsite']."\"/>\n";
-    $view .= empty($opt['meta_twtcreator'])?"":"<meta name=\"twitter:creator\" content=\"".$opt['meta_twtcreator']."\"/>\n";
+	if (!array_key_exists('og:site_name', $opt['og']) OR empty($opt['og']['og:site_name']) ) {
+		$view .= "<meta property=\"og:site_name\" content=\"".web_info()."\"/>\n";
+	}
 
-    $view .= "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"".web_info('nama')." &raquo; News Feed\" href=\"".base_url()."rss.xml\" />\n";
+	if (!array_key_exists('og:image', $opt['og']) OR empty($opt['og']['og:image']) OR check_option('defaultimagesite')>0 ) {
+		$view .= "<meta property=\"og:image\" content=\"".defaultImageSite()."\"/>\n";
+	}
 
-    $view .= empty($opt['web_canonical'])?"":"<link rel=\"canonical\" href=\"".$opt['web_canonical']."\" />\n";
+	if (!array_key_exists('og:image:url', $opt['og']) OR empty($opt['og']['og:image:url']) OR check_option('defaultimagesite')>0 ) {
+		$view .= "<meta property=\"og:image:url\" content=\"".defaultImageSite()."\"/>\n";
+	}
+
+	foreach($opt['og'] as $og_key => $og_val ){
+		$view .= empty($og_val)?"":"<meta property=\"".$og_key."\" content=\"".$og_val."\"/>\n";
+	}
+
+	/**
+	 * Set Twitter Card
+	 */
+	if(!array_key_exists('twitter:site', $opt['twitter']) OR empty($opt['twitter']['twitter:site'])){
+		if(!empty(get_social_url('twitter'))){
+			preg_match("/^https?:\/\/(www\.)?twitter\.com\/(#!\/)?(?<username>[^\/]+)(\/\w+)*$/", get_social_url('twitter'), $twmatches);
+
+			$view .= "<meta name=\"twitter:site\" content=\"@".$twmatches['username']."\"/>\n";
+		}
+	} else {
+		$view .= "<meta name=\"twitter:site\" content=\"".$opt['twitter']['twitter:site']."\"/>\n";
+	}
+
+	if (!array_key_exists('twitter:title', $opt['twitter']) OR empty($opt['twitter']['twitter:title']) ) {
+		$view .= "<meta name=\"twitter:title\" content=\"".get_option('sitename')."\"/>\n";
+	}
+
+	if (!array_key_exists('twitter:description', $opt['twitter']) OR empty($opt['twitter']['twitter:description']) ) {
+		$view .= "<meta name=\"twitter:description\" content=\"".get_option('sitedescription')."\"/>\n";
+	}
+
+	if (!array_key_exists('twitter:url', $opt['twitter']) OR empty($opt['twitter']['twitter:url']) ) {
+		$view .= "<meta name=\"twitter:url\" content=\"".this_url()."\"/>\n";
+	}
+
+	if (!array_key_exists('twitter:image:src', $opt['twitter']) OR empty($opt['twitter']['twitter:image:src']) OR check_option('defaultimagesite')>0 ) {
+		$view .= "<meta name=\"twitter:image:src\" content=\"".defaultImageSite()."\"/>\n";
+	}
+
+	if (!array_key_exists('twitter:image', $opt['twitter']) OR empty($opt['twitter']['twitter:image']) OR check_option('defaultimagesite')>0 ) {
+		$view .= "<meta name=\"twitter:image\" content=\"".defaultImageSite()."\"/>\n";
+	}
+
+	if (!array_key_exists('twitter:card', $opt['twitter']) OR empty($opt['twitter']['twitter:card']) ) {
+		$view .= "<meta name=\"twitter:card\" content=\"summary\"/>\n";
+	}
+
+	foreach($opt['twitter'] as $twitter_key => $twitter_val ){		
+		$view .= empty($twitter_val)?"":"<meta name=\"".$twitter_key."\" content=\"".$twitter_val."\"/>\n";
+	}
+
+
+	/**
+	 * Set G+ Properties
+	 */
+	if (!array_key_exists('name', $opt['g+']) OR empty($opt['g+']['name']) ) {
+		$view .= "<meta itemprop=\"name\" content=\"".get_option('sitename')."\"/>\n";
+	}
+
+	if (!array_key_exists('headline', $opt['g+']) OR empty($opt['g+']['headline']) ) {
+		$view .= "<meta itemprop=\"headline\" content=\"".get_option('sitename')."\"/>\n";
+	}
+
+	if (!array_key_exists('description', $opt['g+']) OR empty($opt['g+']['description']) ) {
+		$view .= "<meta itemprop=\"description\" content=\"".get_option('sitedescription')."\"/>\n";
+	}
+
+	if (!array_key_exists('image', $opt['g+']) OR empty($opt['g+']['image']) OR check_option('defaultimagesite')>0 ) {
+		$view .= "<meta itemprop=\"image\" content=\"".defaultImageSite()."\"/>\n";
+	}
+
+	foreach($opt['g+'] as $gplus_key => $gplus__val ){
+		$view .= empty($gplus__val)?"":"<meta itemprop=\"".$gplus_key."\" content=\"".$gplus__val."\"/>\n";
+	}
+
+    $view .= "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"".web_info('nama')." &raquo; News Feed\" href=\"".base_url('feed')."\" />\n";
+
+	if(!empty($opt['web_canonical'])){
+		$view .= "<link rel=\"canonical\" href=\"".$opt['web_canonical']."\" />\n";
+	} else {
+		$view .= "<link rel=\"canonical\" href=\"".this_url()."\" />\n";
+	}
 
     return $view;
 }
@@ -681,4 +776,13 @@ function getSeoPage($id = null, $type = null){
     }
 
     return $result;
+}
+
+function this_url(){
+	$currentURL = current_url(); //http://myhost/main
+
+	$params = empty($_SERVER['QUERY_STRING']) ? '':'?'.$_SERVER['QUERY_STRING']; //?my_query=val&query2=val2...
+	$fullURL = $currentURL . $params; 
+
+	return $fullURL;
 }

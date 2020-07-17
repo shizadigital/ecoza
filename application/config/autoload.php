@@ -70,7 +70,7 @@ if($ci->uri->segment(1) == $ci->config->item('admin_slug') ){
 } else {
 
 	if( $segment_lowertrim != 'migration' ){
-		$autoloaderlibset = array('navigation');
+		$autoloaderlibset = array('navigation','permalink','meta');
 	}
 
 }

@@ -419,11 +419,11 @@ function web_info($info = '') {
     return $output;
 }
 
-function defaultImageSite(){
+function siteDefaultImage(){
 
 	$url = null;
-    if(check_option('defaultimagesite')){
-        $img_data = get_option('defaultimagesite');
+    if(check_option('sitedefaultimage') > 0){
+        $img_data = get_option('sitedefaultimage');
 
         $array_img = unserialize($img_data);
         
@@ -457,12 +457,12 @@ function web_head_properties($opt = array()){
 		$view .= "<meta property=\"og:site_name\" content=\"".web_info()."\"/>\n";
 	}
 
-	if (!array_key_exists('og:image', $opt['og']) OR empty($opt['og']['og:image']) OR check_option('defaultimagesite')>0 ) {
-		$view .= "<meta property=\"og:image\" content=\"".defaultImageSite()."\"/>\n";
+	if (!array_key_exists('og:image', $opt['og']) OR empty($opt['og']['og:image']) OR check_option('sitedefaultimage')>0 ) {
+		$view .= "<meta property=\"og:image\" content=\"".siteDefaultImage()."\"/>\n";
 	}
 
-	if (!array_key_exists('og:image:url', $opt['og']) OR empty($opt['og']['og:image:url']) OR check_option('defaultimagesite')>0 ) {
-		$view .= "<meta property=\"og:image:url\" content=\"".defaultImageSite()."\"/>\n";
+	if (!array_key_exists('og:image:url', $opt['og']) OR empty($opt['og']['og:image:url']) OR check_option('sitedefaultimage')>0 ) {
+		$view .= "<meta property=\"og:image:url\" content=\"".siteDefaultImage()."\"/>\n";
 	}
 
 	foreach($opt['og'] as $og_key => $og_val ){
@@ -494,12 +494,12 @@ function web_head_properties($opt = array()){
 		$view .= "<meta name=\"twitter:url\" content=\"".this_url()."\"/>\n";
 	}
 
-	if (!array_key_exists('twitter:image:src', $opt['twitter']) OR empty($opt['twitter']['twitter:image:src']) OR check_option('defaultimagesite')>0 ) {
-		$view .= "<meta name=\"twitter:image:src\" content=\"".defaultImageSite()."\"/>\n";
+	if (!array_key_exists('twitter:image:src', $opt['twitter']) OR empty($opt['twitter']['twitter:image:src']) OR check_option('sitedefaultimage')>0 ) {
+		$view .= "<meta name=\"twitter:image:src\" content=\"".siteDefaultImage()."\"/>\n";
 	}
 
-	if (!array_key_exists('twitter:image', $opt['twitter']) OR empty($opt['twitter']['twitter:image']) OR check_option('defaultimagesite')>0 ) {
-		$view .= "<meta name=\"twitter:image\" content=\"".defaultImageSite()."\"/>\n";
+	if (!array_key_exists('twitter:image', $opt['twitter']) OR empty($opt['twitter']['twitter:image']) OR check_option('sitedefaultimage')>0 ) {
+		$view .= "<meta name=\"twitter:image\" content=\"".siteDefaultImage()."\"/>\n";
 	}
 
 	if (!array_key_exists('twitter:card', $opt['twitter']) OR empty($opt['twitter']['twitter:card']) ) {
@@ -526,8 +526,8 @@ function web_head_properties($opt = array()){
 		$view .= "<meta itemprop=\"description\" content=\"".get_option('sitedescription')."\"/>\n";
 	}
 
-	if (!array_key_exists('image', $opt['g+']) OR empty($opt['g+']['image']) OR check_option('defaultimagesite')>0 ) {
-		$view .= "<meta itemprop=\"image\" content=\"".defaultImageSite()."\"/>\n";
+	if (!array_key_exists('image', $opt['g+']) OR empty($opt['g+']['image']) OR check_option('sitedefaultimage')>0 ) {
+		$view .= "<meta itemprop=\"image\" content=\"".siteDefaultImage()."\"/>\n";
 	}
 
 	foreach($opt['g+'] as $gplus_key => $gplus__val ){
@@ -576,9 +576,9 @@ function the_favicon($display = true){
 
 function logo_url($_size=NULL){
 
-    $url = base_url()."logo.png"; 
+    $url = base_url("logo.png");
 
-    if(check_option('weblogo')){
+    if(check_option('weblogo') > 0){
         $logo_data = get_option('weblogo');
 
         $array_logo = unserialize($logo_data);

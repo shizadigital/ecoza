@@ -608,6 +608,7 @@ $lang['subscribenewsletter'] = "Subscribe Newsletter";
 $lang['sendinfotomail'] = "Send information to the email listed";
 $lang['birthday'] = "Birthday";
 $lang['dateofbirth'] = "Date of birth";
+$lang['sitedefaultimage'] = "Site Default Image";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

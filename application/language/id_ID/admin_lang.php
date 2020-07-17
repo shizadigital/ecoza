@@ -608,6 +608,7 @@ $lang['subscribenewsletter'] = "Langganan Newsletter";
 $lang['sendinfotomail'] = "Kirimkan informasi ke email tertera";
 $lang['birthday'] = "Ulang tahun";
 $lang['dateofbirth'] = "Tanggal lahir";
+$lang['sitedefaultimage'] = "Gambar Default Web";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

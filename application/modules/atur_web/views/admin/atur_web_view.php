@@ -162,6 +162,13 @@ include V_ADMIN_PATH . "topbar.php";
                                     'help' => t('infofile') . " *.jpg, *.jpeg, *.png"
                                 ),
                                 array(
+                                    'type' => 'file-img',
+                                    'label' => t('sitedefaultimage'),
+                                    'name' => 'sitedefaultimage',
+                                    'value' => siteDefaultImage(),
+                                    'help' => t('infofile') . " *.jpg, *.jpeg, *.png"
+                                ),
+                                array(
                                     'type' => 'textarea',
                                     'label' => t('address'),
                                     'name' => 'siteaddress',

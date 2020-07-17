@@ -77,6 +77,7 @@ class Table_options {
             ['optionName' => 'invoiceorderduedate', 'storeId' => 1, 'optionValue' => '2'],
             ['optionName' => 'taxstatus', 'storeId' => 1, 'optionValue' => 'y'],
             ['optionName' => 'taxId', 'storeId' => 1, 'optionValue' => '1'],
+            ['optionName' => 'sitedefaultimage', 'storeId' => 1, 'optionValue' => ''],
         ];
 		return $arr;
 	}

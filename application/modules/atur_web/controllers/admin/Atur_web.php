@@ -153,13 +153,48 @@ class Atur_web extends CI_Controller{
 						$upload = uploadImage('logo', 'weblogo', $sizeimg, $extensi_allowed);
 						$logoserialize = serialize($upload);
 
-						if(check_option('weblogo')){
+						if(check_option('weblogo') > 0){
 							set_option('weblogo', $logoserialize);
 						}else{
 							add_option('weblogo', $logoserialize);
 						}
 					} else {
 						$error = "<strong>".t('error')."</strong> ".t('logoextentionfailed');
+						show_error($error, 503,t('uploadfailed')); exit;
+					}
+				}
+
+				// SETTING SITE DEFAULT IMG
+				if(!empty($_FILES['sitedefaultimage']['tmp_name'])){
+					$extensi_allowed = array('jpg','jpeg','png','gif');
+					$ext_file = pathinfo($_FILES['sitedefaultimage']['name'], PATHINFO_EXTENSION);
+
+					if(in_array($ext_file,$extensi_allowed)) {
+						//Set Favicon site
+						if(get_option('sitedefaultimage')!=''){
+							$logo_data = get_option('sitedefaultimage');
+							$array_logo = unserialize($logo_data);
+							//delete favicon old file
+							@unlink( IMAGES_PATH . DIRECTORY_SEPARATOR .$array_logo['directory'].DIRECTORY_SEPARATOR.$array_logo['filename']);
+						}
+
+						//Insert image file
+						$sizeimg = array(
+							'xsmall' 	=>'220',
+							'small' 	=>'820',
+							'standard' 	=>'1200',
+							'large' 	=>'1900'
+						);
+						$upload = uploadImage('sitedefaultimage', 'sitedefaultimage', $sizeimg, $extensi_allowed);
+						$logoserialize = serialize($upload);
+
+						if(check_option('sitedefaultimage') > 0){
+							set_option('sitedefaultimage', $logoserialize);
+						}else{
+							add_option('sitedefaultimage', $logoserialize);
+						}
+					} else {
+						$error = "<strong>".t('error')."</strong> ".t('wrongextentionimage');
 						show_error($error, 503,t('uploadfailed')); exit;
 					}
 				}

@@ -179,18 +179,38 @@ function decoder($str){
 function get_option($optname){
     $ci =& get_instance();
     if(isNotMigration()) {
-
-        if( check_option($optname) > 0){
-            $idstore = storeId();
-
-            $ci->db->select('optionValue');
+        $getVariablType = gettype($optname);
+        $idstore = storeId();
+        if($getVariablType === 'array') {
+            $ci->db->select('optionName, optionValue');
             $ci->db->from( $ci->db->dbprefix('options') );
             $ci->db->where('storeId', $idstore);
-            $ci->db->where('optionName', $optname);
+            $ci->db->where_in('optionName', $optname);
             $query = $ci->db->get();
-            return $query->row()->optionValue;
+            $getOptions = $query->result();
+
+            $options = [];
+            foreach($getOptions AS $optionItem) {
+                $optionName = $optionItem->optionName;
+                $optionValue = $optionItem->optionValue;
+                
+                $isSerialize = @unserialize($optionValue);
+                if($isSerialize) $options[$optionName] = unserialize($optionValue);
+                else $options[$optionName] = $optionValue;
+            }
+
+            return $options;
         } else {
-            return null;
+            if( check_option($optname) > 0){
+                $ci->db->select('optionValue');
+                $ci->db->from( $ci->db->dbprefix('options') );
+                $ci->db->where('storeId', $idstore);
+                $ci->db->where('optionName', $optname);
+                $query = $ci->db->get();
+                return $query->row()->optionValue;
+            } else {
+                return null;
+            }
         }
     }
 }

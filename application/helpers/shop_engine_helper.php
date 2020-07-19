@@ -404,7 +404,7 @@ function getAttrUsed($productid){
 
 			$tblatr = array('product_attribute a', 'product_attribute_combination b');
 			$whereattr = "a.prodId='{$data['prodId']}' AND a.pattrId=b.pattrId";
-			$attrdataused = $ci->Env_model->view_where_order("DISTINCT(b.attrId), b.attrId", $tblatr, $whereattr,'b.attrId','ASC');
+			$attrdataused = $ci->Env_model->view_where_order("DISTINCT(b.attrId), b.attrId, b.pattrId", $tblatr, $whereattr,'b.attrId','ASC');
 			$n = 0;
 			foreach($attrdataused AS $value){
 				$attrlabel = getval('attrLabel','attribute', array('attrId'=>$value['attrId']));
@@ -463,8 +463,4 @@ function getAttrValueUsed($productid, $attrid=null){
 	}
 
 	return $result;
-}
-
-function getDefaultAttrValue(){
-	
 }

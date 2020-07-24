@@ -28,6 +28,7 @@ class Table_store {
 		$schema = $this->CI->schema->create_table('store');
         $schema->increments('storeId', ['length' => '11']);
         $schema->string('storeName', ['length' => '40']);
+        $schema->string('storeUri', ['length' => '150']);
         $schema->integer('storeAdded', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('storeUpdated', ['length' => '11', 'unsigned' => TRUE]);
         $schema->enum('storeDefault', ['y', 'n']);
@@ -36,14 +37,18 @@ class Table_store {
         $schema->run();
 
         // ADD index
+        $schema->index('storeUri');
         $schema->index('storeDefault');
 	}
 
 	public function seeder(){
+
+		$uri = (base_url() == 'http://localhost/') ? base_url( basename( getcwd() ) .'/' ):base_url();
 		$arr = [
             [
                 'storeId' => 1,
                 'storeName' => 'My Store',
+				'storeUri' => $uri,
                 'storeAdded' => time2timestamp(),
                 'storeUpdated' => time2timestamp(),
                 'storeDefault' => 'y',
@@ -56,4 +61,3 @@ class Table_store {
 	}
 
 }
-

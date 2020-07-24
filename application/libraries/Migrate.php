@@ -16,7 +16,7 @@ class Migrate {
 
 			$migrationlocation = APPPATH . 'libraries/migrations/';
 			if( !is_dir($migrationlocation)) {
-				makeDir($migrationlocation,0755);
+				makeDir($migrationlocation,0644);
 			}
 
 			$makefile = 'Table_'. $dbname;

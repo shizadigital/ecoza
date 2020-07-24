@@ -30,12 +30,13 @@ class Table_cart {
         $schema->integer('memId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('orderId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
-        $schema->string('cartSessionId', ['length' => '40']);
+        $schema->string('cartSessionId', ['length' => '100']);
         $schema->text('cartData',['type' => 'LONGTEXT']);
         $schema->integer('cartAdded', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('cartModified', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('cartIp', ['length' => '20']);
         $schema->enum('cartStatus', ['onprogress', 'completed']);
+        $schema->enum('cartVisitorType', ['member', 'guest']);
         $schema->run();
 
         // ADD index

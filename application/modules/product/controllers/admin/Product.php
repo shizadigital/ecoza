@@ -579,9 +579,6 @@ class Product extends CI_Controller{
 					$sku = strtoupper( substr($productname, 0, 3) . "-" . generate_code(6) );
 				}
 
-				// slug
-				$slug = slugURL($productname);
-
 				// absolute minimum and maximum order
 				if (empty($minorder) OR $minorder<0){
 					$minorder=1;
@@ -624,7 +621,6 @@ class Product extends CI_Controller{
 					'prodIsbn' => $isbn,
 					'prodMpn' => $mpn,
 					'prodName' => $productname,
-					'prodSlug' => $slug,
 					'prodDesc' => $desc,
 					'prodFeatured' => $featured,
 					'prodBasicPrice' => $capitalprice,
@@ -1190,9 +1186,6 @@ class Product extends CI_Controller{
 					$sku = strtoupper( substr($productname, 0, 3) . "-" . generate_code(6) );
 				}
 
-				// slug
-				$slug = slugURL($productname);
-
 				// absolute minimum and maximum order
 				if (empty($minorder) OR $minorder<0){
 					$minorder=1;
@@ -1230,7 +1223,6 @@ class Product extends CI_Controller{
 					'prodIsbn' => $isbn,
 					'prodMpn' => $mpn,
 					'prodName' => $productname,
-					'prodSlug' => $slug,
 					'prodDesc' => $desc,
 					'prodFeatured' => $featured,
 					'prodBasicPrice' => $capitalprice,

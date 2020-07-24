@@ -27,15 +27,40 @@ class runFirstEnvironment {
 
 				// set shiza token
 				if( empty( get_cookie('sz_token') ) ){
-					$createcode = generate_code(6);
-					$createcookiecode = encoder($createcode ."##".base_url() );
+					$expiredtoken = 86400; // 1 day
+					$createcookiecode = sz_token();
 					$cookie = array(
 							'name'   => 'sz_token',
 							'value'  => $createcookiecode,
-							'expire' => '0',
+							'expire' => $expiredtoken,
 							'path ' => '/'
 							);
 					$ci_env->input->set_cookie($cookie);
+				}
+
+				// set default website store as session
+				if( !$ci_env->session->has_userdata('visitor_storeid') ){
+					// force slash to the last base_url()
+					$baseuri = ( substr(base_url(), -1) == '/' ) ? base_url():base_url() .'/';
+
+					// get store ID by uri
+					$uri = getval('storeId','store', array('storeUri'=>$baseuri) );
+					$newdata = array(
+						'visitor_storeid' => $uri
+					);
+					$ci_env->session->set_userdata($newdata);
+				}
+
+				// check only frontend system here
+				if( $ci_env->uri->segment(1) != $ci_env->config->item('admin_slug') ){
+
+					if($ci_env->session->has_userdata('cart_timeout')){
+						// unset cart if time is expired
+						if(time() > $ci_env->session->userdata('cart_timeout')){
+							$ci_env->shopping_cart->unsetCart();
+						}
+					}
+
 				}
 
 				// set the first time using this system

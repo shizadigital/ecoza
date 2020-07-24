@@ -2,30 +2,30 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Table_product {
-	/**
-	 * !!! CAUTION !!!
-	 * 
-	 * Don't change the table name and class name because to important to seeder system
-	 * 
-	 * if you want to change the table name, copy your script code in this file
-	 * remove this file with this bash 
-	 * 
-	 * php index.php Migration remove {table name}
-	 * 
-	 * then create new database with migration bash and paste you code before
-	 */
+    /**
+     * !!! CAUTION !!!
+     * 
+     * Don't change the table name and class name because to important to seeder system
+     * 
+     * if you want to change the table name, copy your script code in this file
+     * remove this file with this bash 
+     * 
+     * php index.php Migration remove {table name}
+     * 
+     * then create new database with migration bash and paste you code before
+     */
 
-	private $CI;
+    private $CI;
 
-	public function __construct(){
-		$this->CI =& get_instance();
+    public function __construct(){
+        $this->CI =& get_instance();
 
         $this->CI->load->model('mc');
         $this->CI->load->library('Schema');
-	}
+    }
 
-	public function migrate(){
-		$schema = $this->CI->schema->create_table('product');
+    public function migrate(){
+        $schema = $this->CI->schema->create_table('product');
         $schema->increments('prodId', ['length' => '11']);
         $schema->string('userLogin', ['length' => '100']);
         $schema->integer('manufactId', ['length' => '11', 'unsigned' => TRUE]);
@@ -37,7 +37,6 @@ class Table_product {
         $schema->string('prodIsbn', ['length' => '18']);
         $schema->string('prodMpn', ['length' => '65']);
         $schema->string('prodName', ['length' => '255']);
-        $schema->string('prodSlug', ['length' => '255']);
         $schema->text('prodDesc');
         $schema->enum('prodFeatured', ['y', 'n']);
         $schema->decimal('prodBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
@@ -71,16 +70,15 @@ class Table_product {
         // ADD index
         $schema->index('taxId');
         $schema->index('prodType');
-        $schema->index('prodSlug');
         $schema->index('prodFinalPrice');
         $schema->index('prodWeight');
         $schema->index('prodDisplay');
         $schema->index('prodDeleted');
-	}
+    }
 
-	public function seeder(){
-		
-	}
+    public function seeder(){
+        
+    }
 
 }
 

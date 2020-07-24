@@ -264,6 +264,16 @@ function loginCP(){
     return sha1($create_cp_code).'||'.get_cookie('sz_token');
 }
 
+function sz_token(){
+	if( empty( get_cookie('sz_token') ) ){
+		// create new token code
+		$createcode = generate_code(32);
+		return $createcode;
+	} else {
+		return get_cookie('sz_token');
+	}
+}
+
 /**************** Social media ********************/
 function get_social_url($social=''){
     $social_url_opt = get_option('socialmediaurl');

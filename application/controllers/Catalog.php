@@ -53,13 +53,19 @@ class Catalog extends CI_Controller {
 				$this->Env_model->update('product', array( 'prodViewCount' => $hit),  array('prodId'=>$id));
 
 				$attrcombination = array();
+				$productattrdata = array();
+				$producdefaulttattrdata = array();
+				$is_attr = false;
 				if( $data['prodType']=='configurableproduct' OR $data['prodType']=='downloadableproduct'){
 					
 					$countattravailable = countdata('product_attribute', array('prodId'=>$data['prodId']));						
 					if( $countattravailable > 0){
+						$is_attr = true;
+
+						$producdefaulttattrdata = getval("*", "product_attribute", "prodId='{$data['prodId']}' AND pattrDefault='y'");
 
 						// get product attribute combination
-						$productattrdata = $this->Env_model->view_where_order("pattrId", "product_attribute", "prodId='{$data['prodId']}'",'pattrId','ASC');
+						$productattrdata = $this->Env_model->view_where_order("*", "product_attribute", "prodId='{$data['prodId']}'",'pattrId','ASC');
 						$xattv = 0;
 						foreach($productattrdata AS $key => $value){
 							$attrval = $this->Env_model->view_where_order("*", "product_attribute_combination", "pattrId='{$value['pattrId']}'",'pattrId','ASC');
@@ -88,7 +94,7 @@ class Catalog extends CI_Controller {
 				$webtitle = (empty($seo['seoTitle'])) ? $data['prodName']:$seo['seoTitle'];
 
 				$seodesc = '';
-				if(!empty($seo['seoKeyword'])){
+				if(!empty($seo['seoDesc'])){
 
 					if(!empty($seo['seoDesc'])){
 						$seodesc = $seo['seoDesc'];
@@ -101,6 +107,11 @@ class Catalog extends CI_Controller {
 				}
 
 				$metaimg = (!empty($primaryimg['pimgDir']) AND !empty($primaryimg['pimgImg'])) ? images_url($primaryimg['pimgDir']."/medium_".$primaryimg['pimgImg']):'';
+
+				$price = $data['prodPrice'];
+				if( $data['prodType']=='configurableproduct' OR $data['prodType']=='downloadableproduct'){
+					$price = $producdefaulttattrdata['pattrPrice'];
+				}
 
 				// set meta web page
 				$web_meta = web_head_properties(
@@ -121,7 +132,7 @@ class Catalog extends CI_Controller {
 							'og:updated_time' => date('c', $data['prodModified']),
 							'og:type' 		=> 'product',
 							'og:type' 		=> 'og:product',
-							'product:price:amount' => $data['prodPrice'],
+							'product:price:amount' => $price,
 							'product:price:currency' => get_option('defaultcurrency'),
 						),
 
@@ -133,7 +144,7 @@ class Catalog extends CI_Controller {
 							'twitter:image' 	=> $metaimg,
 							'twitter:card' => 'product',
 							'twitter:label1' => 'Harga',
-							'twitter:data1' => the_price($data['prodPrice']),
+							'twitter:data1' => the_price($price),
 						),
 
 						// Google+ / Schema.org
@@ -152,6 +163,9 @@ class Catalog extends CI_Controller {
 							'title' => $webtitle .' - '. get_option('sitename'),
 							'web_meta' => $web_meta,
 							'data' => $data,
+							'is_attr' => $is_attr,
+							'dataattribute' => $productattrdata,
+							'defaultattribute' => $producdefaulttattrdata,
 							'attrcombination' => $attrcombination,
 							'metacategories' => $categoryprod,
 							'primaryimage' => $primaryimg,

@@ -31,6 +31,7 @@ class Table_slider {
         $schema->string('slideUri');
         $schema->text('slideDesc');
         $schema->string('slideType', ['length' => '20']);
+        $schema->text('slideImg');
         $schema->text('slideFile');
         $schema->string('slideDirFile', ['length' => '25']);
         $schema->string('slideAnimate', ['length' => '30']);

@@ -92,22 +92,18 @@ class AssetsLoc {
 	* place element to footer
 	*/
 	public function place_element_to_footer( $script='' ){
-		if( is_array($this->footer_element) ){
-			$this->footer_element = $script;
+		if( is_array($script) ){
+			$result = '';
+			foreach ($script as $key => $value) {
+				$result .= $value;
+			}
+			$this->footer_element .= $result;
 		} else {
 			$this->footer_element .= $script;
 		}
 	}
 
 	public function get_footer_element(){
-		$result = '';
-		if( is_array($this->footer_element) ){
-			foreach ($this->footer_element as $key => $value) {
-				$result .= $value;
-			}
-		} else {
-			$result .= $this->footer_element;
-		}
-		return $result;
+		return $this->footer_element;
 	}
 }

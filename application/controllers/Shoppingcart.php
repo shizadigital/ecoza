@@ -5,6 +5,17 @@ class Shoppingcart extends CI_Controller {
 	
 	public function __construct(){
 		parent::__construct();
+
+		if (
+			!isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND 
+			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest' AND 
+			'POST' != $_SERVER['REQUEST_METHOD'] AND 
+			get_cookie('sz_token') == sz_token()
+		) {
+			show_404();
+		}
+
+		header("cache-control: private");
 	}
 
 	public function _remap ($param1=null, $params = array() ){
@@ -30,7 +41,7 @@ class Shoppingcart extends CI_Controller {
 	}
 
 	public function index(){
-
+		show_404();
 	}
 
 	public function add(){
@@ -40,7 +51,10 @@ class Shoppingcart extends CI_Controller {
 		$prodattrId = empty($this->input->post('productattr')) ? null: esc_sql( filter_int( $this->input->post('productattr', true) ) );
 
 		if(empty($id) OR !is_numeric($id)){
-			echo '503||'.t('productidisemtpy');
+			$status = 503;
+			$response = array(
+				'msg' => t('productidisemtpy'),
+			);
 		} else {
 			$error = false;
 			
@@ -140,40 +154,38 @@ class Shoppingcart extends CI_Controller {
 					$specialprice = '0.00';
 					//check if the product price have a discount
 					if($product['prodSpecialPrice']!='0.00'){
-						$specialprice = priceConvertCurrency( $product['prodPrice'], $currency);
+						$specialprice = priceConvertCurrency( $product['prodSpecialPrice'], $currency);
 					}					
 
 					$updatecart=false;
 					$temp_qty = $qty;
-					if( $hasCart ){ 
-						if(count($datacart['cart'])>0 ){
+					if( $hasCart AND count($datacart['cart'])>0 ){
 
-							foreach($datacart['cart'] as $key => $cart){
-								
-								if( $cart['cartId'] == $cartid){ 
-									$updatecart = true;
+						foreach($datacart['cart'] as $key => $cart){
+							
+							if( $cart['cartId'] == $cartid){ 
+								$updatecart = true;
 
-									$datacart['cart'][$key]['qty'] += $qty;
+								$datacart['cart'][$key]['qty'] += $qty;
 
-									$temp_qty = $datacart['cart'][$key]['qty'];
+								$temp_qty = $datacart['cart'][$key]['qty'];
 
-									// use minimum order as quantity if order quantity smaller than minimum order
-									if($temp_qty < $product['prodMinOrder']){
-										$temp_qty = $product['prodMinOrder'];
-									}
-
-									// use max order as quantity if order quantity bigger than maximum order
-									if($temp_qty > $product['prodMaxOrder'] AND $product['prodMaxOrder'] != 0){
-										$temp_qty = $product['prodMaxOrder'];
-									}
-
-									// set quantity again
-									$datacart['cart'][$key]['qty'] = $temp_qty;
-									break;
-
+								// use minimum order as quantity if order quantity smaller than minimum order
+								if($temp_qty < $product['prodMinOrder']){
+									$temp_qty = $product['prodMinOrder'];
 								}
-								
+
+								// use max order as quantity if order quantity bigger than maximum order
+								if($temp_qty > $product['prodMaxOrder'] AND $product['prodMaxOrder'] != 0){
+									$temp_qty = $product['prodMaxOrder'];
+								}
+
+								// set quantity again
+								$datacart['cart'][$key]['qty'] = $temp_qty;
+								break;
+
 							}
+							
 						}
 
 					}
@@ -182,12 +194,12 @@ class Shoppingcart extends CI_Controller {
 						$num = 1;
 						// count the number of product added
 						if( $hasCart ){
-							$num = count($datacart['cart'])+1;
+							$num = count($datacart['cart']) + 1;
 						}
 	
 						for ($i=1; $i<=$num; $i++){
 
-							if ( empty($datacart['cart'][$i]['productid']) ){
+							if ( !isset($datacart['cart'][$i]['cartId']) ){
 
 								// use minimum order as quantity if order quantity smaller than minimum order
 								if($qty < $product['prodMinOrder']){
@@ -199,11 +211,22 @@ class Shoppingcart extends CI_Controller {
 									$qty = $product['prodMaxOrder'];
 								}
 
-								// getting 
+								// get default image
+								$defimgdir = '';
+								$defimgfile = '';
+								if(countdata('product_images', array('prodId'=>$id,'pimgPrimary'=>'y')) > 0){
+									$prodimg = getval('pimgDir,pimgImg','product_images', array('prodId'=>$id,'pimgPrimary'=>'y'));
+									$defimgdir = $prodimg['pimgDir'];
+									$defimgfile = $prodimg['pimgImg'];
+								}
+
+								// define the cart
 								$datacart['cart'][$i]['cartId'] = $cartid;
 								$datacart['cart'][$i]['productId'] = $id;
 								$datacart['cart'][$i]['qty'] = $temp_qty;
 								$datacart['cart'][$i]['name'] = $productname;
+								$datacart['cart'][$i]['defaultImageDir'] = $defimgdir;
+								$datacart['cart'][$i]['defaultImageFile'] = $defimgfile;
 								$datacart['cart'][$i]['price'] = $price;
 								$datacart['cart'][$i]['specialPrice'] = $specialprice;
 								$datacart['cart'][$i]['weight'] = $weight;
@@ -217,34 +240,362 @@ class Shoppingcart extends CI_Controller {
 								$datacart['cart'][$i]['attribute'] = $attribute; // array
 								$datacart['cart'][$i]['attributeId'] = $attributeid;
 
+								// warungkita
+								$datacart['cart'][$i]['segmentId'] = $product['ssegId'];
+								$datacart['cart'][$i]['cityId'] = $product['cityId'];
+								$datacart['cart'][$i]['provId'] = $product['provId'];
+
 							}
 
 						}
 	
 					}
 
-					$datacart['currency'] = $currency;
+					// recalculate for total cart
+					$totalcart = isset($datacart['totalcart'])?$datacart['totalcart']:'';
+					$totalsavingcart = isset($datacart['totalsavingcart'])?$datacart['totalsavingcart']:'';
+					if(count($datacart['cart'])>0){
+						$totalprice = 0.00;
+						$totalsaving = 0.00;					
+						foreach($datacart['cart'] as $key => $cart){
 
+							// recalculating . . .
+							if( $datacart['cart'][$key]['specialPrice'] != '0.00'){
+								$totalprice += $datacart['cart'][$key]['specialPrice'] * $datacart['cart'][$key]['qty'];
+								$totalsaving += ($datacart['cart'][$key]['price'] - $datacart['cart'][$key]['specialPrice']) * $datacart['cart'][$key]['qty'];
+							} else {
+								$totalprice += $datacart['cart'][$key]['price'] * $datacart['cart'][$key]['qty'];
+							}
+
+						}
+						$totalcart = $totalprice;
+						$totalsavingcart = $totalsaving;
+					}
+
+					$datacart['currency'] = $currency;
+					$datacart['totalcart'] = $totalcart;
+					$datacart['totalsavingcart'] = $totalsavingcart;
+					
 					$this->shopping_cart->setCart($datacart);
-		
-					echo "200||" . sprintf( t('addtoshoppingcartsuccessfull'), $productname, $temp_qty );
+
+					$status = 200;
+					$response = array(
+						'msg' => sprintf( t('addtoshoppingcartsuccessfull'), $productname, $temp_qty ),
+					);
 				}
 
 				if( $error ){
-					echo "503||" . $error;
-				}
+					$status = 503;
+					$response = array(
+						'msg' => $error,
+					);
+				}				
+				
 			} else {
-				$SETCART['cart'] = array();
+				$this->shopping_cart->setCart(array());
 
-				$this->shopping_cart->setCart($SETCART);
+				$status = 503;
+				$response = array(
+					'msg' => t('shoppingcarthasbeenemptied'),
+				);
+			}
+		}
+
+		$returndata = array(
+			'status' => $status,
+			'data' => $response
+		);
+
+		// make absolute for json file with header
+		header('Content-Type: application/json');
+		echo json_encode((object) $returndata);
+
+	}
+
+	public function addqty(){
+		$cartid = esc_sql( filter_txt( $this->input->post('cartid', true) ) );
+		$qty = esc_sql( filter_int( $this->input->post('qty', true) ) );
+
+		if(empty($cartid) OR !is_numeric($qty)){
+			$status = 503;
+			$response = array(
+				'msg' => t('shoppingcartnotfound'),
+			);
+		} else {
+			$error = false;
+
+			// define data cart
+			$datacart = array();
+			$hasCart = $this->shopping_cart->hasCart();
+			if( $hasCart ){
+				// get data cart first 
+				$datacart = $this->shopping_cart->dataCart();
+			} else {
+				$error = t('shoppingcartnotfound');
+			}
+
+			if($qty < 1){
+				$error = t('qtycannotbeempty');
+			}
+
+			if(!$error){
+				
+				$temp_qty = $qty;
+				$updateqty = false;
+
+				if(count($datacart['cart'])>0 AND $hasCart){
+
+					$totalcart = $datacart['totalcart'];
+					$totalsavingcart = $datacart['totalsavingcart'];
+					$totalprice = 0.00;
+
+					foreach($datacart['cart'] as $key => $cart){
+						
+						if( $cart['cartId'] == $cartid){ 
+							$prodid = esc_sql( filter_int($cart['productId']));
+
+							$product = getval('*', 'product',array('prodId'=>$prodid));
+
+							// quentity checking
+							$qtyerror = false;
+							if($qty > $product['prodQty'] AND $product['prodQtyType']!= 'unlimited'){
+								$qtyerror = true;
+							}
+							
+							// get attribute data start here
+							if( $cart['attributeId'] !=null ){
+								$prodattrId = esc_sql(filter_int($cart['attributeId']));
+								$productattr = getval('*', 'product_attribute',array('pattrId'=>$prodattrId, 'prodId'=>$prodid));
+								
+								if($qty > $productattr['pattrQty'] AND $productattr['pattrQtyType']!='unlimited' ){
+
+									if( $qtyerror == false ){ $qtyerror = false; }
+									else { $qtyerror = true; }
+									
+								} else {
+									$qtyerror = false;
+								}
+								
+							}
+
+							if( $qtyerror ){
+
+								$error = t('qtytoolarge');
+
+							} else {
+								$updateqty = true;
+
+								// use minimum order as quantity if order quantity smaller than minimum order
+								if($temp_qty < $product['prodMinOrder']){
+									$temp_qty = $product['prodMinOrder'];
+								}
+
+								// use max order as quantity if order quantity bigger than maximum order
+								if($temp_qty > $product['prodMaxOrder'] AND $product['prodMaxOrder'] != 0){
+									$temp_qty = $product['prodMaxOrder'];
+								}
+
+								// set quantity again
+								$datacart['cart'][$key]['qty'] = $temp_qty;
+
+								// recalculating total price
+								$specialprice = $datacart['cart'][$key]['specialPrice'];
+								$price = $datacart['cart'][$key]['price'];
+
+								if( $specialprice != '0.00'){
+									$totalprice += $specialprice * $temp_qty;
+									$totalsavingcart += ($price - $specialprice) * $temp_qty;
+								} else {
+									$totalprice += $price * $temp_qty;
+								}
+							}
+							break;
+
+						}
+						
+					}
+				}
+				
+				if(!$error){
+
+					if( $updateqty ){
+						// recalculate for total cart
+						$totalcart = $datacart['totalcart'];
+						$totalsavingcart = $datacart['totalsavingcart'];
+						if(count($datacart['cart'])>0){
+							$totalprice = 0.00;
+							$totalsaving = 0.00;					
+							foreach($datacart['cart'] as $key => $cart){
+
+								// recalculating . . .
+								if( $datacart['cart'][$key]['specialPrice'] != '0.00'){
+									$totalprice += $datacart['cart'][$key]['specialPrice'] * $datacart['cart'][$key]['qty'];
+									$totalsaving += ($datacart['cart'][$key]['price'] - $datacart['cart'][$key]['specialPrice']) * $datacart['cart'][$key]['qty'];
+								} else {
+									$totalprice += $datacart['cart'][$key]['price'] * $datacart['cart'][$key]['qty'];
+								}
+
+							}
+							$totalcart = $totalprice;
+							$totalsavingcart = $totalsaving;
+						}
+
+						$datacart['totalcart'] = $totalcart;
+						$datacart['totalsavingcart'] = $totalsavingcart;
+					}
+
+					$this->shopping_cart->setCart($datacart);
+
+					$status = 200;
+					$response = array(
+						'msg' => t( 'qtysuccessfullyupdated' ),
+					);
+				}
+
+			}
+
+			if($error){
+				$status = 503;
+				$response = array(
+					'msg' => $error,
+				);
+			}
+		}
+
+		$returndata = array(
+			'status' => $status,
+			'data' => $response
+		);
+
+		// make absolute for json file with header
+		header('Content-Type: application/json');
+		echo json_encode((object) $returndata);
+	}
+
+	public function removecartitem(){
+
+		$cartid = esc_sql( filter_txt( $this->input->post('cartid', true) ) );
+
+		if(empty($cartid)){
+			$status = 503;
+			$response = array(
+				'msg' => t('shoppingcartnotfound'),
+			);
+		} else {
+
+			$error = false;
+
+			// define data cart
+			$datacart = array();
+			$hasCart = $this->shopping_cart->hasCart();
+			if( $hasCart ){
+				// get data cart first 
+				$datacart = $this->shopping_cart->dataCart();
+			} else {
+				$error = t('shoppingcartnotfound');
+			}
+
+			if(!$error){
+
+				$delete_all_cart = true;
+				foreach ($datacart as $key => $value) {
+
+					if($key == 'cart'){
+
+						foreach($datacart['cart'] as $key_cart => $value_cart){
+							if( in_array($cartid, $value_cart) ){
+
+								unset($datacart['cart'][$key_cart]);continue;
+		
+							} else {
+								$delete_all_cart = false;
+							}
+						}
+
+					}
+				}
+
+				if($delete_all_cart){
+					$this->shopping_cart->unsetCart();
+				} else {
+
+					if( count( $datacart['cart'] ) > 0 ){
+
+						// recalculate for total cart
+						$totalcart = $datacart['totalcart'];
+						$totalsavingcart = $datacart['totalsavingcart'];
+						if(count($datacart['cart'])>0){
+							$totalprice = 0.00;
+							$totalsaving = 0.00;					
+							foreach($datacart['cart'] as $key => $cart){
+
+								// recalculating . . .
+								if( $datacart['cart'][$key]['specialPrice'] != '0.00'){
+									$totalprice += $datacart['cart'][$key]['specialPrice'] * $datacart['cart'][$key]['qty'];
+									$totalsaving += ($datacart['cart'][$key]['price'] - $datacart['cart'][$key]['specialPrice']) * $datacart['cart'][$key]['qty'];
+								} else {
+									$totalprice += $datacart['cart'][$key]['price'] * $datacart['cart'][$key]['qty'];
+								}
+
+							}
+							$totalcart = $totalprice;
+							$totalsavingcart = $totalsaving;
+						}
+
+						$datacart['totalcart'] = $totalcart;
+						$datacart['totalsavingcart'] = $totalsavingcart;
+
+						$this->shopping_cart->setCart($datacart);
+					} else {
+						$this->shopping_cart->unsetCart();
+					}
+				}
+
+				$status = 200;
+				$response = array(
+					'msg' => t( 'successfullydeleted' ),
+				);
+
+			}
+
+			if($error){
+				$status = 503;
+				$response = array(
+					'msg' => $error,
+				);
 			}
 
 		}
 
+		$returndata = array(
+			'status' => $status,
+			'data' => $response
+		);
+
+		// make absolute for json file with header
+		header('Content-Type: application/json');
+		echo json_encode((object) $returndata);
 	}
 
-	// tester page shopingcart
-	public function addqty(){
+	public function removecart(){
 		
+		$result = $this->shopping_cart->unsetCart();
+
+		if($result){
+			$returndata = array(
+				'status' => 200,
+				'msg' => t('shoopingcartremovedsuccessfull')
+			);
+		} else {
+			$returndata = array(
+				'status' => 503,
+				'msg' => t('somethingwronghappened')
+			);
+		}
+
+		// make absolute for json file with header
+		header('Content-Type: application/json');
+		echo json_encode((object) $returndata);
+
 	}
 }

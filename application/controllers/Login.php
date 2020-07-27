@@ -83,6 +83,11 @@ class Login extends CI_Controller {
 									encoder( $password .'>>>>'. LOGIN_SALT ) 
 								) . "#" . LOGIN_SALT
 							);
+			
+			if(!filter_var($username, FILTER_VALIDATE_EMAIL)){
+				$error = true;
+				$msg = t('emailinvalid');
+			}
 
 			// validate first data
 			if( empty($username) AND !empty($password) ){
@@ -98,11 +103,6 @@ class Login extends CI_Controller {
 			if( empty($username) AND empty($password) ) {
 				$error = true;
 				$msg = t('memberloginusernamepasswordinvalid');
-			}
-
-			if(!filter_var($username, FILTER_VALIDATE_EMAIL)){
-				$error = true;
-				$msg = t('emailinvalid');
 			}
 
 			if(!$error){
@@ -195,7 +195,11 @@ class Login extends CI_Controller {
 					$url = !empty( $this->input->post('redirect') ) ? $this->input->post('redirect') : base_url();
 					
 					if($onpage=='y'){
-						echo "200||".t('memberloginsuccessfully')."||".$url;
+						$status = 200;
+						$response = array(
+							'msg' => t('memberloginsuccessfully'),
+							'url' => $url
+						);
 					} else {
 						redirect($url);
 					}
@@ -204,9 +208,10 @@ class Login extends CI_Controller {
 					$error = true;
 					$msg = t('memberlogininvalid');
 				}
-			} 
+			}
 
 		} else {
+			$error = true;
 			$msg = t('memberloginwrongprocess');
 		}
 
@@ -214,7 +219,10 @@ class Login extends CI_Controller {
 
 			if($onpage=='y'){
 
-				echo "503||".$msg;
+				$status = 503;
+				$response = array(
+					'msg' => $msg,
+				);
 
 			} else {
 
@@ -226,6 +234,19 @@ class Login extends CI_Controller {
 				redirect( $url );
 
 			}
+		}
+
+		if($onpage=='y'){
+
+			$returndata = array(
+				'status' => $status,
+				'data' => $response
+			);
+	
+			// make absolute for json file with header
+			header('Content-Type: application/json');
+			echo json_encode((object) $returndata);
+
 		}
 
 	}

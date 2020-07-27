@@ -207,6 +207,19 @@ class Shopping_cart {
 		return $result;
 	}
 
+	public function totalCart(){
+		$total = 0;
+
+		if($this->hasCart()){
+
+			$datacart = $this->dataCart();
+			if(isset($datacart['cart'])){
+				$total = count($datacart['cart']);
+			}
+		}
+		return $total;
+	}
+
 	public function miniCart(){
 
 	}

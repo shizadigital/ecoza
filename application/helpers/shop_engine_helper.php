@@ -18,9 +18,9 @@ function getDisc($bigval=0,$smallval=0,$decimal = 2, $sep = '.'){
         if($persen>0){
         	$persen = 100 - $persen;
         	$persen_ = number_format($persen,$decimal,$sep,'.');
-            $cetak = $persen_ . '%';
+            $cetak = $persen_ ;
         } else {
-            $cetak = '0%';
+            $cetak = '0';
         }
     }
 
@@ -440,7 +440,7 @@ function getAttrValueUsed($productid, $attrid=null){
 
 			$wherewithattrid = ( $attrid!=null) ? " AND b.attrId='".esc_sql( filter_int($attrid))."'":"";
 			$whereattr = "a.prodId='{$data['prodId']}' AND a.pattrId=b.pattrId";
-			$attrdataused = $ci->Env_model->view_where_order("DISTINCT(b.attrvalId), b.attrvalId", $tblatr, $whereattr.$wherewithattrid,'b.attrvalId','ASC');
+			$attrdataused = $ci->Env_model->view_where_order("DISTINCT(b.attrvalId), b.attrvalId, a.pattrId", $tblatr, $whereattr.$wherewithattrid,'b.attrvalId','ASC');
 
 			// get default atttr val
 			$defaultdata = $ci->Env_model->view_where_order("b.attrvalId", $tblatr, $whereattr." AND a.pattrDefault='y'",'b.attrvalId','ASC');
@@ -454,6 +454,7 @@ function getAttrValueUsed($productid, $attrid=null){
 
 				$attrValueData = getval('attrId,attrvalVisual,attrvalValue,attrvalLabel','attribute_value', array('attrvalId'=>$value['attrvalId']));
 				$attrValueData['default'] = ( in_array( $value['attrvalId'], $default) ) ? true:false;
+				$attrValueData['productattrid'] = $value['pattrId'];
 				$result[$value['attrvalId']] = $attrValueData;				
 
 				$n++;

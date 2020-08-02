@@ -883,6 +883,15 @@ $lang['menustructure'] = "Menu Structure";
 $lang['editmenu'] = "Edit Menu";
 $lang['infomenu'] = "Info Menu";
 
+/**
+ * Sales Report
+ */
+$lang['salestransaction'] = "Sales Transaction";
+$lang['choosestatus'] = "Choose Status";
+$lang['productsales'] = "Product Sales";
+$lang['topproducts'] = "Top %s products";
+$lang['totalsales'] = "Total Sales";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///
 ///					 			 THIS PART FOR ERROR VARIABLE 								///

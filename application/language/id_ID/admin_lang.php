@@ -609,6 +609,11 @@ $lang['sendinfotomail'] = "Kirimkan informasi ke email tertera";
 $lang['birthday'] = "Ulang tahun";
 $lang['dateofbirth'] = "Tanggal lahir";
 $lang['sitedefaultimage'] = "Gambar Default Web";
+$lang['supplier'] = "Supplier";
+$lang['suppliers'] = "Supplier";
+$lang['viewreports'] = "Lihat Laporan";
+$lang['viewreport'] = "Lihat Laporan";
+$lang['inventoryreports'] = "Laporan Inventori";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -862,6 +867,8 @@ $lang['choosecountryfirst'] = "Pilih Negara Dahulu";
  * Employee
  */
 $lang['employee'] = "Karyawan";
+$lang['employees'] = "Karyawan";
+$lang['allemployees'] = "Semua Karyawan";
 $lang['adminprivilege'] = "Hak Akses Admin";
 $lang['fullname'] = "Nama Lengkap";
 $lang['pin'] = "PIN";
@@ -886,11 +893,22 @@ $lang['infomenu'] = "Info Menu";
 /**
  * Sales Report
  */
+$lang['transaction'] = "Transaksi";
+$lang['transactions'] = "Transaksi";
 $lang['salestransaction'] = "Transaksi Penjualan";
 $lang['choosestatus'] = "Pilih Status";
 $lang['productsales'] = "Penjualan Produk";
+
+/**
+ * Dashboard
+ */
 $lang['topproducts'] = "%s produk teratas";
 $lang['totalsales'] = "Total Penjualan";
+$lang['salestransactionondays'] = "Total Penjualan %s hari terakhir";
+$lang['alltimeprofit'] = "Total semua keuntungan";
+$lang['alltimetransactions'] = "Total semua transaksi";
+$lang['allproducts'] = "Semua Produk";
+$lang['allsuppliers'] = "Semua supplier";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

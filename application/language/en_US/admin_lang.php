@@ -609,6 +609,11 @@ $lang['sendinfotomail'] = "Send information to the email listed";
 $lang['birthday'] = "Birthday";
 $lang['dateofbirth'] = "Date of birth";
 $lang['sitedefaultimage'] = "Site Default Image";
+$lang['supplier'] = "Supplier";
+$lang['suppliers'] = "Suppliers";
+$lang['viewreports'] = "View Reports";
+$lang['viewreport'] = "View Report";
+$lang['inventoryreports'] = "Inventory Reports";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -862,6 +867,8 @@ $lang['choosecountryfirst'] = "Choose Country First";
  * Employee
  */
 $lang['employee'] = "Employee";
+$lang['employees'] = "Employees";
+$lang['allemployees'] = "All Employees";
 $lang['adminprivilege'] = "Admin Privilege";
 $lang['fullname'] = "Full Name";
 $lang['pin'] = "PIN";
@@ -886,11 +893,22 @@ $lang['infomenu'] = "Info Menu";
 /**
  * Sales Report
  */
+$lang['transaction'] = "Transaction";
+$lang['transactions'] = "Transactions";
 $lang['salestransaction'] = "Sales Transaction";
 $lang['choosestatus'] = "Choose Status";
 $lang['productsales'] = "Product Sales";
+
+/**
+ * Dashboard
+ */
 $lang['topproducts'] = "Top %s products";
 $lang['totalsales'] = "Total Sales";
+$lang['salestransactionondays'] = "Total sales in the past %s days";
+$lang['alltimeprofit'] = "All time profit";
+$lang['alltimetransactions'] = "All Time Transactions";
+$lang['allproducts'] = "All Products";
+$lang['allsuppliers'] = "All Suppliers";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///																							///

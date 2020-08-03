@@ -240,11 +240,6 @@ class Shoppingcart extends CI_Controller {
 								$datacart['cart'][$i]['attribute'] = $attribute; // array
 								$datacart['cart'][$i]['attributeId'] = $attributeid;
 
-								// warungkita
-								$datacart['cart'][$i]['segmentId'] = $product['ssegId'];
-								$datacart['cart'][$i]['cityId'] = $product['cityId'];
-								$datacart['cart'][$i]['provId'] = $product['provId'];
-
 							}
 
 						}

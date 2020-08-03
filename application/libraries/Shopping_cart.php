@@ -183,10 +183,10 @@ class Shopping_cart {
 			if($councart > 0){
 				$del = $ci->Env_model->delete( "cart", "memId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'" );
 			} else {
-				// get session on progress
-				$sessionID = getval("cartSessionId","cart","memId='{$memberid}' AND cartVisitorType='member' AND cartStatus='onprogress'");
+				// get on progress section
+				$sessionID = getval("cartSessionId","cart","memId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartStatus='onprogress'");
 
-				$del = $ci->Env_model->delete( "cart", "memId='{$_COOKIE['cook_m_id']}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'" );
+				$del = $ci->Env_model->delete( "cart", "memId='{$memberid}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'" );
 			}
 
 			if($del){ $result = true; }

@@ -2,6 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Env_model extends CI_model{
+
+	// primitive  query
+	public function query( $query ){
+        $query = $this->db->query( $query );
+		return $query->result_array();
+	}
+
     // insert data
     public function insert($table, $data){
         return $this->db->insert( $this->db->dbprefix($table), $data);
@@ -218,7 +225,7 @@ class Env_model extends CI_model{
         $error=false;
 
         $result_ = '';
-        if( Self::countdata($table, $fieldReference) > 0 ){
+        if( $this->countdata($table, $fieldReference) > 0 ){
 
             if( is_array($table) ){
                 $dttable = array();

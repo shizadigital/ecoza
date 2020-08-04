@@ -280,7 +280,8 @@ include V_ADMIN_PATH . "topbar.php";
 										<td class="text-center"><?php if($r['catActive']=='1'){ echo t('yes'); } else { echo t('no'); } ?></td>
 										<td class="text-center">
 											<?php 
-											$totalrel = countdata("category_relationship","catId='{$r['catId']}' AND crelRelatedType='product'"); 
+											$arraycountprod = array('category_relationship a', 'product b');
+											$totalrel = countdata($arraycountprod,"a.catId='{$r['catId']}' AND a.crelRelatedType='product' AND a.relatedId=b.prodId AND b.prodDeleted='0'"); 
 											echo $totalrel; ?>
 										</td>
 									</tr>

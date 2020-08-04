@@ -34,7 +34,7 @@ $( document ).ready(function() {
         allowClear: true,
         tags: false,
         ajax: {
-            url: '".admin_url($this->uri->segment(2)."/ajax_related_getallproduct/")."',
+            url: '".admin_url($this->uri->segment(2)."/ajax/ajax_related_getallproduct/")."',
             dataType: 'json',
             type: 'POST',
             delay: 500,
@@ -65,7 +65,7 @@ $( document ).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '".admin_url($this->uri->segment(2)."/ajax_related_product/")."',
+            url: '".admin_url($this->uri->segment(2)."/ajax/ajax_related_product/")."',
             data : {
                 val: selectdata,
                 CP: '".get_cookie('sz_token')."'
@@ -112,7 +112,7 @@ $( document ).ready(function() {
 
             $.ajax({
                 type: 'POST',
-                url: '".admin_url($this->uri->segment(2)."/ajax_generate_attrvalue/")."',
+                url: '".admin_url($this->uri->segment(2)."/ajax/ajax_generate_attrvalue/")."',
                 data : {
                     val: selectdata,
                     group: groupattr,

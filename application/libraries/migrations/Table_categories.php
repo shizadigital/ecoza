@@ -32,7 +32,8 @@ class Table_categories {
         $schema->text('catDesc');
         $schema->string('catColor', ['length' => '12']);
         $schema->string('catColor', ['length' => '9']);
-        $schema->string('catImgDir', ['length' => '35']);
+        $schema->string('catImgDir', ['length' => '35']);	
+        $schema->text('catImg');
         $schema->integer('catActive', ['length' => '3', 'unsigned' => TRUE]);
         $schema->string('catType', ['length' => '20']);
         $schema->run();

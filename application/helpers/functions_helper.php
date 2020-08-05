@@ -1377,24 +1377,21 @@ function getYoutubeId($url){
  * get variable result
  *
  * @param string $content
+ * @param array|string $vars
+ * @param string $to
  * 
  * @return string
  */
-function variable_parser($content=null){
+function variable_parser($content=null, $vars=null, $to = null){
     $ci =& get_instance();
 
     $result = null;
 
     if( $content != null ){ 
-        $patternlist = $ci->config->load('variables');
 
-        if( is_array_unique($patternlist) ){
-            foreach ($patternlist as $pattern => $replace) {
-                $content = str_ireplace($pattern,$replace,$content);
-            }
-
-            $result = $content;
-        }
+		// load the variables library
+		$ci->load->library('Variables');
+		$result = $ci->variables->parsing($content, $vars, $to);
         
     }
     

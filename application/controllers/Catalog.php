@@ -171,12 +171,16 @@ class Catalog extends CI_Controller {
 							'primaryimage' => $primaryimg,
 							'allimages' => $allimages
 						);
-				$this->load->view( 'catalog', $dataview);
+				$this->load->view( 'catalog-detail', $dataview);
 				
 			} else {
 				show_404();
 			}
 		}
+	}
+
+	public function products($param=null){
+		echo $param;
 	}
 
 	public function category($param=null){

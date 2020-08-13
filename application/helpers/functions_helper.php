@@ -503,12 +503,18 @@ function cron_activity_log($cronName,$report) {
 function singleComma($value, $sepin= ",", $sepout = "."){
     $ex_val = explode($sepin, $value);              
 
-    if(count($ex_val) > 1){ $value_ = $ex_val[0].$sepout; }
-    else { $value_ = $ex_val[0]; }
+    if(count($ex_val) > 1){ 
+        $value_ = $ex_val[0].$sepout;
 
-    foreach ($ex_val as $keyval => $valueval) {
-        if($valueval == $ex_val[0]){ continue; }
-        $value_ .= $valueval;
+        foreach ($ex_val as $valueval) {
+
+            if($valueval === $ex_val[0]){ continue; }
+            $value_ .= $valueval;
+            
+        }
+    }
+    else {
+        $value_ = $ex_val[0];
     }
 
     return $value_;

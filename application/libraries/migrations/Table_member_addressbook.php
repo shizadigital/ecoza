@@ -34,7 +34,7 @@ class Table_member_addressbook {
         $schema->string('maddrCompany', ['length' => '255']);
         $schema->text('maddrAddress');
         $schema->string('maddrPostalCode', ['length' => '10']);
-        $schema->string('maddrCity', ['length' => '70']);
+        $schema->string('maddrCity', ['length' => '125']);
         $schema->string('maddrHP', ['length' => '20']);
         $schema->enum('maddrPriority', ['primary', 'secondary']);
         $schema->run();

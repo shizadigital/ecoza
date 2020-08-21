@@ -26,7 +26,7 @@ class Table_order_status {
 
 	public function migrate(){
 		$schema = $this->CI->schema->create_table('order_status');
-        $schema->increments('orderstatId', ['type' => 'BIGINT', 'length' => '11']);
+        $schema->increments('orderstatId', ['type' => 'BIGINT', 'length' => '25']);
         $schema->integer('orderId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('optorderstatId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('orderstatName', ['length' => '150']);

@@ -27,7 +27,7 @@ class Table_cart {
 	public function migrate(){
 		$schema = $this->CI->schema->create_table('cart');
         $schema->increments('cartId', ['type' => 'BIGINT', 'length' => '30']);
-        $schema->integer('memId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->integer('mId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('orderId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('cartSessionId', ['length' => '100']);
@@ -40,7 +40,7 @@ class Table_cart {
         $schema->run();
 
         // ADD index
-        $schema->index('memId');
+        $schema->index('mId');
         $schema->index('orderId');
         $schema->index('storeId');
 	}
@@ -50,4 +50,3 @@ class Table_cart {
 	}
 
 }
-

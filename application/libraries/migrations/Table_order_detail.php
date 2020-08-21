@@ -2,30 +2,30 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Table_order_detail {
-	/**
-	 * !!! CAUTION !!!
-	 * 
-	 * Don't change the table name and class name because to important to seeder system
-	 * 
-	 * if you want to change the table name, copy your script code in this file
-	 * remove this file with this bash 
-	 * 
-	 * php index.php Migration remove {table name}
-	 * 
-	 * then create new database with migration bash and paste you code before
-	 */
+    /**
+     * !!! CAUTION !!!
+     * 
+     * Don't change the table name and class name because to important to seeder system
+     * 
+     * if you want to change the table name, copy your script code in this file
+     * remove this file with this bash 
+     * 
+     * php index.php Migration remove {table name}
+     * 
+     * then create new database with migration bash and paste you code before
+     */
 
-	private $CI;
+    private $CI;
 
-	public function __construct(){
-		$this->CI =& get_instance();
+    public function __construct(){
+        $this->CI =& get_instance();
 
         $this->CI->load->model('mc');
         $this->CI->load->library('Schema');
-	}
+    }
 
-	public function migrate(){
-		$schema = $this->CI->schema->create_table('order_detail');
+    public function migrate(){
+        $schema = $this->CI->schema->create_table('order_detail');
         $schema->increments('odetId', ['type' => 'BIGINT', 'length' => '35']);
         $schema->integer('orderId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('whId', ['length' => '11', 'unsigned' => TRUE]);
@@ -42,6 +42,10 @@ class Table_order_detail {
         $schema->string('odetProdMpn', ['length' => '65']);
         $schema->decimal('odetProdWeight', ['length' => '15,8']);
         $schema->string('odetProdWeightUnit', ['length' => '5']);
+        $schema->decimal('odetProdLength', ['length' => '15,8']);
+        $schema->decimal('odetProdWidth', ['length' => '15,8']);
+        $schema->decimal('odetProdHeight', ['length' => '15,8']);
+        $schema->string('odetprodLengthUnit', ['length' => '5']);
         $schema->decimal('odetProdBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('odetProdPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->integer('odetProdTaxId', ['length' => '11', 'unsigned'=>TRUE]);
@@ -50,7 +54,7 @@ class Table_order_detail {
         $schema->decimal('odetQty', ['length' => '15,8', 'unsigned'=>TRUE]);
         $schema->decimal('odetPricePerunit', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('odetPriceTotal', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->decimal('odetProfit', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->decimal('odetProfit', ['length' => '15,2']);
         $schema->integer('odetAdded', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('odetModified', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
@@ -62,11 +66,11 @@ class Table_order_detail {
         $schema->index('pattrId');
         $schema->index('unitId');
         $schema->index('odetCode');
-	}
+    }
 
-	public function seeder(){
-		
-	}
+    public function seeder(){
+        
+    }
 
 }
 

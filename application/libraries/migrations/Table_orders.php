@@ -34,6 +34,12 @@ class Table_orders {
         $schema->integer('mId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('countryId', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('zoneId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('orderRecipientName', ['length' => '255']);
+        $schema->string('orderRecipientCompany', ['length' => '255']);
+        $schema->text('orderRecipientAddress');
+        $schema->text('orderRecipientCity');
+        $schema->string('orderRecipientPostalCode', ['length' => '7']);
+        $schema->string('orderRecipientHP', ['length' => '25']);
         $schema->string('orderInvoice', ['length' => '20']);
         $schema->integer('orderInvoiceDate', ['length' => '11', 'unsigned' => TRUE]);
         $schema->string('orderCode', ['length' => '25']);
@@ -54,7 +60,7 @@ class Table_orders {
         $schema->integer('orderTimeToRemove', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('orderReminder', ['length' => '11', 'unsigned' => TRUE]);
         $schema->enum('orderReminderStatus', ['y', 'n']);
-        $schema->string('orderPaymentMethod', ['length' => '3']);
+        $schema->string('orderPaymentMethod', ['length' => '50']);
         $schema->text('orderPaymentMeta');
         $schema->string('orderFlag', ['length' => '25']);
         $schema->string('orderLang', ['length' => '9']);

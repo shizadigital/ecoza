@@ -6,6 +6,8 @@ class Register extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 
+		if( $this->member->is_login() ){ redirect( base_url() ); }
+
 	}
 
 	public function _remap ($param1=null, $params = array() ){
@@ -182,8 +184,8 @@ class Register extends CI_Controller {
 					'mHPSecureKey' => $otp,
 					'mHPSecureKeyDate' => $now,
 					'mRegDate' => $now,
-					'mDir' => null,
-					'mPic' => null,
+					'mDir' => '',
+					'mPic' => '',
 					'mType' => 'member',
 					'mStatus' => 1,
 					'mLastLogin' => 0,
@@ -197,12 +199,17 @@ class Register extends CI_Controller {
 
 				if($query){
 
-					//==== SEND THE EMAIL TO MEMBER    
+					// save member store
+					$datastore = array(
+						'mId' => $nextID,
+						'storeId' => $this->session->userdata('visitor_storeid')
+					);
+					$query = $this->Env_model->insert('member_store', $datastore);
+
+					//==== SEND EMAIL TO MEMBER    
 					$to        = $email;
 					$subject   = t('welcometo')." ".get_option('sitename');
 
-					$emailvars['VERIFYREG'] = base_url('verify/memberregister/'.$email_key);
-			
 					$message = '
 					<style type="text/css">
 					.inv table, tr, td {
@@ -220,6 +227,8 @@ class Register extends CI_Controller {
 					//Start variable changer
 					$message .= getval('tEmail',"email_template","tId='11'");
 					
+					$emailvars['VERIFYREG'] = base_url('verify/memberregister/'.$email_key);
+			
 					$message = variable_parser($message, $emailvars);
 
 					#send mail to owner
@@ -235,11 +244,101 @@ class Register extends CI_Controller {
 					$option['message'] = $message;
 					$option['messagetype'] = 'html';
 					sendMailPHPMailer($option);
+
+					/**
+					 * 
+					 * proccess to login
+					 * 
+					 */
+
+					// cookie expiration
+					$expiredcook = 86400; // 1 day
+
+					// get current domain
+					$domain = getDomain( current_url() );
+
+					$cookie_set = array(
+						array(
+							'name'   => 'member',
+							'value'  => $nextID,
+							'expire' => $expiredcook,
+							'path ' => '/',
+							'domain' => '.'.$domain
+						),
+						array(
+							'name'   => 'lang',
+							'value'  => $lang,
+							'expire' => $expiredcook,
+							'path ' => '/',
+							'domain' => '.'.$domain
+						),
+						array(
+							'name'   => 'memberemail',
+							'value'  => $email,
+							'expire' => $expiredcook,
+							'path ' => '/',
+							'domain' => '.'.$domain
+						),
+						array(
+							'name'   => 'currency',
+							'value'  => $currency,
+							'expire' => $expiredcook,
+							'path ' => '/',
+							'domain' => '.'.$domain
+						),
+						array(
+							'name'   => 'checkpoint',
+							'value'  => loginCP(),
+							'expire' => $expiredcook,
+							'path ' => '/',
+							'domain' => '.'.$domain
+						),
+						array(
+							'name'   => 'verifystatus',
+							'value'  => 'y',
+							'expire' => $expiredcook,
+							'path ' => '/',
+							'domain' => '.'.$domain
+						),
+						array(
+							'name'   => 'lastlog',
+							'value'  => $now,
+							'expire' => $expiredcook,
+							'path ' => '/',
+							'domain' => '.'.$domain
+						)
+					);
+					foreach($cookie_set as $cook_val){
+						set_cookie($cook_val);
+					}
+
+					// update member login
+					$updt = array(
+								'mLastLogin' => $now
+							);
+					$this->memberauth_model->update_login($nextID, $updt);
+
+					// if member has cart data, insert into database
+					if( $this->shopping_cart->hasCart() ){
+						
+						// get cart first
+						$datacart = $this->shopping_cart->dataCart();
+
+						// reset cart data with member ID
+						$this->shopping_cart->setCart($datacart, $nextID);
+
+						// unset cart session in guest
+						$itemcart = array(
+							'SPC_D',
+							'cart_timeout'
+						);
+						$this->session->unset_userdata($itemcart);
+					}
 										
 					if($onpage=='y'){
 						$status = 200;
 						$response = array(
-							'msg' => t('memberloginsuccessfully'),
+							'msg' => t('registersuccessfully'),
 							'url' => $url
 						);
 					} else {
@@ -249,11 +348,11 @@ class Register extends CI_Controller {
 					if($onpage=='y'){
 						$status = 503;
 						$response = array(
-							'msg' => t('memberloginsuccessfully'),
+							'msg' => t('registerfailed'),
 						);
 					} else {
 						$error = true;
-						$msg = t('memberloginsuccessfully');
+						$msg = t('registerfailed');
 					}
 				}
 
@@ -261,7 +360,7 @@ class Register extends CI_Controller {
 
 		} else {
 			$error = true;
-			$msg = t('memberloginwrongprocess');
+			$msg = t('cannotprocessdata');
 		}
 
 		if($error){

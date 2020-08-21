@@ -6,6 +6,8 @@ class Login extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 
+		if( $this->member->is_login() ){ redirect( base_url() ); }
+
 		// load model random string
 		$this->load->model('memberauth_model');
 	}
@@ -33,40 +35,42 @@ class Login extends CI_Controller {
 	}
 	
 	public function index(){
-        //title web
-        $webtitle = 'Login';
 
-        // set meta web page
-        $web_meta = web_head_properties(
-            
-            array(                
-                // FB Open Graph
-                'og' => array(
-                    'og:title' 		=> $webtitle .' - '. get_option('sitename'),
-                    'og:description' => get_option('sitedescription')
-                ),
+		//title web
+		$webtitle = 'Login';
 
-                // Twitter Cards
-                'twitter' => array(
-                    'twitter:title' 	=> $webtitle .' - '. get_option('sitename'),
-                    'twitter:description' => get_option('sitedescription'),
-                    'twitter:card' => 'summary'
-                ),
+		// set meta web page
+		$web_meta = web_head_properties(
+			
+			array(                
+				// FB Open Graph
+				'og' => array(
+					'og:title' 		=> $webtitle .' - '. get_option('sitename'),
+					'og:description' => get_option('sitedescription')
+				),
 
-                // Google+ / Schema.org
-                'g+' => array(
-                    'name' => $webtitle .' - '. get_option('sitename'),
-                    'headline' => $webtitle .' - '. get_option('sitename'),
-                    'description' => get_option('sitedescription')
-                ),
-            )
-        );
+				// Twitter Cards
+				'twitter' => array(
+					'twitter:title' 	=> $webtitle .' - '. get_option('sitename'),
+					'twitter:description' => get_option('sitedescription'),
+					'twitter:card' => 'summary'
+				),
 
-        $dataview = array( 
-                    'title' => $webtitle .' - '. get_option('sitename'),
-                    'web_meta' => $web_meta,
-                );
-        $this->load->view( 'login', $dataview);            
+				// Google+ / Schema.org
+				'g+' => array(
+					'name' => $webtitle .' - '. get_option('sitename'),
+					'headline' => $webtitle .' - '. get_option('sitename'),
+					'description' => get_option('sitedescription')
+				),
+			)
+		);
+
+		$dataview = array( 
+					'title' => $webtitle .' - '. get_option('sitename'),
+					'web_meta' => $web_meta,
+				);
+		$this->load->view( 'login', $dataview);
+
 	}
 
 	public function action($onpage = null){
@@ -111,7 +115,7 @@ class Login extends CI_Controller {
 
 				if ( password_verify($passwordunik, $userPass) ){
 
-					$logindata = $this->memberauth_model->get_auth_data($authlogin->mEmail, $authlogin->mPassword);
+					$logindata = $this->memberauth_model->get_auth_data($authlogin->mId, $authlogin->mPassword);
 					
 					// check verify status
 					$verifystatus = 'y';
@@ -127,59 +131,61 @@ class Login extends CI_Controller {
 					$expiredcook = 86400; // 1 day
 
 					$timestamp = time2timestamp();
+
+					// get current domain
+					$domain = getDomain( current_url() );
 					
 					// set cookie here
 					$cookie_set = array(
 						array(
 							'name'   => 'member',
-							'value'  => $logindata->mId,
+							'value'  => $logindata['mId'],
 							'expire' => $expiredcook,
 							'path ' => '/',
+							'domain' => '.'.$domain
 						),
 						array(
 							'name'   => 'lang',
 							'value'  => $defaultlang,
 							'expire' => $expiredcook,
 							'path ' => '/',
+							'domain' => '.'.$domain
 						),
 						array(
 							'name'   => 'memberemail',
 							'value'  => $logindata['mEmail'],
 							'expire' => $expiredcook,
 							'path ' => '/',
+							'domain' => '.'.$domain
 						),
 						array(
 							'name'   => 'currency',
 							'value'  => $defaultcurrency,
 							'expire' => $expiredcook,
 							'path ' => '/',
+							'domain' => '.'.$domain
 						),
 						array(
 							'name'   => 'checkpoint',
 							'value'  => loginCP(),
 							'expire' => $expiredcook,
 							'path ' => '/',
+							'domain' => '.'.$domain
 						),
 						array(
 							'name'   => 'verifystatus',
 							'value'  => $verifystatus,
 							'expire' => $expiredcook,
 							'path ' => '/',
+							'domain' => '.'.$domain
 						),
 						array(
 							'name'   => 'lastlog',
 							'value'  => $timestamp,
 							'expire' => $expiredcook,
 							'path ' => '/',
+							'domain' => '.'.$domain
 						),
-
-						// for warungkita cookies
-						array(
-							'name'   => 'prod_city',
-							'value'  => (empty($logindata['cityId'])) ? get_option('defaultcity'):$logindata['cityId'],
-							'expire' => $expiredcook,
-							'path ' => '/',
-						)
 					);
 					foreach($cookie_set as $cook_val){
 						set_cookie($cook_val);
@@ -189,7 +195,30 @@ class Login extends CI_Controller {
 					$updt = array(
 								'mLastLogin' => time2timestamp()
 							);
-					$this->memberauth_model->update_login($logindata->mId, $updt);
+					$this->memberauth_model->update_login($logindata['mId'], $updt);
+
+					// if member has cart data, insert into database
+					if( $this->shopping_cart->hasCart() ){
+
+						// remove old cart first
+						if( countdata("cart","mId='{$logindata['mId']}' AND cartVisitorType='member' AND cartData!='' AND cartStatus='onprogress'")>0 ){
+							// remove old data cart
+							$this->Env_model->delete("cart","mId='{$logindata['mId']}' AND cartVisitorType='member' AND cartData!='' AND cartStatus='onprogress'");
+						}
+						
+						// get cart first
+						$datacart = $this->shopping_cart->dataCart();
+
+						// reset cart data with member ID
+						$this->shopping_cart->setCart($datacart, $logindata['mId']);
+
+						// unset cart session in guest
+						$itemcart = array(
+							'SPC_D',
+							'cart_timeout'
+						);
+						$this->session->unset_userdata($itemcart);
+					}
 
 					// redirectlogin
 					$url = !empty( $this->input->post('redirect') ) ? $this->input->post('redirect') : base_url();

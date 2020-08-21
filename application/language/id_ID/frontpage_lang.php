@@ -583,6 +583,8 @@ $lang['customer2'] = "Pemesan";
 $lang['usernameinfo'] = "Pastikan nama pengguna/username sudah benar sebelum ditambahkan, nama pengguna tidak dapat diperbarui";
 $lang['registration'] = "Registrasi";
 $lang['register'] = "Daftar";
+$lang['registersuccessfully'] = "Registrasi Anda berhasil, silahkan periksa kotak masuk pada email Anda untuk verifikasi registrasi Anda";
+$lang['registerfailed'] = "Registrasi Anda gagal, ulangi kembali";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';
@@ -998,3 +1000,7 @@ $lang['qtycannotbeempty'] = "Maaf, qty tidak boleh kosong";
 $lang['shoopingcartremovedsuccessfull'] = "Keranjang belanja Anda berhasil dikosongkan";
 $lang['somethingwronghappened'] = "Oops, sesuatu telah terjadi, silahkan ulangi atau hubungi admin";
 $lang['qtysuccessfullyupdated'] = "Kuantitas berhasil diperbarui";
+$lang['memberwrongprocess'] = "Maaf metode yang Anda lakukan tidak dibenarkan, silahkan ulangi";
+$lang['paymentmethodempty'] = "Silahkan pilih metode pembayaran terlebih dahulu";
+$lang['orderqtyinsufficient'] = "Order belum dapat diproses dikarenakan stok produk %s belum mencukupi dari jumlah yang Anda pesan";
+$lang['completedorder'] = "Order berhasil diproses";

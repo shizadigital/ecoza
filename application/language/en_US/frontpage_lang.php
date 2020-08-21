@@ -583,6 +583,8 @@ $lang['customer2'] = "Customer";
 $lang['usernameinfo'] = "Make sure the username is correct before your adding. After the data is added, the data is not allowed to be updated";
 $lang['registration'] = "Registration";
 $lang['register'] = "Register";
+$lang['registersuccessfully'] = "Your registration was successfully, please check you inbox on your email address for verify your registration";
+$lang['registerfailed'] = "Regiter failed, please try again";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';
@@ -998,3 +1000,7 @@ $lang['qtycannotbeempty'] = "Sorry, qty cannot be empty";
 $lang['shoopingcartremovedsuccessfull'] = "Your shopping cart has been removed";
 $lang['somethingwronghappened'] = "Oops, something wrong happened, please contact administrator";
 $lang['qtysuccessfullyupdated'] = "Quantity successfully updated";
+$lang['memberwrongprocess'] = "Sorry your method is not justified, please try again";
+$lang['paymentmethodempty'] = "Please choose the payment method first";
+$lang['orderqtyinsufficient'] = "Orders cannot be processed because %s stock is not sufficient for the quantity you ordered";
+$lang['completedorder'] = "Order processed successfully";

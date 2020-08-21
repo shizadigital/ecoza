@@ -46,11 +46,11 @@ class Shopping_cart {
 				$memberid = esc_sql( filter_int( get_cookie('member', true)) );
 
 				// check data of member cart first
-				$councart = countdata("cart","memId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartData!='' AND cartStatus='onprogress'");
+				$councart = countdata("cart","mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartData!='' AND cartStatus='onprogress'");
 
 				if($councart > 0){
 
-					$SPC_D = getval("cartData","cart","memId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartData!='' AND cartStatus='onprogress'");
+					$SPC_D = getval("cartData","cart","mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartData!='' AND cartStatus='onprogress'");
 
 				}
 			} else {
@@ -81,9 +81,10 @@ class Shopping_cart {
 	 * Add shopping cart
 	 *
 	 * @param array $data
+	 * @param null|int $memID
 	 * @return bool
 	 */
-	public function setCart( $data = array() ){
+	public function setCart( $data = array(), $memID = null ){
 		$ci = $this->CI;
 
 		if( is_array($data) AND get_cookie('sz_token') === sz_token() ){
@@ -97,16 +98,20 @@ class Shopping_cart {
 			// encryption cart data
 			$shoppingcart = encoder($serialize."###".base_url());
 
-			if( $ci->member->is_login() ){
+			if( $ci->member->is_login() OR $memID != null ){
 				// add data cart for member
 
 				session_regenerate_id();
 				$newsessionID = session_id();
 
-				$memberid = esc_sql( filter_int( get_cookie('member', true)) );
+				if($memID!=null){
+					$memberid = esc_sql( filter_int( $memID ) );
+				} else {
+					$memberid = esc_sql( filter_int( get_cookie('member', true)) );
+				}
 
 				// check member cart first
-				$councart = countdata("cart","memId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartStatus='onprogress'");
+				$councart = countdata("cart","mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartStatus='onprogress'");
 
 				if( $councart > 0){
 					// if data cart is available
@@ -116,14 +121,14 @@ class Shopping_cart {
 						'cartModified' 	=> $now,
 						'cartIp'  		=> getIP()
 					);
-					$ci->Env_model->update( "cart", $cartdata, "mId='{$_COOKIE['cook_m_id']}' AND cartVisitorType='member' AND cartStatus='onprogress'" );
+					$ci->Env_model->update( "cart", $cartdata, "mId='{$memberid}' AND cartVisitorType='member' AND cartStatus='onprogress'" );
 
 				} else {
 					// if data cart is not available
 					$nextID = getNextId('cartId','cart');
 					$cartdata = array(
 								'cartId' 		=> $nextID,
-								'memId' 		=> $memberid,
+								'mId' 		=> $memberid,
 								'storeId'		=> $storeId,
 								'cartSessionId' => $newsessionID,
 								'cartData' 		=> $shoppingcart,
@@ -179,14 +184,14 @@ class Shopping_cart {
 			$memberid = esc_sql( filter_int( get_cookie('member', true)) );
 
 			// check data of member cart first
-			$councart = countdata("cart","memId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'");
+			$councart = countdata("cart","mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'");
 			if($councart > 0){
-				$del = $ci->Env_model->delete( "cart", "memId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'" );
+				$del = $ci->Env_model->delete( "cart", "mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'" );
 			} else {
 				// get on progress section
-				$sessionID = getval("cartSessionId","cart","memId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartStatus='onprogress'");
+				$sessionID = getval("cartSessionId","cart","mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartStatus='onprogress'");
 
-				$del = $ci->Env_model->delete( "cart", "memId='{$memberid}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'" );
+				$del = $ci->Env_model->delete( "cart", "mId='{$memberid}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'" );
 			}
 
 			if($del){ $result = true; }
@@ -207,6 +212,11 @@ class Shopping_cart {
 		return $result;
 	}
 
+	/**
+	 * Get total cart
+	 *
+	 * @return int
+	 */
 	public function totalCart(){
 		$total = 0;
 

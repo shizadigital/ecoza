@@ -15,16 +15,16 @@ class Memberauth_model extends CI_model{
         return $query->row();
     }
 
-    public function get_auth_data($username,$password){
+    public function get_auth_data($id,$password){
     	$this->db->select('*');
         $this->db->from( $this->db->dbprefix('member') . ' a' );
 
-        $this->db->where('a.mEmail', $username);
+        $this->db->where('a.mId', $id);
         $this->db->where('a.mPassword', $password);
         $this->db->where('a.mStatus', '1');
         $this->db->where('a.mDeleted', '0');
         $query = $this->db->get();
-        return $query->row();
+        return $query->row_array();
     }
 
     public function update_login($id, $data){

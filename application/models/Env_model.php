@@ -156,7 +156,159 @@ class Env_model extends CI_model{
         $this->db->order_by($order,$ordering);
         $query = $this->db->get( $theTable );
         return $query->result_array();
+	}
+	
+	/**
+	 * 
+	 * 
+	 *  VIEW WITH JOIN TABLE
+	 * 
+	 * 
+	 */
+
+	// view data with "where" syntax
+    public function view_join_where($fieldToDisplay='*', $table, $join, $joincond, $jointype = '', $fieldReference){
+
+        if( is_array($table) ){
+            $dttable = array();
+            foreach ($table as $key => $value) {
+                $dttable[] = $this->db->dbprefix( $value );
+            }
+            $theTable = implode(',', $dttable);
+        } else {
+            $theTable = $this->db->dbprefix($table);
+		}
+
+        $this->db->select( $fieldToDisplay );
+        $this->db->from( $theTable );
+		$this->db->join($this->db->dbprefix($join), $joincond, $jointype);
+        $this->db->where($fieldReference);
+		return $this->db->get()->result_array();
     }
+
+    // view data with "where and limit" syntax
+    public function view_join_where_limit($fieldToDisplay='*', $table, $join, $joincond, $jointype = '', $fieldReference, $limit, $offset=null){
+
+        if( is_array($table) ){
+            $dttable = array();
+            foreach ($table as $key => $value) {
+                $dttable[] = $this->db->dbprefix( $value );
+            }
+            $theTable = implode(',', $dttable);
+        } else {
+            $theTable = $this->db->dbprefix($table);
+		}
+		
+
+        $this->db->select( $fieldToDisplay );
+        $this->db->from( $theTable );
+		$this->db->join($this->db->dbprefix($join), $joincond, $jointype);
+        $this->db->where($fieldReference);
+        if($offset != null){
+            $this->db->limit($limit, $offset);
+        } else {
+            $this->db->limit($limit);            
+        }
+
+        return $this->db->get()->result_array();
+    }
+
+    // view data with "order and limit" syntax
+    public function view_join_order_limit($fieldToDisplay='*', $table, $join, $joincond, $jointype = '', $order, $ordering, $limit, $offset=null){
+
+        if( is_array($table) ){
+            $dttable = array();
+            foreach ($table as $key => $value) {
+                $dttable[] = $this->db->dbprefix( $value );
+            }
+            $theTable = implode(',', $dttable);
+        } else {
+            $theTable = $this->db->dbprefix($table);
+		}
+		
+        $this->db->select( $fieldToDisplay );
+        $this->db->from( $theTable );
+		$this->db->join($this->db->dbprefix($join), $joincond, $jointype);
+        $this->db->order_by($order,$ordering);
+
+        if($offset != null){
+            $this->db->limit($limit, $offset);
+        } else {
+            $this->db->limit($limit);            
+        }
+
+        return $this->db->get()->result_array();
+    }
+
+    // view data with "where, order and limit" syntax
+    public function view_join_where_order_limit($fieldToDisplay='*', $table, $join, $joincond, $jointype = '', $fieldReference, $order, $ordering, $limit, $offset=null){
+
+        if( is_array($table) ){
+            $dttable = array();
+            foreach ($table as $key => $value) {
+                $dttable[] = $this->db->dbprefix( $value );
+            }
+            $theTable = implode(',', $dttable);
+        } else {
+            $theTable = $this->db->dbprefix($table);
+		}
+		
+        $this->db->select( $fieldToDisplay );
+        $this->db->from( $theTable );
+		$this->db->join($this->db->dbprefix($join), $joincond, $jointype);
+        $this->db->where($fieldReference);
+        $this->db->order_by($order,$ordering);
+
+        if($offset != null){
+            $this->db->limit($limit, $offset);
+        } else {
+            $this->db->limit($limit);            
+        }
+
+        return $this->db->get()->result_array();
+    }
+    
+    // view data with "order" syntax
+    public function view_join_order($fieldToDisplay='*', $table, $join, $joincond, $jointype = '', $order, $ordering){
+
+        if( is_array($table) ){
+            $dttable = array();
+            foreach ($table as $key => $value) {
+                $dttable[] = $this->db->dbprefix( $value );
+            }
+            $theTable = implode(',', $dttable);
+        } else {
+            $theTable = $this->db->dbprefix($table);
+        }
+
+        $this->db->select( $fieldToDisplay );
+        $this->db->from( $theTable );
+		$this->db->join($this->db->dbprefix($join), $joincond, $jointype);
+        $this->db->order_by($order,$ordering);
+        return $this->db->get()->result_array();
+    }
+
+    // view data with "where and order" syntax
+    public function view_join_where_order($fieldToDisplay='*', $table, $join, $joincond, $jointype = '', $fieldReference, $order, $ordering){
+
+        if( is_array($table) ){
+            $dttable = array();
+            foreach ($table as $key => $value) {
+                $dttable[] = $this->db->dbprefix( $value );
+            }
+            $theTable = implode(',', $dttable);
+        } else {
+            $theTable = $this->db->dbprefix($table);
+        }
+
+        $this->db->select( $fieldToDisplay );
+        $this->db->from( $theTable );
+		$this->db->join($this->db->dbprefix($join), $joincond, $jointype);
+        $this->db->where($fieldReference);
+        $this->db->order_by($order,$ordering);
+        $query = $this->db->get();
+        return $query->result_array();
+	}
 
     // baca ID berikutnya yang akan dibuat, patokan adalah ID pada data terakhir +1
     public function getNextId($idfield,$tablename){

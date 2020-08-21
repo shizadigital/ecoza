@@ -1255,7 +1255,9 @@ function sendMailPHPMailer($options){
 		$mailopt = $mailopt;
     }
     
-    $result = false;
+	$result = false;
+	
+	$attachment = array();
 	
 	if ($mailopt == "standard"){
 
@@ -1327,7 +1329,7 @@ function sendMailPHPMailer($options){
 		if ($replyto) $header .= "#".$replyto;
 		if ($cc) $header .= "#".$cc;
 		if ($bcc) $header .= "#".$bcc;
-        
+
 		$result = sendMailToQueue($to, $subject, $message, $cc, $bcc, $messagetype, $header, $attachment);
     }
     
@@ -1419,4 +1421,19 @@ function validatePhoneNumber($phone){
 	}
 
 	return $result;
+}
+
+function getDomain($url, $sub_domain=false){
+    $pieces = parse_url($url);
+
+    $host = isset($pieces['host']) ? $pieces['host'] : '';
+
+    if($sub_domain){
+        if (preg_match('/(?P<domain>[a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})$/i', $host, $regs)) {
+            $result = $regs['domain'];
+        }
+    } else {
+        $result = $host;
+    }
+    return $result;
 }

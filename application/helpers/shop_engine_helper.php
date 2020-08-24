@@ -385,6 +385,30 @@ function countTax($value, $taxid){
 	return $result;
 }
 
+/**
+ * get tax rate and tax type values
+ *
+ * @param int $taxid
+ * 
+ * @return array
+ */
+function getTaxValue($taxid = null){
+	$result = array();
+	if(taxStatus() AND !empty($taxid)){
+
+		$taxdata = getval('taxRate,taxType,taxActive', 'tax', array('taxId'=>$taxid));
+
+		if($taxdata['taxActive']=='y'){
+
+			$result['type'] = $taxdata['taxType'];
+			$result['rate'] = $taxdata['taxRate'];
+			
+		}
+		
+	}
+	return $result;
+}
+
 function getAttrUsed($productid){
 	$ci =& get_instance();
 

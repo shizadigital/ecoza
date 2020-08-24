@@ -160,7 +160,7 @@ class Checkout extends CI_Controller {
 					$memberid = esc_sql( filter_int( get_cookie('member', true) ) );
 					$ordermessage   = filter_txt( $this->input->post('ordermessage', true) );
 					$geocontryId = esc_sql( filter_int( $this->input->post('geocountry', true) ) );
-					$geozoneId = esc_sql( filter_int( $this->input->post('geocountry', true) ) );
+					$geozoneId = esc_sql( filter_int( $this->input->post('geozone', true) ) );
 					$paymentmethod = esc_sql( filter_txt( $this->input->post('paymentmethod',true) ) );
 					$language = (empty( get_cookie('lang')))? $this->config->item('language'): esc_sql( filter_txt( get_cookie('lang', true) ) );
 					$currency = esc_sql( filter_txt($datacart['currency']) );
@@ -276,11 +276,11 @@ class Checkout extends CI_Controller {
 							$prodId = esc_sql( filter_int( $value['productId'] ) );
 							$attrId = (empty($value['attributeId']))?0:esc_sql( filter_int( $value['attributeId'] ) );
 							$qty 	= $value['qty'];
-							$priceperunit = $value['price'];
+							$priceperunit = ($value['specialPrice']=='0,00')?$value['price']:$value['specialPrice'];
 							
 							// get product data
 							$product = getval(
-								'ssegId,taxId,manufactId,prodSku,prodName,prodUpc,prodIsbn,prodMpn,prodQty,prodBasicPrice,prodPrice,prodWeight,prodWeightUnit,prodLength,prodWidth,prodHeight,prodLengthUnit,prodBuyCount',
+								'prodId,ssegId,taxId,manufactId,prodSku,prodName,prodUpc,prodIsbn,prodMpn,prodQty,prodBasicPrice,prodPrice,prodSpecialPrice,prodWeight,prodWeightUnit,prodLength,prodWidth,prodHeight,prodLengthUnit,prodBuyCount',
 								'product',
 								array('prodId'=>$prodId)
 							);
@@ -301,16 +301,32 @@ class Checkout extends CI_Controller {
 							// convert attr to serialize data 
 							$attrserialize = serialize( $value['attribute'] );
 
+							// define the price
+							$productprice = $product['prodPrice'];
+							$productWeight = $product['prodWeight'];
+							$productWeightUnit = $product['prodWeightUnit'];
+							if( $attrId>0 ){
+								$getattrdata = getval(
+									"pattrPrice,pattrQty,pattrWeight,pattrWeightUnit",
+									"product_attribute",
+									array('pattrId'=>$attrId)
+								);
+
+								$productprice = $getattrdata['pattrPrice'];
+								$productWeight = $getattrdata['pattrWeight'];
+								$productWeightUnit = $getattrdata['pattrWeightUnit'];
+							}
+
 							// price process
 							$totalprice = $priceperunit * $qty;
-
-							// check the product has include tax
-							if($product['taxId'] > 0){
-								$taxvalue = countTax($totalprice, $product['taxId']);
-								$totalprice = $totalprice + $taxvalue;
-							}
 							
 							$totalprice_ += $totalprice;
+
+							// check the product has include tax
+							$taxvalue = '0.00';
+							if($product['taxId'] > 0){
+								$taxvalue = countTax($totalprice, $product['taxId']);
+							}
 
 							// get profit
 							$profitprice = $totalprice - ($product['prodBasicPrice'] * $qty);
@@ -331,16 +347,18 @@ class Checkout extends CI_Controller {
 								'odetProdUpc' => (string) $product['prodUpc'],
 								'odetProdIsbn' => (string) $product['prodIsbn'],
 								'odetProdMpn' => (string) $product['prodMpn'],
-								'odetProdWeight' => $product['prodWeight'],
-								'odetProdWeightUnit' => $product['prodWeightUnit'],
+								'odetProdWeight' => $productWeight,
+								'odetProdWeightUnit' => $productWeightUnit,
 								'odetProdLength' => $product['prodLength'],
 								'odetProdWidth' => $product['prodWidth'],
 								'odetProdHeight' => $product['prodHeight'],
 								'odetprodLengthUnit' => $product['prodLengthUnit'],
 								'odetProdBasicPrice' => $product['prodBasicPrice'],
-								'odetProdPrice' => $product['prodPrice'],
-								'odetProdTaxId' => $product['taxId'],
+								'odetProdPrice' => $productprice,
+								'odetProdSpecialPrice' => $product['prodSpecialPrice'],
 								'odetProdAttributes' => (string) $attrserialize,
+								'odetProdTaxId' => $product['taxId'],
+								'odetTaxAmount' => $taxvalue,
 								'odetUnitQty' => (string) '',
 								'odetQty' => $qty,
 								'odetPricePerunit' => $priceperunit,
@@ -379,7 +397,7 @@ class Checkout extends CI_Controller {
 						$taxAmount = 0.00;
 						$taxType = 'percentage';
 						$taxRate = 0.00;
-						if( taxStatus() ){
+						if( taxStatus() AND $datacart['allusedefaulttax']){
 							// get taxt data
 							$generaltax = getGeneralTaxValue(); 
 
@@ -468,8 +486,173 @@ class Checkout extends CI_Controller {
 						#                                                 #
 						###################################################
 						
+						// get member data
+						$mem = getval('mName,mEmail,mHP,mDefaultLang,mDefaultCurrency','member',array('mId'=>$memberid));
 
+						$to        = $mem['mEmail'];
+						$subject   = 'Konfirmasi Pesanan Anda ['.get_option('sitename').']';
 
+						$message = '
+						<style type="text/css">
+						.inv table, tr, td {
+							border-collapse : collapse; 
+							font-size : 12px; 
+							font-family : verdana; 
+							border-color: black
+						}
+		
+						html, body{
+							background-image: none !important;
+						}
+						</style>';
+						
+						$message .= t( array( 'table'=>'email_template', 'field'=>'tEmail', 'id'=>1) );
+
+						$emailvars['MEMBERNAME'] = $mem['mName'];
+						$emailvars['MEMBEREMAIL'] = $mem['mEmail'];
+						$emailvars['MEMBERPHONE'] = $mem['mHP'];
+						$emailvars['ORDERDATE'] = date('l, d F Y H:i', $timestamp);
+						$emailvars['MEMBERMSG'] = (empty($ordermessage))?' - ': $ordermessage;
+						$emailvars['MEMBERRECNAME'] = $recipientname;
+						$emailvars['MEMBERADDR'] = $recipientaddr;
+						$emailvars['MEMBERTOWN'] = $recipientcity;
+						$emailvars['INVOICE'] = $invoice;
+						$emailvars['GRANDTOTAL'] = the_price($grandtotalorder, 2, $datacart['currency']);
+
+						$paymentdata = '';
+						foreach ( $this->paymentgateway->paymentList('on') as $key => $paymendata ) {
+							
+							if($key == 'banktransfer'){
+								$paymentdata .= "<strong>".$this->paymentgateway->getPaymentName($key)."</strong>";
+								$valbank = $this->paymentgateway->getPaymentSetting($key, 'listbank');
+
+								$paymentdata .= "<ul>";
+								$listbank = unserialize($valbank);
+								foreach ($listbank as $keylb => $valuelb) {
+									$paymentdata .= "<li>";
+									$paymentdata .= $valuelb['bankname'] . ' (' . $valuelb['desc'] . ') - '.$valuelb['accountnumber'].' ' . 'A/N ' . $valuelb['accountname'];
+									$paymentdata .= "</li>";
+								}
+								$paymentdata .= "</ul>";
+
+								$paymentdata .= "<br/>";
+							}
+							elseif($key == 'paypal'){
+								$paymentdata .= "<strong>".$this->paymentgateway->getPaymentName($key)."</strong>";
+								$paymentdata .= "<ul>";
+								$paymentdata .= "<li>".$this->paymentgateway->getPaymentSetting($key, 'email')." A/N ".$this->paymentgateway->getPaymentSetting($key, 'accountname')."</li>";
+								$paymentdata .= "</ul>";
+							}
+						}
+						$emailvars['PAYMENT'] = $paymentdata;
+						$emailvars['ORDEREXP'] = date('l, d F Y H:i', $oexpired);
+
+						$orderdetail = '<ol>';
+						foreach($datacart['cart'] as $odet ){
+							$orderdetail .= '<li>';
+							$orderdetail .= $odet['name'].' - Jumlah: ' . $odet['qty']. '<br/>';
+							
+							if(count( $odet['attribute']) > 0){
+								foreach($odet['attribute'] as $key => $attrname	){
+									$orderdetail .= $key . ': '.$attrname. '<br/>';
+								}
+							}
+							if($odet['specialPrice'] == '0.00' ){
+								$orderdetail .= the_price($odet['price'], 2, $datacart['currency']);
+							} else {
+								$orderdetail .= '<s>'.the_price($odet['price'], 2, $datacart['currency']) . '</s> - ' . the_price($odet['specialPrice'], 2, $datacart['currency']);
+							}
+
+							if( $odet['taxRate'] > 0 AND $datacart['allusedefaulttax']==false && $datacart['taxstatus']=='y' ){
+								$prodTaxAmout = 0.00;
+								if($odet['taxRate'] > 0){
+									if($odet['taxType'] == 'percentage'){
+										$prodTaxAmout = ($odet['taxRate'] / 100) * $odet['price'];
+									} 
+									elseif($odet['taxType'] == 'fixed') {
+										$prodTaxAmout = $odet['taxRate'];
+									}
+								}
+								
+								$orderdetail .= '<br/>+Pajak: '.the_price($prodTaxAmout, 2, $datacart['currency']);
+							}
+
+							$orderdetail .= '';
+
+							$orderdetail .= '</li>';
+						}
+						$orderdetail .= '</ol>';
+						$emailvars['ORDERDETAIL'] = $orderdetail;
+						$emailvars['SHIPMETHOD'] = '-'; // warungkita
+						$emailvars['SHIPPRICE'] = 'COD'; // warungkita
+						$emailvars['SUBTOTAL'] = the_price($totalprice_, 2, $datacart['currency']);
+
+						$thetax = '';
+						$thetaxammount = ' - ';
+						if( taxStatus() AND $datacart['allusedefaulttax']){
+							$txr_exp = explode('.',$taxRate);
+							if($txr_exp[1] == '00'){ $taxRate = $txr_exp[0]; }
+							if($taxType == 'percentage'){
+								$thetax = ' ('.$taxRate.'%)';
+							}
+							elseif($taxType == 'fixed'){
+								$thetax = ' (+'.the_price($taxRate, 2, $datacart['currency']).')';
+							}
+
+							$thetaxammount = the_price($taxAmount, 2, $datacart['currency']);
+						}
+						$emailvars['TAX'] = $thetax;
+						$emailvars['TAXAMOUNT'] = $thetaxammount;
+
+						$message = variable_parser($message, $emailvars);
+
+						#send mail to member
+						$option = array();
+						$option['from'] = get_option('smtp_username');
+						$option['fromname'] = get_option('sitename');
+						$option['replyto'] = get_option('siteemail');
+						$option['cc'] = '';
+						$option['bcc'] = '';
+						$option['to'] = $to;
+						$option['toname'] = $mem['mName'];
+						$option['subject'] = $subject;
+						$option['message'] = $message;
+						$option['messagetype'] = 'html';
+						sendMailPHPMailer($option);
+
+						###################################################
+						#                                                 #
+						#       EMAIL ORDER DATA TO MEMBER END HERE       #
+						#                                                 #
+						###################################################
+						
+						// Insert visitor data cart record
+						$serialize = serialize($datacart);
+						// encryption the data
+						$shoppingcart = encoder($serialize."###".base_url());
+						if( $this->member->is_login() ){
+							$cartdata = array(
+										'cartSessionId'     => session_id(),
+										'cartData'          => $shoppingcart,
+										'cartModified'    	=> $timestamp,
+										'cartIp'            => getIP(),
+										'cartStatus'        => 'completed',
+										'orderId'           => $nextID
+									);
+				
+							$result = $this->Env_model->update( "cart", $cartdata, "mId='{$memberid}' AND cartVisitorType='member'" );
+						}
+						
+						// update number start Invoice
+						if(check_option('invoiceordernumberstart')){
+							$invoicenumberstart = ((int) get_option('invoiceordernumberstart')) + 1;
+							set_option('invoiceordernumberstart', $invoicenumberstart);
+						}else{
+							add_option('invoiceordernumberstart', '1');
+						}
+
+						// unset data cart
+						$this->shopping_cart->unsetCart();
 
 						// completed
 						$url = base_url('checkout/checkoutsucceed');

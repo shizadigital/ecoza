@@ -8,7 +8,7 @@ class Shoppingcart extends CI_Controller {
 
 		if (
 			!isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND 
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest' AND 
+			strtolower(isset($_SERVER['HTTP_X_REQUESTED_WITH'])) !== 'xmlhttprequest' AND 
 			'POST' != $_SERVER['REQUEST_METHOD'] AND 
 			get_cookie('sz_token') == sz_token()
 		) {
@@ -117,10 +117,41 @@ class Shoppingcart extends CI_Controller {
 					}
 					
 					// get the product price
-					$price = priceConvertCurrency( $product['prodPrice'], $currency);
+					$price = $product['prodPrice'];
 					if( $prodattrId !=null ){
-						if($productattr['pattrPrice']!='0.00') $price = priceConvertCurrency( $productattr['pattrPrice'], $currency);
+						if($productattr['pattrPrice']!='0.00') $price = $productattr['pattrPrice'];
 					}
+					$price = priceConvertCurrency( $price, $currency);
+
+					//check if the product price have a discount
+					$specialprice = '0.00';
+					if($product['prodSpecialPrice']!='0.00'){
+						$specialprice = priceConvertCurrency( $product['prodSpecialPrice'], $currency);
+					}
+
+					// declare final price
+					$finalprice = $product['prodPrice'];
+					if( $prodattrId !=null ){
+						if($productattr['pattrPrice']!='0.00') $finalprice = $productattr['pattrPrice'];
+					}
+
+					if($product['prodSpecialPrice']!='0.00'){
+						$finalprice = $product['prodSpecialPrice'];
+					}
+
+					// declare final price with product tax
+					if($product['taxId'] > 0){
+
+						$taxresult = countTax($finalprice, $product['taxId']);
+						$finalprice = $finalprice + $taxresult;
+
+					}
+					$finalprice = priceConvertCurrency( $finalprice, $currency);
+
+					// get tax data
+					$gettaxval['rate'] = 0.0000;
+					$gettaxval['type'] = '';
+					if(count(getTaxValue($product['taxId'])) > 0) $gettaxval = getTaxValue($product['taxId']);
 					
 					// check if the product have the attribute
 					$attribute = array();
@@ -149,13 +180,7 @@ class Shoppingcart extends CI_Controller {
 							$weightunit = $productattr['pattrWeightUnit'];
 
 						}
-					}
-
-					$specialprice = '0.00';
-					//check if the product price have a discount
-					if($product['prodSpecialPrice']!='0.00'){
-						$specialprice = priceConvertCurrency( $product['prodSpecialPrice'], $currency);
-					}					
+					}								
 
 					$updatecart=false;
 					$temp_qty = $qty;
@@ -223,12 +248,16 @@ class Shoppingcart extends CI_Controller {
 								// define the cart
 								$datacart['cart'][$i]['cartId'] = $cartid;
 								$datacart['cart'][$i]['productId'] = $id;
+								$datacart['cart'][$i]['taxId'] = $product['taxId'];
+								$datacart['cart'][$i]['taxRate'] = $gettaxval['rate'];
+								$datacart['cart'][$i]['taxType'] = $gettaxval['type'];
 								$datacart['cart'][$i]['qty'] = $temp_qty;
 								$datacart['cart'][$i]['name'] = $productname;
 								$datacart['cart'][$i]['defaultImageDir'] = $defimgdir;
 								$datacart['cart'][$i]['defaultImageFile'] = $defimgfile;
 								$datacart['cart'][$i]['price'] = $price;
 								$datacart['cart'][$i]['specialPrice'] = $specialprice;
+								$datacart['cart'][$i]['finalPrice'] = $finalprice;
 								$datacart['cart'][$i]['weight'] = $weight;
 								$datacart['cart'][$i]['weightUnit'] = $weightunit;
 								$datacart['cart'][$i]['length'] = $product['prodLength'];
@@ -248,11 +277,15 @@ class Shoppingcart extends CI_Controller {
 
 					// recalculate for total cart
 					$totalcart = isset($datacart['totalcart'])?$datacart['totalcart']:'';
+					$finaltotalcart = isset($datacart['finaltotalcart'])?$datacart['finaltotalcart']:'';
 					$totalsavingcart = isset($datacart['totalsavingcart'])?$datacart['totalsavingcart']:'';
+					$usedefaultax = array();
 					if(count($datacart['cart'])>0){
 						$totalprice = 0.00;
-						$totalsaving = 0.00;					
+						$totalsaving = 0.00;
+						$totalfinal = 0.00;				
 						foreach($datacart['cart'] as $key => $cart){
+							$usedefaultax[] = ($datacart['cart'][$key]['taxId']==get_option('taxId'))?'y':'n';
 
 							// recalculating . . .
 							if( $datacart['cart'][$key]['specialPrice'] != '0.00'){
@@ -262,14 +295,27 @@ class Shoppingcart extends CI_Controller {
 								$totalprice += $datacart['cart'][$key]['price'] * $datacart['cart'][$key]['qty'];
 							}
 
+							$totalfinal += $datacart['cart'][$key]['finalPrice'] * $datacart['cart'][$key]['qty'];
+
 						}
+						
+						$difftotal = $totalfinal - $totalprice;
+						if($difftotal > 0){
+							$totalsaving = $totalsaving - $difftotal;
+						}
+
 						$totalcart = $totalprice;
 						$totalsavingcart = $totalsaving;
+						$finaltotalcart = $totalfinal;
 					}
 
 					$datacart['currency'] = $currency;
 					$datacart['totalcart'] = $totalcart;
+					$datacart['finaltotalcart'] = $finaltotalcart;
 					$datacart['totalsavingcart'] = $totalsavingcart;
+					$datacart['defaulttax'] = ( get_option('taxstatus') == 'y' )? get_option('taxId'):0;
+					$datacart['taxstatus'] = get_option('taxstatus');
+					$datacart['allusedefaulttax'] = (in_array('n',$usedefaultax))?false:true;
 					
 					$this->shopping_cart->setCart($datacart);
 
@@ -416,10 +462,12 @@ class Shoppingcart extends CI_Controller {
 					if( $updateqty ){
 						// recalculate for total cart
 						$totalcart = $datacart['totalcart'];
+						$finaltotalcart = $datacart['finaltotalcart'];
 						$totalsavingcart = $datacart['totalsavingcart'];
 						if(count($datacart['cart'])>0){
 							$totalprice = 0.00;
-							$totalsaving = 0.00;					
+							$totalsaving = 0.00;
+							$totalfinal = 0.00;			
 							foreach($datacart['cart'] as $key => $cart){
 
 								// recalculating . . .
@@ -430,12 +478,16 @@ class Shoppingcart extends CI_Controller {
 									$totalprice += $datacart['cart'][$key]['price'] * $datacart['cart'][$key]['qty'];
 								}
 
+								$totalfinal += $datacart['cart'][$key]['finalPrice'] * $datacart['cart'][$key]['qty'];
+
 							}
 							$totalcart = $totalprice;
 							$totalsavingcart = $totalsaving;
+							$finaltotalcart = $totalfinal;
 						}
 
 						$datacart['totalcart'] = $totalcart;
+						$datacart['finaltotalcart'] = $finaltotalcart;
 						$datacart['totalsavingcart'] = $totalsavingcart;
 					}
 
@@ -518,10 +570,12 @@ class Shoppingcart extends CI_Controller {
 
 						// recalculate for total cart
 						$totalcart = $datacart['totalcart'];
+						$finaltotalcart = $datacart['finaltotalcart'];
 						$totalsavingcart = $datacart['totalsavingcart'];
 						if(count($datacart['cart'])>0){
 							$totalprice = 0.00;
-							$totalsaving = 0.00;					
+							$totalsaving = 0.00;
+							$totalfinal = 0.00;
 							foreach($datacart['cart'] as $key => $cart){
 
 								// recalculating . . .
@@ -532,12 +586,16 @@ class Shoppingcart extends CI_Controller {
 									$totalprice += $datacart['cart'][$key]['price'] * $datacart['cart'][$key]['qty'];
 								}
 
+								$totalfinal += $datacart['cart'][$key]['finalPrice'] * $datacart['cart'][$key]['qty'];
+
 							}
 							$totalcart = $totalprice;
 							$totalsavingcart = $totalsaving;
+							$finaltotalcart = $totalfinal;
 						}
 
 						$datacart['totalcart'] = $totalcart;
+						$datacart['finaltotalcart'] = $finaltotalcart;
 						$datacart['totalsavingcart'] = $totalsavingcart;
 
 						$this->shopping_cart->setCart($datacart);

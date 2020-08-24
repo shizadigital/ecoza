@@ -48,8 +48,10 @@ class Table_order_detail {
         $schema->string('odetprodLengthUnit', ['length' => '5']);
         $schema->decimal('odetProdBasicPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->decimal('odetProdPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
-        $schema->integer('odetProdTaxId', ['length' => '11', 'unsigned'=>TRUE]);
+        $schema->decimal('odetProdSpecialPrice', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->text('odetProdAttributes');
+        $schema->integer('odetProdTaxId', ['length' => '11', 'unsigned'=>TRUE]);
+        $schema->decimal('odetTaxAmount', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->string('odetUnitQty', ['length' => '150']);
         $schema->decimal('odetQty', ['length' => '15,8', 'unsigned'=>TRUE]);
         $schema->decimal('odetPricePerunit', ['length' => '15,2', 'unsigned'=>TRUE]);

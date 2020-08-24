@@ -184,14 +184,14 @@ class Shopping_cart {
 			$memberid = esc_sql( filter_int( get_cookie('member', true)) );
 
 			// check data of member cart first
-			$councart = countdata("cart","mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'");
+			$councart = countdata("cart","mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}' AND cartStatus='onprogress'");
 			if($councart > 0){
-				$del = $ci->Env_model->delete( "cart", "mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'" );
+				$del = $ci->Env_model->delete( "cart", "mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}' AND cartStatus='onprogress'" );
 			} else {
 				// get on progress section
-				$sessionID = getval("cartSessionId","cart","mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartStatus='onprogress'");
+				$cartid = getval("cartId","cart","mId='{$memberid}' AND storeId='{$storeId}' AND cartVisitorType='member' AND cartStatus='onprogress'");
 
-				$del = $ci->Env_model->delete( "cart", "mId='{$memberid}' AND cartVisitorType='member' AND cartSessionId='{$sessionID}'" );
+				$del = $ci->Env_model->delete( "cart", "cartId='{$cartid}'" );
 			}
 
 			if($del){ $result = true; }

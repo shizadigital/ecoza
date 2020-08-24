@@ -54,6 +54,8 @@ class Variables {
 						$key = '{'.strtoupper($key).'}';
 						$variables[$key] = $value;
 					}
+
+					$variables = array_merge($variables, $this->staticlist()); 
 		
 					$result = strtr($string, $variables);
 		

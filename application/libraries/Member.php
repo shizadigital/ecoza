@@ -69,13 +69,14 @@ class Member {
 	 *
 	 * @return array
 	 */
-	public function getPrimaryAddress(){
+	public function getPrimaryAddress($field = null){
 		$result = array();
 
 		if($this->hasAddress()){
 			$memberid = esc_sql( filter_int( get_cookie('member',true) ) );
 
-			$result = getval('*','member_addressbook',array('mId'=>$memberid,'maddrPriority'=>'primary'),'maddrId','ASC');
+			$data = getval('*','member_addressbook',array('mId'=>$memberid,'maddrPriority'=>'primary'));
+			$result = ( $field != null ) ? $data[$field ] : $data;
 		}
 
 		return $result;

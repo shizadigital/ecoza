@@ -8,7 +8,18 @@ class Member {
     public function __construct(){
 		$this->CI =& get_instance();
 		
-		if(get_cookie('sz_token') !== sz_token()) exit;
+		if(get_cookie('sz_token') !== sz_token()) base_url();
+	}
+
+	/**
+	 * get member ID with filter
+	 *
+	 * @return void
+	 */
+	public function memberId(){
+		if( $this->is_login() ){
+			return esc_sql( filter_int( get_cookie('member',true) ) );
+		}
 	}
 
 	/**
@@ -67,6 +78,7 @@ class Member {
 	/**
 	 * get primary address of member
 	 *
+	 * @param string $name
 	 * @return array
 	 */
 	public function getPrimaryAddress($field = null){
@@ -76,10 +88,25 @@ class Member {
 			$memberid = esc_sql( filter_int( get_cookie('member',true) ) );
 
 			$data = getval('*','member_addressbook',array('mId'=>$memberid,'maddrPriority'=>'primary'));
-			$result = ( $field != null ) ? $data[$field ] : $data;
+			$result = ( $field != null ) ? $data[$field] : $data;
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Get all data member
+	 *
+	 * @param string $field
+	 * @return array|string
+	 */
+	public function getMemberData($field = null){
+		if( $this->is_login() ){
+			$memberid = esc_sql( filter_int( get_cookie('member',true) ) );
+
+			$data = getval('*','member',array('mId'=>$memberid,'mDeleted'=>'0'));
+			return ( $field != null ) ? $data[$field] : $data;
+		}
 	}
 
 	

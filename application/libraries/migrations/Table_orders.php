@@ -50,6 +50,7 @@ class Table_orders {
         $schema->integer('orderTimestamp', ['length' => '11', 'unsigned' => TRUE]);
         $schema->text('orderMessage');
         $schema->decimal('orderDiscounts', ['length' => '15,2', 'unsigned'=>TRUE]);
+        $schema->integer('orderTaxDefaultId', ['length' => '11', 'unsigned'=>TRUE]);
         $schema->decimal('orderTax', ['length' => '15,2', 'unsigned'=>TRUE]);
         $schema->enum('orderTaxType', ['percentage', 'fixed']);
         $schema->decimal('orderTaxAmount', ['length' => '15,2', 'unsigned'=>TRUE]);

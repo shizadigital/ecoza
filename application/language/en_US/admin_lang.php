@@ -614,6 +614,10 @@ $lang['suppliers'] = "Suppliers";
 $lang['viewreports'] = "View Reports";
 $lang['viewreport'] = "View Report";
 $lang['inventoryreports'] = "Inventory Reports";
+$lang['todraft'] = "To Draft";
+$lang['infotodraft'] = "If this field checked, the post will not be published and the post will be included in the draft section";
+$lang['allowcomments'] = "Allow Comments";
+$lang['editor'] = "Editor";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

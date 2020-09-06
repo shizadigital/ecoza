@@ -32,6 +32,11 @@ class Table_member_wishlist {
 		$schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
 		$schema->integer('wlAdded', ['length' => '11', 'unsigned' => TRUE]);
 		$schema->run();
+
+        // ADD index
+        $schema->index('mId');
+        $schema->index('prodId');
+        $schema->index('storeId');
 	}
 
 	public function seeder(){

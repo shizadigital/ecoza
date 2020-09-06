@@ -29,6 +29,7 @@ class Table_member_wishlist {
 		$schema->increments('wlId',  ['type' => 'BIGINT', 'length' => '30']);
         $schema->integer('mId', ['length' => '11', 'unsigned' => TRUE]);
 		$schema->integer('prodId', ['length' => '11', 'unsigned' => TRUE]);
+		$schema->integer('storeId', ['length' => '11', 'unsigned' => TRUE]);
 		$schema->integer('wlAdded', ['length' => '11', 'unsigned' => TRUE]);
 		$schema->run();
 	}

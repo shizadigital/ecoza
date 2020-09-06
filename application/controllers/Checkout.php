@@ -63,7 +63,7 @@ class Checkout extends CI_Controller {
                     'title' => $webtitle .' - '. get_option('sitename'),
                     'web_meta' => $web_meta,
                 );
-        $this->load->view( 'checkout', $dataview);            
+        $this->load->view( 'checkout', $dataview);
 	}
 
 	public function saveorder( $onpage = null ){
@@ -244,6 +244,7 @@ class Checkout extends CI_Controller {
 						'orderTimestamp' => $timestamp,
 						'orderMessage' => (string) $ordermessage,
 						'orderDiscounts' => '0.00', // needs to be discussed
+						'orderTaxDefaultId' => ( get_option('taxstatus') == 'y' )? get_option('taxId'):0,
 						'orderTax' => '0.00',
 						'orderTaxType' => 'percentage',
 						'orderTaxAmount' => '0.00',
@@ -712,6 +713,47 @@ class Checkout extends CI_Controller {
 
 	public function checkoutsucceed(){
 
+		$idorder = esc_sql( filter_int($this->input->get('order', true)));
+		$orderstatus = (empty($idorder)) ? false:true;
+
+		$data = getval('*','orders',array('orderId'=>$idorder));
+
+		//title web
+        $webtitle = 'Checkout Succeed';
+
+        // set meta web page
+        $web_meta = web_head_properties(
+            
+            array(                
+                // FB Open Graph
+                'og' => array(
+                    'og:title' 		=> $webtitle .' - '. get_option('sitename'),
+                    'og:description' => get_option('sitedescription')
+                ),
+
+                // Twitter Cards
+                'twitter' => array(
+                    'twitter:title' 	=> $webtitle .' - '. get_option('sitename'),
+                    'twitter:description' => get_option('sitedescription'),
+                    'twitter:card' => 'summary'
+                ),
+
+                // Google+ / Schema.org
+                'g+' => array(
+                    'name' => $webtitle .' - '. get_option('sitename'),
+                    'headline' => $webtitle .' - '. get_option('sitename'),
+                    'description' => get_option('sitedescription')
+                ),
+            )
+        );
+
+        $dataview = array(
+                    'title' => $webtitle .' - '. get_option('sitename'),
+					'web_meta' => $web_meta,
+					'orderdata' => $data,
+					'orderstatus' => $orderstatus
+                );
+        $this->load->view( 'checkout-succeed', $dataview);
 	}
 	
 }

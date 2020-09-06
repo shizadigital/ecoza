@@ -221,7 +221,7 @@ class Login extends CI_Controller {
 					}
 
 					// redirectlogin
-					$url = !empty( $this->input->post('redirect') ) ? $this->input->post('redirect') : base_url();
+					$url = !empty( $this->input->post('redirect') ) ? $this->input->post('redirect') : base_url('account');
 					
 					if($onpage=='y'){
 						$status = 200;

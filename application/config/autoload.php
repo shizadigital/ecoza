@@ -69,7 +69,7 @@ if($ci->uri->segment(1) == $ci->config->item('admin_slug') ){
 
 } else {
 
-	if( $segment_lowertrim != 'migration' ){
+	if( $segment_lowertrim != 'migration' AND $segment_lowertrim != 'api'){
 		$autoloaderlibset = array('navigation','permalink','meta','shopping_cart','member','paymentgateway');
 	}
 

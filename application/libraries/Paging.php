@@ -2,24 +2,24 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Paging {
-    protected $CI;
+	protected $CI;
 
-    public function __construct(){
+	public function __construct(){
         $this->CI =& get_instance();
 
         $this->CI->load->library('pagination');
-    }
+	}
 
-    private function createPaging($config){
-        
-        $this->CI->pagination->initialize($config); 
-        return $this->CI->pagination->create_links();
-        
-    }
+	private function createPaging($config){
+		
+		$this->CI->pagination->initialize($config); 
+		return $this->CI->pagination->create_links();
+		
+	}
 
-    public function PaginationAdmin( $url, $totalrows, $per_page, $options = array() ){
-        $url        = ( empty($url) )?base_url():$url;
-        $per_page   = ( empty($per_page) )? 30: filter_int($per_page);
+	public function PaginationAdmin( $url, $totalrows, $per_page, $options = array() ){
+		$url 		= ( empty($url) )?base_url():$url;
+		$per_page 	= ( empty($per_page) )? 30: filter_int($per_page);
 
         $segment = (empty($options['uri_segment'])) ? 3 : $options['uri_segment'];
         
@@ -44,7 +44,7 @@ class Paging {
             $config['display_pages'] = true;
         }
 
-        //konfigurasi pagination
+		//konfigurasi pagination
         $config['base_url'] = $url.$getURI; //site url
         $config['total_rows'] = filter_int($totalrows); //total row
         $config['per_page'] = $per_page;  //show record per halaman
@@ -55,28 +55,28 @@ class Paging {
 
         $defaults = array(
             'attributes'       => array('class' => 'page-link'),
-            'first_link'       => '&laquo; First',
+        	'first_link'       => '&laquo; First',
             'prev_link'        => '&lsaquo; Prev ',
-            'next_link'        => 'Next &rsaquo;',
+	        'next_link'        => 'Next &rsaquo;',
             'last_link'        => 'Last &raquo;',
-            'full_tag_open'    => '<nav aria-label="..."><ul class="pagination">',
-            'full_tag_close'   => '</ul></nav>',
-            'num_tag_open'     => '<li class="page-item">',
-            'num_tag_close'    => '</li>',
-            'cur_tag_open'     => '<li class="page-item active"><a class="page-link" href="javascript:void(0)">',
-            'cur_tag_close'    => '<span class="sr-only">(current)</span></a></li>',
-            'next_tag_open'    => '<li class="page-item">',
-            'next_tagl_close'  => '</li>',
-            'prev_tag_open'    => '<li class="page-item">',
-            'prev_tagl_close'  => '</li>',
-            'first_tag_open'   => '<li class="page-item">',
-            'first_tagl_close' => '</li>',
-            'last_tag_open'    => '<li class="page-item">',
-            'last_tagl_close'  => '</li>',
+	        'full_tag_open'    => '<nav aria-label="..."><ul class="pagination">',
+	        'full_tag_close'   => '</ul></nav>',
+	        'num_tag_open'     => '<li class="page-item">',
+	        'num_tag_close'    => '</li>',
+	        'cur_tag_open'     => '<li class="page-item active"><a class="page-link" href="javascript:void(0)">',
+	        'cur_tag_close'    => '<span class="sr-only">(current)</span></a></li>',
+	        'next_tag_open'    => '<li class="page-item">',
+	        'next_tagl_close'  => '</li>',
+	        'prev_tag_open'    => '<li class="page-item">',
+	        'prev_tagl_close'  => '</li>',
+	        'first_tag_open'   => '<li class="page-item">',
+	        'first_tagl_close' => '</li>',
+	        'last_tag_open'    => '<li class="page-item">',
+	        'last_tagl_close'  => '</li>',
         );
 
         // Merge options
-        $options = array_merge($defaults, $options);
+		$options = array_merge($defaults, $options);
 
         if( !empty($options['page_query_string'])){ $config['page_query_string'] = $options['page_query_string']; }
         if( !empty($options['query_string_segment']) ){ $config['query_string_segment'] = $options['query_string_segment']; }
@@ -84,7 +84,7 @@ class Paging {
         // Pagination style set start here
         $config['attributes'] = $options['attributes'];
 
-        $config['first_link']       = $options['first_link'];
+      	$config['first_link']       = $options['first_link'];
         $config['prev_link']        = $options['prev_link'];
         $config['next_link']        = $options['next_link'];
         $config['last_link']        = $options['last_link'];
@@ -104,11 +104,11 @@ class Paging {
         $config['last_tagl_close']  = $options['last_tagl_close'];
  
         return $this->createPaging($config);
-    }
+	}
 
-    public function PaginationWeb( $url, $totalrows, $per_page, $pagingscheme = null, $options = array() ){
-        $url        = ( empty($url) )?base_url():$url;
-        $per_page   = ( empty($per_page) )? 30: filter_int($per_page);
+	public function PaginationWeb( $url, $totalrows, $per_page, $pagingscheme = null, $options = array() ){
+		$url 		= ( empty($url) )?base_url():$url;
+		$per_page 	= ( empty($per_page) )? 30: filter_int($per_page);
 
         $segment = (empty($options['uri_segment'])) ? 2 : $options['uri_segment'];
         
@@ -133,7 +133,7 @@ class Paging {
             $config['display_pages'] = true;
         }
 
-        //konfigurasi pagination
+		//konfigurasi pagination
         $config['base_url'] = $url.$getURI; //site url
         $config['total_rows'] = filter_int($totalrows); //total row
         $config['per_page'] = $per_page;  //show record per halaman
@@ -142,37 +142,37 @@ class Paging {
         $choice = (empty($options['num_links'])) ? floor( filter_int($totalrows) / $per_page ):filter_int($options['num_links']);
         $config["num_links"] = $choice;
 
-        if($pagingscheme != null){
-            if( is_array($pagingscheme) ){
-                $defaults = $pagingscheme;
-            }
-        }
-        else {
-            $defaults = array(
-                'attributes'       => array('class' => 'page-link'),
-                'first_link'       => '&laquo; First',
-                'prev_link'        => '&lsaquo; Prev ',
-                'next_link'        => 'Next &rsaquo;',
-                'last_link'        => 'Last &raquo;',
-                'full_tag_open'    => '<nav aria-label="..."><ul class="pagination">',
-                'full_tag_close'   => '</ul></nav>',
-                'num_tag_open'     => '<li class="page-item">',
-                'num_tag_close'    => '</li>',
-                'cur_tag_open'     => '<li class="page-item active"><a class="page-link" href="javascript:void(0)">',
-                'cur_tag_close'    => '<span class="sr-only">(current)</span></a></li>',
-                'next_tag_open'    => '<li class="page-item">',
-                'next_tagl_close'  => '</li>',
-                'prev_tag_open'    => '<li class="page-item">',
-                'prev_tagl_close'  => '</li>',
-                'first_tag_open'   => '<li class="page-item">',
-                'first_tagl_close' => '</li>',
-                'last_tag_open'    => '<li class="page-item">',
-                'last_tagl_close'  => '</li>',
-            );
-        }
+		if($pagingscheme != null){
+			if( is_array($pagingscheme) ){
+				$defaults = $pagingscheme;
+			}
+		}
+		else {
+			$defaults = array(
+				'attributes'       => array('class' => 'page-link'),
+				'first_link'       => '&laquo; First',
+				'prev_link'        => '&lsaquo; Prev ',
+				'next_link'        => 'Next &rsaquo;',
+				'last_link'        => 'Last &raquo;',
+				'full_tag_open'    => '<nav aria-label="..."><ul class="pagination">',
+				'full_tag_close'   => '</ul></nav>',
+				'num_tag_open'     => '<li class="page-item">',
+				'num_tag_close'    => '</li>',
+				'cur_tag_open'     => '<li class="page-item active"><a class="page-link" href="javascript:void(0)">',
+				'cur_tag_close'    => '<span class="sr-only">(current)</span></a></li>',
+				'next_tag_open'    => '<li class="page-item">',
+				'next_tagl_close'  => '</li>',
+				'prev_tag_open'    => '<li class="page-item">',
+				'prev_tagl_close'  => '</li>',
+				'first_tag_open'   => '<li class="page-item">',
+				'first_tagl_close' => '</li>',
+				'last_tag_open'    => '<li class="page-item">',
+				'last_tagl_close'  => '</li>',
+			);
+		}
 
         // Merge options
-        $options = array_merge($defaults, $options);
+		$options = array_merge($defaults, $options);
 
         if( !empty($options['page_query_string'])){ $config['page_query_string'] = $options['page_query_string']; }
         if( !empty($options['query_string_segment']) ){ $config['query_string_segment'] = $options['query_string_segment']; }
@@ -180,7 +180,7 @@ class Paging {
         // Pagination style set start here
         $config['attributes'] = $options['attributes'];
 
-        $config['first_link']       = $options['first_link'];
+      	$config['first_link']       = $options['first_link'];
         $config['prev_link']        = $options['prev_link'];
         $config['next_link']        = $options['next_link'];
         $config['last_link']        = $options['last_link'];
@@ -200,5 +200,5 @@ class Paging {
         $config['last_tagl_close']  = $options['last_tagl_close'];
  
         return $this->createPaging($config);
-    }
+	}
 }

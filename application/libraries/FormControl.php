@@ -147,42 +147,40 @@ class FormControl {
             // define required to attribute
             $required = ($required) ? array('data-parsley-required'=>'true'): array();            
 
-            if( is_multilang() ){
-                foreach (langlist() as $keyl2 => $valuel2) {
-                    $theflagcode2 = strtolower( explode("_",  $valuel2)[1] );
-                    $country2 = locales($valuel2);
-                    
-                    $dl = array();
-                    if( !empty($dbtable) AND !empty($dbfield) AND  !empty($dbrelid) ){
-                        if( countdata('dynamic_translations', $sqlclause." AND dtLang='{$valuel2}'") > 0 ){
-                            $langsql = $sql . " AND dtLang='{$valuel2}'";
-                            $querylang = $CI->db->query($langsql);
-                            $dl = $querylang->result_array($querylang)[0];
-                        }
-                    }
-                    
-                    $nameoffield = 'datalang['.$inputs['name'].']['.$valuel2.'][translation]';
+			foreach (langlist() as $keyl2 => $valuel2) {
+				$theflagcode2 = strtolower( explode("_",  $valuel2)[1] );
+				$country2 = locales($valuel2);
+				
+				$dl = array();
+				if( !empty($dbtable) AND !empty($dbfield) AND  !empty($dbrelid) ){
+					if( countdata('dynamic_translations', $sqlclause." AND dtLang='{$valuel2}'") > 0 ){
+						$langsql = $sql . " AND dtLang='{$valuel2}'";
+						$querylang = $CI->db->query($langsql);
+						$dl = $querylang->result_array($querylang)[0];
+					}
+				}
+				
+				$nameoffield = 'datalang['.$inputs['name'].']['.$valuel2.'][translation]';
 
-                    if($valuel2 == $defaultlang){
-                        $nameoffield = $inputs['name'];
-                    }
+				if($valuel2 == $defaultlang){
+					$nameoffield = $inputs['name'];
+				}
 
-                    $result .= '<div class="tab-pane fade pt-2 tinymce-multilang'.( ($valuel2 == $defaultlang)? ' active show':'').'" id="lang-'.$theflagcode2.'-'.$attrId.'" role="tabpanel" aria-labelledby="tablang-'.$theflagcode2.'-'.$attrId.'">'."\n";
+				$result .= '<div class="tab-pane fade pt-2 tinymce-multilang'.( ($valuel2 == $defaultlang)? ' active show':'').'" id="lang-'.$theflagcode2.'-'.$attrId.'" role="tabpanel" aria-labelledby="tablang-'.$theflagcode2.'-'.$attrId.'">'."\n";
 
-                    $result .= '<textarea id="'.$attrId.'-'.$theflagcode2.'" name="'.$nameoffield.'" placeholder="'.$country2.'" rows="5" class="form-control'.$classtexteditor.$attrClass.'"'.( ($valuel2 == $defaultlang AND count($required) > 0)? ' data-parsley-required="true"':'').'>';
+				$result .= '<textarea id="'.$attrId.'-'.$theflagcode2.'" name="'.$nameoffield.'" placeholder="'.$country2.'" rows="5" class="form-control'.$classtexteditor.$attrClass.'"'.( ($valuel2 == $defaultlang AND count($required) > 0)? ' data-parsley-required="true"':'').'>';
 
-                    $dtranslation = (!empty($dl['dtTranslation']))? $dl['dtTranslation']:'';
-                    $texteditorval = ($valuel2 == $defaultlang)?$value:$dtranslation;
+				$dtranslation = (!empty($dl['dtTranslation']))? $dl['dtTranslation']:'';
+				$texteditorval = ($valuel2 == $defaultlang)?$value:$dtranslation;
 
-                    $result .= $texteditorval;
+				$result .= $texteditorval;
 
-                    $result .= '</textarea>'."\n";
+				$result .= '</textarea>'."\n";
 
-			    	$result .= '<input type="hidden" name="datalang['.$inputs['name'].']['.$valuel2.'][InputType]" value="texteditor">';
+				$result .= '<input type="hidden" name="datalang['.$inputs['name'].']['.$valuel2.'][InputType]" value="texteditor">';
 
-                    $result .= '</div>'."\n";
-                }
-            }
+				$result .= '</div>'."\n";
+			}
             
             $result .= '</div>'."\n";
         }
@@ -219,7 +217,7 @@ class FormControl {
                 'id' => $attrId,
                 'rows' => $attrRows,
                 'cols' => '',
-                'placeholder' => ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')',
+                'placeholder' => ( is_multilang() ) ? ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')':'',
                 'value' => $value
             );
 
@@ -253,7 +251,7 @@ class FormControl {
             $attrStandard = array(
                 'class' => 'form-control' . $attrClass,
                 'id' => $attrId,
-                'placeholder' => ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')',
+                'placeholder' => ( is_multilang() ) ? ucwords( locales($defaultlang) ) . ' ('.t('defaultlanguage').')':'',
                 'value' => $value
             );
 

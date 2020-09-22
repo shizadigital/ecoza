@@ -39,7 +39,11 @@ function digitFormat($angka, $decimal = 2, $removezerodecimal = false){
 		
 		// remove zero
 		$qtyexp = explode(',',$return);
-		if(isset($qtyexp[1]) == $zerocount){ $return = $qtyexp[0]; }
+		if(isset($qtyexp[1]) == $zerocount){ 
+			if($qtyexp[1] == $zerocount){
+				$return = $qtyexp[0]; 
+			}
+		}
 	}
 
 	return $return;

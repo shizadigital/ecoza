@@ -56,20 +56,20 @@ class Permalink {
 
 			if( $param == 'post' ){
 
-				$getdata = getval('contentId,contentTitle','contents', array('catId'=>$id));
-				$permalink = 'post/'.$getdata['contentId'].'-'. slugURL( $getdata['contentTitle'] );
+				$getdata = getval('contentId,contentTitle,contentSlug','contents', array('contentId'=>$id));
+				$permalink = 'post/'.$getdata['contentId'].'-'. $getdata['contentSlug'];
 
 			}
 			elseif( $param == 'post-category' ){
 
-				$getdata = getval('catId,catName','categories', array('catId'=>$id));
-				$permalink = 'post/category/'.$getdata['catId'].'-'.slugURL( $getdata['catName'] );
+				$getdata = getval('catId,catName,catSlug','categories', array('catId'=>$id));
+				$permalink = 'post/category/'.$getdata['catId'].'-'.$getdata['catSlug'];
 
 			}
 			elseif( $param == 'page' ){
 
-				$getdata = getval('contentId,contentTitle','contents', array('catId'=>$id));
-				$permalink = 'page/'.$getdata['contentId'].'-'. slugURL( $getdata['contentTitle'] );
+				$getdata = getval('contentId,contentTitle,contentSlug','contents', array('contentId'=>$id));
+				$permalink = 'page/'.$getdata['contentId'].'-'. $getdata['contentSlug'];
 
 			}
 			elseif( $param == 'product' OR $param == 'catalog'){

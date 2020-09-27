@@ -11,7 +11,198 @@ class FormControl {
 
         // load helper
 		$this->CI->load->helper('cookie');
-    }
+	}
+	
+	private function tinyMCEmode_admin($type = 'standard'){
+		$ci = $this->CI;
+		
+		// set double dot for root
+		$countsegment = (count($ci->uri->segment_array())) - 1;
+		$doubledot = '';
+		for($n = 1; $n <= $countsegment; $n++){
+			$doubledot .= '../';
+		}
+
+		$tinymce = "
+		function initialiseInstance(editor) {
+			//This script taken from www.matthewkenny.com 
+			var container = $('#' + editor.editorId);
+			$(editor.formElement).find(\"input[type=submit]\").click(
+				function(event) {
+					tinyMCE.triggerSave();
+					$(\"#\" + editor.id).valid();
+					container.val(editor.getContent());
+				}
+			);
+		}
+		
+		var protocol = location.protocol;
+		var slashes = protocol.concat(\"//\");
+		var thehost = slashes.concat(window.location.hostname);
+		";
+
+		$filemanagername = "Shiza File Manager";
+
+		if($type == 'standard'){
+
+			$tinymce .= "
+			tinymce.init({
+				selector: 'textarea.tinymcestandard',
+				height: 300,
+				menubar: true,
+				plugins: 'print emoticons preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern code help responsivefilemanager',
+			
+				toolbar: [
+					'formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect fontselect fontsizeselect',
+					'bullist numlist | outdent indent blockquote | link unlink | image media cleanup | preview | forecolor backcolor | responsivefilemanager',
+					'table tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol | hr removeformat | sub sup searchreplace | charmap emoticons iespell advhr | code codesample | fullscreen help'
+				],
+				codesample_languages: [
+					{ text: 'HTML/XML', value: 'markup' },
+					{ text: 'JavaScript', value: 'javascript' },
+					{ text: 'CSS', value: 'css' },
+					{ text: 'PHP', value: 'php' },
+					{ text: 'Ruby', value: 'ruby' },
+					{ text: 'Python', value: 'python' },
+					{ text: 'Java', value: 'java' },
+					{ text: 'C', value: 'c' },
+					{ text: 'C#', value: 'csharp' },
+					{ text: 'C++', value: 'cpp' }
+				],
+				image_class_list: [
+					{ title: 'None', value: '' },
+					{ title: 'Img Responsive (Bootstrap 3)', value: 'img-responsive' },
+					{ title: 'Img Rounded Corners (Bootstrap 3)', value: 'img-rounded' },
+					{ title: 'Img Circle (Bootstrap 3)', value: 'img-circle' },
+					{ title: 'Img Thumbnail (Bootstrap 3)', value: 'img-thumbnail' },
+					{ title: 'Img Responsive (Bootstrap 4)', value: 'img-fluid' },
+					{ title: 'Img Rounded Corners (Bootstrap 4)', value: 'rounded' },
+					{ title: 'Img Circle (Bootstrap 4)', value: 'rounded-circle' },
+					{ title: 'Img Thumbnail (Bootstrap 4)', value: 'img-thumbnail' },
+					{ title: 'Image Center', value: 'aligncenter' }
+				],
+				image_caption: true,
+				content_style: \"body.mce-content-body {font-family: sans-serif, Arial, Verdana, \\\"Trebuchet MS\\\";font-size: 13px;color: #444;line-height: 1.6;} .aligncenter {display:block;margin-left:auto;margin-right:auto;padding:10px; }\",
+				contextmenu: 'link image inserttable | cell row column deletetable',
+				resize: true,
+				branding: false,
+				forced_root_block: 'p',
+				disk_cache: false,
+				debug: false,
+				//document_base_url : thehost,
+				image_advtab: true,
+			
+				external_filemanager_path: \"{$doubledot}assets/admin/vendors/filemanager/\",
+				filemanager_title: \"{$filemanagername}\",
+				external_plugins: { \"filemanager\": \"../filemanager/plugin.min.js\" },
+			
+				remove_script_host: false,
+				relative_urls: false,
+				init_instance_callback: 'initialiseInstance',
+				setup: function(editor) {
+					editor.on('change', function() {
+						editor.save();
+					});
+				}
+			});
+			";
+
+		} 
+		elseif($type == 'simple'){
+
+			$tinymce .= "
+			tinymce.init({
+				selector: 'textarea.tinymcesimple',
+				height: 300,
+				menubar: false,
+				plugins: 'preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media hr anchor advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern code help responsivefilemanager',
+			
+				toolbar: [
+					'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect fontselect fontsizeselect | hr',
+					'bullist numlist | outdent indent blockquote | link unlink | image media cleanup | preview | forecolor backcolor | responsivefilemanager | code | fullscreen help'
+				],
+				image_class_list: [
+					{ title: 'None', value: '' },
+					{ title: 'Img Responsive (Bootstrap 3)', value: 'img-responsive' },
+					{ title: 'Img Rounded Corners (Bootstrap 3)', value: 'img-rounded' },
+					{ title: 'Img Circle (Bootstrap 3)', value: 'img-circle' },
+					{ title: 'Img Thumbnail (Bootstrap 3)', value: 'img-thumbnail' },
+					{ title: 'Img Responsive (Bootstrap 4)', value: 'img-fluid' },
+					{ title: 'Img Rounded Corners (Bootstrap 4)', value: 'rounded' },
+					{ title: 'Img Circle (Bootstrap 4)', value: 'rounded-circle' },
+					{ title: 'Img Thumbnail (Bootstrap 4)', value: 'img-thumbnail' },
+					{ title: 'Image Center', value: 'aligncenter' }
+				],
+				image_caption: true,
+				content_style: \"body.mce-content-body {font-family: sans-serif, Arial, Verdana, \\\"Trebuchet MS\\\";font-size: 13px;color: #444;line-height: 1.6;}\",
+				contextmenu: 'link image inserttable | cell row column deletetable',
+				resize: true,
+				branding: false,
+				forced_root_block: 'p',
+				disk_cache: false,
+				debug: false,
+				//document_base_url : thehost,
+				image_advtab: true,
+			
+				external_filemanager_path: \"{$doubledot}assets/admin/vendors/filemanager/\",
+				filemanager_title: \"{$filemanagername}\",
+				external_plugins: { \"filemanager\": \"../filemanager/plugin.min.js\" },
+			
+				remove_script_host: false,
+				relative_urls: false,
+				init_instance_callback: 'initialiseInstance',
+				setup: function(editor) {
+					editor.on('change', function() {
+						editor.save();
+					});
+				}
+			});
+			";
+
+		}
+		elseif($type == 'verysimple'){
+
+			$tinymce .= "
+			tinymce.init({
+				selector: 'textarea.tinymceverysimple',
+				height: 300,
+				menubar: false,
+				plugins: 'preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media hr anchor advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern code help responsivefilemanager',
+			
+				toolbar: [
+					'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect fontselect fontsizeselect',
+					'bullist numlist | link unlink | code | fullscreen help'
+				],
+				image_caption: true,
+				content_style: \"body.mce-content-body {font-family: sans-serif, Arial, Verdana, \\\"Trebuchet MS\\\";font-size: 13px;color: #444;line-height: 1.6;}\",
+				contextmenu: 'link image inserttable | cell row column deletetable',
+				resize: true,
+				branding: false,
+				forced_root_block: 'p',
+				disk_cache: false,
+				debug: false,
+				//document_base_url : thehost,
+				image_advtab: true,
+			
+				external_filemanager_path: \"{$doubledot}assets/admin/vendors/filemanager/\",
+				filemanager_title: \"{$filemanagername}\",
+				external_plugins: { \"filemanager\": \"../filemanager/plugin.min.js\" },
+			
+				remove_script_host: false,
+				relative_urls: false,
+				init_instance_callback: 'initialiseInstance',
+				setup: function(editor) {
+					editor.on('change', function() {
+						editor.save();
+					});
+				}
+			});
+			";
+
+		}
+
+		return $tinymce;
+	}
 
     /**
      * Make the multilanguage inputs field
@@ -119,28 +310,27 @@ class FormControl {
         if($inputsType == 'texteditor'){
 
             // inject tinyMCE plugin here
-            $request_script_files = array();
+            $request_script = '';
             $classtexteditor = '';
             if( $texteditor=='standard' ){
-                $request_script_files = array('vendors/tinymce/tinymce_standard.js');
+				$request_script = $this->tinyMCEmode_admin('standard');
                 $classtexteditor = ' tinymcestandard';
             }
             elseif($texteditor=='simple'){
-                $request_script_files = array('vendors/tinymce/tinymce_simple.js');
+                $request_script = $this->tinyMCEmode_admin('simple');
                 $classtexteditor = ' tinymcesimple';
             }
             elseif($texteditor=='verysimple'){
-                $request_script_files = array('vendors/tinymce/tinymce_verysimple.js');
+                $request_script = $this->tinyMCEmode_admin('verysimple');
                 $classtexteditor = ' tinymceverysimple';
             }
 
             $reqscriptfiles = array_merge(
                 array(
                     'vendors/tinymce/tinymce.min.js',
-                ),
-                $request_script_files
+                )
             );
-            $CI->assetsloc->reg_admin_script($reqscriptfiles);
+            $CI->assetsloc->reg_admin_script($reqscriptfiles, $request_script);
 
             $result .= '<div class="tab-content">'."\n";
 

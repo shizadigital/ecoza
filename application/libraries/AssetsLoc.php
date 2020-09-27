@@ -21,13 +21,13 @@ class AssetsLoc {
 	*/
 	public function reg_admin_style( $cssfiles = array(), $stylesheet='' ){
 		if(count($cssfiles) > 0){
-			foreach ($cssfiles as $keycss => $valuecss) {
+			foreach ($cssfiles as $valuecss) {
 				$this->css_admin_files[] = $valuecss;
 			}
 		}
 
 		if(!empty($stylesheet)){
-			$this->css_admin_values_request = $stylesheet;
+			$this->css_admin_values_request .= $stylesheet;
 		}
 	}
 
@@ -57,13 +57,13 @@ class AssetsLoc {
 	*/
 	public function reg_admin_script( $jsfiles = array(), $script='' ){
 		if(count($jsfiles) > 0){
-			foreach ($jsfiles as $keyjs => $valuejs) {
-				$this->js_admin_files[] = $valuejs;
+			foreach ($jsfiles as $value) {
+				$this->js_admin_files[] = $value;
 			}
 		}
 
 		if(!empty($script)){
-			$this->js_admin_values_request = $script;
+			$this->js_admin_values_request .= $script;
 		}
 	}
 	

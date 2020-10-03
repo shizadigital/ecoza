@@ -796,29 +796,28 @@ class FormControl {
                      */
                     elseif( $formType == 'texteditor' ){
 
-                        // inject tinyMCE plugin here
-                        $request_script_files = array();
-                        $classtexteditor = '';
-                        if( $texteditortype=='standard' ){
-                            $request_script_files = array('vendors/tinymce/tinymce_standard.js');
-                            $classtexteditor = ' tinymcestandard';
-                        }
-                        elseif($texteditortype=='simple'){
-                            $request_script_files = array('vendors/tinymce/tinymce_simple.js');
-                            $classtexteditor = ' tinymcesimple';
-                        }
-                        elseif($texteditortype=='verysimple'){
-                            $request_script_files = array('vendors/tinymce/tinymce_verysimple.js');
-                            $classtexteditor = ' tinymceverysimple';
-                        }
-
-                        $reqscriptfiles = array_merge(
-                            array(
-                                'vendors/tinymce/tinymce.min.js',
-                            ),
-                            $request_script_files
-                        );
-                        $CI->assetsloc->reg_admin_script($reqscriptfiles);
+						// inject tinyMCE plugin here
+						$request_script = '';
+						$classtexteditor = '';
+						if( $texteditortype=='standard' ){
+							$request_script = $this->tinyMCEmode_admin('standard');
+							$classtexteditor = ' tinymcestandard';
+						}
+						elseif($texteditortype=='simple'){
+							$request_script = $this->tinyMCEmode_admin('simple');
+							$classtexteditor = ' tinymcesimple';
+						}
+						elseif($texteditortype=='verysimple'){
+							$request_script = $this->tinyMCEmode_admin('verysimple');
+							$classtexteditor = ' tinymceverysimple';
+						}
+			
+						$reqscriptfiles = array_merge(
+							array(
+								'vendors/tinymce/tinymce.min.js',
+							)
+						);
+						$CI->assetsloc->reg_admin_script($reqscriptfiles, $request_script);
 
                         $attrClass = "";
                         $attrId = explode("[",$name)[0];

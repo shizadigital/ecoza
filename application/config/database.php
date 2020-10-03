@@ -74,7 +74,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost; dbname='.$_ENV['DB_DATABASE'].'; charset='.$_ENV['DB_CHARSET'].';',
+	'dsn'	=> 'mysql:host='.$_ENV['DB_HOST'].'; dbname='.$_ENV['DB_DATABASE'].'; charset='.$_ENV['DB_CHARSET'].';',
 	'hostname' => $_ENV['DB_HOST'],
 	'username' => $_ENV['DB_USERNAME'],
 	'password' => $_ENV['DB_PASSWORD'],

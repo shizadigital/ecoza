@@ -11,7 +11,12 @@ class Env_model extends CI_model{
 
     // insert data
     public function insert($table, $data){
-        return $this->db->insert( $this->db->dbprefix($table), $data);
+		$insert = $this->db->insert( $this->db->dbprefix($table), $data);
+		if( $insert ) {
+			return $this->db->insert_id();
+		} else {
+			return false;
+		}
     }
     
     // update data

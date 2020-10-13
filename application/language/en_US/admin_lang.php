@@ -618,6 +618,7 @@ $lang['todraft'] = "To Draft";
 $lang['infotodraft'] = "If this field checked, the post will not be published and the post will be included in the draft section";
 $lang['allowcomments'] = "Allow Comments";
 $lang['editor'] = "Editor";
+$lang['store'] = "Store";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

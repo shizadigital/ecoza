@@ -618,6 +618,7 @@ $lang['todraft'] = "Masukkan ke Draft";
 $lang['infotodraft'] = "Jika bidang ini dicentang maka postingan tidak akan dipublikasikan dan postingan akan dimasukkan pada bagian draft";
 $lang['allowcomments'] = "Izinkan Komentar";
 $lang['editor'] = "Editor";
+$lang['store'] = "Toko";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

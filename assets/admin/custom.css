@@ -246,3 +246,19 @@ div.mce-fullscreen {
     top: 0px;
     /* overflow: auto;  */
 }
+
+/* select2 form group */
+.input-group .select2-selection {
+	margin-left: -1px;
+	margin-right: -1px;
+	position: relative;
+}
+
+.input-group .select2 .select2-selection--single {
+	height: 36px;
+}
+
+.input-group .select2-selection,
+.input-group .select2.select2-container--focus{
+	border-color: #e4e9f0 !important;
+}

@@ -28,7 +28,7 @@ class Table_options_order_status {
 		$schema = $this->CI->schema->create_table('options_order_status');
         $schema->increments('optorderstatId', ['length' => '11']);
         $schema->string('optorderstatName', ['length' => '150']);
-        $schema->enum('optorderstatRuleType', ['pending','shipped','step','completed']);
+        $schema->enum('optorderstatRuleType', ['pending','shipped','step','completed','returned']);
         $schema->integer('optorderstatDeleted', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 
@@ -42,16 +42,16 @@ class Table_options_order_status {
             ['optorderstatId' => '2', 'optorderstatName' => 'Processing', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
             ['optorderstatId' => '3', 'optorderstatName' => 'Shipped', 'optorderstatRuleType' => 'shipped', 'optorderstatDeleted'=>0],
             ['optorderstatId' => '4', 'optorderstatName' => 'Complete', 'optorderstatRuleType' => 'completed', 'optorderstatDeleted'=>0],
-            ['optorderstatId' => '5', 'optorderstatName' => 'Canceled', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
-            ['optorderstatId' => '6', 'optorderstatName' => 'Denied', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
+            ['optorderstatId' => '5', 'optorderstatName' => 'Canceled', 'optorderstatRuleType' => 'returned', 'optorderstatDeleted'=>0],
+            ['optorderstatId' => '6', 'optorderstatName' => 'Denied', 'optorderstatRuleType' => 'returned', 'optorderstatDeleted'=>0],
             ['optorderstatId' => '7', 'optorderstatName' => 'Canceled Reversal', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
-            ['optorderstatId' => '8', 'optorderstatName' => 'Failed', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
-            ['optorderstatId' => '9', 'optorderstatName' => 'Refunded', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
-            ['optorderstatId' => '10', 'optorderstatName' => 'Reversed', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
+            ['optorderstatId' => '8', 'optorderstatName' => 'Failed', 'optorderstatRuleType' => 'returned', 'optorderstatDeleted'=>0],
+            ['optorderstatId' => '9', 'optorderstatName' => 'Refunded', 'optorderstatRuleType' => 'returned', 'optorderstatDeleted'=>0],
+            ['optorderstatId' => '10', 'optorderstatName' => 'Reversed', 'optorderstatRuleType' => 'returned', 'optorderstatDeleted'=>0],
             ['optorderstatId' => '11', 'optorderstatName' => 'Chargeback', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
-            ['optorderstatId' => '12', 'optorderstatName' => 'Expired', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
+            ['optorderstatId' => '12', 'optorderstatName' => 'Expired', 'optorderstatRuleType' => 'returned', 'optorderstatDeleted'=>0],
             ['optorderstatId' => '13', 'optorderstatName' => 'Processed', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
-            ['optorderstatId' => '14', 'optorderstatName' => 'Voided', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0]
+            ['optorderstatId' => '14', 'optorderstatName' => 'Voided', 'optorderstatRuleType' => 'returned', 'optorderstatDeleted'=>0]
         ];
 		return $arr;
 	}

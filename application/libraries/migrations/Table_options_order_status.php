@@ -40,7 +40,7 @@ class Table_options_order_status {
 		$arr = [
             ['optorderstatId' => '1', 'optorderstatName' => 'Pending', 'optorderstatRuleType' => 'pending', 'optorderstatDeleted'=>0],
             ['optorderstatId' => '2', 'optorderstatName' => 'Processing', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
-            ['optorderstatId' => '3', 'optorderstatName' => 'Shipped', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
+            ['optorderstatId' => '3', 'optorderstatName' => 'Shipped', 'optorderstatRuleType' => 'shipped', 'optorderstatDeleted'=>0],
             ['optorderstatId' => '4', 'optorderstatName' => 'Complete', 'optorderstatRuleType' => 'completed', 'optorderstatDeleted'=>0],
             ['optorderstatId' => '5', 'optorderstatName' => 'Canceled', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],
             ['optorderstatId' => '6', 'optorderstatName' => 'Denied', 'optorderstatRuleType' => 'step', 'optorderstatDeleted'=>0],

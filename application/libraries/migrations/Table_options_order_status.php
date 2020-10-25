@@ -28,7 +28,7 @@ class Table_options_order_status {
 		$schema = $this->CI->schema->create_table('options_order_status');
         $schema->increments('optorderstatId', ['length' => '11']);
         $schema->string('optorderstatName', ['length' => '150']);
-        $schema->enum('optorderstatRuleType', ['pending','step','completed']);
+        $schema->enum('optorderstatRuleType', ['pending','shipped','step','completed']);
         $schema->integer('optorderstatDeleted', ['length' => '11', 'unsigned' => TRUE]);
         $schema->run();
 

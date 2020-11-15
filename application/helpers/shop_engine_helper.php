@@ -493,3 +493,43 @@ function getAttrValueUsed($productid, $attrid=null){
 
 	return $result;
 }
+
+function returnedStock($orderid, $statusid){
+	$ci =& get_instance();
+
+	$orderid = esc_sql( filter_int($orderid) );
+	$statusid = esc_sql( filter_int($statusid) );
+
+	$return = false;
+
+	// check returned
+	if( countdata('options_order_status', "optorderstatRuleType='returned' AND optorderstatId='{$statusid}'") > 0 ){
+		$orderdata = $ci->Env_model->view_where('*', 'order_detail', ['orderId'=>$orderid]);
+		foreach ( $orderdata as $odet ){
+			
+			// normalize status
+
+			if($odet['pattrId'] > 0){
+				
+				$getstock = getval('pattrQty,pattrQtyType','product_attribute',['pattrId'=>$odet['pattrId']]);
+				if($getstock['pattrQtyType']=='limited'){
+					$thestock = $getstock['pattrQty'] + $odet['odetQty'];
+
+					$return = $ci->Env_model->update('product_attribute',['pattrQty'=>$thestock], ['pattrId'=>$odet['pattrId']]);
+				}
+
+			} else {
+
+				$getstock = getval('prodQty,prodQtyType','product',['prodId'=>$odet['prodId']]);
+				if($getstock['prodQtyType']=='limited'){
+					$thestock = $getstock['prodQty'] + $odet['odetQty'];
+
+					$return = $ci->Env_model->update('product',['prodQty'=>$thestock], ['prodId'=>$odet['prodId']]);
+				}
+
+			}
+		}
+	}
+
+	return $return;
+}

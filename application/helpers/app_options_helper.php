@@ -455,11 +455,20 @@ function siteDefaultImage(){
     if(check_option('sitedefaultimage') > 0){
         $img_data = get_option('sitedefaultimage');
 
-        $array_img = unserialize($img_data);
-        
-        $image = "standard_".$array_img['filename'];
+        $img = '';
+        $dir = '';
+        if(!empty($img_data)){
 
-        $url = images_url($array_img['directory']."/".$image);
+            $array_img = unserialize($img_data);
+
+            $img = $array_img['filename'];
+            $dir = $array_img['directory'];
+
+        }
+        
+        $image = "standard_".$img;
+
+        $url = images_url($dir."/".$image);
     }
 
     return $url;

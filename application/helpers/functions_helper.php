@@ -1423,6 +1423,13 @@ function validatePhoneNumber($phone){
 	return $result;
 }
 
+/**
+ * Get Domain Name
+ *
+ * @param string $url
+ * @param boolean $sub_domain
+ * @return string
+ */
 function getDomain($url, $sub_domain=false){
     $pieces = parse_url($url);
 
@@ -1436,4 +1443,89 @@ function getDomain($url, $sub_domain=false){
         $result = $host;
     }
     return $result;
+}
+
+/**
+ * API Data Transaction
+ *
+ * @param string $url
+ * @param mixed $data
+ * @param string $method
+ * @param array $header
+ * @param boolean $sendwithjson
+ * @param string $return
+ * @param boolean $parseurl
+ * 
+ * @return mixed
+ */
+function apiComunication($url, $data=null, $method = 'POST', $header = array(), $sendwithjson=false, $return='', $parseurl=false){
+	if($parseurl==true){
+		$urlquery=parse_url($url);
+		if($urlquery['query']){
+			$urlquerys=explode('&',$urlquery['query']);
+			foreach($urlquerys as $values){
+				list($key,$value)=explode('=',$values);
+				$data[$key]=$value;
+			}
+			$url = $urlquery['scheme'].'://'.$urlquery['host'].$urlquery['path'];
+		}
+	}
+	
+	$method = strtoupper($method);
+	
+	$ch = curl_init();	
+    switch ($method)
+    {
+		case "POST":
+			if($sendwithjson){
+				if( is_array($data) ){
+					$data=json_encode($data);
+				}
+			} else {
+				$data = http_build_query($data);
+			}
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+			if ($data!=null){
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+			}
+			break;
+		case "PUT":
+			if($sendwithjson){
+				if( is_array($data) ){
+					$data=json_encode($data);
+				}
+			} else {
+				$data = http_build_query($data);
+			}
+
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+			if ($data!=null){
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+			}	 					
+			break;
+		default:
+			if ($data)
+				$url = sprintf("%s?%s", $url, http_build_query($data));
+	}
+
+	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	if( count($header) > 0 ){
+		// set header
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+	}
+
+	$result=curl_exec($ch);
+	if($return=='httpresponse'){
+		$result=curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	}
+
+	if (curl_errno($ch)) {
+		$result = curl_error($ch);
+	}
+	curl_close($ch);
+	return $result;
 }

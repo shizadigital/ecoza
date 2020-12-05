@@ -197,7 +197,7 @@ class AdminEnv {
         <div class="air__subbar">
             <ul class="air__subbar__breadcrumbs mr-4">
                 <?php if( $this->CI->uri->segment(2) != 'dashboard'): ?>
-                <li class="air__subbar__breadcrumb">
+                <li class="air__subbar__breadcrumb d-none d-md-block">
                     <a href="<?php echo admin_url(); ?>" class="air__subbar__breadcrumbLink">Dashboard</a>
                 </li>
                 <?php endif; ?>
@@ -224,7 +224,7 @@ class AdminEnv {
 
             <?php
             if( count($header_button_action) > 0){
-                echo '<div class="air__subbar__amount mr-3 ml-auto d-none d-sm-flex">';
+                echo '<div class="air__subbar__amount mr-3 ml-auto d-sm-flex">';
                 foreach ($header_button_action as $btn_v) {
                     if(isset($btn_v['permission'])){
 
@@ -238,12 +238,12 @@ class AdminEnv {
                         }
 
                         if($permission == true){
-                            echo '<a href="'.$btn_v['access'].'" class="btn btn-secondary btn-with-addon ml-2 mr-auto text-nowrap d-none d-md-block"><span class="btn-addon"><i class="btn-addon-icon ';
+                            echo '<a href="'.$btn_v['access'].'" class="btn btn-secondary btn-with-addon ml-2 mr-auto text-nowrap d-block"><span class="btn-addon"><i class="btn-addon-icon ';
                             if(empty($btn_v['icon'])){ echo 'fe fe-menu'; } else { echo $btn_v['icon']; } 
                             echo '"></i></span> '.$btn_v['title'].'</a>';
                         }
                     } else {
-                        echo '<a href="'.$btn_v['access'].'" class="btn btn-secondary btn-with-addon ml-2 mr-auto text-nowrap d-none d-md-block"><span class="btn-addon"><i class="btn-addon-icon ';
+                        echo '<a href="'.$btn_v['access'].'" class="btn btn-secondary btn-with-addon ml-2 mr-auto text-nowrap d-block"><span class="btn-addon"><i class="btn-addon-icon ';
                         if(empty($btn_v['icon'])){ echo 'fe fe-menu'; } else { echo $btn_v['icon']; } 
                         echo '"></i></span>'.$btn_v['title'].'</a>';
                     }

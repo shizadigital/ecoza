@@ -14,7 +14,7 @@ class Main extends CI_Controller {
 	}
 
 	public function index(){
-		if( empty( $this->session->userdata('username') ) AND empty( $this->session->userdata('passuser') ) ){
+		if( !$this->adminauth->validate_login() ){
 			// LOGIN PAGE
 			$data = array( 
 						'title' => 'Login Administrator - '.get_option('sitename'),

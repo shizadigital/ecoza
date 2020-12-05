@@ -8,19 +8,31 @@ class AdminAuth {
         $this->CI =& get_instance();
 	}
 
-	public function auth_login(){
+	public function validate_login(){
 		$login = false;
 
 		if(
 			!empty( $this->CI->session->userdata('username') ) AND 
 			!empty( $this->CI->session->userdata('passuser') ) AND 
-			!empty( $this->CI->session->userdata('checkpoint') ) 
+			!empty( $this->CI->session->userdata('adminid') ) AND 
+			!empty( $this->CI->session->userdata('leveluser') ) AND 
+			!empty( $this->CI->session->userdata('levelstatus') ) 
 		){	
 			$login = true;
 
 			if( $this->CI->session->userdata('checkpoint') !== loginCP() ){
 				$login = false;
 			}
+		}
+
+		return $login;
+	}
+
+	public function auth_login(){
+		$login = false;
+
+		if( $this->validate_login() ){	
+			$login = true;
 		}
 
 		if($login == false){

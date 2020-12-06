@@ -39,7 +39,26 @@ class Table_addons {
 	}
 
 	public function seeder(){
-		
+		return [
+			[
+				'addonsId' => '1',
+				'addonsName' => 'Courier',
+				'addonsDirName' => 'courier',
+				'addonsDesc' => 'Courier for shipping product',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607232494',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '2',
+				'addonsName' => 'Manufacturers',
+				'addonsDirName' => 'manufacturers',
+				'addonsDesc' => 'Manufacture for product',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607232496',
+				'addonsActive' => '1'
+			]
+		];
 	}
 
 }

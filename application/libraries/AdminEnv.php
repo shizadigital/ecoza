@@ -28,16 +28,15 @@ class AdminEnv {
 
 	// menu admin
     public function admin_menu_item(){
-		$LevelID = $this->CI->session->userdata('leveluser');
 
-    	$menudata1 = $this->CI->Adminenv_model->getAdminMenuData($LevelID,0);
+    	$menudata1 = $this->CI->Adminenv_model->getAdminMenuData(0);
 
         foreach ($menudata1 as $dm1) {
 
             $menu_li_active = '';
             $menu_li_active_expand = '';
 
-            if(empty($dm1['menuAccess'])){ 
+            if($dm1['menuType']=='noaccess'){ 
                 $menu_url = "javascript:void(0)";
 
                 // check menu child
@@ -45,21 +44,24 @@ class AdminEnv {
                     $menu_li_active_expand = "--active";
                 }
             } else {
-                $array_access = unserialize($dm1['menuAccess']);
-                if(array_key_exists('admin_link', $array_access)){ 
-                    $exp_access = explode('&', $array_access['admin_link']);
-                    $url_access = admin_url()."/".$array_access['admin_link']; 
-                } else {
-                    $exp_access[0] = '';
-                    $url_access = $array_access['out_link']."\" target=\"_blank\" rel=\"nofollow";
-                }
-                $menu_url = $url_access;
-                if ( $this->CI->uri->segment(2) == $exp_access[0]){ 
-                    $menu_li_active = "--active"; 
+				
+                if($dm1['menuType']=='module' OR $dm1['menuType']=='addons'){ 
+                    $exp_access = $dm1['menuAccess'];
+                    $url_access = admin_url($dm1['menuAccess']); 
+				}
+				else {
+                    $exp_access = '';
+                    $url_access = $dm1['menuAccess']."\" target=\"_blank\" rel=\"nofollow";
+				}
+				
+				$menu_url = $url_access;
+				
+                if ( $this->CI->uri->segment(2) == $exp_access){ 
+                    $menu_li_active = "--active";
                 }                    
             }
 
-            $numnumMenu2 = $this->CI->Adminenv_model->rowsAdminMenuData($dm1['levelId'],$dm1['menuId']);
+            $numnumMenu2 = $this->CI->Adminenv_model->rowsAdminMenuData($dm1['menuId']);
         ?>
         <li class="air__menuLeft__item<?php echo $menu_li_active . (($numnumMenu2 > 0) ? ' air__menuLeft__submenu':'') . $menu_li_active_expand; ?>">
             <a href="<?php echo $menu_url; ?>" class="air__menuLeft__link<?php echo (!empty($dm1['menuAttrClass']) ? ' '.$dm1['menuAttrClass']:''); ?>">
@@ -70,34 +72,33 @@ class AdminEnv {
                 if($numnumMenu2>0){
                     echo "<ul class=\"air__menuLeft__list\">";
                     
-                    $menudata2 = $this->CI->Adminenv_model->getAdminMenuData($dm1['levelId'], $dm1['menuId']);
+                    $menudata2 = $this->CI->Adminenv_model->getAdminMenuData($dm1['menuId']);
                     foreach ($menudata2 as $dm2) {
 
                         $menu_a_active2 = '';
             			$menu_a_active_expand2 = '';
 
-                        if(empty($dm2['menuAccess'])){ 
+                        if($dm2['menuType']=='noaccess'){ 
                             $menu_url2 = "javascript:void(0)";
                             // check menu child
                             if( is_adminmenuchild_active($dm2['menuId']) ){
                                 $menu_a_active_expand2 = "--active";
                             }
                         } else {
-                            $array_access2 = unserialize($dm2['menuAccess']);
-                            if(array_key_exists('admin_link', $array_access2)){ 
-                                $exp_access2 = explode('&', $array_access2['admin_link']);
-                                $url_access2 = admin_url()."/".$array_access2['admin_link']; 
+                            if($dm2['menuType']=='module' OR $dm2['menuType']=='addons'){ 
+                                $exp_access2 = $dm2['menuAccess'];
+                    			$url_access2 = admin_url($dm2['menuAccess']); 
                             } else {
-                                $exp_access2[0] = '';
-                                $url_access2 = $array_access2['out_link']."\" target=\"_blank\" rel=\"nofollow";
+                                $exp_access2 = '';
+                    			$url_access2 = $dm2['menuAccess']."\" target=\"_blank\" rel=\"nofollow";
                             }
                             $menu_url2 = $url_access2;
-                            if ($this->CI->uri->segment(2)==$exp_access2[0]){ 
+                            if ($this->CI->uri->segment(2)==$exp_access2){ 
                                 $menu_a_active2 = "--active";
-                            } 
+							} 
                         }
 
-                        $numnumMenu3 = $this->CI->Adminenv_model->rowsAdminMenuData($dm1['levelId'],$dm2['menuId']);
+                        $numnumMenu3 = $this->CI->Adminenv_model->rowsAdminMenuData($dm2['menuId']);
 
                         echo "<li class=\"air__menuLeft__item".$menu_a_active2 . (($numnumMenu3 > 0) ? ' air__menuLeft__submenu':'') . $menu_a_active_expand2."\">";
                         echo "<a href=\"{$menu_url2}\" class=\"air__menuLeft__link".(!empty($dm2['menuAttrClass']) ? ' '.$dm2['menuAttrClass']:'') . "\"><span>".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm2['menuId']) )."</span></a>";
@@ -105,34 +106,33 @@ class AdminEnv {
                         if($numnumMenu3>0){
                         	echo "<ul class=\"air__menuLeft__list\">";
 
-                        	$menudata3 = $this->CI->Adminenv_model->getAdminMenuData($dm1['levelId'], $dm2['menuId']);
+                        	$menudata3 = $this->CI->Adminenv_model->getAdminMenuData($dm2['menuId']);
                         	foreach ($menudata3 as $dm3) {
 
                                 $menu_a_active3 = '';
             					$menu_a_active_expand3 = '';
 
-                                if(empty($dm3['menuAccess'])){ 
+                                if($dm3['menuType']=='noaccess'){ 
                                     $menu_url3 = "javascript:void(0)";
                                     // check menu child
                                     if( is_adminmenuchild_active($dm3['menuId']) ){
                                         $menu_a_active_expand3 = "--active";
                                     }                                        
                                 } else {
-                                    $array_access3 = unserialize($dm3['menuAccess']);
-                                    if(array_key_exists('admin_link', $array_access3)){ 
-                                        $exp_access3 = explode('&', $array_access3['admin_link']);
-                                        $url_access3 = admin_url()."/".$array_access3['admin_link']; 
+                                    if($dm3['menuType']=='module' OR $dm3['menuType']=='addons'){
+                                        $exp_access3 = $dm3['menuAccess'];
+                    					$url_access3 = admin_url($dm3['menuAccess']); 
                                     } else {
-                                        $exp_access3[0] ='';
-                                        $url_access3 = $array_access3['out_link']."\" target=\"_blank\" rel=\"nofollow";
+                                        $exp_access3 ='';
+                                        $url_access3 = $dm3['menuAccess']."\" target=\"_blank\" rel=\"nofollow";
                                     }
                                     $menu_url3 = $url_access3;
-                                    if ($this->CI->uri->segment(2)==$exp_access3[0]){  
+                                    if ($this->CI->uri->segment(2)==$exp_access3){  
                                         $menu_a_active3 = "--active";
                                     }
                                 }
 
-                                $numnumMenu4 = $this->CI->Adminenv_model->rowsAdminMenuData($dm1['levelId'],$dm3['menuId']);
+                                $numnumMenu4 = $this->CI->Adminenv_model->rowsAdminMenuData($dm3['menuId']);
 
                                 echo "<li class=\"air__menuLeft__item".$menu_a_active3 . (($numnumMenu4 > 0) ? ' air__menuLeft__submenu':'') . $menu_a_active_expand3."\">";
                                 echo "<a href=\"{$menu_url3}\" class=\"air__menuLeft__link".(!empty($dm3['menuAttrClass']) ? ' '.$dm3['menuAttrClass']:'')."\"><span>".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm3['menuId']) )."</span></a>";
@@ -140,24 +140,23 @@ class AdminEnv {
                                 if($numnumMenu4>0){
                         			echo "<ul class=\"air__menuLeft__list\">";
 
-                        			$menudata4 = $this->CI->Adminenv_model->getAdminMenuData($dm1['levelId'], $dm3['menuId']);
+                        			$menudata4 = $this->CI->Adminenv_model->getAdminMenuData($dm3['menuId']);
                         			foreach ($menudata4 as $dm4) {
 
                                         $menu_a_active4 = '';
 
-                                        if(empty($dm4['menuAccess'])){ 
+                                        if($dm4['menuType']=='noaccess'){ 
                                             $menu_url4 = "javascript:void(0)";
                                         } else {
-                                            $array_access4 = unserialize($dm4['menuAccess']);
-                                            if(array_key_exists('admin_link', $array_access4)){
-                                                $exp_access4 = explode('&', $array_access4['admin_link']);
-                                                $url_access4 = admin_url()."/".$array_access4['admin_link']; 
+                                            if($dm4['menuType']=='module' OR $dm4['menuType']=='addons'){
+												$exp_access4 = $dm4['menuAccess'];
+												$url_access4 = admin_url($dm4['menuAccess']); 
                                             } else {
-                                                $exp_access4[0] ='';
-                                                $url_access4 = $array_access4['out_link']."\" target=\"_blank\" rel=\"nofollow";
+                                                $exp_access4='';
+                                                $url_access4 = $dm4['menuAccess']."\" target=\"_blank\" rel=\"nofollow";
                                             }
                                             $menu_url4 = $url_access4;
-                                            if ($this->CI->uri->segment(2)==$exp_access4[0]){  
+                                            if ($this->CI->uri->segment(2)==$exp_access4){  
                                                 $menu_a_active4 = "--active";
                                             }
                                         }
@@ -189,9 +188,9 @@ class AdminEnv {
             $header_button_action = (count($optvar['header_button_action'])>0) ? $optvar['header_button_action']:array();
 
             // get segment
-            $querymodule = $this->CI->uri->segment(2);
-            $countmod = strlen($querymodule);
-            $data = 'a:1:{s:10:"admin_link";s:'.$countmod.':"'.$querymodule.'";}';
+			$querymodule = $this->CI->uri->segment(2);
+			
+            $data = $querymodule;
             $getmenu = getval("menuId,menuParentId,menuName,menuAccess,menuSort,menuActive,menuIcon","users_menu","menuAccess = '{$data}'");
         ?>
         <div class="air__subbar">
@@ -263,8 +262,7 @@ class AdminEnv {
         echo '<a href="'.admin_url().'" class="breadcrumb-item"><i class="fe fe-home"></i> Dashboard</a>';
 
         if( !empty( $querymodule ) ){
-            $countmod = strlen($querymodule);
-            $data = 'a:1:{s:10:"admin_link";s:'.$countmod.':"'.$querymodule.'";}';
+            $data = $querymodule;
 
             //count have parent
             $count1 = countdata( "users_menu","menuAccess = '{$data}'");

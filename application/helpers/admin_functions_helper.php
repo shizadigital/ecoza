@@ -60,11 +60,10 @@ function is_adminmenuchild_active( $id ){
         $datachild = $ci->Adminenv_model->AdminMenuChild($id);
         foreach ( $datachild as $dcm1) {
 
-            $array_childaccess = unserialize($dcm1['menuAccess']);
             $thechildaccess = '';
-            if($array_childaccess['admin_link']){ 
-                $thechildaccess = explode('&', $array_childaccess['admin_link'])[0];
-            }
+			if($dcm1['menuType']=='module' OR $dcm1['menuType']=='addons'){
+				$thechildaccess = $dcm1['menuAccess'];
+			}
 
             if( ( $ci->uri->segment(2) == $thechildaccess ) AND !empty( $ci->uri->segment(2) ) ){
                 $result = TRUE; break;

@@ -26,13 +26,16 @@ class Table_addons {
 
 	public function migrate(){
 		$schema = $this->CI->schema->create_table('addons');
-        $schema->increments('addonsId');
-        $schema->string('addonsName', ['length' => '150']);
-        $schema->string('addonsDirName', ['length' => '150']);
+        $schema->increments('addonsId', ['length' => '11', 'unsigned' => TRUE]);
+        $schema->string('addonsName', ['length' => '200']);
+        $schema->string('addonsDirName', ['length' => '255']);
+        $schema->text('addonsDesc');
         $schema->string('addonsVersion', ['length' => '15']);
         $schema->integer('addonsAdded', ['length' => '11', 'unsigned' => TRUE]);
         $schema->integer('addonsActive', ['type' => 'TINYINT', 'length' => '1', 'unsigned' => TRUE]);
-        $schema->run();
+		$schema->run();
+		
+		$schema->index('addonsDirName');
 	}
 
 	public function seeder(){

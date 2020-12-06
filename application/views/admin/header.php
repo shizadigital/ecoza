@@ -91,7 +91,7 @@ $(document).ready(function () {
 </script>
 </head>
 
-<body class="air__menu--white air__menu--shadow">
+<body class="air__menu--white air__menu--shadow air__layout--contentNoMaxWidth">
 <div class="air__initialLoading"></div>
 <div id="result_ajax" class="bg-danger"></div>
 <div id="loading_ajax">

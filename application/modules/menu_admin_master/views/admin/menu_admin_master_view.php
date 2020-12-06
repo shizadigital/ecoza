@@ -125,44 +125,79 @@ include V_ADMIN_PATH . "topbar.php";
 				                            echo "<li class=\"dd-item\" data-id=\"{$dm1['menuId']}\">
 				                                <div class=\"dd-handle\">
 				                                    <span class=\"{$dm1['menuIcon']}\"></span> ".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm1['menuId']) ) . (($dm1['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "
-				                                </div>
-				                                <div class=\"nestable-ctn\">
-				                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm1['menuId'])."\">".t('edit')."</a> ":"") ."
-				                                    " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm1['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2).'/prosesdelete/'.$dm1['menuId'])."'; };\">".t('delete')."</a>":"") . "
-				                                </div>";
+												</div>";
+												if($dm1['menuType']!=='addons'){
+													echo "
+													<div class=\"nestable-ctn\">
+														" . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm1['menuId'])."\">".t('edit')."</a> ":"") ."
+														" . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm1['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2).'/prosesdelete/'.$dm1['menuId'])."'; };\">".t('delete')."</a>":"") . "
+													</div>";
+												} else {
+													echo "
+													<div class=\"nestable-ctn\">
+														<strong>".t('addons')."</strong>
+													</div>";
+												}
 
 				                            if(count($dm1['level_2'])>0){
 
 				                                echo "<ol class=\"dd-list\">";
 				                                foreach ($dm1['level_2'] as $dm2) {
 				                                    echo "<li class=\"dd-item\" data-id=\"{$dm2['menuId']}\">
-				                                        <div class=\"dd-handle\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm2['menuId']) ) . (($dm2['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
-				                                        <div class=\"nestable-ctn\">
-				                                            " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm2['menuId'])."\">".t('edit')."</a> ":"") ."
-				                                            " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm2['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm2['menuId'])."'; };\">".t('delete')."</a>":"") . "
-				                                        </div>";
+														<div class=\"dd-handle\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm2['menuId']) ) . (($dm2['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>";
+														
+														if($dm2['menuType']!=='addons'){
+															echo "
+															<div class=\"nestable-ctn\">
+																" . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm2['menuId'])."\">".t('edit')."</a> ":"") ."
+																" . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm2['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm2['menuId'])."'; };\">".t('delete')."</a>":"") . "
+															</div>";
+														} else {
+															echo "
+															<div class=\"nestable-ctn\">
+																<strong>".t('addons')."</strong>
+															</div>";
+														}
 
 				                                    if(count($dm2['level_3'])>0){
 
 				                                        echo "<ol class=\"dd-list\">";
 				                                        foreach ($dm2['level_3'] as $dm3) {
 				                                            echo "<li class=\"dd-item\" data-id=\"{$dm3['menuId']}\">
-				                                                <div class=\"dd-handle\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm3['menuId']) ) . (($dm3['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
-				                                                <div class=\"nestable-ctn\">
-				                                                    " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm3['menuId'])."\">".t('edit')."</a> ":"") ."
-				                                                    " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm3['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm3['menuId'])."'; };\">".t('delete')."</a>":"") . "
-				                                                </div>";
+																<div class=\"dd-handle\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm3['menuId']) ) . (($dm3['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>";
+																
+																if($dm3['menuType']!=='addons'){
+																	echo "
+																	<div class=\"nestable-ctn\">
+																		" . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm3['menuId'])."\">".t('edit')."</a> ":"") ."
+																		" . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm3['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm3['menuId'])."'; };\">".t('delete')."</a>":"") . "
+																	</div>";
+																} else {
+																	echo "
+																	<div class=\"nestable-ctn\">
+																		<strong>".t('addons')."</strong>
+																	</div>";
+																}
 
 				                                            if(count($dm3['level_4'])>0){
 
 				                                                echo "<ol class=\"dd-list\">";
 				                                                foreach ($dm3['level_4'] as $dm4) {
 				                                                    echo "<li class=\"dd-item\" data-id=\"{$dm4['menuId']}\">
-				                                                    <div class=\"dd-handle\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm4['menuId']) ) . (($dm4['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>
-				                                                    <div class=\"nestable-ctn\">
-				                                                        " . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm4['menuId'])."\">".t('edit')."</a> ":"") ."
-				                                                        " . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm4['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm4['menuId'])."'; };\">".t('delete')."</a>":"") . "
-				                                                    </div>";
+																	<div class=\"dd-handle\">".t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=>$dm4['menuId']) ) . (($dm4['menuActive']!='y')?' <span class="badge bg-danger">'.t('inactive').'</span>':'') . "</div>";
+																
+																	if($dm4['menuType']!=='addons'){
+																		echo "
+																		<div class=\"nestable-ctn\">
+																			" . ((is_edit()) ? "<a class=\"btn-sm btn btn-outline-success\" href=\"".admin_url($this->uri->segment(2)."/edit/".$dm4['menuId'])."\">".t('edit')."</a> ":"") ."
+																			" . ((is_delete()) ? "<a class=\"btn-sm btn btn-outline-danger\" href=\"javascript: if (window.confirm('(".$dm4['menuName'].") ".t('deleteconfirm')."')){ window.location='".admin_url($this->uri->segment(2)."/prosesdelete/".$dm4['menuId'])."'; };\">".t('delete')."</a>":"") . "
+																		</div>";
+																	} else {
+																		echo "
+																		<div class=\"nestable-ctn\">
+																			<strong>".t('addons')."</strong>
+																		</div>";
+																	}
 				                                                    echo "</li>";
 				                                                }
 				                                                echo "</ol>";
@@ -245,6 +280,10 @@ include V_ADMIN_PATH . "topbar.php";
 								<tbody>
 									<?php
 									function menuDataField($no, $mn){
+										$ci =& get_instance();
+										if($mn['menuType']=='addons'){
+											$addon = $ci->add_ons->getAddonsInfo( $mn['menuAccess'] );
+										}
 									?>
 										<tr>
 											<td class="text-center"><?php echo $no; ?></td>
@@ -253,21 +292,74 @@ include V_ADMIN_PATH . "topbar.php";
 												<input name="idmn[<?php echo $no; ?>]" type="hidden" value="<?php echo $mn['menuId']; ?>"/>
 											</td>
 											<td class="text-center">
+												<?php
+												if($mn['menuType']=='addons'){
+													if($mn['menuActive'] == 'y'){
+														echo '<i class="fe fe-check"></i>';
+													} else {
+														echo '<i class="fe fe-minus"></i>';
+													}
+												} else {
+												?>
 												<input type="checkbox"<?php echo ($mn['menuActive'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_active[<?php echo $mn['menuId']; ?>]" id="mn_active<?php echo $mn['menuId']; ?>" class="mn_active" value="y" />
+												<?php } ?>
 											</td>
 											<td class="text-center">
+												<?php
+												if($mn['menuType']=='addons'){
+													if($addon['ADDONS_PRIVILEGE']['view']=='y'){
+														echo '<i class="fe fe-check"></i>';
+													} else {
+														echo '<i class="fe fe-minus"></i>';
+													}
+												} else {
+												?>
 												<input type="checkbox"<?php echo ($mn['menuView'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_view[<?php echo $mn['menuId']; ?>]" id="mn_view<?php echo $mn['menuId']; ?>" class="mn_view" value="y" />
+												<?php } ?>
 											</td>
 											<td class="text-center">
+												<?php
+												if($mn['menuType']=='addons'){
+													if($addon['ADDONS_PRIVILEGE']['add']=='y'){
+														echo '<i class="fe fe-check"></i>';
+													} else {
+														echo '<i class="fe fe-minus"></i>';
+													}
+												} else {
+												?>
 												<input type="checkbox"<?php echo ($mn['menuAdd'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_add[<?php echo $mn['menuId']; ?>]" id="mn_add<?php echo $mn['menuId']; ?>" class="mn_add" value="y" />
+												<?php } ?>
 											</td>
 											<td class="text-center">
+												<?php
+												if($mn['menuType']=='addons'){
+													if($addon['ADDONS_PRIVILEGE']['edit']=='y'){
+														echo '<i class="fe fe-check"></i>';
+													} else {
+														echo '<i class="fe fe-minus"></i>';
+													}
+												} else {
+												?>
 												<input type="checkbox"<?php echo ($mn['menuEdit'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_edit[<?php echo $mn['menuId']; ?>]" id="mn_edit<?php echo $mn['menuId']; ?>" class="mn_edit" value="y" />
+												<?php } ?>
 											</td>
 											<td class="text-center">
+												<?php
+												if($mn['menuType']=='addons'){
+													if($addon['ADDONS_PRIVILEGE']['delete']=='y'){
+														echo '<i class="fe fe-check"></i>';
+													} else {
+														echo '<i class="fe fe-minus"></i>';
+													}
+												} else {
+												?>
 												<input type="checkbox"<?php echo ($mn['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_delete[<?php echo $mn['menuId']; ?>]" id="mn_delete<?php echo $mn['menuId']; ?>" class="mn_delete" value="y" />
+												<?php } ?>
 											</td>
 											<td class="text-center" style="background:#eaffe2;">
+												<?php
+												if($mn['menuType']!='addons'){
+												?>
 												<input type="checkbox"<?php echo ($mn['menuActive'] == 'y' AND $mn['menuView'] == 'y' AND $mn['menuAdd'] == 'y' AND $mn['menuEdit'] == 'y' AND $mn['menuDelete'] == 'y')? " checked=\"checked\"" : ""; ?> name="mn_all[<?php echo $mn['menuId']; ?>]" id="mn_all<?php echo $mn['menuId']; ?>" class="mn_all" value="y" />
 
 												<script type="text/javascript"> 
@@ -291,6 +383,9 @@ include V_ADMIN_PATH . "topbar.php";
 
 	                                            });
 	                                            </script>
+												<?php } else {
+													echo '<i class="fe fe-minus"></i>';
+												} ?>
 											</td>
 										</tr>
 									<?php

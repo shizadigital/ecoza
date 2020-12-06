@@ -1529,3 +1529,20 @@ function apiComunication($url, $data=null, $method = 'POST', $header = array(), 
 	curl_close($ch);
 	return $result;
 }
+
+/**
+ * Remove Directory Recursively
+ *
+ * @param string $path
+ * @return void
+ */
+function removeDirectory($path) {
+	$files = glob($path . '/*');
+
+	foreach ($files as $file) {
+		is_dir($file) ? removeDirectory($file) : unlink($file);
+	}
+	rmdir($path);
+
+	return;
+}

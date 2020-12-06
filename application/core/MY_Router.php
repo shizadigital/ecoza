@@ -18,6 +18,24 @@ class MY_Router extends MX_Router {
 		return $d_b;
 	}
 
+	protected function is_addons_exists($dir){
+		$result = false;
+
+		$DB = $this->_db_routes();
+
+		$DB->select("count(addonsId) AS total");
+        $DB->from( $DB->dbprefix('addons') );
+        $DB->where(['addonsDirName' => $dir, 'addonsActive'=>1]);
+        $query = $DB->get();
+		$total = $query->row()->total;
+		
+		if($total > 0){
+			$result = true;
+		}
+
+        return $result;
+	}
+
     protected function get_template(){
 		$DB = $this->_db_routes();
 
@@ -156,10 +174,20 @@ class MY_Router extends MX_Router {
 		{
 			/* module exists? */
 			if (is_dir($source = $location.$c_module.'/controllers/'))
-			{
+			{	
+
+				if($offset == '../../sz_addons/'){ 
+					if( !$this->is_addons_exists($c_module) ){
+
+						$msg = "Addon not found, please add a new addon or activate the current addon";
+						show_error($msg, 503, 'Addon Error');
+						exit;
+					}
+				}
+
 				$this->module = $c_module;
 				$this->directory = $offset.$c_module.'/controllers/';
-
+				
 				/* module sub-controller exists? */
 				if($c_directory)
 				{

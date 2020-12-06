@@ -188,25 +188,23 @@ class Menu_admin_master extends CI_Controller {
         		$parentMenu	= esc_sql(filter_int($exp_induk[1]));
 
 		    	$dataAccess='';
+		    	$dataAccessType='';
 		    	if($this->input->post('menu_akses')=='admin_link'){
 			        $aksesmvc = esc_sql( filter_txt( $this->input->post('aksesmvc') ) );
 
 			        //format file name like url permalink but use underscore for separator
 			    	$access = slugURL($aksesmvc, array('delimiter'=> '_'));
 
-			        $arrmod = array(
-		    			"admin_link" => $access
-		    		  );
-		    		$dataAccess = serialize($arrmod);
+		    		$dataAccess = $access;
+					$dataAccessType='module';
 			    } elseif($this->input->post('menu_akses')=='out_link'){
 			        $outlink = esc_sql( filter_txt( $this->input->post('outlink') ) );  
 
-			        $arrmod = array(
-		    			"out_link" => $outlink
-		    		  );
-		    		$dataAccess = serialize($arrmod);
+		    		$dataAccess = $outlink;
+					$dataAccessType='link';
 			    } elseif($this->input->post('menu_akses')=='no_link'){
 			        $dataAccess = "";
+					$dataAccessType='noaccess';
 			    }
 
 			    $mn_view   = (empty($this->input->post('mn_view'))) ? "n" : "y";
@@ -222,7 +220,8 @@ class Menu_admin_master extends CI_Controller {
 			    $data = array(
 			    	'menuId' => $nextId,
 			    	'menuParentId' => (int)$parentMenu,
-			    	'menuName' => $menu_name,
+					'menuName' => $menu_name,
+					'menuType'=> $dataAccessType,
 			    	'menuAccess' => $dataAccess,
 			    	'menuAddedDate' => $addDate,
 			    	'menuSort' => (int)$nextSort,

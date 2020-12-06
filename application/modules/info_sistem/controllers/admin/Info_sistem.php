@@ -135,6 +135,19 @@ class Info_sistem extends CI_Controller{
 				);
 			}
 
+			$k = 'ZipArchive';
+			$arr[$k]['name'] = 'ZipArchive';
+			if(class_exists('ZipArchive')){
+				$arr[$k]['result'] = array(
+					'type' => 'ok'
+				);
+			} else {
+				$arr[$k]['result'] = array(
+					'type' => 'error',
+					'desc' => 'Missing ZipArchive Class.'
+				);
+			}
+
 			$k = 'ob';
 			$arr[$k]['name'] = 'Output Buffering';
 			if(function_exists('ob_start') and function_exists('ob_end_flush')){

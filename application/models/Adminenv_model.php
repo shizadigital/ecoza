@@ -21,10 +21,10 @@ class Adminenv_model extends CI_model{
     // START check Menu admin children here
     public function AdminMenuChild($id){
         $users_menu = $this->db->dbprefix('users_menu');
-        $sqllookchild = "SELECT menuId,menuParentId,menuName,menuAccess 
+        $sqllookchild = "SELECT menuId,menuParentId,menuName,menuType,menuAccess 
                          FROM {$users_menu} 
                          WHERE menuParentId='{$id}' AND menuActive='y' AND menuView='y'
-                            UNION SELECT menuId,menuParentId,menuName,menuAccess 
+                            UNION SELECT menuId,menuParentId,menuName,menuType,menuAccess 
                                   FROM {$users_menu} WHERE menuParentId IN (
                                         SELECT menuId 
                                         FROM {$users_menu} 
@@ -44,7 +44,7 @@ class Adminenv_model extends CI_model{
     // END check Menu admin children here
 
     // Menu admin
-    public function getAdminMenuData($level, $parent=0){
+    public function getAdminMenuData($parent=0){
         $users_menu_access = $this->db->dbprefix('users_menu_access');
         $users_menu = $this->db->dbprefix('users_menu');
 
@@ -66,7 +66,7 @@ class Adminenv_model extends CI_model{
     }
 
     // count menu admin
-    public function rowsAdminMenuData($level, $parent=0){
+    public function rowsAdminMenuData($parent=0){
         $users_menu_access = $this->db->dbprefix('users_menu_access');
         $users_menu = $this->db->dbprefix('users_menu');
 
@@ -86,6 +86,7 @@ class Adminenv_model extends CI_model{
 
     // START permission check for module here
     public function countPermissionAdminMenu($querymodule){
+		$querymodule = esc_sql( filter_txt($querymodule) ); 
         $this->db->select("COUNT(menuId) AS totalMenu");
         $this->db->from( $this->db->dbprefix('users_menu') );
         $this->db->where("menuActive","y");
@@ -94,8 +95,7 @@ class Adminenv_model extends CI_model{
         return $query->row()->totalMenu;
     }
     public function permissionAdminMenu($querymodule, $lvltype = ''){
-        $countmod = strlen($querymodule);
-        $dataAccess = 'a:1:{s:10:"admin_link";s:'.$countmod.':"'.$querymodule.'";}';
+        $dataAccess = esc_sql( filter_txt($querymodule));
 
         $permnum = $this->countPermissionAdminMenu($dataAccess);
 

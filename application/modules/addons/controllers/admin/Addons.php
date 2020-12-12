@@ -370,7 +370,9 @@ class Addons extends CI_Controller{
 			removeDirectory( ADDONS_PATH . DIRECTORY_SEPARATOR .$id);
 
 			// remove menu admin
-			$query = $this->Env_model->delete('users_menu', ['menuAccess' => $id]);
+			$getmenuid = getval('menuId', 'users_menu', ['menuAccess' => $id]);
+			$this->Env_model->delete('users_menu_access', ['menuId' => $getmenuid]);
+			$this->Env_model->delete('users_menu', ['menuAccess' => $id]);
 			
 			return true;
 		}

@@ -247,7 +247,7 @@ class Addons extends CI_Controller{
 
 				if($query){
 					// get next ID
-					$nextIdmenu = getNextId('addonsmenuIdId', 'users_menu');
+					$nextIdmenu = getNextId('menuId', 'users_menu');
 
 					// check parent menu in config
 					$parentMenu = 0;

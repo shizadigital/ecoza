@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 return [
-	'ADDONS_NAME'				=> ['id_ID'=> 'Manufaktur', 'en_US' => 'Manufacturers'], 
-	'ADDONS_DESCRIPTION'		=> 'Manufacture for product',
+	'ADDONS_NAME'				=> ['id_ID'=> 'Rule Pajak', 'en_US' => 'Tax Rule'],
+	'ADDONS_DESCRIPTION'		=> 'Pengelolaan aturan pajak',
 	'ADDONS_VERSION_NAME'		=> '1.0',
 	'ADDONS_VERSION_CODE'		=> 1,
 	'ADDONS_AUTHOR'				=> 'Shiza Digital',
@@ -13,7 +13,7 @@ return [
 	'ADDONS_MENU_NUMBER'		=> 5,
 	'ADDONS_MENU_ICON'			=> NULL,
 
-	'ADDONS_MENU_CHILD_IN'		=> 'Katalog', 
+	'ADDONS_MENU_CHILD_IN'		=> 'Katalog',
 
 	/**
 	 *  privilage addons

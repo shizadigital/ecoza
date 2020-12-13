@@ -42,20 +42,137 @@ class Table_addons {
 		return [
 			[
 				'addonsId' => '1',
-				'addonsName' => 'Courier',
-				'addonsDirName' => 'courier',
-				'addonsDesc' => 'Courier for shipping product',
+				'addonsName' => 'Atribut',
+				'addonsDirName' => 'attributes',
+				'addonsDesc' => 'Product Attributes',
 				'addonsVersion' => '1.0',
-				'addonsAdded' => '1607232494',
+				'addonsAdded' => '1607848506',
 				'addonsActive' => '1'
 			],
 			[
 				'addonsId' => '2',
-				'addonsName' => 'Manufacturers',
+				'addonsName' => 'Grup Atribut',
+				'addonsDirName' => 'attributes_group',
+				'addonsDesc' => 'Attribute Group for manage the attributes',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848508',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '3',
+				'addonsName' => 'Kurir',
+				'addonsDirName' => 'courier',
+				'addonsDesc' => 'Courier for shipping product',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848511',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '4',
+				'addonsName' => 'Mata Uang',
+				'addonsDirName' => 'currencies',
+				'addonsDesc' => 'Pengaturan mata uang untuk berbagai macam kebutuhan harga',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848513',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '5',
+				'addonsName' => 'Database',
+				'addonsDirName' => 'database',
+				'addonsDesc' => 'Pengelolaan database CMS untuk migration seeder',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848515',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '6',
+				'addonsName' => 'Geo negara',
+				'addonsDirName' => 'geo_country',
+				'addonsDesc' => 'Geo Country',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848518',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '7',
+				'addonsName' => 'Geo Zona',
+				'addonsDirName' => 'geo_zone',
+				'addonsDesc' => 'Pengaturan zona daerah',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848520',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '8',
+				'addonsName' => 'Satuan Panjang',
+				'addonsDirName' => 'length_unit',
+				'addonsDesc' => 'Length Unit',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848523',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '9',
+				'addonsName' => 'Manufaktur',
 				'addonsDirName' => 'manufacturers',
 				'addonsDesc' => 'Manufacture for product',
 				'addonsVersion' => '1.0',
-				'addonsAdded' => '1607232496',
+				'addonsAdded' => '1607848526',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '10',
+				'addonsName' => 'Produk',
+				'addonsDirName' => 'product',
+				'addonsDesc' => 'Product management',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848529',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '11',
+				'addonsName' => 'Lencana Produk',
+				'addonsDirName' => 'product_badges',
+				'addonsDesc' => 'Fitur lencana produk',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848532',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '12',
+				'addonsName' => 'Kategori Produk',
+				'addonsDirName' => 'product_categories',
+				'addonsDesc' => 'Mengelola kategori produk',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848535',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '13',
+				'addonsName' => 'Pajak',
+				'addonsDirName' => 'tax',
+				'addonsDesc' => 'Pengelolaan pajak',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848538',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '14',
+				'addonsName' => 'Rule Pajak',
+				'addonsDirName' => 'tax_rule',
+				'addonsDesc' => 'Pengelolaan aturan pajak',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848541',
+				'addonsActive' => '1'
+			],
+			[
+				'addonsId' => '15',
+				'addonsName' => 'Satuan Bobot',
+				'addonsDirName' => 'weight_unit',
+				'addonsDesc' => 'Pengelolaan satuan bobot',
+				'addonsVersion' => '1.0',
+				'addonsAdded' => '1607848545',
 				'addonsActive' => '1'
 			]
 		];

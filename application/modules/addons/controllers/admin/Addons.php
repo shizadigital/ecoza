@@ -230,12 +230,20 @@ class Addons extends CI_Controller{
 
 				$now = time2timestamp();
 
+				// get default lang for multi language
+				$getDefaultLang = $this->config->item('language');
+
+				$menuname = $addonsdata['ADDONS_NAME'];
+				if( is_array($addonsdata['ADDONS_NAME'])){
+					$menuname = $addonsdata['ADDONS_NAME'][$getDefaultLang];
+				}
+
 				// get next ID
 				$nextId = getNextId('addonsId', 'addons');
 
 				$sql = [
 					'addonsId' => $nextId,
-					'addonsName' => $addonsdata['ADDONS_NAME'],
+					'addonsName' => $menuname,
 					'addonsDirName' => $data,
 					'addonsDesc' => $addonsdata['ADDONS_DESCRIPTION'],
 					'addonsVersion' => $addonsdata['ADDONS_VERSION_NAME'],
@@ -251,15 +259,9 @@ class Addons extends CI_Controller{
 
 					// check parent menu in config
 					$parentMenu = 0;
-					if($addonsdata['ADDONS_MENU_CHILD_IN_MODULE'] AND $addonsdata['ADDONS_MENU_CHILD_IN_MODULE_DIR']!=NULL){
-						if( countdata('users_menu', ['menuAccess' => $addonsdata['ADDONS_MENU_CHILD_IN_MODULE_DIR'], 'menuType'=>'module']) > 0){
-							$parentMenu = getval('menuId', 'users_menu', ['menuAccess' => $addonsdata['ADDONS_MENU_CHILD_IN_MODULE_DIR'], 'menuType'=>'module']);
-						}
-					}
-
-					if($addonsdata['ADDONS_MENU_CHILD_IN_ADDONS'] AND $addonsdata['ADDONS_MENU_CHILD_IN_ADDONS_DIR']!=NULL){
-						if( countdata('users_menu', ['menuAccess' => $addonsdata['ADDONS_MENU_CHILD_IN_ADDONS_DIR'], 'menuType'=>'addons']) > 0){
-							$parentMenu = getval('menuId', 'users_menu', ['menuAccess' => $addonsdata['ADDONS_MENU_CHILD_IN_MODULE_DIR'], 'menuType'=>'addons']);
+					if($addonsdata['ADDONS_MENU_CHILD_IN']!=NULL){
+						if( countdata('users_menu', ['menuName' => $addonsdata['ADDONS_MENU_CHILD_IN']]) > 0){
+							$parentMenu = getval('menuId', 'users_menu', ['menuName' => $addonsdata['ADDONS_MENU_CHILD_IN']]);
 						}
 					}
 
@@ -275,7 +277,7 @@ class Addons extends CI_Controller{
 					$dataquery = array(
 						'menuId' => $nextIdmenu,
 						'menuParentId' => (int) $parentMenu,
-						'menuName' => $addonsdata['ADDONS_NAME'],
+						'menuName' => $menuname,
 						'menuType'=> 'addons',
 						'menuAccess' => $data,
 						'menuAddedDate' => $now,
@@ -293,6 +295,34 @@ class Addons extends CI_Controller{
 					$query = $this->Env_model->insert('users_menu',$dataquery);
 
 					if($query){
+						// insert if multilang first
+						if( is_array($addonsdata['ADDONS_NAME'])){
+
+							if( count($addonsdata['ADDONS_NAME']) > 0 ){
+
+								foreach($addonsdata['ADDONS_NAME'] as $lang => $val){
+
+									if($lang == $getDefaultLang){ continue; }
+
+									$langnextId= getNextId('dtId', 'dynamic_translations');
+
+									$insertlang = [
+										'dtId' => $langnextId,
+										'dtRelatedTable' => 'users_menu',
+										'dtRelatedField' => 'menuName',
+										'dtRelatedId' => $nextIdmenu,
+										'dtLang' => $lang,
+										'dtTranslation' => $val,
+										'dtInputType' => 'text',
+										'dtCreateDate' => $now,
+										'dtUpdateDate' => $now
+									];
+									$this->Sm->insert('dynamic_translations', $insertlang);
+								}
+
+							}
+						}
+
 						// get next ID
 						$nextIdmenupriv = getNextId('lmnId', 'users_menu_access');
 
@@ -369,10 +399,13 @@ class Addons extends CI_Controller{
 
 			removeDirectory( ADDONS_PATH . DIRECTORY_SEPARATOR .$id);
 
-			// remove menu admin
+			// remove related
 			$getmenuid = getval('menuId', 'users_menu', ['menuAccess' => $id]);
-			$this->Env_model->delete('users_menu_access', ['menuId' => $getmenuid]);
-			$this->Env_model->delete('users_menu', ['menuAccess' => $id]);
+			$this->Sm->delete('dynamic_translations', ['dtRelatedTable'=> 'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId' => $getmenuid]);
+			$this->Sm->delete('users_menu_access', ['menuId' => $getmenuid]);
+			
+			// remove main table
+			$this->Sm->delete('users_menu', ['menuAccess' => $id]);
 			
 			return true;
 		}

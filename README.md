@@ -18,8 +18,10 @@ Source Code (Kode Sumber) EcoZa dapat didownload secara gratis pada [github](htt
 - For MariaDB users: 10.2.7 or Higher.
 - Composer: 1.6.5 or higher.
 - php mbstring.
+- php exec.
 - [OpenSSL](https://www.php.net/manual/en/openssl.installation.php)
 - [base64_encode](https://www.php.net/manual/en/function.base64-encode.php) and [base64_decode](https://www.php.net/manual/en/function.base64-decode.php)
+- [ZipArchive](https://www.php.net/ziparchive)
 
 ## Installation and Configuration
 

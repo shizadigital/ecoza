@@ -131,5 +131,41 @@ class Add_ons {
 		return $result;
 	}
 
+	public function addonName($dirName = null){
+
+		if($dirName != null){
+			$ci = $this->CI;
+
+			$dirName = strtolower($dirName);
+
+			$config = include(ADDONS_PATH.$dirName.DIRECTORY_SEPARATOR.'config.php');
+
+			$name = $config['ADDONS_NAME'];
+			if( is_array($config['ADDONS_NAME']) ){
+				
+				$lang = $ci->config->item('language');
+
+				// if in admin
+				if( is_admin() ){
+					$langMode = empty(get_cookie('admin_lang')) ? t('locale'):get_cookie('admin_lang');
+				} else {
+					$langMode = empty(get_cookie('lang')) ? t('locale'):get_cookie('lang');
+				}
+
+				if( in_array($langMode, $config['ADDONS_NAME']) ){
+					$lang = $langMode;
+				}
+
+
+				$name = $config['ADDONS_NAME'][$lang];
+
+			}
+
+			return $name;
+
+		}
+
+	}
+
 
 }

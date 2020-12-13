@@ -14,7 +14,7 @@ class Addons extends CI_Controller{
 		$this->adminauth->auth_login();
 
 		// define module name variable
-		$this->moduleName = t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=> 31) );
+		$this->moduleName = t('addons');
 
 		// file extention allowed
 		$this->extensi_allowed = array('zip');

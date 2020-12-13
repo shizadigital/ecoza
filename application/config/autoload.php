@@ -59,13 +59,13 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoloaderlib = array('database', 'email', 'session', 'form_validation', 'FormControl');
+$autoloaderlib = array('database', 'email', 'session', 'form_validation', 'FormControl', 'Add_ons');
 $autoloaderlibset = array();
 $segment_lowertrim = trim( strtolower( $ci->uri->segment(1) ) );
 
 if($ci->uri->segment(1) == $ci->config->item('admin_slug') ){
 
-	$autoloaderlibset = array('AdminAuth', 'AssetsLoc', 'Add_ons');
+	$autoloaderlibset = array('AdminAuth', 'AssetsLoc');
 
 } else {
 

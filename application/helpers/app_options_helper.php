@@ -265,13 +265,13 @@ function loginCP(){
 }
 
 function sz_token(){
-	if( empty( get_cookie('sz_token') ) ){
-		// create new token code
-		$createcode = generate_code(32);
-		return $createcode;
-	} else {
-		return get_cookie('sz_token');
-	}
+    if( empty( get_cookie('sz_token') ) ){
+        // create new token code
+        $createcode = generate_code(32);
+        return $createcode;
+    } else {
+        return get_cookie('sz_token');
+    }
 }
 
 /**************** Social media ********************/

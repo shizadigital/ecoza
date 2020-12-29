@@ -535,7 +535,9 @@ $lang['totalprice'] = "Total Harga";
 $lang['looktheicon'] = "Look the Icon";
 $lang['multistore'] = "Multi Store";
 $lang['enablemultistore'] = "Enable Multistore";
+$lang['enable_template'] = "Enable Template";
 $lang['helpmultistore'] = "The multistore feature allows you to manage several e-shops with one Back Office. If this feature is enabled, a \"Multistore\" page will be available in the \"Advanced Parameters\" menu.";
+$lang['help_enable_template'] = "Template will be enabled if you're check this feature.";
 $lang['alertmultistore'] = "You can't change the value of this configuration field in the context of this shop.";
 $lang['managementtype'] = "Management Type";
 $lang['purchasepriceperunit'] = "Purchase Price Per Unit";
@@ -635,6 +637,7 @@ $lang['zipcannotopen'] = "Zip file cannot be opened, please try again";
 $lang['addonnotfoundconfig'] = "config.php file in addon not found";
 $lang['addonuploadfailed'] = "Addon upload failed";
 $lang['addonextractfailed'] = "Addon extract failed";
+$lang['voidednote'] = "Stock is taken from the results of voids through an order with an invoice %s";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

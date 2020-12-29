@@ -3,8 +3,169 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Sm extends CI_model{
 
-	private function prefixTbl($table){
+	protected $insert_id;
+
+    /**
+     * set prefix
+     * 
+     * @param string $table
+     * @return function
+     */
+	private function prefixTable($table){
 		return $this->db->dbprefix($table);
+	}
+
+    /**
+     * get one
+     * 
+     * @param string $table
+     * @return array|object|null
+     */
+    public function one($table, $params = []) {
+        if(count($params) > 0) {
+            $where = isset($params['where']) ? $params['where'] : null;
+            $order = isset($params['order']) ? $params['order'] : null;
+            if(!is_null($where)) $this->db->where($params['where']);
+            if(!is_null($order)) {
+                /**
+                 * order => [name => asc | desc ]
+                 */
+                $orderBy = '';
+                $index = 0;
+                foreach($order AS $key => $val) {
+                    if($index === 0) $orderBy .= $key . ' ' . $val;
+                    else $orderBy .= ', ' . $key . ' ' . $val;
+                }
+                $this->db->order_by($orderBy);
+            }
+        }
+        
+        $db = $this->db->get($this->prefixTable($table));
+        return $db->row();
+    }
+
+    /**
+     * get all
+     * 
+     * @param string $table
+     * @return array|object|null
+     */
+    public function all($table, $params = []) {
+        $type = isset($params['type']) ? $params['type'] : null;
+        if(count($params) > 0) {
+            $where = isset($params['where']) ? $params['where'] : null;
+            $order = isset($params['order']) ? $params['order'] : null;
+            $limit = isset($params['limit']) ? $params['limit'] : null;
+
+            if(!is_null($where)) $this->db->where($params['where']);
+            if(!is_null($order)) {
+                /**
+                 * order => [name => asc | desc ]
+                 */
+                $orderBy = '';
+                $index = 0;
+                foreach($order AS $key => $val) {
+                    if($index === 0) $orderBy .= $key . ' ' . $val;
+                    else $orderBy .= ', ' . $key . ' ' . $val;
+                }
+                $this->db->order_by($orderBy);
+            }
+            if(!is_null($limit)) {
+                $limit = $limit['limit'];
+                $start = $limit['start'];
+
+                if(isset($start) && isset($finish)) $this->db->limit($limit, $start);
+                else $this->db->limit($limit);
+            }
+        }
+
+        $db = $this->db->get($this->prefixTable($table));
+        if($type === 'object') return $db->result_object();
+		else return $db->result();
+	}
+	
+	/**
+	 * Get data in db with simple selecting
+	 *
+	 * @param array|string $fieldToDisplay
+	 * @param array|string $table
+	 * @param array $params
+	 * @return object|array
+	 */
+	public function viewData($field='*', $table, $params=[]){
+		// table
+        if( is_array($table) ){
+            $dttable = [];
+            foreach ($table as $key => $value) {
+                $dttable[] = $this->db->dbprefix( $value );
+            }
+            $theTable = implode(',', $dttable);
+        } else {
+            $theTable = $this->db->dbprefix($table);
+		}
+		
+		$fieldToDisplay = is_array($field) ? implode(',', $field):$field;
+		$this->db->select( $fieldToDisplay );
+		
+		if(count($params) > 0) {
+			
+			// where
+			$where = isset($params['where']) ? $params['where'] : null;
+
+			// group by
+			$group = isset($params['group']) ? $params['group'] : null;;
+
+			// order by
+			$order = null;
+			if(isset($params['order'])){
+				
+				if(count($params['order']) > 0){
+					$orderBy = [];
+					foreach($params['order'] AS $field => $sort) {
+						$orderBy[] = $field . ' ' . $sort;
+					}
+					$order = implode(',', $orderBy);
+					
+				}
+			}
+			
+			// limit
+			$limit = isset($params['limit']) ? $params['limit'] : null;
+
+			/*
+			 *implementation
+			 *
+			 */
+			if(!is_null($where)) $this->db->where($where);
+			if(!is_null($group)) $this->db->group_by($group);
+			if(!is_null($order)) $this->db->order_by($order);
+			if(!is_null($limit)){
+
+				if(is_array($limit)){
+
+					$offset = isset($limit[1]) ? $limit[1] : null;
+					if($offset != null){
+						$this->db->limit($limit[0], $offset);
+					} else {
+						$this->db->limit($limit[0]);
+					}
+
+				} else {
+					
+					$this->db->limit($limit);
+				
+				}
+
+			}
+			
+		}
+
+		// data type
+        $type = isset($params['type']) ? $params['type'] : null;
+
+        $db = $this->db->get($theTable);
+        if($type === 'object') return $db->result_object();
+		else return $db->result_array();
 	}
 
 	/**
@@ -30,13 +191,23 @@ class Sm extends CI_model{
 	 * @return int|bool for false
 	 */
     public function insert($table, $data){
-        $insert = $this->db->insert( $this->prefixTbl($table), $data);
+        $insert = $this->db->insert( $this->prefixTable($table), $data);
         if( $insert ) {
-            return $this->db->insert_id();
+			$this->insert_id = $this->db->insert_id();
+            return true;
         } else {
             return false;
         }
-    }
+	}
+	
+	/**
+	 * last insert ID from table
+	 *
+	 * @return int
+	 */
+	public function insert_id(){
+		return $this->insert_id;
+	}
     
     /**
 	 * update data
@@ -48,7 +219,7 @@ class Sm extends CI_model{
 	 */
     public function update($table, $data, $where){
         $this->db->where( $where );
-        return $this->db->update( $this->prefixTbl($table), $data ); 
+        return $this->db->update( $this->prefixTable($table), $data ); 
     }
 
     /**
@@ -60,7 +231,7 @@ class Sm extends CI_model{
 	 */
     public function delete($table, $where){
         $this->db->where( $where );
-        return $this->db->delete( $this->prefixTbl($table));
+        return $this->db->delete( $this->prefixTable($table));
     }
 
 
@@ -75,11 +246,11 @@ class Sm extends CI_model{
         if( is_array($tableName) ){
             $dttable = array();
             foreach ($tableName as $key => $value) {
-                $dttable[] = $this->prefixTbl( $value );
+                $dttable[] = $this->prefixTable( $value );
             }
             $theTable = implode(',', $dttable);
         } else {
-            $theTable = $this->prefixTbl($tableName);
+            $theTable = $this->prefixTable($tableName);
         }
 
         $this->db->select_max($idfield, 'latestId');
@@ -108,11 +279,11 @@ class Sm extends CI_model{
         if( is_array($table) ){
             $dttable = array();
             foreach ($table as $key => $value) {
-                $dttable[] = $this->prefixTbl( $value );
+                $dttable[] = $this->prefixTable( $value );
             }
             $theTable = implode(',', $dttable);
         } else {
-            $theTable = $this->prefixTbl($table);
+            $theTable = $this->prefixTable($table);
         }
 
         $maksimalsort = $this->db->get( $theTable )->row()->maxSort;
@@ -132,11 +303,11 @@ class Sm extends CI_model{
         if( is_array($table) ){
             $dttable = array();
             foreach ($table as $key => $value) {
-                $dttable[] = $this->prefixTbl( $value );
+                $dttable[] = $this->prefixTable( $value );
             }
             $theTable = implode(',', $dttable);
         } else {
-            $theTable = $this->prefixTbl($table);
+            $theTable = $this->prefixTable($table);
         }
 
         $this->db->select("count(*) AS total");
@@ -155,7 +326,7 @@ class Sm extends CI_model{
 	 * @param string $method_data
 	 * @return array|object
 	 */
-    public function getval($fieldToDisplay,$table,$fieldReference=null,$method_data = 'array'){
+    public function getValue($fieldToDisplay,$table,$fieldReference=null,$method_data = 'array'){
         $error=false;
 
         $result_ = '';
@@ -164,7 +335,7 @@ class Sm extends CI_model{
 			// check field to display
 			if( is_array($fieldToDisplay) ){
                 foreach ($table as $key => $val) {
-                    $dttable[] = $this->prefixTbl( $val );
+                    $dttable[] = $this->prefixTable( $val );
                 }
                 $fieldToDisplay = implode(',', $dttable);
             }
@@ -172,11 +343,11 @@ class Sm extends CI_model{
             if( is_array($table) ){
                 $dttable = array();
                 foreach ($table as $key => $val) {
-                    $dttable[] = $this->prefixTbl( $val );
+                    $dttable[] = $this->prefixTable( $val );
                 }
                 $theTable = implode(',', $dttable);
             } else {
-                $theTable = $this->prefixTbl($table);
+                $theTable = $this->prefixTable($table);
             }
 
             $this->db->select( $fieldToDisplay );
@@ -237,7 +408,7 @@ class Sm extends CI_model{
 		// check field to display
 		if( is_array($field) ){
 			foreach ($table as $key => $val) {
-				$dttable[] = $this->prefixTbl( $val );
+				$dttable[] = $this->prefixTable( $val );
 			}
 			$field = implode(',', $dttable);
 		}
@@ -257,11 +428,11 @@ class Sm extends CI_model{
         if( is_array($table) ){
             $dttable = array();
             foreach ($table as $key => $value) {
-                $dttable[] = $this->prefixTbl( $value );
+                $dttable[] = $this->prefixTable( $value );
             }
             $theTable = implode(',', $dttable);
         } else {
-            $theTable = $this->prefixTbl($table);
+            $theTable = $this->prefixTable($table);
         }
         
         $latest = $this->db->get( $theTable )->row_array()[$fieldview];
@@ -293,11 +464,11 @@ class Sm extends CI_model{
         if( is_array($table) ){
             $dttable = array();
             foreach ($table as $key => $value) {
-                $dttable[] = $this->prefixTbl( $value );
+                $dttable[] = $this->prefixTable( $value );
             }
             $theTable = implode(',', $dttable);
         } else {
-            $theTable = $this->prefixTbl($table);
+            $theTable = $this->prefixTable($table);
         }
         
         $latest = $this->db->get( $theTable )->row_array()[$fieldview];
@@ -313,20 +484,20 @@ class Sm extends CI_model{
     public function truncate($tablename = null){
 
         if( !empty($tablename) ){
-            return $this->db->truncate($this->prefixTbl($tablename));
+            return $this->db->truncate($this->prefixTable($tablename));
         }
 
     }
 
 	/**
-	 * listing data form enum data type
+	 * listing data from enum data type
 	 *
 	 * @param string $table
 	 * @param string $field
 	 * @return array
 	 */
     public function enum_values( $table, $field ){
-        $table = $this->prefixTbl($table);
+        $table = $this->prefixTable($table);
         $query = $this->db->query( "SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'" );
         $dataresult = $query->result_array();
 
@@ -340,4 +511,5 @@ class Sm extends CI_model{
 
 		return $return;
 	}
+
 }

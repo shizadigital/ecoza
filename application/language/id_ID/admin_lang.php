@@ -535,7 +535,9 @@ $lang['totalprice'] = "Total Harga";
 $lang['looktheicon'] = "Lihat Icon";
 $lang['multistore'] = "Multi Toko";
 $lang['enablemultistore'] = "Aktifkan Multi Toko";
+$lang['enable_template'] = "Aktifkan Template";
 $lang['helpmultistore'] = "Fitur Multi Toko memungkinkan Anda untuk mengelola beberapa toko dengan satu Back Office. Jika fitur ini diaktifkan, halaman \"Multi Toko\" akan tersedia di menu \"Parameter Lanjut\".";
+$lang['help_enable_template'] = "Tema akan diaktifkan ketika anda mencentang fitur ini.";
 $lang['alertmultistore'] = "Anda tidak dapat mengubah nilai pada bidang ini dalam konteks toko ini.";
 $lang['managementtype'] = "Tipe Manajemen";
 $lang['purchasepriceperunit'] = "Harga Beli Per Unit";
@@ -635,6 +637,7 @@ $lang['zipcannotopen'] = "File zip tidak dapat dibuka, silahkan ulangi";
 $lang['addonnotfoundconfig'] = "File config.php pada addon tidak ditemukan";
 $lang['addonuploadfailed'] = "Addon gagal diunggah";
 $lang['addonextractfailed'] = "Addon gagal diextrak";
+$lang['voidednote'] = "Stok diambil dari hasil void melalui order dengan invoice %s";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

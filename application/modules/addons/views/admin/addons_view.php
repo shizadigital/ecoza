@@ -139,17 +139,17 @@ if( is_view() ):
 									$no = (($this->uri->segment(3)) ? $this->uri->segment(3) : 0) + 1;
 
 									foreach ($data AS $key => $r){
-										$addoname = $r['ADDONS_NAME'];
-										if(is_array($r['ADDONS_NAME'])){
-											$addoname = $r['ADDONS_NAME'][$this->config->item('language')];											
+										$dirname = empty($this->input->get('kw'))?$key:$r['addonsDirName'];
+										$addonsinfo = $this->add_ons->getAddonsInfo($dirname);
+
+										$addoname = $addonsinfo['ADDONS_NAME'];
+										if(is_array($addonsinfo['ADDONS_NAME'])){
+											$addoname = $addonsinfo['ADDONS_NAME'][$this->config->item('language')];											
 										}
 
                                         $name = empty($this->input->get('kw'))?$addoname:$r['addonsName'];
-										$dirname = empty($this->input->get('kw'))?$key:$r['addonsDirName'];
 										
 										$is_active = ( countdata( 'addons', ['addonsDirName' => $dirname, 'addonsActive'=> 1] ) > 0 ) ? true:false;
-
-										$addonsinfo = $this->add_ons->getAddonsInfo($dirname);
 
 										$segmentactive = 'active';
 										$coloractive = 'success';

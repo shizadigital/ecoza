@@ -41,7 +41,12 @@ class Addons extends CI_Controller{
 				$perPage = 30;
 
 				$where = $excClause;
-				$datauser = $this->Env_model->view_where_order_limit('*', $table, $where, 'addonsId', 'DESC', $perPage, $datapage);
+				$params = [
+					'where' => $where,
+					'order' => ['addonsId'=>'DESC'],
+					'limit' => [$perPage, $datapage]
+				];
+				$datauser = $this->sm->viewData('*', $table, $params);
 				$rows = countdata($table, $where);
 
 				$pagingURI = admin_url( $this->uri->segment(2) );
@@ -251,28 +256,81 @@ class Addons extends CI_Controller{
 					'addonsActive' => 1
 				];
 
-				$query = $this->Env_model->insert('addons',$sql);
+				$query = $this->sm->insert('addons',$sql);
 
 				if($query){
-					// get next ID
-					$nextIdmenu = getNextId('menuId', 'users_menu');
+
+					// icon 
+					$menuicon = ($addonsdata['ADDONS_MENU_ICON']!=null)?$addonsdata['ADDONS_MENU_ICON']:'';
 
 					// check parent menu in config
 					$parentMenu = 0;
 					if($addonsdata['ADDONS_MENU_CHILD_IN']!=NULL){
-						if( countdata('users_menu', ['menuName' => $addonsdata['ADDONS_MENU_CHILD_IN']]) > 0){
-							$parentMenu = getval('menuId', 'users_menu', ['menuName' => $addonsdata['ADDONS_MENU_CHILD_IN']]);
-						}
-					}
 
-					// icon 
-					$menuicon = ($addonsdata['ADDONS_MENU_ICON']!=null)?$addonsdata['ADDONS_MENU_ICON']:'';
+						if( countdata('users_menu', ['menuName' => $addonsdata['ADDONS_MENU_CHILD_IN']]) > 0){
+
+							$parentMenu = getval('menuId', 'users_menu', ['menuName' => $addonsdata['ADDONS_MENU_CHILD_IN']]);
+
+						} else {
+							// get next ID
+							$nextIdParentMenu = getNextId('menuId', 'users_menu');
+
+							// insert new parent
+							$dataquery = array(
+								'menuId' => $nextIdParentMenu,
+								'menuParentId' => 0,
+								'menuName' => $addonsdata['ADDONS_MENU_CHILD_IN'],
+								'menuType'=> 'noaccess',
+								'menuAccess' => (string)'',
+								'menuAddedDate' => $now,
+								'menuSort' => (int) $addonsdata['ADDONS_MENU_NUMBER'],
+								'menuIcon' => (string) $menuicon,
+								'menuAttrClass' => (string) '',
+								'menuActive' => 'y',
+								'menuView' => 'y',
+								'menuAdd' => 'n',
+								'menuEdit' => 'n',
+								'menuDelete' => 'n'
+							);
+		
+							// insert data menu here
+							$query = $this->sm->insert('users_menu',$dataquery);
+							$parentMenu = $this->sm->insert_id();
+
+							if($query){
+								// update user privilege
+								$nextIdmenupriv1 = getNextId('menuId', 'users_menu');
+
+								$dataquerypriv = array(
+									'lmnId' => $nextIdmenupriv1,
+									'levelId' => 1,
+									'menuId' => $parentMenu,
+									'lmnView'=> 'y',
+									'lmnAdd' => 'n',
+									'lmnEdit' => 'n',
+									'lmnDelete' => 'n'
+								);
+			
+								// insert data menu here
+								$query = $this->sm->insert('users_menu_access',$dataquerypriv);
+							}
+							
+							// reset data
+							$menuicon = '';
+							$addonsdata['ADDONS_MENU_NUMBER']=1;
+
+						}
+
+					}
 
 					// privilege
 					$m_view 	= ($addonsdata['ADDONS_PRIVILEGE']['view']=='y')?'y':'n';
 					$m_add 		= ($addonsdata['ADDONS_PRIVILEGE']['add']=='y')?'y':'n';
 					$m_edit 	= ($addonsdata['ADDONS_PRIVILEGE']['edit']=='y')?'y':'n';
 					$m_delete 	= ($addonsdata['ADDONS_PRIVILEGE']['delete']=='y')?'y':'n';
+
+					// get next ID
+					$nextIdmenu = getNextId('menuId', 'users_menu');
 
 					$dataquery = array(
 						'menuId' => $nextIdmenu,
@@ -292,7 +350,7 @@ class Addons extends CI_Controller{
 					);
 
 					// insert data menu here
-					$query = $this->Env_model->insert('users_menu',$dataquery);
+					$query = $this->sm->insert('users_menu',$dataquery);
 
 					if($query){
 						// insert if multilang first
@@ -317,7 +375,7 @@ class Addons extends CI_Controller{
 										'dtCreateDate' => $now,
 										'dtUpdateDate' => $now
 									];
-									$this->Sm->insert('dynamic_translations', $insertlang);
+									$this->sm->insert('dynamic_translations', $insertlang);
 								}
 
 							}
@@ -338,7 +396,7 @@ class Addons extends CI_Controller{
 						);
 	
 						// insert data menu here
-						$query = $this->Env_model->insert('users_menu_access',$dataquerypriv);
+						$query = $this->sm->insert('users_menu_access',$dataquerypriv);
 					}
 				}
 			}
@@ -366,7 +424,7 @@ class Addons extends CI_Controller{
 				'addonsActive' => 0
 			];
 
-			$query = $this->Env_model->update( 'addons', $sql, ['addonsDirName'=>$data]);
+			$query = $this->sm->update( 'addons', $sql, ['addonsDirName'=>$data]);
 
 			if($query){
 				if( countdata('users_menu', ['menuAccess' => $data]) > 0 ){
@@ -375,7 +433,7 @@ class Addons extends CI_Controller{
 					);
 
 					// update to inactive menu
-					$this->Env_model->update('users_menu',$querymenu, ['menuAccess' => $data]);
+					$this->sm->update('users_menu',$querymenu, ['menuAccess' => $data]);
 				}
 			}
 		}
@@ -401,11 +459,11 @@ class Addons extends CI_Controller{
 
 			// remove related
 			$getmenuid = getval('menuId', 'users_menu', ['menuAccess' => $id]);
-			$this->Sm->delete('dynamic_translations', ['dtRelatedTable'=> 'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId' => $getmenuid]);
-			$this->Sm->delete('users_menu_access', ['menuId' => $getmenuid]);
+			$this->sm->delete('dynamic_translations', ['dtRelatedTable'=> 'users_menu', 'dtRelatedField'=>'menuName', 'dtRelatedId' => $getmenuid]);
+			$this->sm->delete('users_menu_access', ['menuId' => $getmenuid]);
 			
 			// remove main table
-			$this->Sm->delete('users_menu', ['menuAccess' => $id]);
+			$this->sm->delete('users_menu', ['menuAccess' => $id]);
 			
 			return true;
 		}

@@ -999,7 +999,7 @@ $lang['invoicestartingwrongdata'] = "Nomor faktur yang diperbolehkan adalah angk
 $lang['invoicestartingstillsmaller'] = "Nomor faktur berikutnya, harus lebih besar dari %s (Kosongkan form jika tidak ada perubahan)";
 $lang['taxnotnumeric'] = "Masukkan bidang pajak dengan angka";
 $lang['taxmax100'] = "Pajak tidak boleh lebih dari 100%";
-$lang['stocknotenough'] = "Maaf, stok untuk produk %s tidak cukup. Hanya tersedia %s, silahkan tambah stok terdahulu melalui menu PRODUCT STOCK.";
+$lang['stocknotenough'] = "Maaf, stok untuk produk %s tidak cukup. Hanya tersedia %s, silahkan tambah stok terdahulu.";
 $lang['phonenumbererror'] = "Silahkan masukkan nomor telp/handphone yang valid";
 $lang['addresspriorityerror'] = "Prioritas alamat ini tidak bisa diganti dikarenakan alamat ini adalah alamat utama.";
 $lang['defaultattrisempty'] = "SIlahkan pilih atribut default";
@@ -1079,3 +1079,4 @@ $lang['pinnotequal'] = "Konfirmasi PIN tidak sama, silahkan ulangi";
 
 $lang['taxempty'] = "Please choose the tax";
 $lang['errordateformat'] = "Format penanggalan salah, silahkan masukkan format penanggalan yang benar";
+$lang['productcannotremovebecausestock'] = "Maaf, produk tidak bisa dihapus dikarenakan masih terdapat stok";

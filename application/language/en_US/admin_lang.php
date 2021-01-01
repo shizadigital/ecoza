@@ -1079,3 +1079,4 @@ $lang['pinnotequal'] = "PIN confirmation is not equal. please try again";
 
 $lang['taxempty'] = "Please choose the tax";
 $lang['errordateformat'] = "Wrong date format, please insert the correct date";
+$lang['productcannotremovebecausestock'] = "Sorry, product cannot be removed because stock is still available";

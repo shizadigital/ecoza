@@ -106,9 +106,12 @@ class Sm extends CI_model{
 		
 		$fieldToDisplay = is_array($field) ? implode(',', $field):$field;
 		$this->db->select( $fieldToDisplay );
+		$this->db->from($theTable);
 		
 		if(count($params) > 0) {
-			
+			// join
+			$join = isset($params['join']) ? $params['join'] : null;
+
 			// where
 			$where = isset($params['where']) ? $params['where'] : null;
 
@@ -136,6 +139,18 @@ class Sm extends CI_model{
 			 *implementation
 			 *
 			 */
+			if(!is_null($join)){
+				
+				foreach($join as $joinData){
+					$tableJoin = empty($joinData['table']) ? '':$joinData['table'];
+					$on = empty($joinData['on']) ? '':$joinData['on'];
+					$type = empty($joinData['type']) ? '':$joinData['type'];
+					$escape = empty($joinData['escape']) ? NULL:$joinData['escape'];
+
+					$this->db->join($tableJoin, $on, $type, $escape);
+				}
+
+			}
 			if(!is_null($where)) $this->db->where($where);
 			if(!is_null($group)) $this->db->group_by($group);
 			if(!is_null($order)) $this->db->order_by($order);
@@ -163,7 +178,7 @@ class Sm extends CI_model{
 		// data type
         $type = isset($params['type']) ? $params['type'] : null;
 
-        $db = $this->db->get($theTable);
+        $db = $this->db->get();
         if($type === 'object') return $db->result_object();
 		else return $db->result_array();
 	}

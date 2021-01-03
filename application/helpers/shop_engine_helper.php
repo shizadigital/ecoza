@@ -420,8 +420,8 @@ function getAttrUsed($productid){
 
 	$prodid = esc_sql( filter_int($productid) );
 
-	$whereprod = array('prodId'=>$prodid, 'prodDisplay'=>'y', 'prodDeleted'=>'0');
-	$data = getval('*', 'product', $whereprod);
+	$whereprod = array('prodId'=>$prodid);
+	$data = getval('prodId,prodType', 'product', $whereprod);
 
 	$result = array();
 
@@ -432,7 +432,11 @@ function getAttrUsed($productid){
 
 			$tblatr = array('product_attribute a', 'product_attribute_combination b');
 			$whereattr = "a.prodId='{$data['prodId']}' AND a.pattrId=b.pattrId";
-			$attrdataused = $ci->Env_model->view_where_order("DISTINCT(b.attrId), b.attrId, b.pattrId", $tblatr, $whereattr,'b.attrId','ASC');
+			$paramattr = [
+				'where' => $whereattr,
+				'order' => ['b.attrId'=>'ASC']
+			];
+			$attrdataused = $ci->sm->viewData("DISTINCT(b.attrId), b.attrId, b.pattrId", $tblatr, $paramattr);
 			$n = 0;
 			foreach($attrdataused AS $value){
 				$attrlabel = getval('attrLabel','attribute', array('attrId'=>$value['attrId']));
@@ -454,8 +458,8 @@ function getAttrValueUsed($productid, $attrid=null){
 
 	$prodid = esc_sql( filter_int($productid) );
 
-	$whereprod = array('prodId'=>$prodid, 'prodDisplay'=>'y', 'prodDeleted'=>'0');
-	$data = getval('*', 'product', $whereprod);
+	$whereprod = array('prodId'=>$prodid);
+	$data = getval('prodId,prodType', 'product', $whereprod);
 
 	$result = array();
 
@@ -468,10 +472,18 @@ function getAttrValueUsed($productid, $attrid=null){
 
 			$wherewithattrid = ( $attrid!=null) ? " AND b.attrId='".esc_sql( filter_int($attrid))."'":"";
 			$whereattr = "a.prodId='{$data['prodId']}' AND a.pattrId=b.pattrId";
-			$attrdataused = $ci->Env_model->view_where_order("DISTINCT(b.attrvalId), b.attrvalId, a.pattrId", $tblatr, $whereattr.$wherewithattrid,'b.attrvalId','ASC');
+			$paramattr = [
+				'where' => $whereattr.$wherewithattrid,
+				'order' => ['b.attrvalId'=>'ASC']
+			];
+			$attrdataused = $ci->sm->viewData("DISTINCT(b.attrvalId), b.attrvalId, a.pattrId", $tblatr, $paramattr);
 
 			// get default atttr val
-			$defaultdata = $ci->Env_model->view_where_order("b.attrvalId", $tblatr, $whereattr." AND a.pattrDefault='y'",'b.attrvalId','ASC');
+			$paramdefault = [
+				'where' => $whereattr." AND a.pattrDefault='y'",
+				'order' => ['b.attrvalId'=>'ASC']
+			];
+			$defaultdata = $ci->sm->viewData("b.attrvalId", $tblatr, $paramdefault);
 			$default = array();
 			foreach($defaultdata as $rdef){
 				$default[] = $rdef['attrvalId'];
@@ -504,7 +516,7 @@ function returnedStock($orderid, $statusid){
 
 	// check returned
 	if( countdata('options_order_status', "optorderstatRuleType='returned' AND optorderstatId='{$statusid}'") > 0 ){
-		$orderdata = $ci->Env_model->view_where('*', 'order_detail', ['orderId'=>$orderid]);
+		$orderdata = $ci->sm->viewData('*', 'order_detail', ['where' => ['orderId'=>$orderid]]);
 		foreach ( $orderdata as $odet ){
 			
 			// normalize status
@@ -515,7 +527,7 @@ function returnedStock($orderid, $statusid){
 				if($getstock['pattrQtyType']=='limited'){
 					$thestock = $getstock['pattrQty'] + $odet['odetQty'];
 
-					$return = $ci->Env_model->update('product_attribute',['pattrQty'=>$thestock], ['pattrId'=>$odet['pattrId']]);
+					$return = $ci->sm->update('product_attribute',['pattrQty'=>$thestock], ['pattrId'=>$odet['pattrId']]);
 				}
 
 			} else {
@@ -524,7 +536,7 @@ function returnedStock($orderid, $statusid){
 				if($getstock['prodQtyType']=='limited'){
 					$thestock = $getstock['prodQty'] + $odet['odetQty'];
 
-					$return = $ci->Env_model->update('product',['prodQty'=>$thestock], ['prodId'=>$odet['prodId']]);
+					$return = $ci->sm->update('product',['prodQty'=>$thestock], ['prodId'=>$odet['prodId']]);
 				}
 
 			}

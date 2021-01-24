@@ -22,7 +22,7 @@ class Schema
 
 		$CI->load->dbforge();
 		$CI->dbforge->drop_table($table_name, TRUE);
-	}	
+	}
 }
 
 class SchemaDefinition
@@ -32,7 +32,6 @@ class SchemaDefinition
 		$this->CI 		=& get_instance();
 		$this->table 	=  $table_name;
 		$this->CI->load->dbforge();
-
 	}
 
 	function run()
@@ -80,14 +79,16 @@ class SchemaDefinition
 
 	function primary($field_name) 
 	{
-		$prefix = isset($_ENV['DB_PREFIX']) ? $_ENV['DB_PREFIX'] : '';
+		$env = getenv('DB_PREFIX');
+		$prefix = isset($env) ? getenv('DB_PREFIX') : '';
 		$sql = "ALTER TABLE  ".$prefix.$this->table." ADD PRIMARY KEY (  ".$field_name." )";
 		$this->CI->db->query($sql);
 	}
 
 	function index($field_name) 
 	{
-		$prefix = isset($_ENV['DB_PREFIX']) ? $_ENV['DB_PREFIX'] : '';
+		$env = getenv('DB_PREFIX');
+		$prefix = isset($env) ? getenv('DB_PREFIX') : '';
 		$sql = "ALTER TABLE  ".$prefix.$this->table." ADD INDEX (  ".$field_name." )";
 		$this->CI->db->query($sql);
 	}
@@ -208,5 +209,18 @@ class SchemaDefinition
 	function drop()
 	{
 		$this->CI->dbforge->drop_table($this->table,TRUE);
+	}
+
+	function add_column($params = []) {
+		if(isset($params)) {
+			$fields = $params['fields'];
+			$this->CI->dbforge->add_column($params['table'], $fields);
+		}
+	}
+
+	function drop_column($params = []) {
+		if(isset($params)) {
+			$this->CI->dbforge->drop_column($params['table'], $params['field']);
+		}
 	}
 }

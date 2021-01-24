@@ -103,7 +103,7 @@ class Sm extends CI_model{
         } else {
             $theTable = $this->db->dbprefix($table);
 		}
-		
+                
 		$fieldToDisplay = is_array($field) ? implode(',', $field):$field;
 		$this->db->select( $fieldToDisplay );
 		$this->db->from($theTable);

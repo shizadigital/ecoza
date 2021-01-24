@@ -84,7 +84,7 @@ if( is_view() ):
 									<?php 
 									$no = 1;
 									foreach ($data AS $key => $r){
-										$table = str_replace($_ENV['DB_PREFIX'], '', $key);
+										$table = str_replace(getenv('DB_PREFIX'), '', $key);
 									?>
 									<tr>
 										<td class="text-center"><?php echo $no; ?></td>

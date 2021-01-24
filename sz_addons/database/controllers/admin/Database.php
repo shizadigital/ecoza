@@ -13,7 +13,7 @@ class Database extends CI_Controller{
 		$this->adminauth->auth_login();
 
 		// define module name variable
-		$this->moduleName = t( array('table'=>'users_menu', 'field'=>'menuName', 'id'=> 24) );
+		$this->moduleName = $this->add_ons->addonName('database');
 
 		// load model
 		$this->load->model('database_model');

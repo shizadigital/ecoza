@@ -30,7 +30,14 @@ class Member {
 	public function is_login(){
 		$return = false;
 		if( !empty(get_cookie('member')) AND !empty(get_cookie('checkpoint'))  AND !empty(get_cookie('lastlog')) AND !empty(get_cookie('memberemail')) ){
-			$return = true;
+			
+			$memberid = esc_sql( filter_int( get_cookie('member', true) ) );
+
+			if( countdata('member', array('mId'=>$memberid,'mDeleted'=>'0'))>0 ){
+				$return =true;
+			} else {
+				redirect( base_url('logout') );
+			}
 		}
 
 		return $return;

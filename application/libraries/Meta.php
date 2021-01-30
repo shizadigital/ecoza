@@ -9,6 +9,26 @@ class Meta {
         $this->CI =& get_instance();
 	}
 	
+	public function accountMenu(){
+		$ci = $this->CI;
+		if(get_cookie('sz_token') == sz_token() AND $ci->member->is_login()){
+
+			$dashboard_active = ($ci->uri->segment(1)=='account' AND empty($ci->uri->segment(2)))? true:false;
+			$order_active = ($ci->uri->segment(1)=='account' AND $ci->uri->segment(2)=='orders')? true:false;
+			$cpass_active = ($ci->uri->segment(1)=='account' AND $ci->uri->segment(2)=='changepass')? true:false;
+
+			return [
+				['keyword' => 'dashboard', 'title' => 'Dashboard', 'url' => base_url('account'), 'active' => $dashboard_active],
+				['keyword' => 'myorder', 'title' => 'My Order', 'url' => base_url('account/orders'), 'active' => $order_active],
+				['keyword' => 'changepass', 'title' => 'Change Password', 'url' => base_url('account/changepass'), 'active' => $cpass_active],
+				['keyword' => 'logout', 'title' => 'Logout', 'url' => base_url('logout'), 'active' => false],
+			];
+		} else {
+			return false;
+		}
+	}
+
+	
 	public function product_categories($prod_id, $single=false){
 		$ci = $this->CI;
 
@@ -40,6 +60,16 @@ class Meta {
 		}
 
 		return $arrayarg;
+	}
+
+	public function getAllProductCategories(){
+		$ci = $this->CI;
+
+		if(countdata('categories',array('catActive'=>1,'catType'=>'product')) > 0){
+			return $ci->Env_model->view_where_order('*','categories',array('catActive'=>1,'catType'=>'product'), 'catId','DESC');
+		} else {
+			return array();
+		}
 	}
 
 	public function post_categories($post_id, $single=false){

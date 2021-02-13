@@ -638,6 +638,24 @@ $lang['addonnotfoundconfig'] = "config.php file in addon not found";
 $lang['addonuploadfailed'] = "Addon upload failed";
 $lang['addonextractfailed'] = "Addon extract failed";
 $lang['voidednote'] = "Stock is taken from the results of voids through an order with an invoice %s";
+$lang['lowest'] = "Lowest";
+$lang['highest'] = "Highest";
+$lang['latest'] = "Latest";
+$lang['mainid'] = "Main ID";
+$lang['appliances'] = "Appliances";
+$lang['logactive'] = "Log Active";
+
+$lang['log_save_in'] = "Inserted data in ";
+$lang['log_save_failed_in'] = "Insert data failed in ";
+$lang['log_edit_in'] = "Updated data in ";
+$lang['log_edit_failed_in'] = "Updated data failed in ";
+$lang['log_delete_in'] = "Deleted data in ";
+$lang['log_delete_failed_in'] = "Deleted data failed in ";
+$lang['log_login_succed'] = "Login successfully";
+$lang['log_login_failed'] = "Login failed with username '%s' and password '%s'";
+$lang['log_logout_succed'] = "Successfully logged out";
+$lang['log_download'] = "Download file on ";
+$lang['log_remove_log'] = "Remove Log";
 
 $lang['sunday'] = 'Sunday';
 $lang['monday'] = 'Monday';

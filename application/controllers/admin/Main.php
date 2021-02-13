@@ -105,6 +105,8 @@ class Main extends CI_Controller {
 							);
 					$this->input->set_cookie($lang);
 
+					$this->activity_log->set_log(t('log_login_succed'), 'login');
+
 		          	redirect($this->uri->segment(1).'/dashboard/');
 
 	          	} else {
@@ -115,6 +117,8 @@ class Main extends CI_Controller {
 		} 
 
 		if($error){
+			$this->activity_log->set_log(sprintf(t('log_login_failed'), $username, $password), 'login');
+			
 			$this->session->set_flashdata( 'user_input', $this->input->post('user') );
 			$this->session->set_flashdata( 'pass_input', $this->input->post('pass') );
 			$this->session->set_flashdata( 'errormsg', $msg );

@@ -638,6 +638,24 @@ $lang['addonnotfoundconfig'] = "File config.php pada addon tidak ditemukan";
 $lang['addonuploadfailed'] = "Addon gagal diunggah";
 $lang['addonextractfailed'] = "Addon gagal diextrak";
 $lang['voidednote'] = "Stok diambil dari hasil void melalui order dengan invoice %s";
+$lang['lowest'] = "Terendah";
+$lang['highest'] = "Tertinggi";
+$lang['latest'] = "Terbaru";
+$lang['mainid'] = "ID Utama";
+$lang['appliances'] = "Peralatan";
+$lang['logactive'] = "Log Aktif";
+
+$lang['log_save_in'] = "Menyimpan data di ";
+$lang['log_save_failed_in'] = "Menyimpan data gagal di ";
+$lang['log_edit_in'] = "Perbarui data di ";
+$lang['log_edit_failed_in'] = "Perbarui data gagal di ";
+$lang['log_delete_in'] = "Menghapus data di ";
+$lang['log_delete_failed_in'] = "Menghapus data gagal di ";
+$lang['log_login_succed'] = "Berhasil login";
+$lang['log_login_failed'] = "Gagal login dengan username '%s' dan password '%s'";
+$lang['log_logout_succed'] = "Berhasil logout";
+$lang['log_download'] = "Mendownload file pada ";
+$lang['log_remove_log'] = "Hapus Log";
 
 $lang['sunday'] = 'Minggu';
 $lang['monday'] = 'Senin';

@@ -97,11 +97,11 @@ class Sm extends CI_model{
         if( is_array($table) ){
             $dttable = [];
             foreach ($table as $key => $value) {
-                $dttable[] = $this->db->dbprefix( $value );
+                $dttable[] = $this->prefixTable( $value );
             }
             $theTable = implode(',', $dttable);
         } else {
-            $theTable = $this->db->dbprefix($table);
+            $theTable = $this->prefixTable($table);
 		}
                 
 		$fieldToDisplay = is_array($field) ? implode(',', $field):$field;
@@ -189,10 +189,12 @@ class Sm extends CI_model{
 	 * @param string $query
 	 * @return array|bool for false
 	 */
-	public function query( $query ){
+	public function query( $query , $type = 'array'){
 		$query = $this->db->query( $query );
 		if($query){
-			return $query->result_array();
+            if($type === 'array') return $query->result_array();
+            
+			return $query->result_object();
 		} else {
 			return false;
 		}
@@ -203,7 +205,7 @@ class Sm extends CI_model{
 	 *
 	 * @param string $table
 	 * @param array $data
-	 * @return int|bool for false
+	 * @return bool 
 	 */
     public function insert($table, $data){
         $insert = $this->db->insert( $this->prefixTable($table), $data);

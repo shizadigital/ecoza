@@ -65,7 +65,7 @@ $segment_lowertrim = trim( strtolower( $ci->uri->segment(1) ) );
 
 if($ci->uri->segment(1) == $ci->config->item('admin_slug') ){
 
-	$autoloaderlibset = array('AdminAuth', 'AssetsLoc');
+	$autoloaderlibset = array('AdminAuth', 'AssetsLoc', 'activity_log');
 
 } else {
 

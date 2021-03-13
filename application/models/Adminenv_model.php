@@ -129,22 +129,49 @@ class Adminenv_model extends CI_model{
         return $result;
     }
 
-    public function countPermissionMenuAccess($menuid, $leveluser){
-        $this->db->select("COUNT(menuId) AS totalAccess");
-        $this->db->from( $this->db->dbprefix('users_menu_access') );
-        $this->db->where("levelId",$leveluser);
-        $this->db->where("menuId",$menuid);
+    public function countPermissionMenuAccess($param, $leveluser){
+        $table = [ $this->db->dbprefix('users_menu_access').' a', $this->db->dbprefix('users_menu').' b' ];
+        $where = "a.levelId = '{$leveluser}' AND a.menuId=b.menuId";
+
+        if( is_int($param) ){
+
+            $where .= " AND a.menuId='{$param}'";
+
+        } else {
+
+            $where .= " AND (b.menuName='{$param}' OR b.menuId='{$param}')";
+            
+        }
+
+        $this->db->select("COUNT(a.menuId) AS totalAccess");
+        $this->db->from( $table );
+        $this->db->where($where);
+        
         $query = $this->db->get();
         return $query->row()->totalAccess;
     }
-    public function permissionMenuAccess($menuid, $leveluser, $lvltype = ''){
+    public function permissionMenuAccess($param, $leveluser, $lvltype = ''){
         $result = false;
 
-        if( $this->countPermissionMenuAccess($menuid, $leveluser) > 0){
-            $this->db->select("lmnView,lmnAdd,lmnEdit,lmnDelete");
-            $this->db->from( $this->db->dbprefix('users_menu_access') );
-            $this->db->where("levelId",$leveluser);
-            $this->db->where("menuId",$menuid);
+        if( $this->countPermissionMenuAccess($param, $leveluser) > 0){
+
+            $table = [ $this->db->dbprefix('users_menu_access').' a', $this->db->dbprefix('users_menu').' b' ];
+            $where = "a.levelId = '{$leveluser}' AND a.menuId=b.menuId";
+        
+            if( is_int($param) ){
+
+                $where .= " AND a.menuId='{$param}'";
+
+            } else {
+
+                $where .= " AND (b.menuName='{$param}' OR b.menuId='{$param}')";
+                
+            }
+            
+            $this->db->select("a.lmnView,a.lmnAdd,a.lmnEdit,a.lmnDelete");
+            $this->db->from( $table  );
+            $this->db->where($where);
+
             $query = $this->db->get();
             $perm  = $query->result_array()[0];
 

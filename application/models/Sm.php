@@ -72,10 +72,13 @@ class Sm extends CI_model{
             }
             if(!is_null($limit)) {
                 $limit = $limit['limit'];
-                $start = $limit['start'];
 
-                if(isset($start) && isset($finish)) $this->db->limit($limit, $start);
-                else $this->db->limit($limit);
+                if(isset($start) && isset($finish)) {
+                    $this->db->limit($limit, $start);
+                    $start = $limit['start'];
+                } else {
+                    $this->db->limit($limit);
+                }
             }
         }
 
@@ -192,9 +195,11 @@ class Sm extends CI_model{
 	public function query( $query , $type = 'array'){
 		$query = $this->db->query( $query );
 		if($query){
+
             if($type === 'array') return $query->result_array();
-            
-			return $query->result_object();
+			if($type === 'object') return $query->result_object();
+            if($type === false) return $query;
+
 		} else {
 			return false;
 		}
@@ -313,10 +318,10 @@ class Sm extends CI_model{
 	 * count rows from the table
 	 *
 	 * @param string|array $table
-	 * @param array|string $whereClause
+	 * @param array|string $params
 	 * @return int
 	 */
-    public function countData($table,$whereClause=null){
+    public function countData($table,$params=null){
         if( is_array($table) ){
             $dttable = array();
             foreach ($table as $key => $value) {
@@ -328,8 +333,43 @@ class Sm extends CI_model{
         }
 
         $this->db->select("count(*) AS total");
-        $this->db->from( $theTable );
-        if($whereClause!==null){ $this->db->where($whereClause); }
+        $this->db->from($theTable);
+
+		if(is_array($params)){
+
+			if(count($params) > 0) {
+				// join
+				$join = isset($params['join']) ? $params['join'] : null;
+	
+				// where
+				$where = isset($params['where']) ? $params['where'] : null;
+	
+				/*
+				 *implementation
+				 *
+				 */
+				if(!is_null($join)){
+					
+					foreach($join as $joinData){
+						$tableJoin = empty($joinData['table']) ? '':$joinData['table'];
+						$on = empty($joinData['on']) ? '':$joinData['on'];
+						$type = empty($joinData['type']) ? '':$joinData['type'];
+						$escape = empty($joinData['escape']) ? NULL:$joinData['escape'];
+	
+						$this->db->join($tableJoin, $on, $type, $escape);
+					}
+	
+				}
+				if(!is_null($where)) $this->db->where($where);
+				
+			}
+
+		} else {
+
+			if($params!==null){ $this->db->where($params); }
+
+		}
+		
         $query = $this->db->get();
         return $query->row()->total;
     }

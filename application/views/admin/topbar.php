@@ -10,8 +10,12 @@
                         <span class="dropdown-toggle-text"><?php echo t('quickaccess'); ?></span>
                     </a>
                     <div class="dropdown-menu" role="menu">
+						<?php if( is_add('Produk') ){ ?>
                         <a class="dropdown-item" href="<?php echo admin_url('product/addnew'); ?>"><i class="fe fe-plus"></i> <?php echo t('newproduct'); ?></a>
+						<?php } ?>
+						<?php if( is_add('Kategori Produk') ){ ?>
                         <a class="dropdown-item" href="<?php echo admin_url('product_categories'); ?>"><i class="fe fe-plus"></i> <?php echo t('newproductcategory'); ?></a>
+						<?php } ?>
                         <?php
                         if( $this->session->userdata('leveluser') =='1' ){
                             echo '

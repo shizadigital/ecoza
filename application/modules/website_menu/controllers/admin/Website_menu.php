@@ -174,7 +174,7 @@ class Website_menu extends CI_Controller{
 
 			$page = array();
 			foreach( $datapage as $v ){
-				$page[$v['contentId']] = t( array('table'=>'contents', 'field'=>'prodName', 'id'=>$v['prodId']) );
+				$page[$v['contentId']] = t( array('table'=>'contents', 'field'=>'contentTitle', 'id'=>$v['contentId']) );
 			}
 
 			// get post categories

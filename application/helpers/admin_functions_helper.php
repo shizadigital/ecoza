@@ -61,9 +61,9 @@ function is_adminmenuchild_active( $id ){
         foreach ( $datachild as $dcm1) {
 
             $thechildaccess = '';
-			if($dcm1['menuType']=='module' OR $dcm1['menuType']=='addons'){
-				$thechildaccess = $dcm1['menuAccess'];
-			}
+            if($dcm1['menuType']=='module' OR $dcm1['menuType']=='addons'){
+                $thechildaccess = $dcm1['menuAccess'];
+            }
 
             if( ( $ci->uri->segment(2) == $thechildaccess ) AND !empty( $ci->uri->segment(2) ) ){
                 $result = TRUE; break;
@@ -96,40 +96,40 @@ function get_permission_access($type = ''){
 
     return $result;
 }
-function is_view($menuid=null){ 
-    if(empty($menuid)){
+function is_view($param=null){ 
+    if(empty($param)){
         return get_permission_access('view');
     } else {
         $ci =& get_instance();
         $leveluser = $ci->session->userdata('leveluser');
-        return $ci->Adminenv_model->permissionMenuAccess($menuid, $leveluser, 'view');
+        return $ci->Adminenv_model->permissionMenuAccess($param, $leveluser, 'view');
     }
 }
-function is_add($menuid=null){ 
-    if(empty($menuid)){
+function is_add($param=null){ 
+    if(empty($param)){
         return get_permission_access('add');
     } else {
         $ci =& get_instance();
         $leveluser = $ci->session->userdata('leveluser');
-        return $ci->Adminenv_model->permissionMenuAccess($menuid, $leveluser, 'add');
+        return $ci->Adminenv_model->permissionMenuAccess($param, $leveluser, 'add');
     }
 }
-function is_edit($menuid=null){
-    if(empty($menuid)){
+function is_edit($param=null){
+    if(empty($param)){
         return get_permission_access('edit');
     } else {
         $ci =& get_instance();
         $leveluser = $ci->session->userdata('leveluser');
-        return $ci->Adminenv_model->permissionMenuAccess($menuid, $leveluser, 'edit');
+        return $ci->Adminenv_model->permissionMenuAccess($param, $leveluser, 'edit');
     }
 }
-function is_delete($menuid=null){
-    if(empty($menuid)){
+function is_delete($param=null){
+    if(empty($param)){
         return get_permission_access('delete');
     } else {
         $ci =& get_instance();
         $leveluser = $ci->session->userdata('leveluser');
-        return $ci->Adminenv_model->permissionMenuAccess($menuid, $leveluser, 'delete');
+        return $ci->Adminenv_model->permissionMenuAccess($param, $leveluser, 'delete');
     }
 }
 
@@ -255,7 +255,7 @@ function getAdminLocaleCode($short = TRUE){
     } else {
         if( !empty( get_cookie('admin_lang') ) ){
             $locale = get_cookie('admin_lang');
-		}
+        }
     }    
     
     if( $short === TRUE ) { $result = $locale;}
@@ -275,25 +275,25 @@ function getAdminLocaleCode($short = TRUE){
  * @return int|bool
  */
 function translate_datacheck($db_table, $relid, $db_field='', $lang='' ){
-	$fieldDB = '';
-	if(!empty($db_field)){
-		$fieldDB = " AND dtRelatedField='{$db_field}'";
-	}
+    $fieldDB = '';
+    if(!empty($db_field)){
+        $fieldDB = " AND dtRelatedField='{$db_field}'";
+    }
 
-	$langDB = '';
-	if(!empty($lang)){
-		$langDB = " AND dtLang='{$lang}'";
-	}
+    $langDB = '';
+    if(!empty($lang)){
+        $langDB = " AND dtLang='{$lang}'";
+    }
 
-	$datacount = countdata("dynamic_translations", "dtRelatedTable='{$db_table}' AND dtRelatedId='{$relid}'".$fieldDB.$langDB);
+    $datacount = countdata("dynamic_translations", "dtRelatedTable='{$db_table}' AND dtRelatedId='{$relid}'".$fieldDB.$langDB);
 
-	if($datacount > 0){
-		$result = $datacount;
-	} else {
-		$result = FALSE;
-	}
+    if($datacount > 0){
+        $result = $datacount;
+    } else {
+        $result = FALSE;
+    }
 
-	return $result;
+    return $result;
 }
 
 /**
@@ -308,21 +308,21 @@ function translate_datacheck($db_table, $relid, $db_field='', $lang='' ){
 function translate_removedata($db_table, $relid, $db_field='' ){
     $ci =& get_instance();
 
-	$fieldtable = '';
-	if(!empty($db_field)){
-		$fieldtable = " AND dtRelatedField='{$db_field}'";
-	}
+    $fieldtable = '';
+    if(!empty($db_field)){
+        $fieldtable = " AND dtRelatedField='{$db_field}'";
+    }
 
-	$checking = translate_datacheck($db_table, $relid, $db_field );
+    $checking = translate_datacheck($db_table, $relid, $db_field );
 
-	$result = true;
-	if( $checking ):
-		$clause = "dtRelatedTable='{$db_table}' AND dtRelatedId='{$relid}'".$fieldtable;
-		$result  = $ci->Env_model->delete("dynamic_translations",$clause);
+    $result = true;
+    if( $checking ):
+        $clause = "dtRelatedTable='{$db_table}' AND dtRelatedId='{$relid}'".$fieldtable;
+        $result  = $ci->Env_model->delete("dynamic_translations",$clause);
 
-	endif;
+    endif;
 
-	return $result;
+    return $result;
 }
 
 /**
@@ -340,68 +340,89 @@ function translate_pushdata($inputname, $db_table, $db_field, $relid ){
     $result = '';
     $datapostlang = $ci->input->post('datalang');
 
-	if(isset($datapostlang[$inputname]) AND count($datapostlang[$inputname]) > 0):
+    if(isset($datapostlang[$inputname]) AND count($datapostlang[$inputname]) > 0):
 
-		foreach ($datapostlang[$inputname] as $key => $value) {
+        foreach ($datapostlang[$inputname] as $key => $value) {
 
-			if( empty($value['translation']) ){ continue; }
-			
-			$lang = $key;
+            if( empty($value['translation']) ){ continue; }
+            
+            $lang = $key;
 
-			$type = $value['InputType'];
+            $type = $value['InputType'];
 
-			$translation = $value['translation'];
-			if($type=='text'){
-				$translation = filter_txt($value['translation']);
-			} elseif($type=='texteditor'){
-				$translation = $value['translation'];
-			} elseif($type=='textarea'){
-				$translation = $value['translation'];
-			}
+            $translation = $value['translation'];
+            if($type=='text'){
+                $translation = filter_txt($value['translation']);
+            } elseif($type=='texteditor'){
+                $translation = $value['translation'];
+            } elseif($type=='textarea'){
+                $translation = $value['translation'];
+            }
 
-			$checking = translate_datacheck($db_table, $relid, $db_field, $lang );
+            $checking = translate_datacheck($db_table, $relid, $db_field, $lang );
 
-			if( $checking > 0 ){
-				if( empty($translation) ){
-					$clause = "dtRelatedTable='{$db_table}' AND dtRelatedField='{$db_field}' AND dtRelatedId='{$relid}'";
-					translate_removedata( $db_table, $relid, $db_field );
-				} else {
+            if( $checking > 0 ){
+                if( empty($translation) ){
+                    $clause = "dtRelatedTable='{$db_table}' AND dtRelatedField='{$db_field}' AND dtRelatedId='{$relid}'";
+                    translate_removedata( $db_table, $relid, $db_field );
+                } else {
 
-					$data = array(
-						'dtTranslation'	=> esc_sql($translation),
-						'dtInputType' 	=> $type,
-						'dtUpdateDate' 	=> time2timestamp()
-					);
+                    $data = array(
+                        'dtTranslation' => esc_sql($translation),
+                        'dtInputType'   => $type,
+                        'dtUpdateDate'  => time2timestamp()
+                    );
 
-					$result = $ci->Env_model->update("dynamic_translations",$data,"dtRelatedTable='{$db_table}' AND dtRelatedField='{$db_field}' AND dtRelatedId='{$relid}' AND dtLang='{$lang}'");
+                    $result = $ci->Env_model->update("dynamic_translations",$data,"dtRelatedTable='{$db_table}' AND dtRelatedField='{$db_field}' AND dtRelatedId='{$relid}' AND dtLang='{$lang}'");
 
-				}
-			} else {
-				$nextid = getNextId('dtId','dynamic_translations');
-				$data = array(
-					'dtId' 				=> (int)$nextid,
-					'dtRelatedTable' 	=> $db_table,
-					'dtRelatedField' 	=> $db_field,
-					'dtRelatedId' 		=> $relid,
-					'dtLang' 			=> $lang,
-					'dtTranslation' 	=> esc_sql($translation),
-					'dtInputType' 		=> $type,
-					'dtCreateDate' 		=> time2timestamp(),
-					'dtUpdateDate' 		=> time2timestamp()
-				);
+                }
+            } else {
+                $nextid = getNextId('dtId','dynamic_translations');
+                $data = array(
+                    'dtId'              => (int)$nextid,
+                    'dtRelatedTable'    => $db_table,
+                    'dtRelatedField'    => $db_field,
+                    'dtRelatedId'       => $relid,
+                    'dtLang'            => $lang,
+                    'dtTranslation'     => esc_sql($translation),
+                    'dtInputType'       => $type,
+                    'dtCreateDate'      => time2timestamp(),
+                    'dtUpdateDate'      => time2timestamp()
+                );
 
-				$result = $ci->Env_model->insert("dynamic_translations",$data);
-			}
-		}
-	else :
-		$countdata = translate_datacheck($db_table, $relid, $db_field );
+                $result = $ci->Env_model->insert("dynamic_translations",$data);
+            }
+        }
+    else :
+        $countdata = translate_datacheck($db_table, $relid, $db_field );
 
-		if( $countdata ){
-			$clause = "dtRelatedTable='{$db_table}' AND dtRelatedField='{$db_field}' AND dtRelatedId='{$relid}'";
-			translate_removedata( $db_table, $relid, $db_field );
-		} 
-		
-	endif;
+        if( $countdata ){
+            $clause = "dtRelatedTable='{$db_table}' AND dtRelatedField='{$db_field}' AND dtRelatedId='{$relid}'";
+            translate_removedata( $db_table, $relid, $db_field );
+        } 
+        
+    endif;
 
-	return $result;
+    return $result;
+}
+
+/**
+ * dump with exit
+ * 
+ * @return dump $data
+ */
+function dd($arr) {
+    echo '<pre>';
+    print_r($arr);exit;
+}
+
+/**
+ * dump with no exit
+ * 
+ * @return dump $data
+ */
+function dump($arr) {
+    echo '<pre>';
+    print_r($arr);
+    echo '</pre>';
 }
